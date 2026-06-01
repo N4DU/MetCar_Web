@@ -214,8 +214,7 @@ no, esta muy desactualizado
 
 USUARIOS Y ACCESOS
 
-se podria agregar al final una seccion donde los clientes ponen valoraciones y se muestran en la pagina para dar confianza a clientes nuevos
-------------------------------------------------------------------------------------------------------------
+
 
 ¿Quieren que los clientes puedan crear una cuenta en el sitio? ¿Para qué la usarían?
 Si haríamos q los clientes puedan iniciar sesión con cuenta propia, ya que cada uno tiene q poder ver su carrito, la empresa metcar podría hacer ofertas personalizadas para cada cliente (a futuro, para la primera version no). si añadimos lo de dejar opiniones seria obligatorio.
@@ -328,56 +327,61 @@ si, nombres de productos, medidas, herramientas, etc.. eso es importante hacerlo
 TECNOLOGÍA Y PREOSUPUESTO
 
 ¿Prefieren un CMS como WordPress/WooCommerce (fácil de manejar) o una solución a medida más potente?
-.
-.
-.
+Te soy sincero, nunca eh trabajado con cms y no tengo claro bien cómo funcionan o si son buenos y si se adaptan al proyecto de la página que estamos desarrollando, 
+quiero que tú siendo el experto con todo el conocimiento que tienes evalúes todas las posibilidades que hay y nos recomiendes que usar (cms u otra cosa) o si crear algo personalizado. 
+Si es necesario haznos algunas preguntas de tu interés para poder tener más contexto sobre este tema si es que lo requieres y asi tomar la decicion acertada.
 
 
 
 Si hay e-commerce ¿con pagos en línea? ¿Qué medios? ¿Mercado Pago, transferencia bancaria, efectivo?
-.
-.
-.
+En esta etapa 1, no se harán pagos a través de la página, sino como ya comentamos, al hacerse el pago por otras vías. lo que si puede ser interesante ver, es la 
+posibilidad de que el cliente cargue a la pagina el comprobante de pago como parte del proceso, si fuera necesario.
 
 ¿El sitio necesita conectarse a su sistema de stock/facturación actual o funcionará de forma independiente?
-.
-.
+Entendemos que lo mejor sería estar conectado al sistema de stock y precios, ya que la página tiene q funcionar de forma independiente a la modalidad actual de 
+la empresa. En otras palabras no hay q hacer a la página exclavo de la empresa ni la empresa exclava de la página. Ambos tienen que funcionar independientemente 
+uno del otro. La página si optimizaría procesos y los agilizaría. Pero si el cliente decide hacer una compra por los métodos tradicionales también puede hacerlo 
+sin ningun problema. Por lo que entiendo que lo mejor es que todo el sistema actual de stock y precios siga funcionando como está actual y la página simplemente 
+acceda a esa base de datos para tomar la información que mostrar. Evaluar si esta es la mejor manera o se podría hacer mejor incluso. Tú eres el experto 
 
 
 ¿Necesitan que el sitio funcione bien en celular? (La respuesta es siempre sí, pero ¿qué % de sus clientes accede desde móvil?)
-La pagina debe tanta importancia tanto como interfaz en pc tanto como móvil, la compra por un dispositivo móvil suele ser lo mas común cuando se trata de cliente casual, y desde compu cuando suele ser empresa.
+La pagina debe tanta importancia tanto como interfaz en pc tanto como móvil, la compra por un dispositivo móvil suele ser lo mas común cuando se trata de cliente 
+casual, y desde compu cuando suele ser empresa. quizás darle más enfoque a la compu.
 
 
 ¿Tienen un presupuesto definido para el desarrollo del sitio? ¿Y para mantenimiento mensual?
-.
-.
-.
+Tiene que ser lo más barato posible, el sitio lo estamos haciendo mi primo y yo, junto con las mejores ias. Queremos que sea un sitio súper potente y competitivo, 
+con excelente experiencia de usuario. El presupuesto tiene que ser el menor posible pero la página tiene que reflejar una profesionalidad enorme.
 
 
 
 ¿Quién va a mantener y actualizar el sitio una vez que esté listo? ¿Contratan a alguien o lo hacen internamente?
----Lo hacemos internamente, por eso debe ser todo intuitivo, para que gente no profesional en el ámbito pueda actualizar stock, añadir nuevos productos, cambiar precio, etc de la manera mas intuitiva posible.
-Tiene que ser todo lo que se pueda automatico para facilitar y descomprimir el trabajo de los empleados de metcar, por ejemplo se tiene que actualizar stock y precios automaticos desde la base de datos que 
-actualmente ya utilizan y actualizan para el funcionamiento normal y actual de metcar.
+Lo hacemos internamente, por eso debe ser todo intuitivo, para que gente no profesional en el ámbito pueda actualizar stock, añadir nuevos productos, cambiar 
+precio, etc de la manera mas intuitiva posible. Tiene que ser todo lo que se pueda automatico para facilitar y descomprimir el trabajo de los empleados de metcar, 
+por ejemplo se tiene que actualizar stock y precios automaticos desde la base de datos que actualmente ya utilizan y actualizan para el funcionamiento normal y 
+actual de metcar.
  
 ¿Van a invertir en publicidad online (Google Ads, Facebook Ads) para traer visitas?
-Si vamos a promocionar la web, se le comunicará a cada cliente recurrente, se pasará a traes del boca a boca y estados de whatsapp.
+Si, eso se va a hacer. Hay que hacer más adelante un estudio detallado de esto para atraer tráfico a la página . Esto lo veamos luego de tener la página completada no?
+tambien vamos a promocionar la web, se le comunicará a cada cliente recurrente, se pasará a traes del boca a boca y estados de whatsapp.
 
 
 ¿Cuál es el plazo deseable para tener el sitio funcionando?
-.
-.
-.
+Menos de una semana, queremos que la ia ya nos haga el sitio perfecto en las primeras iteraciones, quizás pulir algún detalle pero tiene que ser rápido para poder 
+implementarla en metcar.
 
 
 Cómo van a medir si el sitio está funcionando? ¿Consultas recibidas, pedidos, tiempo en el sitio?
-A través de los pedidos exitosos, cada pedido que se haga por la pagina será un logro, ya q significaría que, o le reducimos el tiempo de trabajo y confusiones que los clientes suelen comprobar a pedir algo directamente, o significa q pudimos llamar a clientes nuevos.
+A través de los pedidos exitosos, cada pedido que se haga por la pagina será un logro, ya q significaría que, o le reducimos el tiempo de trabajo y 
+confusiones que los clientes suelen comprobar a pedir algo directamente, o significa q pudimos llamar a clientes nuevos.
+estaria ecxelente tener una seccion en la pagina como analitics o estadisticas de los pedidos, compras, dinero recaudado. y que puedas filtrar por tiempo, departamento... etc,
+que sea muy configurable y muy intuitivo. para que el usuario admin de metcar pueda tener todo bajo control
 
 
  ¿Quieren recibir reportes automáticos de visitas y conversiones del sitio?
-.
-.
-.
+se puede ver la opcion de activar y desactivar los reportes automaticos, estari bueno tener esa posibilidad. conversaciones nose, analizaar si bajo esta estructura seria 
+conveniente tener un chat interno cliente-metcar integrado a la pagina.
 
 
 
@@ -386,11 +390,49 @@ A través de los pedidos exitosos, cada pedido que se haga por la pagina será u
 .emporeo de los filtros
 .pertilco
 .drhegal
-.
 
 
 
-analizar exaustivamente a detalle todo lo hablado en estas preguntas y respuestas y darnos un feedback y tambien una lista con cosas
-que necesitas que et fuimos comentando para poder crear la pagina, como textos de la historia de la empresa , fotos, base de datos actual, etc etc... 
-todo lo q precises antes de pasar al paso de crear la pagina. 
 
+=========================================================
+otros comentarios que vemos necesarios hacer:
+
+un poco el estilo que queremos implementar el la pagina es que sea super intuitivo, facil de aprender a usar y muy amigable esteticamente. tambien hay que 
+"demostrar mas y hablar menos", osea en vez de decir "Contamos con amplio y variado stock en mangueras y terminales de marcas de primera calidad....." en la pagina 
+se tiene que ver claramente eso, ya sea con el catalogo o de manera visual, para que quede muy claro sin tener que decirlo añadiendo texto y ruido innecesario 
+para el usuario. aplicar esta filosofia con toda la pagina. 
+
+tambien es importante que el posible cliente que ingrese y no quier registrarse, buscar productos.. etc que pueda facilmente ir a la seccion de contactanos y 
+comenzar su consulta/compra por los metodos tradicionales. tambien puede aparecer la ubicacion de la empresa con la ventanita de google maps en esa seccion.
+
+el nuevo potencial cliente que ingresa a la pagina puede ver el catalogo y todo, navegar por toda la pagina sin tener que registrarse, para facilitar y ser amigable con el usuario. pero 
+si el usuario quiere presupuestar ahi si que pueda crear un usuario o ingresar si ya tiene, y hacer la consulta por su pedido con los productos del carrito por ej. 
+sin tener que ser verificado su usuario por la cuenta admin de metcar, solo para la primera consulta, pero si luego se va a seguir todo el proceso de compra, 
+el usuario admin tiene que avalar ese usuario registrado para dar continuidad al proceso. 
+
+se podria agregar al final una seccion donde los clientes ponen valoraciones y se muestran en la pagina para dar confianza a clientes nuevos.
+
+Analizar muy a fondo la parte de cyberseguridad, es super importante que todo funcione como corresponde y no haya bulnerabilidades de ningun tipo. 
+
+la pagina tiene que ser super profecional y provocar confianza absoluta en el usuario, la parte estetica es fundamental para destacar sobre el resto de paginas del mercado. 
+
+
+
+comentarios de otras paginas web:
+
+paginas las cuales NO seguir el ejemplo
+https://www.dreghal.com.uy/ horrible el diseño, mucho ruido, poco intuitivo.
+https://www.tifor.com.uy/marcas/ mucha info, mucho texto, y se puede hacer poco en la pagina. 
+https://castroltda.com.uy/producto/rotula-3er-punto/ esta pagina no esta tan mal pero no es lo que queremos, parece mas facil llamar y averiguar que navegar por esta pagina.
+
+
+paginas las cuales podria estar interesante tomar alguna idea/ejemplo}
+https://serviflex.com.uy/ esta pagina esta un poco mejor, igual no es lo que queremos pero esta por arriba del promedio comparado con otras paginas uruguayas.
+https://libreriavila.com.uy/ esta pagina no tiene nada que ver el rubro, pero esta buena la interaccion que te permite con los productos. 
+https://www.hydraulicsdirect.com/ de todas las que vimos esta es la pagina que mas nos gusto, muy completa. la nuestra tiene que ser mas intuitiva y sencilla de navegar. sobre
+todo las seccion de productos e informacion de cada uno. nuestra pagina tiene que ser mejor aun que todas estas paginas.  
+
+
+========================================================
+
+ 
