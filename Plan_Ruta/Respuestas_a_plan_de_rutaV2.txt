@@ -390,5 +390,7 @@ A través de los pedidos exitosos, cada pedido que se haga por la pagina será u
 
 
 
-
+analizar exaustivamente a detalle todo lo hablado en estas preguntas y respuestas y darnos un feedback y tambien una lista con cosas
+que necesitas que et fuimos comentando para poder crear la pagina, como textos de la historia de la empresa , fotos, base de datos actual, etc etc... 
+todo lo q precises antes de pasar al paso de crear la pagina. 
 
