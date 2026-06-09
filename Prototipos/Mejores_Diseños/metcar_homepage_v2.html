@@ -119,10 +119,21 @@ img{display:block;max-width:100%}
 .hv3{position:relative;min-height:100vh;display:grid;grid-template-columns:2fr 3fr;overflow:hidden}
 .hv3-cut{position:absolute;bottom:0;left:0;right:0;height:0;pointer-events:none;z-index:8;
   border-bottom:70px solid var(--owh);border-left:100vw solid transparent}
-.hv3-text{background:var(--dark);display:flex;flex-direction:column;justify-content:center;
-  padding:88px 52px 100px 44px;position:relative;z-index:2}
-.hv3-sep{position:absolute;top:10%;right:0;bottom:10%;width:1px;
-  background:linear-gradient(to bottom,transparent,rgba(255,255,255,.07) 30%,rgba(255,255,255,.07) 70%,transparent)}
+.hv3-text{
+  background:transparent;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:88px 52px 100px 44px;position:relative;z-index:4}
+
+.hv3-blur{
+  position:absolute;
+  inset:0;
+  z-index:1;
+  backdrop-filter:blur(22px);
+  -webkit-backdrop-filter:blur(22px);
+  -webkit-mask-image:linear-gradient(to right,black 45%,transparent 70%);
+  mask-image:linear-gradient(to right,black 45%,transparent 70%);
+  pointer-events:none}
+
 .hv3-eye{font-family:var(--ft);font-weight:500;font-size:10px;letter-spacing:3px;
   text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:20px;display:block}
 .hv3-rule{width:32px;height:2px;background:var(--red);margin-bottom:22px}
@@ -136,13 +147,18 @@ img{display:block;max-width:100%}
   font-family:var(--ft);font-weight:500;font-size:10px;letter-spacing:1.5px;
   text-transform:uppercase;color:rgba(255,255,255,.2)}
 .hv3-meta b{color:rgba(255,255,255,.32);margin:0 4px}
-.hv3-photo{position:relative;overflow:hidden;background:#100E0C}
-.hv3-photo svg{position:absolute;inset:0;width:100%;height:100%}
-.hv3-blend{position:absolute;inset:0;pointer-events:none;z-index:3;
-  background:linear-gradient(to right,var(--dark) 0%,transparent 9%)}
+.hv3-photo{position:absolute;inset:0;z-index:0;overflow:hidden;background:#100E0C}
+.hv3-photo img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;}
+.hv3-blend{display:none}
 @media(max-width:900px){
   .hv3{grid-template-columns:1fr}
-  .hv3-photo{height:50vh;min-height:300px}
+  .hv3-photo{position:relative;height:50vh;min-height:300px}
   .hv3-cut{display:none}
 }
 
@@ -379,7 +395,6 @@ img{display:block;max-width:100%}
 <section class="hv3">
 
   <div class="hv3-text">
-    <span class="hv3-sep" aria-hidden="true"></span>
     <span class="hv3-eye anim" style="animation-delay:.04s">Sarandí Grande · Florida · Uruguay</span>
     <div class="hv3-rule anim" style="animation-delay:.1s" aria-hidden="true"></div>
     <h1 class="hv3-h1 anim" style="animation-delay:.16s">
@@ -395,228 +410,11 @@ img{display:block;max-width:100%}
   </div>
 
   <div class="hv3-photo">
-    <svg viewBox="0 0 840 560" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-      <defs>
-        <linearGradient id="wbg" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#1C1A16"/><stop offset="100%" stop-color="#0C0A08"/>
-        </linearGradient>
-        <linearGradient id="wsl" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#484440"/><stop offset="100%" stop-color="#2C2A26"/>
-        </linearGradient>
-        <linearGradient id="wup" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stop-color="#282620"/><stop offset="45%" stop-color="#424038"/><stop offset="100%" stop-color="#2E2C28"/>
-        </linearGradient>
-        <linearGradient id="wfl" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#181614" stop-opacity="0"/><stop offset="100%" stop-color="#060402" stop-opacity="1"/>
-        </linearGradient>
-        <linearGradient id="wli" x1=".5" y1="0" x2=".5" y2="1">
-          <stop offset="0%" stop-color="#C8A840" stop-opacity=".14"/><stop offset="100%" stop-color="transparent"/>
-        </linearGradient>
-        <radialGradient id="wga" cx="50%" cy="0%" r="75%">
-          <stop offset="0%" stop-color="#B89030" stop-opacity=".07"/><stop offset="100%" stop-color="transparent"/>
-        </radialGradient>
-        <radialGradient id="wca" cx="36%" cy="28%" r="65%">
-          <stop offset="0%" stop-color="#201E1A"/><stop offset="55%" stop-color="#141210"/><stop offset="100%" stop-color="#0A0806"/>
-        </radialGradient>
-        <radialGradient id="wcb" cx="40%" cy="30%" r="60%">
-          <stop offset="0%" stop-color="#1C1A16"/><stop offset="58%" stop-color="#121008"/><stop offset="100%" stop-color="#0A0806"/>
-        </radialGradient>
-        <pattern id="wbr" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse">
-          <line x1="0" y1="8" x2="8" y2="0" stroke="rgba(255,255,255,.022)" stroke-width="1.5"/>
-        </pattern>
-        <filter id="wgr">
-          <feTurbulence type="fractalNoise" baseFrequency=".7" numOctaves="4" stitchTiles="stitch" result="n"/>
-          <feColorMatrix type="saturate" values="0" in="n" result="g"/>
-          <feBlend in="SourceGraphic" in2="g" mode="soft-light"/>
-        </filter>
-        <linearGradient id="wlf" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stop-color="#1C1A16" stop-opacity="1"/><stop offset="11%" stop-color="#1C1A16" stop-opacity="0"/>
-        </linearGradient>
-      </defs>
-
-      <rect width="840" height="560" fill="url(#wbg)"/>
-      <rect width="840" height="560" fill="url(#wga)"/>
-      <rect x="62" y="40" width="716" height="460" fill="#141210"/>
-
-      <!-- Uprights -->
-      <rect x="60" y="40" width="16" height="460" fill="url(#wup)" rx="1"/>
-      <rect x="416" y="40" width="14" height="460" fill="url(#wup)" rx="1"/>
-      <rect x="764" y="40" width="16" height="460" fill="url(#wup)" rx="1"/>
-
-      <!-- Shelf boards -->
-      <rect x="54" y="150" width="734" height="17" fill="url(#wsl)"/>
-      <rect x="54" y="150" width="734" height="2" fill="rgba(255,255,200,.065)"/>
-      <rect x="54" y="278" width="734" height="17" fill="url(#wsl)"/>
-      <rect x="54" y="278" width="734" height="2" fill="rgba(255,255,200,.05)"/>
-      <rect x="54" y="392" width="734" height="17" fill="url(#wsl)"/>
-      <rect x="54" y="392" width="734" height="2" fill="rgba(255,255,200,.04)"/>
-      <rect x="54" y="480" width="734" height="17" fill="url(#wsl)"/>
-
-      <!-- Rear panels -->
-      <rect x="76" y="40" width="340" height="460" fill="#100E0C"/>
-      <rect x="430" y="40" width="334" height="460" fill="#100E0C"/>
-
-      <!-- LEVEL 1: BOXES -->
-      <rect x="80" y="62" width="84" height="82" rx="1" fill="#3A3630"/>
-      <rect x="80" y="62" width="84" height="7" fill="#484440"/>
-      <rect x="90" y="83" width="64" height="30" rx="1" fill="#2C2820" opacity=".85"/>
-      <rect x="96" y="88" width="38" height="8" rx="1" fill="#A89060" opacity=".55"/>
-      <rect x="96" y="100" width="50" height="4" rx="1" fill="#706050" opacity=".4"/>
-      <rect x="172" y="65" width="74" height="79" rx="1" fill="#3C3A30"/>
-      <rect x="172" y="65" width="74" height="7" fill="#4A4840"/>
-      <rect x="182" y="85" width="58" height="28" rx="1" fill="#2E2C22" opacity=".85"/>
-      <rect x="188" y="90" width="34" height="7" rx="1" fill="#A89060" opacity=".5"/>
-      <rect x="254" y="68" width="68" height="76" rx="1" fill="#383428"/>
-      <rect x="254" y="68" width="68" height="7" fill="#464230"/>
-      <rect x="330" y="66" width="58" height="78" rx="1" fill="#3A3628"/>
-      <rect x="330" y="66" width="58" height="7" fill="#484438"/>
-      <rect x="434" y="62" width="88" height="82" rx="1" fill="#383432"/>
-      <rect x="434" y="62" width="88" height="7" fill="#464440"/>
-      <rect x="445" y="83" width="66" height="28" rx="1" fill="#2C2820" opacity=".85"/>
-      <rect x="451" y="88" width="38" height="7" rx="1" fill="#A89060" opacity=".5"/>
-      <rect x="530" y="66" width="76" height="78" rx="1" fill="#3C3830"/>
-      <rect x="530" y="66" width="76" height="7" fill="#4A4640"/>
-      <rect x="614" y="60" width="62" height="84" rx="1" fill="#383430"/>
-      <rect x="614" y="60" width="62" height="7" fill="#464440"/>
-      <rect x="684" y="68" width="72" height="76" rx="1" fill="#3A3630"/>
-
-      <!-- LEVEL 2: HYDRAULIC HOSE COILS -->
-      <!-- Coil 1 -->
-      <circle cx="145" cy="228" r="53" fill="rgba(0,0,0,.55)"/>
-      <circle cx="145" cy="222" r="51" fill="url(#wca)"/>
-      <circle cx="145" cy="222" r="51" fill="none" stroke="#201E1A" stroke-width="3.5"/>
-      <circle cx="145" cy="222" r="41" fill="none" stroke="#1C1A16" stroke-width="4"/>
-      <circle cx="145" cy="222" r="31" fill="none" stroke="#201E1A" stroke-width="4"/>
-      <circle cx="145" cy="222" r="21" fill="none" stroke="#221F1C" stroke-width="3.5"/>
-      <circle cx="145" cy="222" r="12" fill="none" stroke="#242220" stroke-width="2.5"/>
-      <circle cx="145" cy="222" r="6" fill="#0A0806"/>
-      <path d="M 101 188 A 51 51 0 0 1 165 168" fill="none" stroke="rgba(255,255,200,.058)" stroke-width="10"/>
-      <circle cx="145" cy="174" r="7.5" fill="#706860"/><circle cx="145" cy="174" r="4.5" fill="#484440"/>
-      <!-- Coil 2 -->
-      <circle cx="265" cy="228" r="50" fill="rgba(0,0,0,.5)"/>
-      <circle cx="265" cy="222" r="48" fill="url(#wcb)"/>
-      <circle cx="265" cy="222" r="48" fill="none" stroke="#1E1C18" stroke-width="3.5"/>
-      <circle cx="265" cy="222" r="38" fill="none" stroke="#1C1A16" stroke-width="3.5"/>
-      <circle cx="265" cy="222" r="29" fill="none" stroke="#201E1A" stroke-width="4"/>
-      <circle cx="265" cy="222" r="20" fill="none" stroke="#221F1C" stroke-width="3"/>
-      <circle cx="265" cy="222" r="12" fill="none" stroke="#242220" stroke-width="2.5"/>
-      <circle cx="265" cy="222" r="6" fill="#0A0806"/>
-      <path d="M 225 191 A 48 48 0 0 1 287 175" fill="none" stroke="rgba(255,255,200,.048)" stroke-width="9"/>
-      <circle cx="265" cy="177" r="7" fill="#686058"/><circle cx="265" cy="177" r="4" fill="#404038"/>
-      <!-- Coil 3 -->
-      <circle cx="382" cy="228" r="46" fill="rgba(0,0,0,.45)"/>
-      <circle cx="382" cy="222" r="44" fill="url(#wca)"/>
-      <circle cx="382" cy="222" r="44" fill="none" stroke="#1E1C18" stroke-width="3"/>
-      <circle cx="382" cy="222" r="35" fill="none" stroke="#1A1816" stroke-width="3.5"/>
-      <circle cx="382" cy="222" r="26" fill="none" stroke="#1E1C18" stroke-width="3.5"/>
-      <circle cx="382" cy="222" r="17" fill="none" stroke="#201E1A" stroke-width="3"/>
-      <circle cx="382" cy="222" r="10" fill="#0A0806"/>
-      <path d="M 347 193 A 44 44 0 0 1 404 179" fill="none" stroke="rgba(255,255,200,.044)" stroke-width="8"/>
-      <circle cx="382" cy="181" r="6.5" fill="#646058"/>
-      <!-- Coil 4 -->
-      <circle cx="502" cy="228" r="52" fill="rgba(0,0,0,.5)"/>
-      <circle cx="502" cy="222" r="50" fill="url(#wcb)"/>
-      <circle cx="502" cy="222" r="50" fill="none" stroke="#201E1A" stroke-width="4"/>
-      <circle cx="502" cy="222" r="40" fill="none" stroke="#1A1816" stroke-width="4"/>
-      <circle cx="502" cy="222" r="30" fill="none" stroke="#1E1C18" stroke-width="4"/>
-      <circle cx="502" cy="222" r="20" fill="none" stroke="#201E1A" stroke-width="3"/>
-      <circle cx="502" cy="222" r="12" fill="none" stroke="#221F1C" stroke-width="2.5"/>
-      <circle cx="502" cy="222" r="6" fill="#0A0806"/>
-      <path d="M 460 188 A 50 50 0 0 1 524 170" fill="none" stroke="rgba(255,255,200,.058)" stroke-width="10"/>
-      <circle cx="502" cy="175" r="7.5" fill="#706860"/><circle cx="502" cy="175" r="4.5" fill="#484440"/>
-      <!-- Coil 5 -->
-      <circle cx="618" cy="228" r="47" fill="rgba(0,0,0,.45)"/>
-      <circle cx="618" cy="222" r="45" fill="url(#wca)"/>
-      <circle cx="618" cy="222" r="45" fill="none" stroke="#1E1C18" stroke-width="3.5"/>
-      <circle cx="618" cy="222" r="36" fill="none" stroke="#1C1A16" stroke-width="3.5"/>
-      <circle cx="618" cy="222" r="27" fill="none" stroke="#1E1C18" stroke-width="3.5"/>
-      <circle cx="618" cy="222" r="18" fill="none" stroke="#201E1A" stroke-width="3"/>
-      <circle cx="618" cy="222" r="10" fill="#0A0806"/>
-      <path d="M 582 193 A 45 45 0 0 1 642 179" fill="none" stroke="rgba(255,255,200,.048)" stroke-width="8"/>
-      <circle cx="618" cy="181" r="6.5" fill="#686058"/>
-      <!-- Coil 6 (right edge, partial) -->
-      <circle cx="729" cy="228" r="44" fill="rgba(0,0,0,.4)"/>
-      <circle cx="729" cy="222" r="42" fill="#151210"/>
-      <circle cx="729" cy="222" r="42" fill="none" stroke="#1E1C18" stroke-width="3"/>
-      <circle cx="729" cy="222" r="33" fill="none" stroke="#1A1816" stroke-width="3"/>
-      <circle cx="729" cy="222" r="24" fill="none" stroke="#1C1A18" stroke-width="3"/>
-      <circle cx="729" cy="222" r="15" fill="#0A0806"/>
-      <!-- Braid texture -->
-      <rect x="76" y="174" width="348" height="98" fill="url(#wbr)" opacity=".7"/>
-      <rect x="434" y="174" width="348" height="98" fill="url(#wbr)" opacity=".65"/>
-
-      <!-- LEVEL 3: FITTINGS/TERMINALS -->
-      <rect x="76" y="294" width="100" height="84" rx="2" fill="#2A2824"/>
-      <rect x="76" y="294" width="100" height="10" rx="2" fill="#383630"/>
-      <circle cx="100" cy="316" r="8.5" fill="#787060"/><circle cx="100" cy="316" r="5" fill="#484438"/>
-      <circle cx="120" cy="316" r="8.5" fill="#706858"/><circle cx="120" cy="316" r="5" fill="#404030"/>
-      <circle cx="140" cy="316" r="8.5" fill="#787068"/><circle cx="140" cy="316" r="5" fill="#484840"/>
-      <circle cx="160" cy="316" r="8.5" fill="#706860"/>
-      <circle cx="100" cy="338" r="8" fill="#686058"/><circle cx="120" cy="338" r="8" fill="#707060"/>
-      <circle cx="140" cy="338" r="8" fill="#686860"/><circle cx="160" cy="338" r="8" fill="#706860"/>
-      <circle cx="110" cy="358" r="8" fill="#686058"/><circle cx="130" cy="358" r="8" fill="#707060"/><circle cx="150" cy="358" r="8" fill="#686860"/>
-      <rect x="184" y="294" width="94" height="84" rx="2" fill="#282624"/>
-      <rect x="184" y="294" width="94" height="10" rx="2" fill="#363432"/>
-      <rect x="193" y="311" width="11" height="55" rx="3" fill="#787060"/><rect x="193" y="311" width="11" height="9" rx="2" fill="#909080"/>
-      <rect x="210" y="307" width="11" height="59" rx="3" fill="#706858"/><rect x="210" y="307" width="11" height="9" rx="2" fill="#888070"/>
-      <rect x="227" y="311" width="11" height="55" rx="3" fill="#787068"/>
-      <rect x="244" y="309" width="11" height="57" rx="3" fill="#706860"/>
-      <rect x="261" y="307" width="11" height="59" rx="3" fill="#787870"/><rect x="261" y="307" width="11" height="9" rx="2" fill="#888880"/>
-      <rect x="286" y="294" width="88" height="84" rx="2" fill="#2C2A26"/>
-      <rect x="286" y="294" width="88" height="10" rx="2" fill="#3A3832"/>
-      <rect x="296" y="311" width="10" height="55" rx="3" fill="#686060" opacity=".9"/>
-      <rect x="312" y="307" width="10" height="59" rx="3" fill="#706858" opacity=".9"/>
-      <rect x="328" y="311" width="10" height="55" rx="3" fill="#787068" opacity=".9"/>
-      <rect x="344" y="309" width="10" height="57" rx="3" fill="#686860" opacity=".9"/>
-      <rect x="360" y="305" width="10" height="61" rx="3" fill="#706860" opacity=".9"/>
-      <rect x="434" y="294" width="104" height="84" rx="2" fill="#282824"/>
-      <rect x="434" y="294" width="104" height="10" rx="2" fill="#363630"/>
-      <circle cx="460" cy="316" r="8.5" fill="#787068"/><circle cx="460" cy="316" r="5" fill="#484840"/>
-      <circle cx="480" cy="316" r="8.5" fill="#706860"/><circle cx="480" cy="316" r="5" fill="#404038"/>
-      <circle cx="500" cy="316" r="8.5" fill="#787870"/><circle cx="500" cy="316" r="5" fill="#484840"/>
-      <circle cx="520" cy="316" r="8.5" fill="#686860"/>
-      <circle cx="460" cy="338" r="8" fill="#706858"/><circle cx="480" cy="338" r="8" fill="#707060"/>
-      <circle cx="500" cy="338" r="8" fill="#686860"/><circle cx="520" cy="338" r="8" fill="#706860"/>
-      <circle cx="470" cy="358" r="8" fill="#786858"/><circle cx="490" cy="358" r="8" fill="#707060"/><circle cx="510" cy="358" r="8" fill="#686860"/>
-      <rect x="618" y="292" width="132" height="90" rx="1" fill="#3A3628"/>
-      <rect x="618" y="292" width="132" height="8" fill="#484438"/>
-      <rect x="630" y="314" width="100" height="44" rx="1" fill="#2E2A22" opacity=".85"/>
-      <rect x="638" y="320" width="52" height="9" rx="1" fill="#A89060" opacity=".55"/>
-      <rect x="638" y="333" width="76" height="5" rx="1" fill="#706050" opacity=".4"/>
-      <rect x="638" y="342" width="64" height="5" rx="1" fill="#706050" opacity=".35"/>
-
-      <!-- Overhead light fixtures -->
-      <rect x="200" y="22" width="280" height="18" rx="3" fill="#3C3A32"/>
-      <rect x="206" y="26" width="268" height="10" rx="2" fill="rgba(240,220,160,.2)"/>
-      <path d="M 206 40 L 80 178 L 480 178 L 474 40 Z" fill="url(#wli)" opacity=".85"/>
-      <rect x="578" y="22" width="174" height="18" rx="3" fill="#3C3A32"/>
-      <rect x="583" y="26" width="164" height="10" rx="2" fill="rgba(240,220,160,.16)"/>
-      <path d="M 583 40 L 460 178 L 762 178 L 752 40 Z" fill="url(#wli)" opacity=".6"/>
-
-      <!-- Worker silhouette -->
-      <g opacity=".1">
-        <circle cx="413" cy="116" r="15" fill="#060402"/>
-        <rect x="398" y="130" width="30" height="58" rx="3" fill="#060402"/>
-        <rect x="380" y="144" width="18" height="8" rx="3" fill="#060402" transform="rotate(-18 380 144)"/>
-        <rect x="428" y="141" width="18" height="8" rx="3" fill="#060402" transform="rotate(12 428 141)"/>
-        <rect x="402" y="186" width="11" height="44" rx="2" fill="#060402"/>
-        <rect x="417" y="186" width="11" height="44" rx="2" fill="#060402"/>
-      </g>
-
-      <!-- Floor and depth -->
-      <rect x="0" y="490" width="840" height="70" fill="#080604"/>
-      <rect x="0" y="380" width="840" height="180" fill="url(#wfl)" opacity=".75"/>
-
-      <!-- Left blend -->
-      <rect width="100" height="560" fill="url(#wlf)"/>
-
-      <!-- Grain overlay -->
-      <rect width="840" height="560" fill="rgba(16,14,10,.18)" filter="url(#wgr)"/>
-      <rect width="840" height="200" fill="url(#wga)" opacity=".5"/>
-    </svg>
-    <div class="hv3-blend" aria-hidden="true"></div>
+  <img src="img\heroBackground.webp" alt="Depósito Metcar">
+  <div class="hv3-blend" aria-hidden="true"></div>
   </div>
 
+  <div class="hv3-blur" aria-hidden="true"></div>
   <div class="hv3-cut" aria-hidden="true"></div>
 </section>
 
