@@ -3,41 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#131110">
 <title>Metcar — Insumos Hidráulicos y Herramientas · Uruguay</title>
-<meta name="description" content="Metcar Uruguay — Importador y distribuidor de mangueras hidráulicas, terminales, discos de corte y herramientas industriales. Envíos en 24–48hs a todo Uruguay. Consultá por WhatsApp: 092 195 010.">
-<meta property="og:title" content="Metcar — Insumos Hidráulicos y Herramientas · Uruguay">
-<meta property="og:description" content="Importador y distribuidor de insumos hidráulicos e industriales. Mangueras SAE, terminales, discos de corte, gatos hidráulicos. Envíos en 24–48hs a todo Uruguay.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://metcar.uy">
-<meta property="og:image" content="https://metcar.uy/img/heroBackground.webp">
-<meta property="og:locale" content="es_UY">
-<meta property="og:site_name" content="Metcar">
-<meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "name": "Metcar Uruguay",
-  "description": "Importador y distribuidor de mangueras hidráulicas, terminales, discos de corte y herramientas industriales.",
-  "url": "https://metcar.uy",
-  "telephone": "+598-4354-9363",
-  "email": "info@metcar.com.uy",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Andrés Romero esq. Treinta y Tres",
-    "addressLocality": "Sarandí Grande",
-    "addressRegion": "Florida",
-    "addressCountry": "UY"
-  },
-  "openingHoursSpecification": [
-    {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "08:00", "closes": "17:00"},
-    {"@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "08:00", "closes": "12:00"}
-  ],
-  "areaServed": {"@type": "Country", "name": "Uruguay"},
-  "foundingDate": "2014"
-}
-</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;700&display=swap" rel="stylesheet">
 <style>
@@ -254,17 +220,15 @@ img{display:block;max-width:100%}
 /* ══ CATEGORIES ══ */
 .cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .cat-card{background:var(--wht);border:1px solid var(--bdr);border-radius:2px;
-  overflow:hidden;cursor:pointer;transition:border-color var(--t1),transform var(--t2);position:relative;display:block}
+  overflow:hidden;cursor:pointer;transition:border-color var(--t1),transform var(--t2);position:relative}
 .cat-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
   background:var(--red);transform:scaleX(0);transition:transform var(--t2);transform-origin:left}
 .cat-card:hover{border-color:rgba(27,25,22,.22);transform:translateY(-2px)}
 .cat-card:hover::after{transform:scaleX(1)}
-.cat-img{width:100%;height:150px;display:flex;align-items:center;justify-content:center;
-  background:linear-gradient(150deg,#23211e 0%,#161412 70%,#0f0d0b 100%);border-bottom:1px solid var(--bdr);position:relative;overflow:hidden}
-.cat-img::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 32% 26%,rgba(245,197,24,.07),transparent 62%);z-index:1;pointer-events:none}
-.cat-img-n{font-family:var(--fd);font-size:90px;color:rgba(255,255,255,.05);line-height:1;
-  position:absolute;bottom:-14px;right:10px;letter-spacing:-2px;z-index:1}
-.cat-art{position:relative;z-index:2;filter:drop-shadow(0 5px 11px rgba(0,0,0,.5))}
+.cat-img{width:100%;height:130px;display:flex;align-items:center;justify-content:center;
+  background:var(--owh);border-bottom:1px solid var(--bdr);position:relative;overflow:hidden}
+.cat-img-n{font-family:var(--fd);font-size:80px;color:rgba(27,25,22,.07);line-height:1;
+  position:absolute;bottom:-8px;right:8px;letter-spacing:-2px}
 .cat-icon{color:var(--red);opacity:.7}
 .cat-body{padding:20px}
 .cat-num{font-family:var(--ft);font-weight:700;font-size:9.5px;
@@ -337,16 +301,11 @@ img{display:block;max-width:100%}
 .cov-title{font-family:var(--ft);font-weight:700;font-size:12px;
   text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.8);margin-bottom:4px}
 .cov-sub{font-family:var(--fb);font-size:13px;color:rgba(255,255,255,.38);line-height:1.55}
-.cov-map-wrap{position:relative;aspect-ratio:1/1.1;overflow:hidden;
-  border:1px solid rgba(255,255,255,.07);border-radius:2px}
-.cov-map-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-.cov-map-wrap::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;
-  background:var(--red);z-index:2}
-.cov-map-wrap::after{content:"";position:absolute;left:0;right:0;bottom:0;height:55%;
-  background:linear-gradient(to top,rgba(11,11,11,.92) 0%,rgba(11,11,11,.5) 45%,transparent 100%);z-index:1}
-.cov-map-lbl{position:absolute;left:20px;bottom:18px;z-index:2;
-  font-family:var(--ft);font-size:11px;letter-spacing:2px;
-  text-transform:uppercase;color:rgba(255,255,255,.92)}
+.cov-map-wrap{aspect-ratio:1/1.1;background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.07);border-radius:2px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px}
+.cov-map-lbl{font-family:var(--ft);font-size:10px;letter-spacing:2px;
+  text-transform:uppercase;color:rgba(255,255,255,.18)}
 
 /* ══ TESTIMONIALS ══ */
 .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
@@ -389,7 +348,6 @@ img{display:block;max-width:100%}
 .foot-logo{display:flex;align-items:center;gap:8px;margin-bottom:14px}
 .foot-mark{width:26px;height:26px;background:var(--red);border-radius:2px;
   display:flex;align-items:center;justify-content:center}
-.foot-logo-img{height:30px;width:auto;display:block}
 .foot-name{font-family:var(--fd);font-size:19px;color:#fff;letter-spacing:1.5px}
 .foot-tag{font-family:var(--fb);font-size:13px;line-height:1.6;
   color:rgba(255,255,255,.38);max-width:220px;margin-bottom:20px}
@@ -499,15 +457,13 @@ img{display:block;max-width:100%}
 <nav class="nav">
   <div class="nav-in">
     <div class="nav-logo">
-      <a href="metcar_homepage_v5.html" style="display:flex;align-items:center">
-        <img src="img/logoMetcar.webp" alt="Metcar" class="nav-logo-img">
-      </a>
+      <img src="img/logoMetcar.webp" alt="Metcar" class="nav-logo-img">
     </div>
     <div class="nav-links">
-      <a class="nl" href="catalogo.html">Catálogo</a>
-      <a class="nl" href="#configurador">Configurador</a>
-      <a class="nl" href="sobre-nosotros.html">Sobre Metcar</a>
-      <a class="nl" href="#contacto">Contacto</a>
+      <a class="nl">Catálogo</a>
+      <a class="nl">Configurador</a>
+      <a class="nl">Sobre Metcar</a>
+      <a class="nl">Contacto</a>
     </div>
     <div class="nav-r">
       <button class="ibtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></button>
@@ -520,10 +476,10 @@ img{display:block;max-width:100%}
   </div>
 </nav>
 <div class="nav-mobile" id="nav-mobile" aria-hidden="true">
-  <a class="nl-m" href="catalogo.html">Catálogo</a>
-  <a class="nl-m" href="#configurador">Configurador</a>
-  <a class="nl-m" href="sobre-nosotros.html">Sobre Metcar</a>
-  <a class="nl-m" href="#contacto">Contacto</a>
+  <a class="nl-m">Catálogo</a>
+  <a class="nl-m">Configurador</a>
+  <a class="nl-m">Sobre Metcar</a>
+  <a class="nl-m">Contacto</a>
 </div>
 
 <!-- ══════════════════════════════════════ 2. HERO -->
@@ -538,8 +494,8 @@ img{display:block;max-width:100%}
     </h1>
     <p class="hv3-sub anim" style="animation-delay:.28s">Importador y distribuidor de insumos industriales para toda maquinaria Uruguaya.</p>
     <div class="hv3-ctas anim" style="animation-delay:.36s">
-      <a class="btn-p" href="catalogo.html">Ver catálogo<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-      <a class="btn-g" href="#configurador">Configurar manguera</a>
+      <button class="btn-p">Ver catálogo<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+      <button class="btn-g">Configurar manguera</button>
     </div>
 <a class="hv3-wa anim" href="https://wa.me/59892195010" target="_blank" rel="noopener" data-mc="wa-href" style="animation-delay:.4s">
   <svg width="17" height="17" viewBox="0 0 32 32" fill="currentColor">
@@ -551,7 +507,7 @@ img{display:block;max-width:100%}
   </div>
 
   <div class="hv3-photo">
-  <img src="img/heroBackground.webp" alt="Depósito Metcar">
+  <img src="img\heroBackground.webp" alt="Depósito Metcar">
   <div class="hv3-blend" aria-hidden="true"></div>
   </div>
 
@@ -561,7 +517,7 @@ img{display:block;max-width:100%}
 
 
 <!-- ══════════════════════════════════════ 3. CATEGORÍAS -->
-<section class="sec sec--owh" id="catalogo">
+<section class="sec sec--owh">
   <div class="inner">
     <div class="sec-hd">
       <div class="sec-eye">Catálogo</div>
@@ -569,17 +525,9 @@ img{display:block;max-width:100%}
       <p class="sec-sub">Todo lo que tu maquinaria necesita, organizado para encontrarlo en segundos.</p>
     </div>
     <div class="cat-grid">
-      <a class="cat-card" href="catalogo.html?cat=mangueras">
-        <div class="cat-img">
-          <svg class="cat-art" width="112" height="90" viewBox="0 0 120 96" fill="none">
-            <path d="M16 86 C 6 50, 34 30, 60 42 C 72 47, 76 48, 82 50" stroke="#201d1a" stroke-width="19" stroke-linecap="round"/>
-            <path d="M16 86 C 6 50, 34 30, 60 42 C 72 47, 76 48, 82 50" stroke="#332f2b" stroke-width="13" stroke-linecap="round"/>
-            <path d="M14 84 C 5 50, 33 29, 58 41" stroke="rgba(255,255,255,.08)" stroke-width="3.5" stroke-linecap="round"/>
-            <rect x="77" y="38" width="6" height="24" rx="1" fill="#B83214"/>
-            <rect x="82" y="40" width="22" height="20" rx="2" fill="#6f6f71"/><rect x="82" y="40" width="22" height="6" rx="2" fill="#909092"/>
-            <line x1="87" y1="40" x2="87" y2="60" stroke="#48464a" stroke-width="1.5"/><line x1="92" y1="40" x2="92" y2="60" stroke="#48464a" stroke-width="1.5"/><line x1="97" y1="40" x2="97" y2="60" stroke="#48464a" stroke-width="1.5"/>
-            <polygon points="104,42 113,46 113,54 104,58" fill="#9a9a9c"/>
-          </svg>
+      <div class="cat-card">
+        <div class="cat-img" style="background:linear-gradient(135deg,#F0EDE6,#E8E4DC)">
+          <svg class="cat-icon" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 12h18M3 7c0 0 4-2 9-2s9 2 9 2M3 17c0 0 4 2 9 2s9-2 9-2"/></svg>
           <span class="cat-img-n">01</span>
         </div>
         <div class="cat-body">
@@ -587,16 +535,10 @@ img{display:block;max-width:100%}
           <div class="cat-name">Mangueras Hidráulicas</div>
           <div class="cat-foot"><span class="cat-count">SAE 100R1 · R2 · R4 · R6</span><span class="cat-arrow">Ver<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
         </div>
-      </a>
-      <a class="cat-card" href="catalogo.html?cat=terminales">
-        <div class="cat-img">
-          <svg class="cat-art" width="112" height="90" viewBox="0 0 120 96" fill="none"><g transform="translate(0,2)">
-            <polygon points="14,34 26,27 42,27 42,67 26,67 14,60" fill="#7c7c7e"/><polygon points="14,34 26,27 42,27 42,37 14,44" fill="#9a9a9c"/>
-            <rect x="42" y="34" width="20" height="26" fill="#6a6a6c"/><rect x="42" y="34" width="20" height="7" fill="#8a8a8c"/>
-            <rect x="62" y="34" width="5" height="26" fill="#B83214"/>
-            <rect x="67" y="38" width="38" height="18" fill="#73736f"/>
-            <line x1="72" y1="38" x2="67" y2="56" stroke="#48464a" stroke-width="1.6"/><line x1="80" y1="38" x2="75" y2="56" stroke="#48464a" stroke-width="1.6"/><line x1="88" y1="38" x2="83" y2="56" stroke="#48464a" stroke-width="1.6"/><line x1="96" y1="38" x2="91" y2="56" stroke="#48464a" stroke-width="1.6"/><line x1="104" y1="38" x2="99" y2="56" stroke="#48464a" stroke-width="1.6"/>
-          </g></svg>
+      </div>
+      <div class="cat-card">
+        <div class="cat-img" style="background:linear-gradient(135deg,#EDE8E0,#E4DED5)">
+          <svg class="cat-icon" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           <span class="cat-img-n">02</span>
         </div>
         <div class="cat-body">
@@ -604,15 +546,10 @@ img{display:block;max-width:100%}
           <div class="cat-name">Terminales Hidráulicos</div>
           <div class="cat-foot"><span class="cat-count">BSP · JIC · NPT · Métricas</span><span class="cat-arrow">Ver<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
         </div>
-      </a>
-      <a class="cat-card" href="catalogo.html?cat=discos">
-        <div class="cat-img">
-          <svg class="cat-art" width="100" height="90" viewBox="0 0 100 96" fill="none"><g transform="translate(50,48)">
-            <circle r="40" fill="#39352f"/><circle r="40" fill="none" stroke="#5a564f" stroke-width="1.5"/>
-            <g stroke="#4a463f" stroke-width="1"><line x1="0" y1="-38" x2="0" y2="38"/><line x1="-38" y1="0" x2="38" y2="0"/><line x1="-27" y1="-27" x2="27" y2="27"/><line x1="27" y1="-27" x2="-27" y2="27"/><line x1="-14" y1="-35" x2="14" y2="35"/><line x1="14" y1="-35" x2="-14" y2="35"/><line x1="-35" y1="-14" x2="35" y2="14"/><line x1="35" y1="-14" x2="-35" y2="14"/></g>
-            <circle r="17" fill="#B83214"/><circle r="17" fill="none" stroke="#8f2810" stroke-width="1"/>
-            <circle r="9.5" fill="#9a9a9c"/><circle r="5" fill="#17150f"/>
-          </g></svg>
+      </div>
+      <div class="cat-card">
+        <div class="cat-img" style="background:linear-gradient(135deg,#EAE6DE,#E2DDD5)">
+          <svg class="cat-icon" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="2" x2="12" y2="22"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10"/></svg>
           <span class="cat-img-n">03</span>
         </div>
         <div class="cat-body">
@@ -620,13 +557,10 @@ img{display:block;max-width:100%}
           <div class="cat-name">Discos de Corte</div>
           <div class="cat-foot"><span class="cat-count">4½" · 7" · 9" · Inox · Acero</span><span class="cat-arrow">Ver<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
         </div>
-      </a>
-      <a class="cat-card" href="catalogo.html?cat=torno">
-        <div class="cat-img">
-          <svg class="cat-art" width="112" height="90" viewBox="0 0 120 96" fill="none">
-            <g transform="rotate(-26 60 48)"><rect x="16" y="44" width="30" height="9" rx="1.5" fill="#56565a"/><rect x="46" y="43" width="44" height="11" fill="#86868a"/><path d="M50 43 L58 54 M60 43 L68 54 M70 43 L78 54 M80 43 L88 54" stroke="#46444a" stroke-width="1.8"/><polygon points="90,43 100,48.5 90,54" fill="#b6b6b8"/></g>
-            <g transform="rotate(16 60 48)"><rect x="30" y="56" width="24" height="6" rx="1" fill="#3e3e42"/><rect x="54" y="55" width="30" height="8" fill="#6c6c70"/><path d="M58 55 L64 63 M66 55 L72 63 M74 55 L80 63" stroke="#34343a" stroke-width="1.5"/><polygon points="84,55 91,59 84,63" fill="#8a8a8e"/></g>
-          </svg>
+      </div>
+      <div class="cat-card">
+        <div class="cat-img" style="background:linear-gradient(135deg,#ECE8E0,#E4E0D8)">
+          <svg class="cat-icon" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
           <span class="cat-img-n">04</span>
         </div>
         <div class="cat-body">
@@ -634,16 +568,10 @@ img{display:block;max-width:100%}
           <div class="cat-name">Herramientas de Torno</div>
           <div class="cat-foot"><span class="cat-count">Brocas · Punteros · Ejes</span><span class="cat-arrow">Ver<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
         </div>
-      </a>
-      <a class="cat-card" href="catalogo.html?cat=gatos">
-        <div class="cat-img">
-          <svg class="cat-art" width="86" height="90" viewBox="0 0 86 96" fill="none"><g transform="translate(20,4)">
-            <rect x="0" y="78" width="50" height="11" rx="2" fill="#56565a"/>
-            <rect x="8" y="32" width="32" height="48" rx="3" fill="#6f6f71"/><rect x="8" y="32" width="9" height="48" rx="3" fill="#8c8c8e"/>
-            <rect x="8" y="48" width="32" height="8" fill="#B83214"/>
-            <rect x="19" y="8" width="11" height="26" fill="#9a9a9c"/><rect x="13" y="2" width="23" height="8" rx="2" fill="#b6b6b8"/>
-            <rect x="38" y="56" width="18" height="7" rx="2" fill="#6c6c70" transform="rotate(-20 38 59)"/>
-          </g></svg>
+      </div>
+      <div class="cat-card">
+        <div class="cat-img" style="background:linear-gradient(135deg,#E8E4DC,#E0DCD4)">
+          <svg class="cat-icon" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>
           <span class="cat-img-n">05</span>
         </div>
         <div class="cat-body">
@@ -651,16 +579,10 @@ img{display:block;max-width:100%}
           <div class="cat-name">Gatos Hidráulicos</div>
           <div class="cat-foot"><span class="cat-count">2T · 5T · 10T · 20T</span><span class="cat-arrow">Ver<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
         </div>
-      </a>
-      <a class="cat-card" href="catalogo.html?cat=prensas">
-        <div class="cat-img">
-          <svg class="cat-art" width="106" height="90" viewBox="0 0 110 96" fill="none"><g transform="translate(6,4)">
-            <rect x="8" y="8" width="9" height="80" fill="#56565a"/><rect x="83" y="8" width="9" height="80" fill="#56565a"/>
-            <rect x="2" y="8" width="96" height="11" fill="#6f6f71"/>
-            <rect x="42" y="19" width="18" height="24" rx="2" fill="#7c7c7e"/><rect x="42" y="28" width="18" height="6" fill="#B83214"/>
-            <rect x="47" y="43" width="8" height="17" fill="#9a9a9c"/><rect x="37" y="60" width="28" height="8" rx="1" fill="#8a8a8c"/>
-            <rect x="22" y="76" width="58" height="9" fill="#6a6a6c"/>
-          </g></svg>
+      </div>
+      <div class="cat-card">
+        <div class="cat-img" style="background:linear-gradient(135deg,#E6E2DA,#DED9D1)">
+          <svg class="cat-icon" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
           <span class="cat-img-n">06</span>
         </div>
         <div class="cat-body">
@@ -668,7 +590,7 @@ img{display:block;max-width:100%}
           <div class="cat-name">Prensas y Accesorios</div>
           <div class="cat-foot"><span class="cat-count">Prensas · Masas · Ejes</span><span class="cat-arrow">Ver<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>
         </div>
-      </a>
+      </div>
     </div>
   </div>
 </section>
@@ -687,14 +609,14 @@ img{display:block;max-width:100%}
         <div class="adv-txt">Despachamos por encomienda con entrega en 24–48hs. Llegamos a todos los departamentos sin costo adicional de gestión.</div>
       </div>
       <div class="adv-item">
-        <div class="adv-ic"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8a6 6 0 0 0-12 0c0 1.14.31 2.21 1.5 3.5.76.76 1.23 1.52 1.41 2.5"/></svg></div>
-        <div class="adv-title">Asesoramiento técnico</div>
-        <div class="adv-txt">Ponemos nuestra experiencia a disposición para ayudarte a encontrar el producto correcto de forma rápida y sencilla.</div>
+        <div class="adv-ic"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <div class="adv-title">Giras mensuales al interior</div>
+        <div class="adv-txt">Cada mes salimos con la camioneta a recorrer el interior del país. Visitamos clientes, resolvemos en el acto y conocemos la realidad del campo.</div>
       </div>
       <div class="adv-item">
         <div class="adv-ic"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
-        <div class="adv-title">Mangueras armadas a medida</div>
-        <div class="adv-txt">Cortamos, prensamos y armamos mangueras a medida en nuestro taller de Sarandí Grande. Recibís la manguera lista para instalar.</div>
+        <div class="adv-title">Mangueras armadas en taller</div>
+        <div class="adv-txt">Cortamos, prensamos y armamos mangueras a medida en nuestro taller de Sarandí Grande. Recibís la manguera lista para instalar, sin sorpresas.</div>
       </div>
       <div class="adv-item">
         <div class="adv-ic"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
@@ -706,7 +628,7 @@ img{display:block;max-width:100%}
 </section>
 
 <!-- ══════════════════════════════════════ 5. CONFIGURADOR -->
-<section class="sec sec--dark" id="configurador">
+<section class="sec sec--dark">
   <div class="inner">
     <div class="cfg-grid">
       <div>
@@ -714,7 +636,7 @@ img{display:block;max-width:100%}
         <h2 class="sec-title sec-title--l" style="margin-bottom:16px">Configurá tu manguera a medida</h2>
         <p class="sec-sub sec-sub--l" style="margin-bottom:32px">No más medidas incorrectas ni viajes al taller. Elegís el tipo, la medida, el largo y los terminales. Tu manguera llega lista para instalar.</p>
         <div class="cfg-footer">
-          <a class="btn-p" href="configurador.html">Ir al configurador<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          <button class="btn-p">Ir al configurador<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
         </div>
       </div>
       <div>
@@ -730,8 +652,63 @@ img{display:block;max-width:100%}
   </div>
 </section>
 
+<!-- ══════════════════════════════════════ 6. PRODUCTOS DESTACADOS -->
+<section class="sec sec--owh">
+  <div class="inner">
+    <div class="sec-hd" style="display:flex;justify-content:space-between;align-items:flex-end">
+      <div>
+        <div class="sec-eye">Productos</div>
+        <h2 class="sec-title">Disponibles en stock</h2>
+      </div>
+      <button class="btn-ghost-drk">Ver todo el catálogo<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+    </div>
+    <div class="prod-grid">
+      <div class="pc">
+        <div class="pc-img"><span class="pc-img-bg">MH</span><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="rgba(27,25,22,.18)" stroke-width="1.5" stroke-linecap="round"><path d="M3 12h18M3 7c0 0 4-2 9-2s9 2 9 2M3 17c0 0 4 2 9 2s9-2 9-2"/></svg></div>
+        <div class="pc-body">
+          <div class="pc-cat">Mangueras</div>
+          <div class="pc-name">Manguera SAE 100R2AT</div>
+          <div class="pc-code">REF: MC-R2-012</div>
+          <span class="pc-spec">1/2" · 225 BAR</span><br>
+          <button class="pc-btn">Solicitar cotización</button>
+        </div>
+      </div>
+      <div class="pc">
+        <div class="pc-img"><span class="pc-img-bg">TH</span><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="rgba(27,25,22,.18)" stroke-width="1.5" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+        <div class="pc-body">
+          <div class="pc-cat">Terminales</div>
+          <div class="pc-name">Terminal BSP Hembra</div>
+          <div class="pc-code">REF: MC-TH-BSP-12</div>
+          <span class="pc-spec">1/2" BSP · Acero</span><br>
+          <button class="pc-btn">Solicitar cotización</button>
+        </div>
+      </div>
+      <div class="pc">
+        <div class="pc-img"><span class="pc-img-bg">DC</span><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="rgba(27,25,22,.18)" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg></div>
+        <div class="pc-body">
+          <div class="pc-cat">Discos de Corte</div>
+          <div class="pc-name">Disco Inox 4½"</div>
+          <div class="pc-code">REF: DC-CUT-412-INX</div>
+          <span class="pc-spec">4½" · 1,6 mm · Inox</span><br>
+          <button class="pc-btn">Solicitar cotización</button>
+        </div>
+      </div>
+      <div class="pc">
+        <div class="pc-img"><span class="pc-img-bg">GT</span><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="rgba(27,25,22,.18)" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></div>
+        <div class="pc-body">
+          <div class="pc-cat">Gatos Hidráulicos</div>
+          <div class="pc-name">Gato Hidráulico 5T</div>
+          <div class="pc-code">REF: HT-GT-5T</div>
+          <span class="pc-spec">5.000 kg · Manual</span><br>
+          <button class="pc-btn">Solicitar cotización</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ══════════════════════════════════════ 7. COBERTURA NACIONAL -->
-<section class="sec sec--blk" id="cobertura">
+<section class="sec sec--dark">
   <div class="inner">
     <div class="cov-grid">
       <div>
@@ -742,7 +719,15 @@ img{display:block;max-width:100%}
         <div class="cov-stat"><div class="cov-n">1/mes</div><div class="cov-text"><div class="cov-title">Gira mensual al interior</div><div class="cov-sub">Recorremos el país en camioneta. Visitamos talleres, estancias y empresas.</div></div></div>
       </div>
       <div class="cov-map-wrap">
-        <img src="img/camionetaMetcar.webp" alt="Camioneta Metcar recorriendo el interior del Uruguay" class="cov-map-img">
+        <svg width="160" height="180" viewBox="0 0 160 180" fill="none" opacity=".25">
+          <path d="M80 10 L140 30 L150 80 L130 140 L80 170 L30 140 L10 80 L20 30 Z" stroke="rgba(184,50,20,.8)" stroke-width="1.5" fill="rgba(184,50,20,.06)"/>
+          <circle cx="80" cy="90" r="5" fill="#B83214" opacity=".8"/>
+          <circle cx="60" cy="70" r="3" fill="rgba(255,255,255,.3)"/>
+          <circle cx="100" cy="60" r="3" fill="rgba(255,255,255,.3)"/>
+          <circle cx="110" cy="110" r="3" fill="rgba(255,255,255,.3)"/>
+          <circle cx="50" cy="120" r="3" fill="rgba(255,255,255,.3)"/>
+          <circle cx="90" cy="130" r="3" fill="rgba(255,255,255,.3)"/>
+        </svg>
         <span class="cov-map-lbl">Uruguay · Cobertura nacional</span>
       </div>
     </div>
@@ -786,38 +771,38 @@ img{display:block;max-width:100%}
     <h2 class="fcta-h">¿Ya sabés lo que necesitás?</h2>
     <p class="fcta-body">Armá tu pedido en minutos. Sin llamadas, sin esperas innecesarias. Cotización rápida directamente desde el catálogo online.</p>
     <div class="fcta-btns">
-      <a class="btn-p" style="font-size:14px;padding:15px 32px" href="catalogo.html">Ver catálogo completo<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-      <a class="btn-wa" href="https://wa.me/59892195010" target="_blank" rel="noopener">Consultarnos por WhatsApp<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></a>
+      <button class="btn-p" style="font-size:14px;padding:15px 32px">Ver catálogo completo<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+      <button class="btn-wa" data-mc-wa>Consultarnos por WhatsApp<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></button>
     </div>
   </div>
 </section>
 
 <!-- ══════════════════════════════════════ 10. FOOTER -->
-<footer class="footer" id="contacto">
+<footer class="footer">
   <div class="foot-grid">
     <div>
-      <div class="foot-logo"><a href="metcar_homepage_v5.html" style="display:flex;align-items:center"><img src="img/logoMetcar.webp" alt="Metcar" class="foot-logo-img"></a></div>
+      <div class="foot-logo"><div class="foot-mark"><svg width="15" height="15" viewBox="0 0 17 17" fill="none"><circle cx="8.5" cy="8.5" r="7.2" stroke="rgba(255,255,255,.82)" stroke-width="1.3"/><circle cx="8.5" cy="8.5" r="4.2" stroke="rgba(255,255,255,.45)" stroke-width="1"/><circle cx="8.5" cy="8.5" r="1.6" fill="rgba(255,255,255,.88)"/></svg></div><span class="foot-name">METCAR</span></div>
       <p class="foot-tag">Importación y distribución de insumos hidráulicos y herramientas industriales. Sarandí Grande, Uruguay.</p>
       <div style="font-family:var(--ft);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2)">IMPORTADOR DIRECTO · DESDE 2014</div>
     </div>
     <div>
       <div class="foot-col-title">Catálogo</div>
       <div class="foot-links">
-        <a class="foot-link" href="catalogo.html?cat=mangueras">Mangueras Hidráulicas</a>
-        <a class="foot-link" href="catalogo.html?cat=terminales">Terminales y Punteros</a>
-        <a class="foot-link" href="catalogo.html?cat=discos">Discos de Corte</a>
-        <a class="foot-link" href="catalogo.html?cat=torno">Herramientas de Torno</a>
-        <a class="foot-link" href="catalogo.html?cat=gatos">Gatos Hidráulicos</a>
-        <a class="foot-link" href="catalogo.html">Ver todo el catálogo</a>
+        <a class="foot-link">Mangueras Hidráulicas</a>
+        <a class="foot-link">Terminales y Punteros</a>
+        <a class="foot-link">Discos de Corte</a>
+        <a class="foot-link">Herramientas de Torno</a>
+        <a class="foot-link">Gatos Hidráulicos</a>
+        <a class="foot-link">Ver todo el catálogo</a>
       </div>
     </div>
     <div>
       <div class="foot-col-title">Empresa</div>
       <div class="foot-links">
-        <a class="foot-link" href="sobre-nosotros.html">Sobre Metcar</a>
-        <a class="foot-link" href="#cobertura">Giras mensuales</a>
-        <a class="foot-link" href="#configurador">Configurador de mangueras</a>
-        <a class="foot-link" href="#contacto">Contacto</a>
+        <a class="foot-link">Sobre Metcar</a>
+        <a class="foot-link">Giras mensuales</a>
+        <a class="foot-link">Configurador de mangueras</a>
+        <a class="foot-link">Contacto</a>
         <a class="foot-link">Mi cuenta</a>
       </div>
     </div>
@@ -831,7 +816,7 @@ img{display:block;max-width:100%}
     </div>
   </div>
   <div class="foot-btm">
-    <span class="foot-copy">© <span id="footer-year">2024</span> Metcar Uruguay. Todos los derechos reservados.</span>
+    <span class="foot-copy">© 2024 Metcar Uruguay. Todos los derechos reservados.</span>
     <span class="foot-made">metcar.uy</span>
   </div>
 </footer>
@@ -894,9 +879,6 @@ document.querySelectorAll(
   el.style.opacity = '0';
   obs.observe(el);
 });
-
-// Copyright año dinámico
-document.getElementById('footer-year').textContent = new Date().getFullYear();
 </script>
 </body>
 </html>
