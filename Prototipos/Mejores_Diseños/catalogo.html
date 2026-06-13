@@ -7,7 +7,9 @@
 <title>Catálogo — Metcar · Insumos Hidráulicos y Herramientas · Uruguay</title>
 <meta name="description" content="Catálogo completo de Metcar Uruguay: mangueras hidráulicas SAE, terminales, discos de corte, herramientas de torno, gatos hidráulicos y prensas. Envíos a todo Uruguay.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;700&display=block" rel="stylesheet">
+<script src="config.js"></script>
 <style>
 :root{
   --red:#B83214;--blk:#0B0B0B;--yel:#F5C518;--yel-dim:#8A7010;
@@ -93,6 +95,7 @@ a.crumb:hover{color:#fff}
   font-size:15px;color:#fff;outline:none;transition:border-color var(--t1),background var(--t1)}
 .search-in::placeholder{color:rgba(255,255,255,.32)}
 .search-in:focus{border-color:var(--red);background:rgba(255,255,255,.08)}
+.search-in::-webkit-search-cancel-button,.search-in::-webkit-search-decoration{-webkit-appearance:none;appearance:none;display:none}
 .search-clear{position:absolute;right:10px;top:50%;transform:translateY(-50%);
   color:rgba(255,255,255,.4);padding:8px;display:none;transition:color var(--t1)}
 .search-clear:hover{color:#fff}
@@ -535,10 +538,10 @@ a.crumb:hover{color:#fff}
     <div>
       <div class="foot-col-title">Contacto</div>
       <div class="foot-ci"><div class="foot-clbl">Teléfono</div><div class="foot-cval" data-mc="tel">4354-9363</div></div>
-      <div class="foot-ci"><div class="foot-clbl">Celular</div><div class="foot-cval" data-mc="cel">092 195 010</div></div>
+      <div class="foot-ci"><div class="foot-clbl">Celular</div><div class="foot-cval" data-mc="cel">099 414 733</div></div>
       <div class="foot-ci"><div class="foot-clbl">Email</div><div class="foot-cval" data-mc="email">info@metcar.com.uy</div></div>
-      <div class="foot-ci"><div class="foot-clbl">Dirección</div><div class="foot-cval">Andrés Romero esq. Treinta y Tres<br>Sarandí Grande, Florida</div></div>
-      <div style="margin-top:6px"><div class="foot-clbl">Horario</div><div class="foot-cval" style="font-size:12px">Lun–Vie 8:00–17:00 · Sáb 8:00–12:00</div></div>
+      <div class="foot-ci"><div class="foot-clbl">Dirección</div><div class="foot-cval"><span data-mc="dirCalle">Andrés Romero esq. Treinta y Tres</span><br><span data-mc="dirCiudad">Sarandí Grande, Florida</span></div></div>
+      <div style="margin-top:6px"><div class="foot-clbl">Horario</div><div class="foot-cval" style="font-size:12px" data-mc="horario">Lun–Vie 8:00–17:00 · Sáb 8:00–12:00</div></div>
     </div>
   </div>
   <div class="foot-btm">
@@ -551,14 +554,7 @@ a.crumb:hover{color:#fff}
 /* ══════════════════════════════════════════════════════
    CONFIGURACIÓN METCAR
    ══════════════════════════════════════════════════════ */
-const MC = {
-  tel:'4354-9363', cel:'092 195 010', wa:'59892195010', email:'info@metcar.com.uy',
-};
-document.querySelectorAll('[data-mc]').forEach(el => {
-  const k = el.dataset.mc;
-  if(k === 'wa-href') el.href = 'https://wa.me/' + MC.wa;
-  else if(MC[k] !== undefined) el.textContent = MC[k];
-});
+const MC = window.MC;   // ► todos los datos de contacto viven en config.js (único lugar para editarlos)
 
 /* ══════════════════════════════════════════════════════
    CATEGORÍAS — los iconos son los mismos del homepage
@@ -728,8 +724,10 @@ function filtered(){
     matches(p, state.q));
   if(state.sort==='az')   list.sort((a,b)=>a.name.localeCompare(b.name,'es'));
   else if(state.sort==='code') list.sort((a,b)=>a.code.localeCompare(b.code));
-  else if(state.q){ // relevancia real: mejor coincidencia primero (código > nombre > resto)
-    list.sort((a,b)=>(relScore(b,state.q)-relScore(a,state.q)) || (b.stock-a.stock));
+  else if(state.q){ // relevancia real: la manguera a medida (configurable) primero, luego mejor coincidencia (código > nombre > resto)
+    list.sort((a,b)=>
+      ((b.tipo==='configurable')-(a.tipo==='configurable')) ||
+      (relScore(b,state.q)-relScore(a,state.q)) || (b.stock-a.stock));
   } else { // sin búsqueda: con stock primero, configurables al frente
     list.sort((a,b)=>(b.stock-a.stock) || (b.tipo==='configurable')-(a.tipo==='configurable'));
   }
@@ -770,8 +768,11 @@ function renderChips(){
   document.getElementById('chips').innerHTML = html;
 }
 
-function cardHTML(p, i){
+function cardHTML(p, i, animFrom){
   const cfg = p.tipo==='configurable';
+  const isNew = i >= (animFrom||0);          // solo los recién aparecidos animan
+  const animClass = isNew ? ' anim' : '';
+  const animStyle = isNew ? ` style="animation-delay:${Math.min((i-(animFrom||0))%PAGE,11)*0.04}s"` : '';
   const stockBadge = p.stock
     ? '<span class="pc-stock pc-stock--in"><span class="dot"></span>En stock</span>'
     : '<span class="pc-stock pc-stock--out"><span class="dot"></span>Sin stock</span>';
@@ -780,7 +781,7 @@ function cardHTML(p, i){
     ? `<a class="pc-btn pc-btn--cfg" href="configurador.html">Configurar a medida<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>`
     : `<button class="pc-btn" data-add="${p.code}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>Agregar al pedido</button>`;
   const note = (!p.stock && !cfg) ? '<span class="pc-note">Disponibilidad a confirmar en cotización</span>' : '';
-  return `<article class="pc${p.stock?'':' pc--out'}" style="animation-delay:${Math.min(i%PAGE,11)*0.04}s">
+  return `<article class="pc${p.stock?'':' pc--out'}${animClass}"${animStyle}>
     <div class="pc-img" data-open="${p.code}" role="button" tabindex="0" aria-label="Ver detalle de ${p.name}">
       ${stockBadge}
       <span class="pc-art">${ICONS[p.cat]||''}</span>
@@ -791,7 +792,7 @@ function cardHTML(p, i){
       <h3 class="pc-name" data-open="${p.code}" tabindex="0" role="button">${p.name}</h3>
       <div class="pc-code">${p.code}</div>
       <div class="pc-specs">${specs}</div>
-      <div class="pc-foot">${btn}${note}</div>
+      <div class="pc-foot">${note}${btn}</div>
     </div>
   </article>`;
 }
@@ -805,13 +806,14 @@ function emptyHTML(){
     <div class="empty-ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M8 11h6"/></svg></div>
     <h2 class="empty-h">No encontramos <span class="q">"${esc(state.q)}"</span></h2>
     <p class="empty-txt">${rel.length ? 'Pero esto se parece a lo que buscás — mirá abajo.<br>Y si no es, consultanos directo: respondemos rápido.' : 'Puede que lo tengamos igual — el catálogo online se actualiza constantemente.<br>Consultanos directo: respondemos rápido.'}</p>
-    <a class="empty-wa" href="https://wa.me/${MC.wa}?text=${encodeURIComponent('Hola! Estoy buscando: '+state.q)}" target="_blank" rel="noopener">
+    <a class="empty-wa" href="https://wa.me/${MC.wa}?text=${encodeURIComponent(waMsg(MC.waMsgBusqueda,{busqueda:state.q}))}" target="_blank" rel="noopener">
       <svg width="16" height="16" viewBox="0 0 32 32" fill="currentColor"><path d="M16 2C8.28 2 2 8.28 2 16c0 2.45.65 4.75 1.78 6.74L2 30l7.51-1.96A13.93 13.93 0 0 0 16 30c7.72 0 14-6.28 14-14S23.72 2 16 2zm0 25.5c-2.18 0-4.24-.6-6-1.65l-.43-.26-4.46 1.17 1.19-4.35-.28-.45A11.48 11.48 0 0 1 4.5 16c0-6.35 5.15-11.5 11.5-11.5S27.5 9.65 27.5 16 22.35 27.5 16 27.5z"/></svg>
       Consultar disponibilidad por WhatsApp</a>
   </div>${relBlock}`;
 }
 
-function render(){
+function render(animFrom){
+  animFrom = animFrom||0;
   const list = filtered();
   const visible = list.slice(0, state.shown);
 
@@ -828,8 +830,7 @@ function render(){
     $loadmore.style.display = 'none';
   } else {
     $empty.innerHTML = '';
-    $grid.innerHTML = visible.map(cardHTML).join('');
-    $grid.querySelectorAll('.pc').forEach(el=>el.classList.add('anim'));
+    $grid.innerHTML = visible.map((p,i)=>cardHTML(p,i,animFrom)).join('');
     const rest = list.length - visible.length;
     $loadmore.style.display = rest > 0 ? 'block' : 'none';
     if(rest > 0) document.getElementById('loadmore-meta').textContent = rest + ' producto' + (rest===1?'':'s') + ' más';
@@ -892,7 +893,8 @@ document.getElementById('sort').addEventListener('change', function(){
 });
 
 document.getElementById('btn-more').addEventListener('click', () => {
-  state.shown += PAGE; render();
+  const prev = state.shown;       // anima únicamente los nuevos, no los ya visibles
+  state.shown += PAGE; render(prev);
 });
 
 /* Delegación: quick view + agregar al carrito + sugerencias */
@@ -984,7 +986,7 @@ function renderQV(){
       </div>
       <div class="qv-actions">${actions}</div>
       ${note}
-      <a class="qv-wa" href="https://wa.me/${MC.wa}?text=${encodeURIComponent('Hola! Consulta por: '+p.name+' ('+p.code+')')}" target="_blank" rel="noopener"><svg width="13" height="13" viewBox="0 0 32 32" fill="currentColor"><path d="M16 2C8.28 2 2 8.28 2 16c0 2.45.65 4.75 1.78 6.74L2 30l7.51-1.96A13.93 13.93 0 0 0 16 30c7.72 0 14-6.28 14-14S23.72 2 16 2zm0 25.5c-2.18 0-4.24-.6-6-1.65l-.43-.26-4.46 1.17 1.19-4.35-.28-.45A11.48 11.48 0 0 1 4.5 16c0-6.35 5.15-11.5 11.5-11.5S27.5 9.65 27.5 16 22.35 27.5 16 27.5z"/></svg>Consultar por WhatsApp</a>
+      <a class="qv-wa" href="https://wa.me/${MC.wa}?text=${encodeURIComponent(waMsg(MC.waMsgProducto,{nombre:p.name,codigo:p.code,medida:p.specs.join(' · ')}))}" target="_blank" rel="noopener"><svg width="13" height="13" viewBox="0 0 32 32" fill="currentColor"><path d="M16 2C8.28 2 2 8.28 2 16c0 2.45.65 4.75 1.78 6.74L2 30l7.51-1.96A13.93 13.93 0 0 0 16 30c7.72 0 14-6.28 14-14S23.72 2 16 2zm0 25.5c-2.18 0-4.24-.6-6-1.65l-.43-.26-4.46 1.17 1.19-4.35-.28-.45A11.48 11.48 0 0 1 4.5 16c0-6.35 5.15-11.5 11.5-11.5S27.5 9.65 27.5 16 22.35 27.5 16 27.5z"/></svg>Consultar por WhatsApp</a>
     </div>`;
 }
 $qv.addEventListener('click', e => {
