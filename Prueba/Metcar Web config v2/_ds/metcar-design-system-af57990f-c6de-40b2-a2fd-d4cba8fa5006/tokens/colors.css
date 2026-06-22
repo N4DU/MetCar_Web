@@ -1,0 +1,76 @@
+/* ============================================================
+   METCAR · COLOR TOKENS
+   Six colors with exact roles. Nothing decorative — each one
+   does a specific job. (from the brand system: "Seis colores
+   con roles exactos.")
+   ============================================================ */
+:root {
+  /* ── Brand core (the four signature colors) ───────────────── */
+  --mc-red: #B83214;          /* Metcar Red — logo, CTAs, brand marks   */
+  --mc-red-deep: #9E2810;     /* Pressed / hover red                    */
+  --mc-black: #0B0B0B;        /* Industrial Black — specs, navbar anchor */
+  --mc-yellow: #F5C518;       /* Hose Yellow — the hose-print accent    */
+  --mc-yellow-dim: #8A7010;   /* Muted hose yellow (sub-labels on black) */
+
+  /* ── Neutrals / surfaces ──────────────────────────────────── */
+  --mc-steel: #68686A;        /* Steel Gray — secondary text, borders   */
+  --mc-offwhite: #F4F2EC;     /* Off-White — warm primary background     */
+  --mc-dark-iron: #1B1916;    /* Dark Iron — footers, hero, dark panels  */
+  --mc-dark-iron-2: #131110;  /* Deeper iron (hero base)                 */
+  --mc-white: #FFFFFF;        /* Pure white surfaces / cards             */
+
+  /* ── Neutral ramp (derived, warm-leaning) ─────────────────── */
+  --mc-ink-900: #1B1916;
+  --mc-ink-700: #34302B;
+  --mc-ink-500: #4A4744;
+  --mc-ink-400: #68686A;
+  --mc-ink-300: #9A968F;
+  --mc-ink-200: #D8D4CC;
+  --mc-ink-100: #ECE9E2;
+  --mc-ink-050: #F4F2EC;
+
+  /* ── Semantic status ──────────────────────────────────────── */
+  --mc-success: #1F7A3D;
+  --mc-success-bg: #E5F0E7;
+  --mc-warning: #B8860B;
+  --mc-warning-bg: #FBF1D9;
+  --mc-danger: #B83214;
+  --mc-danger-bg: #F6E4DF;
+  --mc-info: #2A5C8A;
+  --mc-info-bg: #E3ECF4;
+
+  /* ════════════════════════════════════════════════════════════
+     SEMANTIC ALIASES — reference these in components, not raw hex
+     ════════════════════════════════════════════════════════════ */
+
+  /* Brand */
+  --color-brand:            var(--mc-red);
+  --color-brand-hover:      var(--mc-red-deep);
+  --color-accent:           var(--mc-yellow);
+
+  /* Backgrounds / surfaces */
+  --surface-page:           var(--mc-offwhite);
+  --surface-card:           var(--mc-white);
+  --surface-sunken:         var(--mc-ink-050);
+  --surface-dark:           var(--mc-dark-iron);
+  --surface-darker:         var(--mc-dark-iron-2);
+  --surface-black:          var(--mc-black);
+
+  /* Text on light */
+  --text-primary:           var(--mc-ink-900);
+  --text-secondary:         var(--mc-ink-500);
+  --text-tertiary:          var(--mc-ink-400);
+  --text-brand:             var(--mc-red);
+
+  /* Text on dark */
+  --text-on-dark:           rgba(255, 255, 255, 0.92);
+  --text-on-dark-secondary: rgba(255, 255, 255, 0.48);
+  --text-on-dark-tertiary:  rgba(255, 255, 255, 0.28);
+  --text-on-dark-spec:      var(--mc-yellow);
+
+  /* Borders */
+  --border-on-light:        rgba(27, 25, 22, 0.09);
+  --border-on-light-strong: rgba(27, 25, 22, 0.22);
+  --border-on-dark:         rgba(255, 255, 255, 0.07);
+  --border-on-dark-strong:  rgba(255, 255, 255, 0.20);
+}
