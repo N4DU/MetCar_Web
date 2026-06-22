@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_ds/metcar-design-system-af57990f-c6de-40b2-a2fd-d4cba8fa5006/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/metcar-design-system-af57990f-c6de-40b2-a2fd-d4cba8fa5006/tokens/colors.css">
+<link rel="stylesheet" href="_ds/metcar-design-system-af57990f-c6de-40b2-a2fd-d4cba8fa5006/tokens/typography.css">
+<link rel="stylesheet" href="_ds/metcar-design-system-af57990f-c6de-40b2-a2fd-d4cba8fa5006/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/metcar-design-system-af57990f-c6de-40b2-a2fd-d4cba8fa5006/tokens/effects.css">
+<link rel="stylesheet" href="_ds/metcar-design-system-af57990f-c6de-40b2-a2fd-d4cba8fa5006/styles.css">
+<script src="_ds/metcar-design-system-af57990f-c6de-40b2-a2fd-d4cba8fa5006/_ds_bundle.js"></script>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:#F4F2EC;font-family:'Barlow',system-ui,sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;color:#1B1916}
+  input,button,textarea,select{font-family:inherit}
+  button{cursor:pointer}
+  ::placeholder{color:#9A968F}
+  @keyframes mc-pulse{0%,100%{opacity:1}50%{opacity:.4}}
+  @keyframes mc-fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:#F4F2EC">
+
+  <!-- ══════════ NAVBAR ══════════ -->
+  <nav style="position:sticky;top:0;z-index:300;background:#1B1916;border-bottom:1px solid rgba(255,255,255,.07)">
+    <div style="max-width:1160px;margin:0 auto;height:62px;display:flex;align-items:center;gap:16px;padding:0 24px">
+      <button onClick="{{ goConfig }}" style="background:none;border:none;padding:0;display:flex;align-items:center;gap:10px;cursor:pointer">
+        <span style="width:26px;height:26px;background:#B83214;border-radius:2px;display:flex;align-items:center;justify-content:center;flex-shrink:0"><span style="width:11px;height:11px;border:2px solid #fff;border-radius:50%"></span></span>
+        <span style="font-family:'Bebas Neue';font-size:22px;letter-spacing:1.5px;color:#fff;line-height:1">MET<span style="color:#B83214">C</span>AR</span>
+      </button>
+      <div style="display:flex;gap:22px;flex:1;justify-content:center">
+        <a href="Prototipos/Mejores_Disenos/metcar_homepage_v5.html" style="font-family:'Barlow';font-weight:500;font-size:13px;color:rgba(255,255,255,.6);text-decoration:none">Catálogo</a>
+        <button onClick="{{ goConfig }}" style="background:none;border:none;font-family:'Barlow';font-weight:600;font-size:13px;color:#fff;cursor:pointer;border-bottom:1.5px solid #B83214;padding-bottom:2px">Configurador</button>
+        <button onClick="{{ goCart }}" style="background:none;border:none;font-family:'Barlow';font-weight:500;font-size:13px;color:rgba(255,255,255,.6);cursor:pointer">Carrito</button>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px">
+        <a href="{{ waLink }}" target="_blank" rel="noopener" style="color:rgba(255,255,255,.6);padding:8px;display:flex" aria-label="WhatsApp"><svg width="17" height="17" viewBox="0 0 32 32" fill="currentColor"><path d="M16 2C8.28 2 2 8.28 2 16c0 2.45.65 4.75 1.78 6.74L2 30l7.51-1.96A13.93 13.93 0 0 0 16 30c7.72 0 14-6.28 14-14S23.72 2 16 2zm0 25.5c-2.18 0-4.24-.6-6-1.65l-.43-.26-4.46 1.17 1.19-4.35-.28-.45A11.45 11.45 0 0 1 4.5 16C4.5 9.66 9.66 4.5 16 4.5S27.5 9.66 27.5 16 22.34 27.5 16 27.5zm6.3-8.6c-.34-.17-2.03-1-2.35-1.12-.32-.12-.55-.17-.78.17-.23.34-.9 1.12-1.1 1.35-.2.23-.4.26-.74.09-.34-.17-1.45-.53-2.76-1.7-1.02-.91-1.71-2.03-1.91-2.37-.2-.34-.02-.52.15-.69.15-.15.34-.4.51-.6.17-.2.23-.34.34-.57.11-.23.06-.43-.03-.6-.09-.17-.78-1.88-1.07-2.57-.28-.67-.57-.58-.78-.59l-.66-.01c-.23 0-.6.09-.92.43-.32.34-1.2 1.18-1.2 2.88s1.23 3.34 1.4 3.57c.17.23 2.42 3.7 5.86 5.19.82.35 1.46.56 1.96.72.82.26 1.57.22 2.16.13.66-.1 2.03-.83 2.31-1.63.29-.8.29-1.48.2-1.63-.09-.15-.31-.23-.66-.4z"/></svg></a>
+        <button onClick="{{ goCart }}" style="background:none;border:none;color:rgba(255,255,255,.6);padding:8px;display:flex;position:relative;cursor:pointer" aria-label="Carrito">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          <sc-if value="{{ cartHasItems }}"><span style="position:absolute;top:3px;right:2px;background:#B83214;color:#fff;border-radius:50%;min-width:15px;height:15px;padding:0 3px;font-family:'Barlow Condensed';font-weight:700;font-size:9px;display:flex;align-items:center;justify-content:center">{{ cartLines }}</span></sc-if>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ══════════ CONFIGURADOR (PANTALLA 1) ══════════ -->
+  <sc-if value="{{ isConfig }}" hint-placeholder-val="{{ true }}">
+  <div style="max-width:1160px;margin:0 auto;padding:26px 24px 64px">
+
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:14px;margin-bottom:22px">
+      <div>
+        <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#B83214;margin-bottom:6px">Manguera a medida</div>
+        <h1 style="font-family:'Bebas Neue';font-weight:400;font-size:clamp(34px,5vw,52px);line-height:.92;letter-spacing:.5px;color:#1B1916;margin:0">Configurá tu manguera</h1>
+        <p style="font-family:'Barlow';font-size:14px;line-height:1.5;color:#4A4744;margin:8px 0 0;max-width:440px">Cuatro decisiones, una sola pantalla. La armás viéndola en vivo y la mandás a cotizar — sin precios, sin idas y vueltas.</p>
+      </div>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#68686A;letter-spacing:.5px;text-align:right">REF · {{ refCodePreview }}</div>
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;gap:22px;align-items:flex-start">
+
+      <!-- ZONA A · VISUALIZACIÓN -->
+      <div style="flex:1.45 1 400px;min-width:330px;position:sticky;top:80px;align-self:flex-start">
+        <div style="background:#131110;border:1px solid rgba(255,255,255,.08);border-radius:3px;overflow:hidden;box-shadow:0 6px 18px rgba(27,25,22,.10)">
+          <div style="height:3px;background:#B83214"></div>
+          <div style="padding:6px 12px 0">{{ hoseDiagram }}</div>
+          <div style="display:flex;align-items:center;gap:12px;padding:12px 16px 14px;border-top:1px solid rgba(255,255,255,.07);background:#1B1916">
+            <div style="display:flex;align-items:center;gap:8px;flex:1;min-width:0">
+              <span style="width:26px;height:0;border-top:2px dashed #B83214;flex-shrink:0"></span>
+              <span style="font-family:'Barlow';font-size:11.5px;line-height:1.35;color:rgba(255,255,255,.66)">El largo mide <strong style="color:#F5C518">solo el cuerpo</strong> de la manguera — no incluye terminales ni punteros.</span>
+            </div>
+            <button onClick="{{ openHelp }}" style="flex-shrink:0;background:transparent;border:1px solid rgba(245,197,24,.45);color:#F5C518;font-family:'Barlow Condensed';font-weight:700;font-size:10.5px;letter-spacing:1.2px;text-transform:uppercase;padding:7px 12px;border-radius:1px;cursor:pointer">¿Cómo medir?</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ZONA B + C · DECISIONES Y RESUMEN -->
+      <div style="flex:1 1 330px;min-width:300px;display:flex;flex-direction:column;gap:12px">
+
+        <!-- DECISIÓN 1 · LA MANGUERA -->
+        <div style="background:#fff;border:1px solid rgba(27,25,22,.10);border-radius:2px;padding:16px 18px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+            <span style="font-family:'Bebas Neue';font-size:22px;color:#B83214;line-height:.8;width:22px">1</span>
+            <span style="font-family:'Bebas Neue';font-size:20px;color:#1B1916;line-height:1;flex:1">La manguera</span>
+            <sc-if value="{{ step1Done }}"><span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1px;color:#1F7A3D;display:flex;align-items:center;gap:4px">✓ {{ step1Value }}</span></sc-if>
+          </div>
+          <div style="font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#68686A;margin-bottom:8px">Tipo</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:16px">
+            <sc-for list="{{ typeCards }}" as="t" hint-placeholder-count="4">
+              <button onClick="{{ t.onSelect }}" style="{{ t.style }}">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:6px;width:100%">
+                  <span style="font-family:'Bebas Neue';font-size:19px;color:#1B1916;line-height:1">{{ t.name }}</span>
+                  <sc-if value="{{ t.selected }}"><span style="font-family:'Barlow Condensed';font-weight:700;color:#B83214;font-size:13px">✓</span></sc-if>
+                </div>
+                <span style="font-family:'JetBrains Mono';font-size:9.5px;color:#68686A;letter-spacing:.3px">{{ t.sae }}</span>
+                <span style="font-family:'Barlow';font-size:11px;color:#4A4744;line-height:1.35">{{ t.desc }}</span>
+              </button>
+            </sc-for>
+          </div>
+          <div style="font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#68686A;margin-bottom:8px">Diámetro interior</div>
+          <sc-if value="{{ gaugeReady }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;flex-wrap:wrap;gap:8px">
+              <sc-for list="{{ gaugeChips }}" as="g" hint-placeholder-count="5">
+                <button onClick="{{ g.onSelect }}" style="{{ g.style }}">{{ g.label }}</button>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ gaugeWaiting }}"><div style="font-family:'Barlow';font-size:12.5px;color:#9A968F;font-style:italic">Elegí primero el tipo de manguera.</div></sc-if>
+        </div>
+
+        <!-- DECISIÓN 2 · EL LARGO -->
+        <div style="background:#fff;border:1px solid rgba(27,25,22,.10);border-radius:2px;padding:16px 18px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+            <span style="font-family:'Bebas Neue';font-size:22px;color:#B83214;line-height:.8;width:22px">2</span>
+            <span style="font-family:'Bebas Neue';font-size:20px;color:#1B1916;line-height:1;flex:1">El largo</span>
+            <sc-if value="{{ step2Done }}"><span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1px;color:#1F7A3D">✓ {{ step2Value }}</span></sc-if>
+          </div>
+          <div style="display:flex;align-items:center;gap:7px;background:#0B0B0B;border-radius:2px;padding:7px 10px;margin-bottom:12px">
+            <span style="width:18px;height:0;border-top:2px dashed #B83214"></span>
+            <span style="font-family:'Barlow Condensed';font-weight:700;font-size:10.5px;letter-spacing:1px;color:#F5C518;text-transform:uppercase">Se mide solo el cuerpo</span>
+            <span style="font-family:'Barlow';font-size:10.5px;color:rgba(255,255,255,.5)">· sin terminales</span>
+            <button onClick="{{ openHelp }}" style="margin-left:auto;background:none;border:none;color:rgba(245,197,24,.8);font-family:'Barlow';font-size:11px;text-decoration:underline;cursor:pointer">guía</button>
+          </div>
+          <div style="display:flex;gap:8px;align-items:stretch;margin-bottom:10px">
+            <input inputmode="decimal" value="{{ lengthRaw }}" onInput="{{ onLengthInput }}" placeholder="0,00" style="flex:1;min-width:0;font-family:'Bebas Neue';font-size:26px;letter-spacing:1px;color:#1B1916;background:#F4F2EC;border:1.5px solid rgba(27,25,22,.16);border-radius:2px;padding:6px 12px;outline:none" style-focus="border-color:#B83214" />
+            <div style="display:flex;border:1.5px solid rgba(27,25,22,.16);border-radius:2px;overflow:hidden">
+              <button onClick="{{ setUnitM }}" style="{{ unitMStyle }}">m</button>
+              <button onClick="{{ setUnitCm }}" style="{{ unitCmStyle }}">cm</button>
+            </div>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:8px">
+            <sc-for list="{{ quickLens }}" as="q" hint-placeholder-count="5">
+              <button onClick="{{ q.onSelect }}" style="{{ q.style }}">{{ q.label }}</button>
+            </sc-for>
+          </div>
+          <sc-if value="{{ lengthError }}"><div style="font-family:'Barlow';font-size:12px;color:#B83214;background:#F6E4DF;border-radius:2px;padding:6px 10px">{{ lengthErrorMsg }}</div></sc-if>
+        </div>
+
+        <!-- DECISIÓN 3 · TERMINAL A -->
+        <div style="background:#fff;border:1px solid rgba(27,25,22,.10);border-radius:2px;padding:16px 18px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+            <span style="font-family:'Bebas Neue';font-size:22px;color:#B83214;line-height:.8;width:22px">3</span>
+            <span style="font-family:'Bebas Neue';font-size:20px;color:#1B1916;line-height:1;flex:1">Terminal · extremo A</span>
+            <sc-if value="{{ step3Done }}"><span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1px;color:#1F7A3D">✓ {{ step3Value }}</span></sc-if>
+          </div>
+          <sc-if value="{{ terminalsReady }}" hint-placeholder-val="{{ true }}">
+            <sc-if value="{{ termNotice }}"><div style="font-family:'Barlow';font-size:12px;color:#8A6D08;background:#FBF1D9;border-left:3px solid #B8860B;border-radius:0 2px 2px 0;padding:7px 11px;margin-bottom:10px">Cambiaste el diámetro — volvé a elegir los terminales compatibles.</div></sc-if>
+            <div style="font-family:'Barlow';font-size:11.5px;color:#68686A;margin-bottom:9px">Mostrando solo los compatibles con <strong style="color:#1B1916">{{ step1Value }}</strong>.</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px">
+              <sc-for list="{{ fittingCardsA }}" as="f" hint-placeholder-count="4">
+                <button onClick="{{ f.onSelect }}" style="{{ f.style }}">
+                  <div style="display:flex;align-items:center;gap:8px;width:100%">
+                    <span style="flex-shrink:0">{{ f.icon }}</span>
+                    <div style="flex:1;min-width:0;text-align:left">
+                      <div style="font-family:'Barlow';font-weight:600;font-size:12.5px;color:#1B1916;line-height:1.15">{{ f.short }}</div>
+                      <div style="font-family:'JetBrains Mono';font-size:9px;color:#68686A">{{ f.sizeLabel }}</div>
+                    </div>
+                    <sc-if value="{{ f.selected }}"><span style="font-family:'Barlow Condensed';font-weight:700;color:#B83214;font-size:13px;flex-shrink:0">✓</span></sc-if>
+                  </div>
+                </button>
+              </sc-for>
+            </div>
+            <button onClick="{{ openHelp }}" style="margin-top:10px;background:none;border:none;font-family:'Barlow';font-size:12px;color:#B83214;text-decoration:underline;cursor:pointer;padding:0">¿No sabés cuál es? Ver guía visual de terminales →</button>
+          </sc-if>
+          <sc-if value="{{ terminalsWaiting }}"><div style="font-family:'Barlow';font-size:12.5px;color:#9A968F;font-style:italic">Elegí el diámetro para ver los terminales compatibles.</div></sc-if>
+        </div>
+
+        <!-- DECISIÓN 4 · TERMINAL B -->
+        <div style="background:#fff;border:1px solid rgba(27,25,22,.10);border-radius:2px;padding:16px 18px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+            <span style="font-family:'Bebas Neue';font-size:22px;color:#B83214;line-height:.8;width:22px">4</span>
+            <span style="font-family:'Bebas Neue';font-size:20px;color:#1B1916;line-height:1;flex:1">Terminal · extremo B</span>
+            <sc-if value="{{ step4Done }}"><span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1px;color:#1F7A3D">✓ {{ step4Value }}</span></sc-if>
+          </div>
+          <sc-if value="{{ terminalsReady }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;gap:8px;margin-bottom:12px">
+              <button onClick="{{ setSameAsA }}" style="{{ sameYesStyle }}">Igual que el extremo A</button>
+              <button onClick="{{ setDiffB }}" style="{{ sameNoStyle }}">Distinto</button>
+            </div>
+            <sc-if value="{{ sameAsA }}"><div style="font-family:'Barlow';font-size:12.5px;color:#4A4744;background:#F4F2EC;border-radius:2px;padding:9px 12px">Extremo B = Extremo A — <strong style="color:#1B1916">{{ endAName }}</strong>. Un toque para diferenciarlo.</div></sc-if>
+            <sc-if value="{{ showEndBGallery }}">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px">
+                <sc-for list="{{ fittingCardsB }}" as="f" hint-placeholder-count="4">
+                  <button onClick="{{ f.onSelect }}" style="{{ f.style }}">
+                    <div style="display:flex;align-items:center;gap:8px;width:100%">
+                      <span style="flex-shrink:0">{{ f.icon }}</span>
+                      <div style="flex:1;min-width:0;text-align:left">
+                        <div style="font-family:'Barlow';font-weight:600;font-size:12.5px;color:#1B1916;line-height:1.15">{{ f.short }}</div>
+                        <div style="font-family:'JetBrains Mono';font-size:9px;color:#68686A">{{ f.sizeLabel }}</div>
+                      </div>
+                      <sc-if value="{{ f.selected }}"><span style="font-family:'Barlow Condensed';font-weight:700;color:#B83214;font-size:13px;flex-shrink:0">✓</span></sc-if>
+                    </div>
+                  </button>
+                </sc-for>
+              </div>
+            </sc-if>
+          </sc-if>
+          <sc-if value="{{ terminalsWaiting }}"><div style="font-family:'Barlow';font-size:12.5px;color:#9A968F;font-style:italic">Disponible al elegir el diámetro.</div></sc-if>
+        </div>
+
+        <!-- QTY + IDENTIFICADOR -->
+        <div style="background:#fff;border:1px solid rgba(27,25,22,.10);border-radius:2px;padding:14px 18px;display:flex;gap:16px;align-items:center;flex-wrap:wrap">
+          <div>
+            <div style="font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#68686A;margin-bottom:6px">Cantidad</div>
+            <div style="display:flex;align-items:center;border:1.5px solid rgba(27,25,22,.16);border-radius:2px">
+              <button onClick="{{ qtyDown }}" style="background:none;border:none;width:34px;height:34px;font-size:18px;color:#1B1916;cursor:pointer">−</button>
+              <span style="font-family:'Bebas Neue';font-size:20px;min-width:34px;text-align:center;color:#1B1916">{{ qty }}</span>
+              <button onClick="{{ qtyUp }}" style="background:none;border:none;width:34px;height:34px;font-size:18px;color:#1B1916;cursor:pointer">+</button>
+            </div>
+          </div>
+          <div style="flex:1;min-width:160px">
+            <div style="font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#68686A;margin-bottom:6px">Identificá esta manguera <span style="color:#9A968F;text-transform:none;letter-spacing:0;font-weight:500">(opcional)</span></div>
+            <input value="{{ clientLabel }}" onInput="{{ onLabel }}" placeholder="ej: cargador frontal" style="width:100%;font-family:'Barlow';font-size:13px;color:#1B1916;background:#F4F2EC;border:1.5px solid rgba(27,25,22,.16);border-radius:2px;padding:8px 11px;outline:none" style-focus="border-color:#B83214" />
+          </div>
+        </div>
+
+        <!-- ZONA C · RESUMEN -->
+        <div style="background:#1B1916;border-radius:2px;padding:18px 20px;margin-top:4px">
+          <div style="font-family:'Bebas Neue';font-size:20px;color:#fff;line-height:1;margin-bottom:12px">Resumen de tu manguera</div>
+          <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.08)"><span style="font-family:'Barlow';font-size:12.5px;color:rgba(255,255,255,.5)">Manguera</span><span style="font-family:'Barlow Condensed';font-weight:600;font-size:13px;color:#fff">{{ sumType }}</span></div>
+          <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.08)"><span style="font-family:'Barlow';font-size:12.5px;color:rgba(255,255,255,.5)">Largo</span><span style="font-family:'Barlow Condensed';font-weight:600;font-size:13px;color:#F5C518">{{ sumLength }}</span></div>
+          <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.08)"><span style="font-family:'Barlow';font-size:12.5px;color:rgba(255,255,255,.5)">Terminal A</span><span style="font-family:'Barlow Condensed';font-weight:600;font-size:13px;color:#fff">{{ sumA }}</span></div>
+          <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.08)"><span style="font-family:'Barlow';font-size:12.5px;color:rgba(255,255,255,.5)">Terminal B</span><span style="font-family:'Barlow Condensed';font-weight:600;font-size:13px;color:#fff">{{ sumB }}</span></div>
+          <div style="display:flex;justify-content:space-between;padding:6px 0"><span style="font-family:'Barlow';font-size:12.5px;color:rgba(255,255,255,.5)">Cantidad</span><span style="font-family:'Barlow Condensed';font-weight:600;font-size:13px;color:#fff">{{ qty }}</span></div>
+          <div style="font-family:'JetBrains Mono';font-size:10px;color:rgba(255,255,255,.4);letter-spacing:.5px;margin:8px 0 14px">{{ refCodePreview }}</div>
+          <x-import component-from-global-scope="MetcarDesignSystem_af5799.Button" variant="primary" size="lg" disabled="{{ ctaDisabled }}" onClick="{{ goSpec }}" style="{{ ctaStyle }}" hint-size="100%,52px">Revisar y continuar</x-import>
+          <div style="text-align:center;font-family:'Barlow';font-size:10.5px;color:rgba(255,255,255,.34);margin-top:8px">Sin precios — la cotización la confirma Metcar</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ══════════ FICHA DE ESPECIFICACIÓN (PANTALLA 2) ══════════ -->
+  <sc-if value="{{ isSpec }}">
+  <div style="max-width:880px;margin:0 auto;padding:30px 24px 64px">
+    <button onClick="{{ goConfig }}" style="background:none;border:none;font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#68686A;cursor:pointer;margin-bottom:14px;padding:0;display:flex;align-items:center;gap:6px">← Volver a editar</button>
+
+    <div style="background:#fff;border:1px solid rgba(27,25,22,.10);border-radius:3px;overflow:hidden;box-shadow:0 6px 18px rgba(27,25,22,.10)">
+      <div style="background:#0B0B0B;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+        <div style="font-family:'Barlow Condensed';font-weight:700;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#fff">Metcar · Especificación de manguera</div>
+        <div style="font-family:'JetBrains Mono';font-size:12px;color:#F5C518;letter-spacing:.5px">{{ refCodePreview }}</div>
+      </div>
+
+      <div style="background:#131110;padding:6px 16px 0">{{ hoseDiagram }}</div>
+
+      <div style="padding:22px 24px">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(27,25,22,.08);border:1px solid rgba(27,25,22,.08);margin-bottom:18px">
+          <div style="background:#fff;padding:12px 16px"><div style="font-family:'Barlow Condensed';font-weight:700;font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:#68686A">Tipo</div><div style="font-family:'Barlow';font-weight:600;font-size:14px;color:#1B1916;margin-top:3px">{{ specTypeFull }}</div></div>
+          <div style="background:#fff;padding:12px 16px"><div style="font-family:'Barlow Condensed';font-weight:700;font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:#68686A">Diámetro</div><div style="font-family:'Barlow';font-weight:600;font-size:14px;color:#1B1916;margin-top:3px">{{ specGauge }}</div></div>
+          <div style="background:#fff;padding:12px 16px"><div style="font-family:'Barlow Condensed';font-weight:700;font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:#68686A">Largo</div><div style="font-family:'Barlow';font-weight:600;font-size:14px;color:#1B1916;margin-top:3px">{{ specLength }} <span style="font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:1px;color:#B83214">· SOLO CUERPO</span></div></div>
+          <div style="background:#fff;padding:12px 16px"><div style="font-family:'Barlow Condensed';font-weight:700;font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:#68686A">Cantidad</div><div style="font-family:'Barlow';font-weight:600;font-size:14px;color:#1B1916;margin-top:3px">{{ qty }}</div></div>
+          <div style="background:#fff;padding:12px 16px"><div style="font-family:'Barlow Condensed';font-weight:700;font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:#68686A">Terminal A</div><div style="font-family:'Barlow';font-weight:600;font-size:14px;color:#1B1916;margin-top:3px">{{ sumA }}</div></div>
+          <div style="background:#fff;padding:12px 16px"><div style="font-family:'Barlow Condensed';font-weight:700;font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:#68686A">Terminal B</div><div style="font-family:'Barlow';font-weight:600;font-size:14px;color:#1B1916;margin-top:3px">{{ sumB }}</div></div>
+        </div>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:18px">
+          <sc-if value="{{ hasLabel }}"><div style="font-family:'Barlow';font-size:13px;color:#4A4744">Identificador: <strong style="color:#1B1916">"{{ clientLabel }}"</strong></div></sc-if>
+          <x-import component-from-global-scope="MetcarDesignSystem_af5799.StockIndicator" in-stock="{{ true }}" hint-size="auto,24px"></x-import>
+        </div>
+
+        <div style="border-left:3px solid #B8860B;background:#FBF1D9;padding:11px 15px;border-radius:0 2px 2px 0;margin-bottom:20px">
+          <span style="font-family:'Barlow';font-size:12.5px;line-height:1.5;color:#34302B">El largo declarado corresponde <strong>únicamente al cuerpo de la manguera</strong>. Los terminales se prensan aparte y no se descuentan de esta medida.</span>
+        </div>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <x-import component-from-global-scope="MetcarDesignSystem_af5799.Button" variant="ghost" onClick="{{ goConfig }}" hint-size="auto,46px">← Editar</x-import>
+          <x-import component-from-global-scope="MetcarDesignSystem_af5799.Button" variant="ghost" onClick="{{ addAnother }}" hint-size="auto,46px">+ Agregar otra manguera</x-import>
+          <x-import component-from-global-scope="MetcarDesignSystem_af5799.Button" variant="primary" onClick="{{ addToCart }}" style="{{ growStyle }}" hint-size="auto,46px">Agregar al carrito →</x-import>
+        </div>
+        <button onClick="{{ shareWhatsApp }}" style="margin-top:12px;background:none;border:none;font-family:'Barlow';font-size:12.5px;color:#1F7A3D;text-decoration:underline;cursor:pointer;padding:0">Compartir esta configuración por WhatsApp</button>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ══════════ CARRITO ══════════ -->
+  <sc-if value="{{ isCart }}">
+  <div style="max-width:980px;margin:0 auto;padding:30px 24px 64px">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:20px">
+      <div>
+        <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#B83214;margin-bottom:6px">Tu pedido</div>
+        <h1 style="font-family:'Bebas Neue';font-weight:400;font-size:clamp(32px,5vw,46px);line-height:.92;color:#1B1916;margin:0">Carrito</h1>
+      </div>
+      <button onClick="{{ goConfig }}" style="background:none;border:1px solid rgba(27,25,22,.22);font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#1B1916;padding:11px 18px;border-radius:1px;cursor:pointer">+ Configurar otra manguera</button>
+    </div>
+
+    <sc-if value="{{ cartEmpty }}">
+      <div style="background:#fff;border:1px solid rgba(27,25,22,.10);border-radius:2px;padding:48px 24px;text-align:center">
+        <div style="font-family:'Bebas Neue';font-size:28px;color:#1B1916;margin-bottom:8px">Tu carrito está vacío</div>
+        <p style="font-family:'Barlow';font-size:14px;color:#4A4744;margin:0 0 18px">Configurá una manguera a medida o agregá productos de stock.</p>
+        <x-import component-from-global-scope="MetcarDesignSystem_af5799.Button" variant="primary" onClick="{{ goConfig }}" hint-size="auto,46px">Configurar manguera</x-import>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ cartHasItems }}">
+    <div style="display:flex;flex-wrap:wrap;gap:18px;align-items:flex-start">
+      <div style="flex:1.6 1 380px;min-width:320px;display:flex;flex-direction:column;gap:12px">
+        <sc-for list="{{ cartItems }}" as="it" hint-placeholder-count="2">
+          <div style="background:#fff;border:1px solid rgba(27,25,22,.10);border-radius:2px;padding:16px 18px">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px">
+              <div style="flex:1;min-width:0">
+                <sc-if value="{{ it.isHose }}"><span style="display:inline-block;background:#B83214;color:#fff;font-family:'Barlow Condensed';font-weight:700;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;border-radius:1px;margin-bottom:7px;white-space:nowrap">Manguera a medida</span></sc-if>
+                <sc-if value="{{ it.isProduct }}"><span style="display:inline-block;background:#68686A;color:#fff;font-family:'Barlow Condensed';font-weight:700;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;border-radius:1px;margin-bottom:7px;white-space:nowrap">Producto de stock</span></sc-if>
+                <div style="font-family:'Bebas Neue';font-size:21px;color:#1B1916;line-height:1">{{ it.title }}</div>
+                <sc-if value="{{ it.hasLabel }}"><div style="font-family:'Barlow';font-style:italic;font-size:12px;color:#68686A;margin-top:2px">"{{ it.clientLabel }}"</div></sc-if>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
+                <span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1px;color:#68686A">x{{ it.qty }}</span>
+              </div>
+            </div>
+            <sc-if value="{{ it.isHose }}"><div style="margin:10px 0 6px">{{ it.diagram }}</div></sc-if>
+            <sc-if value="{{ it.isHose }}"><div style="font-family:'JetBrains Mono';font-size:10px;color:#68686A;letter-spacing:.5px;margin-bottom:10px">{{ it.refCode }}</div></sc-if>
+            <sc-if value="{{ it.isProduct }}"><div style="font-family:'Barlow';font-size:12.5px;color:#4A4744;margin:6px 0 10px">{{ it.spec }}</div></sc-if>
+            <div style="display:flex;gap:14px;border-top:1px solid rgba(27,25,22,.08);padding-top:10px">
+              <sc-if value="{{ it.isHose }}"><button onClick="{{ it.onEdit }}" style="background:none;border:none;font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#1B1916;cursor:pointer;padding:0">Editar</button></sc-if>
+              <button onClick="{{ it.onRemove }}" style="background:none;border:none;font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#B83214;cursor:pointer;padding:0">Quitar</button>
+            </div>
+          </div>
+        </sc-for>
+
+        <div style="background:#F4F2EC;border:1px dashed rgba(27,25,22,.18);border-radius:2px;padding:16px 18px">
+          <div style="font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#68686A;margin-bottom:10px">Agregá también — productos de stock</div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <sc-for list="{{ suggested }}" as="p" hint-placeholder-count="3">
+              <div style="display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(27,25,22,.08);border-radius:2px;padding:9px 12px">
+                <div style="flex:1;min-width:0">
+                  <div style="font-family:'Barlow';font-weight:600;font-size:13px;color:#1B1916">{{ p.name }}</div>
+                  <div style="font-family:'Barlow';font-size:11px;color:#68686A">{{ p.spec }}</div>
+                </div>
+                <button onClick="{{ p.onAdd }}" style="background:none;border:1px solid rgba(27,25,22,.22);font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#1B1916;padding:7px 12px;border-radius:1px;cursor:pointer;flex-shrink:0">+ Agregar</button>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+
+      <div style="flex:1 1 280px;min-width:260px;position:sticky;top:80px;align-self:flex-start">
+        <div style="background:#1B1916;border-radius:2px;padding:20px 22px">
+          <div style="font-family:'Bebas Neue';font-size:22px;color:#fff;line-height:1;margin-bottom:14px">Solicitar cotización</div>
+          <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.08)"><span style="font-family:'Barlow';font-size:13px;color:rgba(255,255,255,.5)">Ítems</span><span style="font-family:'Barlow Condensed';font-weight:600;font-size:14px;color:#fff">{{ cartLines }}</span></div>
+          <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.08)"><span style="font-family:'Barlow';font-size:13px;color:rgba(255,255,255,.5)">Unidades totales</span><span style="font-family:'Barlow Condensed';font-weight:600;font-size:14px;color:#fff">{{ cartUnits }}</span></div>
+          <div style="display:flex;justify-content:space-between;padding:7px 0;margin-bottom:8px"><span style="font-family:'Barlow';font-size:13px;color:rgba(255,255,255,.5)">Precio</span><span style="font-family:'Barlow Condensed';font-weight:600;font-size:13px;color:#F5C518">A cotizar</span></div>
+          <p style="font-family:'Barlow';font-size:11.5px;line-height:1.5;color:rgba(255,255,255,.45);margin:0 0 14px">Metcar revisa tu pedido y te pasa el presupuesto. Sin compromiso.</p>
+          <x-import component-from-global-scope="MetcarDesignSystem_af5799.Button" variant="primary" size="lg" onClick="{{ goQuote }}" style="{{ ctaStyle }}" hint-size="100%,52px">Solicitar cotización</x-import>
+          <button onClick="{{ shareWhatsApp }}" style="width:100%;margin-top:10px;background:transparent;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.85);font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;padding:11px;border-radius:1px;cursor:pointer">Enviar por WhatsApp</button>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+  </div>
+  </sc-if>
+
+  <!-- ══════════ SOLICITAR COTIZACIÓN ══════════ -->
+  <sc-if value="{{ isQuote }}">
+  <div style="max-width:680px;margin:0 auto;padding:30px 24px 64px">
+    <sc-if value="{{ quoteSent }}">
+      <div style="background:#fff;border:1px solid rgba(27,25,22,.10);border-radius:3px;padding:48px 30px;text-align:center;box-shadow:0 6px 18px rgba(27,25,22,.10)">
+        <div style="width:56px;height:56px;border-radius:50%;background:#E5F0E7;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:28px;color:#1F7A3D">✓</div>
+        <div style="font-family:'Bebas Neue';font-size:34px;color:#1B1916;line-height:1;margin-bottom:10px">Solicitud enviada</div>
+        <p style="font-family:'Barlow';font-size:14.5px;line-height:1.55;color:#4A4744;margin:0 0 22px;max-width:420px;margin-left:auto;margin-right:auto">Recibimos tu pedido. Metcar te contacta a la brevedad con la cotización. Si querés acelerar, escribinos por WhatsApp con tu código de referencia.</p>
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+          <x-import component-from-global-scope="MetcarDesignSystem_af5799.Button" variant="primary" onClick="{{ shareWhatsApp }}" hint-size="auto,46px">Escribir por WhatsApp</x-import>
+          <x-import component-from-global-scope="MetcarDesignSystem_af5799.Button" variant="ghost" onClick="{{ newQuote }}" hint-size="auto,46px">Nuevo pedido</x-import>
+        </div>
+      </div>
+    </sc-if>
+    <sc-if value="{{ quoteForm }}">
+      <button onClick="{{ goCart }}" style="background:none;border:none;font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#68686A;cursor:pointer;margin-bottom:14px;padding:0">← Volver al carrito</button>
+      <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#B83214;margin-bottom:6px">Último paso</div>
+      <h1 style="font-family:'Bebas Neue';font-weight:400;font-size:clamp(30px,5vw,44px);line-height:.92;color:#1B1916;margin:0 0 18px">Solicitar cotización</h1>
+      <div style="background:#fff;border:1px solid rgba(27,25,22,.10);border-radius:3px;padding:24px 26px;box-shadow:0 6px 18px rgba(27,25,22,.10)">
+        <div style="display:flex;justify-content:space-between;align-items:center;background:#F4F2EC;border-radius:2px;padding:10px 14px;margin-bottom:20px">
+          <span style="font-family:'Barlow';font-size:13px;color:#4A4744">{{ cartLines }} ítem(s) · {{ cartUnits }} unidad(es)</span>
+          <span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1px;color:#B83214">SIN PRECIO — A COTIZAR</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div style="grid-column:1 / -1"><div style="font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#68686A;margin-bottom:5px">Nombre y apellido</div><input value="{{ qName }}" onInput="{{ onQName }}" style="width:100%;font-family:'Barlow';font-size:14px;color:#1B1916;background:#F4F2EC;border:1.5px solid rgba(27,25,22,.16);border-radius:2px;padding:9px 12px;outline:none" style-focus="border-color:#B83214" /></div>
+          <div><div style="font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#68686A;margin-bottom:5px">Empresa / Taller</div><input value="{{ qCompany }}" onInput="{{ onQCompany }}" style="width:100%;font-family:'Barlow';font-size:14px;color:#1B1916;background:#F4F2EC;border:1.5px solid rgba(27,25,22,.16);border-radius:2px;padding:9px 12px;outline:none" style-focus="border-color:#B83214" /></div>
+          <div><div style="font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#68686A;margin-bottom:5px">Teléfono / WhatsApp</div><input inputmode="tel" value="{{ qPhone }}" onInput="{{ onQPhone }}" style="width:100%;font-family:'Barlow';font-size:14px;color:#1B1916;background:#F4F2EC;border:1.5px solid rgba(27,25,22,.16);border-radius:2px;padding:9px 12px;outline:none" style-focus="border-color:#B83214" /></div>
+          <div style="grid-column:1 / -1"><div style="font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#68686A;margin-bottom:5px">Departamento</div><input value="{{ qDept }}" onInput="{{ onQDept }}" placeholder="ej: Florida" style="width:100%;font-family:'Barlow';font-size:14px;color:#1B1916;background:#F4F2EC;border:1.5px solid rgba(27,25,22,.16);border-radius:2px;padding:9px 12px;outline:none" style-focus="border-color:#B83214" /></div>
+          <div style="grid-column:1 / -1"><div style="font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#68686A;margin-bottom:5px">Comentario <span style="color:#9A968F;text-transform:none;letter-spacing:0;font-weight:500">(opcional)</span></div><textarea value="{{ qNotes }}" onInput="{{ onQNotes }}" rows="3" placeholder="Aclaraciones, urgencia, etc." style="width:100%;font-family:'Barlow';font-size:14px;color:#1B1916;background:#F4F2EC;border:1.5px solid rgba(27,25,22,.16);border-radius:2px;padding:9px 12px;outline:none;resize:vertical" style-focus="border-color:#B83214"></textarea></div>
+        </div>
+        <div style="margin-top:20px">
+          <x-import component-from-global-scope="MetcarDesignSystem_af5799.Button" variant="primary" size="lg" onClick="{{ submitQuote }}" style="{{ ctaStyle }}" hint-size="100%,52px">Enviar solicitud de cotización</x-import>
+        </div>
+        <p style="font-family:'Barlow';font-size:11px;color:#9A968F;text-align:center;margin:10px 0 0">No se requiere cuenta. Tus datos solo se usan para responder esta cotización.</p>
+      </div>
+    </sc-if>
+  </div>
+  </sc-if>
+
+  <!-- ══════════ OVERLAY · ¿CÓMO MEDIR? ══════════ -->
+  <sc-if value="{{ helpOpen }}">
+  <div onClick="{{ closeHelp }}" style="position:fixed;inset:0;z-index:400;background:rgba(11,11,11,.66);display:flex;align-items:center;justify-content:center;padding:20px">
+    <div style="background:#fff;border-radius:3px;max-width:620px;width:100%;max-height:90vh;overflow:auto;box-shadow:0 20px 60px rgba(0,0,0,.5)">
+      <div style="height:3px;background:#B83214"></div>
+      <div style="padding:22px 26px">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">
+          <div>
+            <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#B83214;margin-bottom:4px">Cómo medir el largo</div>
+            <h2 style="font-family:'Bebas Neue';font-weight:400;font-size:30px;line-height:1.05;color:#1B1916;margin:0 0 4px">El largo es solo el cuerpo</h2>
+          </div>
+          <button onClick="{{ closeHelp }}" style="background:none;border:none;font-size:24px;color:#68686A;cursor:pointer;line-height:1;padding:0">×</button>
+        </div>
+        <p style="font-family:'Barlow';font-size:14px;line-height:1.55;color:#34302B;margin:12px 0 16px">Medí <strong>únicamente el cuerpo de goma</strong> de la manguera, de punta a punta del caucho. <strong style="color:#B83214">No incluyas los terminales metálicos</strong> — el taller los prensa aparte. Es la medida más confiable para reproducir una manguera.</p>
+        <div style="background:#131110;border-radius:3px;overflow:hidden;margin-bottom:16px">{{ helpDiagram }}</div>
+        <div style="display:flex;flex-direction:column;gap:9px">
+          <div style="display:flex;gap:10px;align-items:flex-start"><span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;background:#1F7A3D;color:#fff;padding:2px 8px;border-radius:2px;flex-shrink:0;margin-top:1px">SÍ</span><span style="font-family:'Barlow';font-size:13px;line-height:1.5;color:#34302B">Medí el caucho desde donde sale de un terminal hasta donde entra al otro.</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start"><span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;background:#B83214;color:#fff;padding:2px 8px;border-radius:2px;flex-shrink:0;margin-top:1px">NO</span><span style="font-family:'Barlow';font-size:13px;line-height:1.5;color:#34302B">No sumes el largo de los terminales, tuercas ni codos.</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start"><span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;background:#B8860B;color:#fff;padding:2px 8px;border-radius:2px;flex-shrink:0;margin-top:1px">OJO</span><span style="font-family:'Barlow';font-size:13px;line-height:1.5;color:#34302B">Si la manguera está rota o estirada, medí sobre la máquina o estirala suave sin forzar.</span></div>
+        </div>
+        <div style="margin-top:20px;text-align:right">
+          <x-import component-from-global-scope="MetcarDesignSystem_af5799.Button" variant="primary" onClick="{{ closeHelp }}" hint-size="auto,44px">Entendido</x-import>
+        </div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: 1200, &quot;height&quot;: 880 },
+  &quot;whatsapp&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;59899414733&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;minLengthM&quot;: { &quot;editor&quot;: &quot;float&quot;, &quot;default&quot;: 0.2, &quot;min&quot;: 0.1, &quot;max&quot;: 5, &quot;step&quot;: 0.1, &quot;tsType&quot;: &quot;number&quot; },
+  &quot;maxLengthM&quot;: { &quot;editor&quot;: &quot;float&quot;, &quot;default&quot;: 30, &quot;min&quot;: 5, &quot;max&quot;: 100, &quot;step&quot;: 1, &quot;tsType&quot;: &quot;number&quot; }
+}">
+class Component extends DCLogic {
+  catalog = {
+    hoseTypes: [
+      { id:'h1', tok:'H1', name:'1 malla',     sae:'SAE 100R1AT', desc:'Una malla de acero · uso general',  gauges:['g14','g38','g12','g34'],        bar:{g14:225,g38:200,g12:160,g34:130} },
+      { id:'h2', tok:'H2', name:'2 mallas',    sae:'SAE 100R2AT', desc:'Doble malla · alta presión',         gauges:['g14','g38','g12','g34','g1'],   bar:{g14:400,g38:330,g12:275,g34:215,g1:165} },
+      { id:'h4', tok:'H4', name:'4 espirales', sae:'SAE 100R12',  desc:'Cuatro espirales · muy alta presión',gauges:['g12','g34','g1','g114'],        bar:{g12:280,g34:280,g1:210,g114:185} },
+      { id:'ht', tok:'HT', name:'Termoplástica',sae:'SAE 100R7',  desc:'Liviana · no conductiva',            gauges:['g14','g38','g12'],              bar:{g14:210,g38:190,g12:160} },
+    ],
+    gauges: [
+      { id:'g14', label:'1/4"',   mm:6.4,  code:'04', h:15 },
+      { id:'g38', label:'3/8"',   mm:9.5,  code:'06', h:18 },
+      { id:'g12', label:'1/2"',   mm:12.7, code:'12', h:21 },
+      { id:'g34', label:'3/4"',   mm:19.0, code:'19', h:25 },
+      { id:'g1',  label:'1"',     mm:25.4, code:'25', h:29 },
+      { id:'g114',label:'1.1/4"', mm:31.8, code:'31', h:33 },
+    ],
+    fittings: [
+      { fam:'BSPF',  name:'BSP Hembra',     short:'BSP-H',     type:'BSP', gender:'F', angle:0  },
+      { fam:'BSPM',  name:'BSP Macho',      short:'BSP-M',     type:'BSP', gender:'M', angle:0  },
+      { fam:'JICH',  name:'JIC Hembra',     short:'JIC-H',     type:'JIC', gender:'F', angle:0  },
+      { fam:'JICM',  name:'JIC Macho',      short:'JIC-M',     type:'JIC', gender:'M', angle:0  },
+      { fam:'NPTM',  name:'NPT Macho',      short:'NPT-M',     type:'NPT', gender:'M', angle:0  },
+      { fam:'BSPF90',name:'BSP Hembra 90°', short:'BSP-H 90°', type:'BSP', gender:'F', angle:90 },
+      { fam:'JICM45',name:'JIC Macho 45°',  short:'JIC-M 45°', type:'JIC', gender:'M', angle:45 },
+    ],
+  };
+
+  suggestedProducts = [
+    { pid:'disco115', name:'Disco de corte 115mm', spec:'Acero inox · caja x10' },
+    { pid:'abraz12',  name:'Abrazadera sin fin 1/2"', spec:'Acero zincado · unidad' },
+    { pid:'teflon',   name:'Cinta teflón 12mm', spec:'Rollo 10m' },
+  ];
+
+  default() {
+    return { typeId:null, gaugeId:null, lengthValue:null, lengthRaw:'', lengthUnit:'m',
+      endAId:null, endBSameAsA:true, endBId:null, qty:1, clientLabel:'' };
+  }
+
+  fullW = { width:'100%' };
+  growFlex = { flex:'1 1 auto' };
+
+  state = {
+    view:'config', config:this.default(), cart:[], help:false, editingIndex:null,
+    termNotice:false, quoteSent:false,
+    quote:{ name:'', company:'', phone:'', dept:'', notes:'' },
+  };
+
+  componentDidMount() {
+    try {
+      const c = JSON.parse(localStorage.getItem('mc_cfg_v1') || 'null');
+      const k = JSON.parse(localStorage.getItem('mc_cart_v1') || 'null');
+      const ns = {};
+      if (c) ns.config = { ...this.default(), ...c };
+      if (Array.isArray(k)) ns.cart = k;
+      if (Object.keys(ns).length) this.setState(ns);
+    } catch (e) {}
+  }
+  persistNow = () => {
+    try {
+      localStorage.setItem('mc_cfg_v1', JSON.stringify(this.state.config));
+      localStorage.setItem('mc_cart_v1', JSON.stringify(this.state.cart));
+    } catch (e) {}
+  };
+
+  // ── lookups
+  type(id) { return this.catalog.hoseTypes.find(t => t.id === id); }
+  gauge(id) { return this.catalog.gauges.find(g => g.id === id); }
+  fam(f) { return this.catalog.fittings.find(x => x.fam === f); }
+  typeObj() { return this.type(this.state.config.typeId); }
+  gaugeObj() { return this.gauge(this.state.config.gaugeId); }
+
+  allowed(gid, fam) {
+    if (fam === 'NPTM')   return gid !== 'g114';
+    if (fam === 'BSPF90') return ['g38','g12','g34'].includes(gid);
+    if (fam === 'JICM45') return ['g14','g38','g12'].includes(gid);
+    return true;
+  }
+  fittingsForGauge(gid) {
+    if (!gid) return [];
+    const g = this.gauge(gid);
+    return this.catalog.fittings
+      .filter(f => this.allowed(gid, f.fam))
+      .map(f => ({ ...f, sizeLabel:g.label, code:`TF-${f.fam}-${g.code}` }));
+  }
+
+  fmt(n) { if (n == null || isNaN(n)) return ''; const s = (Math.round(n*100)/100).toString(); return s.replace('.', ','); }
+  lengthCm() { const c = this.state.config; if (c.lengthValue == null) return null; return c.lengthUnit === 'm' ? c.lengthValue*100 : c.lengthValue; }
+  minCm() { return (this.props.minLengthM ?? 0.2) * 100; }
+  maxCm() { return (this.props.maxLengthM ?? 30) * 100; }
+  lengthValid() { const cm = this.lengthCm(); return cm != null && cm >= this.minCm() && cm <= this.maxCm(); }
+  lengthDisplay(c) { c = c || this.state.config; if (c.lengthValue == null) return '—'; return `${this.fmt(c.lengthValue)} ${c.lengthUnit}`; }
+  isComplete() { const c = this.state.config; return !!(c.typeId && c.gaugeId && this.lengthValid() && c.endAId && (c.endBSameAsA || c.endBId)); }
+  endBFam(c) { c = c || this.state.config; return c.endBSameAsA ? c.endAId : c.endBId; }
+
+  refCodeFor(c) {
+    const t = this.type(c.typeId), g = this.gauge(c.gaugeId);
+    const cm = c.lengthValue == null ? null : (c.lengthUnit === 'm' ? c.lengthValue*100 : c.lengthValue);
+    const len4 = cm != null ? String(Math.round(cm)).padStart(4,'0') : '····';
+    const ta = c.endAId || '····';
+    const tb = this.endBFam(c) || '····';
+    return `MC-${t?t.tok:'··'}-${g?g.code:'··'}-${len4}-${ta}-${tb}`;
+  }
+
+  // ── mutations
+  setCfg(patch, extra) { this.setState({ config:{ ...this.state.config, ...patch }, ...(extra||{}) }, this.persistNow); }
+
+  selectType(id) {
+    const t = this.type(id);
+    const patch = { typeId:id };
+    if (!t.gauges.includes(this.state.config.gaugeId)) { patch.gaugeId = null; patch.endAId = null; patch.endBId = null; }
+    this.setCfg(patch);
+  }
+  selectGauge(id) {
+    const cur = this.state.config;
+    const patch = { gaugeId:id };
+    let notice = false;
+    if (cur.gaugeId && cur.gaugeId !== id && (cur.endAId || cur.endBId)) { patch.endAId = null; patch.endBId = null; notice = true; }
+    this.setCfg(patch, { termNotice:notice });
+  }
+  onLengthInput = (e) => { const raw = e.target.value; const n = parseFloat(raw.replace(',', '.')); this.setCfg({ lengthRaw:raw, lengthValue:isNaN(n)?null:n }); };
+  setUnit(u) {
+    const c = this.state.config; if (c.lengthUnit === u) return;
+    const patch = { lengthUnit:u };
+    if (c.lengthValue != null) { const v = u === 'cm' ? c.lengthValue*100 : c.lengthValue/100; patch.lengthValue = v; patch.lengthRaw = this.fmt(v); }
+    this.setCfg(patch);
+  }
+  quickLen(v) { this.setCfg({ lengthUnit:'m', lengthValue:v, lengthRaw:this.fmt(v) }); }
+  selectEndA(fam) { const c = this.state.config; const patch = { endAId:fam }; if (c.endBSameAsA) patch.endBId = fam; this.setCfg(patch, { termNotice:false }); }
+  setSameAsA(yes) { const c = this.state.config; const patch = { endBSameAsA:yes }; if (yes) patch.endBId = c.endAId; this.setCfg(patch); }
+  selectEndB(fam) { this.setCfg({ endBSameAsA:false, endBId:fam }); }
+  qtyDelta(d) { this.setCfg({ qty:Math.max(1, (this.state.config.qty||1)+d) }); }
+  onLabel = (e) => this.setCfg({ clientLabel:e.target.value });
+
+  snapshot() {
+    const c = this.state.config;
+    return {
+      kind:'hose', id:'h'+Date.now()+Math.random().toString(36).slice(2,6),
+      refCode:this.refCodeFor(c), config:{ ...c },
+      typeName:this.typeObj()?.name, sae:this.typeObj()?.sae, gaugeLabel:this.gaugeObj()?.label,
+      lengthLabel:this.lengthDisplay(c),
+      endAName:this.fam(c.endAId)?.name, endBName:this.fam(this.endBFam(c))?.name,
+      qty:c.qty||1, clientLabel:c.clientLabel||'',
+    };
+  }
+  pushSnapshot() {
+    const item = this.snapshot();
+    const cart = [...this.state.cart];
+    if (this.state.editingIndex != null) cart[this.state.editingIndex] = item; else cart.push(item);
+    return cart;
+  }
+  addToCart = () => { this.setState({ cart:this.pushSnapshot(), editingIndex:null, view:'cart' }, this.persistNow); window.scrollTo(0,0); };
+  addAnother = () => {
+    const cart = this.pushSnapshot();
+    const c = this.state.config;
+    const fresh = { ...this.default(), typeId:c.typeId, gaugeId:c.gaugeId, lengthUnit:c.lengthUnit };
+    this.setState({ cart, config:fresh, editingIndex:null, view:'config' }, this.persistNow); window.scrollTo(0,0);
+  };
+  editItem(i) { const it = this.state.cart[i]; if (!it || it.kind !== 'hose') return; this.setState({ config:{ ...this.default(), ...it.config }, editingIndex:i, view:'config' }, this.persistNow); window.scrollTo(0,0); }
+  removeItem(i) { this.setState({ cart:this.state.cart.filter((_,j) => j !== i) }, this.persistNow); }
+  addProduct(p) {
+    const cart = [...this.state.cart];
+    const ex = cart.find(x => x.kind === 'product' && x.pid === p.pid);
+    if (ex) ex.qty += 1; else cart.push({ kind:'product', id:'p'+Date.now()+Math.random().toString(36).slice(2,5), pid:p.pid, name:p.name, spec:p.spec, qty:1 });
+    this.setState({ cart }, this.persistNow);
+  }
+
+  goConfig = () => { this.setState({ view:'config' }); window.scrollTo(0,0); };
+  goSpec = () => { if (!this.isComplete()) return; this.setState({ view:'spec' }); window.scrollTo(0,0); };
+  goCart = () => { this.setState({ view:'cart' }); window.scrollTo(0,0); };
+  goQuote = () => { if (!this.state.cart.length) return; this.setState({ view:'quote' }); window.scrollTo(0,0); };
+  openHelp = () => this.setState({ help:true });
+  closeHelp = () => this.setState({ help:false });
+  setQuote(field, e) { this.setState({ quote:{ ...this.state.quote, [field]:e.target.value } }); }
+  submitQuote = () => this.setState({ quoteSent:true });
+  newQuote = () => this.setState({ cart:[], quoteSent:false, view:'config' }, this.persistNow);
+
+  waNumber() { return this.props.whatsapp || '59899414733'; }
+  waLink() { return 'https://wa.me/' + this.waNumber(); }
+  shareWhatsApp = () => {
+    const lines = this.state.cart.map((it,i) => it.kind === 'hose'
+      ? `${i+1}) ${it.typeName} ${it.gaugeLabel} · ${it.lengthLabel} (solo cuerpo) · A:${it.endAName} / B:${it.endBName} · x${it.qty} · ${it.refCode}`
+      : `${i+1}) ${it.name} ${it.spec||''} · x${it.qty}`);
+    const body = lines.length ? lines.join('\n') : this.refCodeFor(this.state.config);
+    const txt = encodeURIComponent('Hola Metcar, quiero solicitar una cotización:\n\n' + body + '\n\n¡Gracias!');
+    window.open(`https://wa.me/${this.waNumber()}?text=${txt}`, '_blank');
+  };
+
+  // ════════════════ VISUALIZACIÓN ════════════════
+  defs() {
+    return `<defs>
+      <linearGradient id="mcBody" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#403c37"/><stop offset=".30" stop-color="#4c4842"/>
+        <stop offset=".55" stop-color="#34312c"/><stop offset="1" stop-color="#16140f"/>
+      </linearGradient>
+      <linearGradient id="mcSheen" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="rgba(255,255,255,.16)"/><stop offset="1" stop-color="rgba(255,255,255,0)"/>
+      </linearGradient>
+      <linearGradient id="mcSteelV" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#cbcfd3"/><stop offset=".2" stop-color="#9da1a6"/>
+        <stop offset=".5" stop-color="#6c7075"/><stop offset=".85" stop-color="#44474b"/><stop offset="1" stop-color="#2d3033"/>
+      </linearGradient>
+      <linearGradient id="mcSteelH" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#bdc1c5"/><stop offset=".5" stop-color="#75797e"/><stop offset="1" stop-color="#3b3e42"/>
+      </linearGradient>
+      <pattern id="mcBraid" width="9" height="9" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+        <rect width="9" height="9" fill="transparent"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(255,255,255,.05)" stroke-width="3.4"/>
+      </pattern>
+    </defs>`;
+  }
+  fittingLocal(fit, hasType) {
+    if (!fit) {
+      if (!hasType) return '';
+      return `<rect x="2" y="-20" width="94" height="40" rx="5" fill="none" stroke="rgba(255,255,255,.26)" stroke-width="2" stroke-dasharray="6 5"/><text x="49" y="9" text-anchor="middle" font-family="'Barlow Condensed'" font-weight="700" font-size="26" fill="rgba(255,255,255,.3)">?</text>`;
+    }
+    let out = '';
+    out += `<rect x="-4" y="-26" width="50" height="52" rx="4" fill="url(#mcSteelV)" stroke="rgba(0,0,0,.28)" stroke-width="1"/>`;
+    for (let rx=4; rx<=40; rx+=7) out += `<line x1="${rx}" y1="-25" x2="${rx}" y2="25" stroke="rgba(0,0,0,.30)" stroke-width="1.3"/>`;
+    out += `<rect x="-4" y="-26" width="50" height="11" fill="rgba(255,255,255,.15)"/>`;
+    let end = `<rect x="44" y="-16" width="13" height="32" fill="url(#mcSteelV)"/>`;
+    if (fit.gender === 'F') {
+      end += `<polygon points="57,-23 81,-23 96,0 81,23 57,23" fill="url(#mcSteelH)" stroke="rgba(0,0,0,.32)" stroke-width="1.1"/>`;
+      end += `<line x1="63" y1="-20" x2="63" y2="20" stroke="rgba(255,255,255,.18)" stroke-width="1.4"/>`;
+      end += `<rect x="93" y="-9" width="13" height="18" rx="2" fill="#1c1e21"/>`;
+    } else {
+      end += `<polygon points="57,-21 100,-10 100,10 57,21" fill="url(#mcSteelH)" stroke="rgba(0,0,0,.32)" stroke-width="1.1"/>`;
+      for (let tx=63; tx<=93; tx+=7) end += `<line x1="${tx}" y1="-17" x2="${tx}" y2="17" stroke="rgba(0,0,0,.24)" stroke-width="1.1"/>`;
+      end += `<circle cx="100" cy="0" r="2.6" fill="#1c1e21"/>`;
+    }
+    out += `<g transform="rotate(${-fit.angle},48,0)">${end}</g>`;
+    return out;
+  }
+  buildDiagram(c) {
+    const t = this.type(c.typeId), g = this.gauge(c.gaugeId);
+    const W=860, H=345, cy=155, x0=230, x1=630, cyB=272;
+    const h = g ? g.h : 20, sc = h/25;
+    const endA = c.endAId ? this.fam(c.endAId) : null;
+    const endB = this.endBFam(c) ? this.fam(this.endBFam(c)) : null;
+    let s = `<svg viewBox="0 0 ${W} ${H}" width="100%" style="display:block">${this.defs()}`;
+    const mid = (x0+x1)/2;
+    // product label
+    const top = t ? `${t.name.toUpperCase()} · ${g?g.label:''} · ${t.sae}` : 'CONFIGURÁ TU MANGUERA';
+    s += `<text x="${mid}" y="32" text-anchor="middle" font-family="'Barlow Condensed'" font-weight="700" font-size="14" letter-spacing="2.5" fill="rgba(245,197,24,.85)">${top}</text>`;
+    // body
+    if (t) {
+      s += `<rect x="${x0}" y="${cy-h}" width="${x1-x0}" height="${2*h}" fill="url(#mcBody)"/>`;
+      s += `<rect x="${x0}" y="${cy-h}" width="${x1-x0}" height="${2*h}" fill="url(#mcBraid)"/>`;
+      s += `<rect x="${x0}" y="${cy-h+Math.max(3,h*0.20)}" width="${x1-x0}" height="${Math.max(2,h*0.13)}" fill="#B83214" opacity=".9"/>`;
+      s += `<rect x="${x0}" y="${cy-h}" width="${x1-x0}" height="${h*0.55}" fill="url(#mcSheen)"/>`;
+      s += `<rect x="${x0}" y="${cy+h*0.45}" width="${x1-x0}" height="${h*0.55}" fill="rgba(0,0,0,.30)"/>`;
+      const fs = Math.min(15, Math.max(9, h*0.58));
+      const bar = (t.bar && g) ? t.bar[g.id] : null;
+      const code = `METCAR  ${g?g.label:''}  ${t.sae}  ${bar?bar+' BAR':''}`;
+      s += `<text x="${mid}" y="${cy+fs*0.35}" text-anchor="middle" font-family="'Barlow Condensed'" font-weight="700" font-size="${fs}" letter-spacing="${Math.max(1,fs*0.13)}" fill="#F5C518" opacity=".9">${code}</text>`;
+    } else {
+      s += `<rect x="${x0}" y="${cy-18}" width="${x1-x0}" height="36" rx="4" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="2" stroke-dasharray="8 6"/>`;
+      s += `<text x="${mid}" y="${cy+5}" text-anchor="middle" font-family="'Barlow Condensed'" font-weight="700" font-size="15" letter-spacing="2" fill="rgba(255,255,255,.4)">ELEGÍ EL TIPO PARA EMPEZAR</text>`;
+    }
+    // fittings
+    s += `<g transform="translate(${x0},${cy}) scale(${-sc},${sc})">${this.fittingLocal(endA, !!t)}</g>`;
+    s += `<g transform="translate(${x1},${cy}) scale(${sc},${sc})">${this.fittingLocal(endB, !!t)}</g>`;
+    // measurement guides (only body span)
+    s += `<line x1="${x0}" y1="${cy+h+5}" x2="${x0}" y2="${cyB+9}" stroke="#B83214" stroke-width="1.5" stroke-dasharray="5 4"/>`;
+    s += `<line x1="${x1}" y1="${cy+h+5}" x2="${x1}" y2="${cyB+9}" stroke="#B83214" stroke-width="1.5" stroke-dasharray="5 4"/>`;
+    s += `<line x1="${x0}" y1="${cyB}" x2="${x1}" y2="${cyB}" stroke="#E7E4DA" stroke-width="1.6"/>`;
+    s += `<line x1="${x0}" y1="${cyB-8}" x2="${x0}" y2="${cyB+8}" stroke="#E7E4DA" stroke-width="1.6"/>`;
+    s += `<line x1="${x1}" y1="${cyB-8}" x2="${x1}" y2="${cyB+8}" stroke="#E7E4DA" stroke-width="1.6"/>`;
+    s += `<path d="M${x0} ${cyB} l11 -5 v10 z" fill="#E7E4DA"/><path d="M${x1} ${cyB} l-11 -5 v10 z" fill="#E7E4DA"/>`;
+    // captions under fittings
+    s += `<text x="${x0-72}" y="${cyB-3}" text-anchor="middle" font-family="'Barlow Condensed'" font-weight="700" font-size="10.5" letter-spacing="1.3" fill="rgba(184,50,20,.95)">TERMINAL A</text>`;
+    s += `<text x="${x0-72}" y="${cyB+10}" text-anchor="middle" font-family="'Barlow'" font-size="8.5" fill="rgba(255,255,255,.42)">no se mide</text>`;
+    s += `<text x="${x1+72}" y="${cyB-3}" text-anchor="middle" font-family="'Barlow Condensed'" font-weight="700" font-size="10.5" letter-spacing="1.3" fill="rgba(184,50,20,.95)">TERMINAL B</text>`;
+    s += `<text x="${x1+72}" y="${cyB+10}" text-anchor="middle" font-family="'Barlow'" font-size="8.5" fill="rgba(255,255,255,.42)">no se mide</text>`;
+    // length pill
+    const disp = this.lengthDisplay(c);
+    s += `<rect x="${mid-106}" y="${cyB-20}" width="212" height="40" rx="3" fill="#0B0B0B" stroke="rgba(245,197,24,.28)" stroke-width="1"/>`;
+    s += `<text x="${mid}" y="${cyB-2}" text-anchor="middle" font-family="'Bebas Neue'" font-size="21" letter-spacing="1" fill="#fff">${disp}</text>`;
+    s += `<text x="${mid}" y="${cyB+13}" text-anchor="middle" font-family="'Barlow Condensed'" font-weight="700" font-size="9.5" letter-spacing="2" fill="#F5C518">SOLO CUERPO · SIN TERMINALES</text>`;
+    s += `<text x="${W-22}" y="${H-12}" text-anchor="end" font-family="'Barlow Condensed'" font-weight="600" font-size="10" letter-spacing="1.5" fill="rgba(255,255,255,.3)">ESQUEMA · NO A ESCALA</text>`;
+    s += `</svg>`;
+    return s;
+  }
+  buildMini(c) {
+    const t = this.type(c.typeId), g = this.gauge(c.gaugeId);
+    const W=520, H=120, cy=46, x0=120, x1=400, h=14, sc=0.56;
+    const endA = c.endAId ? this.fam(c.endAId) : null;
+    const endB = this.endBFam(c) ? this.fam(this.endBFam(c)) : null;
+    let s = `<svg viewBox="0 0 ${W} ${H}" width="100%" style="display:block">${this.defs()}`;
+    if (t) {
+      s += `<rect x="${x0}" y="${cy-h}" width="${x1-x0}" height="${2*h}" fill="url(#mcBody)"/>`;
+      s += `<rect x="${x0}" y="${cy-h+3}" width="${x1-x0}" height="3" fill="#B83214" opacity=".9"/>`;
+      s += `<text x="${(x0+x1)/2}" y="${cy+4}" text-anchor="middle" font-family="'Barlow Condensed'" font-weight="700" font-size="9" letter-spacing="1" fill="#F5C518" opacity=".85">METCAR ${g?g.label:''} ${t.sae}</text>`;
+    }
+    s += `<g transform="translate(${x0},${cy}) scale(${-sc},${sc})">${this.fittingLocal(endA, !!t)}</g>`;
+    s += `<g transform="translate(${x1},${cy}) scale(${sc},${sc})">${this.fittingLocal(endB, !!t)}</g>`;
+    const cyB = 86, mid=(x0+x1)/2;
+    s += `<line x1="${x0}" y1="${cyB}" x2="${x1}" y2="${cyB}" stroke="#3a3a3a" stroke-width="1.4"/>`;
+    s += `<line x1="${x0}" y1="${cyB-6}" x2="${x0}" y2="${cyB+6}" stroke="#3a3a3a" stroke-width="1.4"/>`;
+    s += `<line x1="${x1}" y1="${cyB-6}" x2="${x1}" y2="${cyB+6}" stroke="#3a3a3a" stroke-width="1.4"/>`;
+    s += `<text x="${mid}" y="${cyB-7}" text-anchor="middle" font-family="'Bebas Neue'" font-size="15" fill="#1B1916">${this.lengthDisplay(c)}</text>`;
+    s += `<text x="${mid}" y="${H-6}" text-anchor="middle" font-family="'Barlow Condensed'" font-weight="700" font-size="8" letter-spacing="1.5" fill="#B83214">SOLO CUERPO</text>`;
+    s += `</svg>`;
+    return s;
+  }
+  buildHelp() {
+    const c = { typeId:'h2', gaugeId:'g12', lengthValue:2.5, lengthUnit:'m', endAId:'BSPF', endBSameAsA:false, endBId:'JICM' };
+    return this.buildDiagram(c);
+  }
+  iconEl(fit) {
+    const svg = `<svg viewBox="-14 -42 132 84" width="56" height="36" style="display:block">${this.defs()}${this.fittingLocal(fit, true)}</svg>`;
+    return React.createElement('div', { dangerouslySetInnerHTML:{ __html:svg } });
+  }
+  el(html, style) { return React.createElement('div', { style:style||{ width:'100%' }, dangerouslySetInnerHTML:{ __html:html } }); }
+
+  // ════════════════ STYLES ════════════════
+  cardStyle(selected) {
+    return `display:flex;flex-direction:column;gap:7px;align-items:flex-start;text-align:left;padding:12px 13px;background:${selected?'#FBF6EE':'#fff'};border:2px solid ${selected?'#B83214':'rgba(27,25,22,.14)'};border-radius:2px;cursor:pointer;transition:border-color .16s ease,background .16s ease`;
+  }
+  fitStyle(selected) {
+    return `padding:9px 11px;background:${selected?'#FBF6EE':'#fff'};border:2px solid ${selected?'#B83214':'rgba(27,25,22,.14)'};border-radius:2px;cursor:pointer;transition:border-color .16s ease,background .16s ease`;
+  }
+  chipStyle(selected) {
+    return `font-family:'Barlow Condensed';font-weight:700;font-size:14px;letter-spacing:.5px;padding:8px 15px;min-width:46px;border-radius:2px;cursor:pointer;transition:all .16s ease;border:1.5px solid ${selected?'#B83214':'rgba(27,25,22,.16)'};background:${selected?'#B83214':'#fff'};color:${selected?'#fff':'#1B1916'}`;
+  }
+  quickStyle(selected) {
+    return `font-family:'Barlow Condensed';font-weight:600;font-size:12px;letter-spacing:.5px;padding:5px 11px;border-radius:2px;cursor:pointer;border:1px solid ${selected?'#B83214':'rgba(27,25,22,.16)'};background:${selected?'#F6E4DF':'#F4F2EC'};color:${selected?'#B83214':'#4A4744'}`;
+  }
+  unitStyle(active) {
+    return `font-family:'Barlow Condensed';font-weight:700;font-size:13px;letter-spacing:1px;text-transform:uppercase;padding:0 14px;background:${active?'#1B1916':'#fff'};color:${active?'#fff':'#68686A'};border:none;cursor:pointer`;
+  }
+  segStyle(active) {
+    return `flex:1;font-family:'Barlow Condensed';font-weight:700;font-size:11.5px;letter-spacing:1px;text-transform:uppercase;padding:10px 8px;border-radius:2px;cursor:pointer;border:1.5px solid ${active?'#B83214':'rgba(27,25,22,.16)'};background:${active?'#B83214':'#fff'};color:${active?'#fff':'#4A4744'}`;
+  }
+
+  renderVals() {
+    const c = this.state.config;
+    const t = this.typeObj(), g = this.gaugeObj();
+    const view = this.state.view;
+    const complete = this.isComplete();
+    const cm = this.lengthCm();
+    const lengthOut = cm != null && !this.lengthValid();
+
+    const typeCards = this.catalog.hoseTypes.map(ht => ({
+      id:ht.id, name:ht.name, sae:ht.sae, desc:ht.desc,
+      selected:c.typeId===ht.id, style:this.cardStyle(c.typeId===ht.id),
+      onSelect:() => this.selectType(ht.id),
+    }));
+    const gaugeChips = (t ? t.gauges : []).map(gid => {
+      const gg = this.gauge(gid);
+      return { id:gid, label:gg.label, selected:c.gaugeId===gid, style:this.chipStyle(c.gaugeId===gid), onSelect:() => this.selectGauge(gid) };
+    });
+    const quickVals = [0.5,1,1.5,2,3];
+    const quickLens = quickVals.map(v => ({
+      label:this.fmt(v)+' m',
+      selected:(c.lengthUnit==='m' && c.lengthValue===v),
+      style:this.quickStyle(c.lengthUnit==='m' && c.lengthValue===v),
+      onSelect:() => this.quickLen(v),
+    }));
+    const mkFit = (sel, onSel) => this.fittingsForGauge(c.gaugeId).map(f => ({
+      short:f.short, sizeLabel:f.sizeLabel, selected:sel===f.fam,
+      icon:this.iconEl(f), style:this.fitStyle(sel===f.fam), onSelect:() => onSel(f.fam),
+    }));
+    const fittingCardsA = mkFit(c.endAId, (fam)=>this.selectEndA(fam));
+    const fittingCardsB = mkFit(this.endBFam(c), (fam)=>this.selectEndB(fam));
+
+    const endAObj = this.fam(c.endAId), endBObj = this.fam(this.endBFam(c));
+    const sumType = t ? `${t.name} · ${g?g.label:'—'}` : '—';
+    const sumLength = c.lengthValue!=null ? `${this.lengthDisplay(c)} · solo cuerpo` : '—';
+    const sumA = endAObj ? `${endAObj.name} ${g?g.label:''}` : '—';
+    const sumB = endBObj ? `${endBObj.name} ${g?g.label:''}` : '—';
+
+    const cartItems = this.state.cart.map((it,i) => {
+      if (it.kind === 'hose') {
+        return {
+          isHose:true, isProduct:false, title:`${it.typeName} ${it.gaugeLabel}`,
+          hasLabel:!!it.clientLabel, clientLabel:it.clientLabel, qty:it.qty,
+          refCode:it.refCode, diagram:this.el(this.buildMini(it.config)),
+          onEdit:() => this.editItem(i), onRemove:() => this.removeItem(i),
+        };
+      }
+      return { isHose:false, isProduct:true, title:it.name, spec:it.spec, qty:it.qty,
+        hasLabel:false, onRemove:() => this.removeItem(i) };
+    });
+    const suggested = this.suggestedProducts.map(p => ({ name:p.name, spec:p.spec, onAdd:() => this.addProduct(p) }));
+    const cartUnits = this.state.cart.reduce((s,i)=>s+(i.qty||1),0);
+
+    return {
+      // nav / view
+      isConfig:view==='config', isSpec:view==='spec', isCart:view==='cart', isQuote:view==='quote',
+      goConfig:this.goConfig, goCart:this.goCart, goSpec:this.goSpec, goQuote:this.goQuote,
+      cartHasItems:this.state.cart.length>0, cartEmpty:this.state.cart.length===0,
+      cartLines:this.state.cart.length, cartUnits, waLink:this.waLink(),
+      // diagram
+      hoseDiagram:this.el(this.buildDiagram(c)),
+      helpDiagram:this.el(this.buildHelp()),
+      helpOpen:this.state.help, openHelp:this.openHelp, closeHelp:this.closeHelp,
+      // step 1
+      typeCards, gaugeChips, gaugeReady:!!t, gaugeWaiting:!t,
+      step1Done:!!(t&&g), step1Value: t&&g ? `${t.name} ${g.label}` : '',
+      // step 2
+      lengthRaw:c.lengthRaw, onLengthInput:this.onLengthInput,
+      setUnitM:() => this.setUnit('m'), setUnitCm:() => this.setUnit('cm'),
+      unitMStyle:this.unitStyle(c.lengthUnit==='m'), unitCmStyle:this.unitStyle(c.lengthUnit==='cm'),
+      quickLens, lengthError:lengthOut,
+      lengthErrorMsg:`El largo debe estar entre ${this.fmt(this.props.minLengthM??0.2)} m y ${this.fmt(this.props.maxLengthM??30)} m.`,
+      step2Done:this.lengthValid(), step2Value:this.lengthDisplay(c),
+      // step 3 / 4
+      terminalsReady:!!g, terminalsWaiting:!g, termNotice:this.state.termNotice,
+      fittingCardsA, fittingCardsB,
+      step3Done:!!endAObj, step3Value:endAObj?endAObj.short:'',
+      step4Done:!!(c.endBSameAsA?endAObj:endBObj), step4Value:(c.endBSameAsA?'= A':(endBObj?endBObj.short:'')),
+      sameAsA:c.endBSameAsA, showEndBGallery:(!c.endBSameAsA && !!g),
+      setSameAsA:() => this.setSameAsA(true), setDiffB:() => this.setSameAsA(false),
+      sameYesStyle:this.segStyle(c.endBSameAsA), sameNoStyle:this.segStyle(!c.endBSameAsA),
+      endAName:endAObj?endAObj.name:'—',
+      // qty + label
+      qty:c.qty||1, qtyUp:() => this.qtyDelta(1), qtyDown:() => this.qtyDelta(-1),
+      clientLabel:c.clientLabel, onLabel:this.onLabel, hasLabel:!!c.clientLabel,
+      // summary
+      sumType, sumLength, sumA, sumB, refCodePreview:this.refCodeFor(c),
+      ctaDisabled:!complete, ctaStyle:this.fullW, growStyle:this.growFlex,
+      // spec
+      specTypeFull: t ? `${t.name} (${t.sae})` : '—', specGauge: g?g.label:'—', specLength:this.lengthDisplay(c),
+      addToCart:this.addToCart, addAnother:this.addAnother, shareWhatsApp:this.shareWhatsApp,
+      // cart
+      cartItems, suggested,
+      // quote
+      quoteForm:!this.state.quoteSent, quoteSent:this.state.quoteSent,
+      qName:this.state.quote.name, qCompany:this.state.quote.company, qPhone:this.state.quote.phone,
+      qDept:this.state.quote.dept, qNotes:this.state.quote.notes,
+      onQName:(e)=>this.setQuote('name',e), onQCompany:(e)=>this.setQuote('company',e),
+      onQPhone:(e)=>this.setQuote('phone',e), onQDept:(e)=>this.setQuote('dept',e), onQNotes:(e)=>this.setQuote('notes',e),
+      submitQuote:this.submitQuote, newQuote:this.newQuote,
+    };
+  }
+}
+</script>
+</body>
+</html>

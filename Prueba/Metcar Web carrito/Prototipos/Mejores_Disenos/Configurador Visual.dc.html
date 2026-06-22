@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="terminales.js"></script>
+<script src="catalog-data.js"></script>
+<script src="cart.js"></script>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:#0E0D0C;font-family:'Barlow',system-ui,sans-serif;-webkit-font-smoothing:antialiased;color:#F4F2EC}
+  input,button,select,textarea{font-family:inherit}
+  button{cursor:pointer}
+  input[type=range]{-webkit-appearance:none;appearance:none;background:transparent}
+  input[type=range]::-webkit-slider-runnable-track{height:4px;border-radius:2px;background:linear-gradient(90deg,#B83214 var(--p,40%),rgba(27,25,22,.13) var(--p,40%))}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:#fff;margin-top:-7px;box-shadow:0 0 0 4px rgba(184,50,20,.9),0 2px 6px rgba(0,0,0,.25);cursor:pointer}
+  input[type=range]::-moz-range-thumb{width:18px;height:18px;border:none;border-radius:50%;background:#fff;box-shadow:0 0 0 4px rgba(184,50,20,.9);cursor:pointer}
+  .mc-panel::-webkit-scrollbar{width:9px}
+  .mc-panel::-webkit-scrollbar-thumb{background:rgba(27,25,22,.16);border-radius:4px}
+  @keyframes mcPulse{0%,100%{opacity:1}50%{opacity:.3}}
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:#0E0D0C;font-family:'Barlow',system-ui,sans-serif">
+
+  <!-- NAVBAR -->
+  <nav style="position:sticky;top:0;z-index:200;background:#1B1916;border-bottom:1px solid rgba(255,255,255,.07)">
+    <div style="max-width:1280px;margin:0 auto;height:62px;display:flex;align-items:center;padding:0 28px">
+      <a href="metcar_homepage_v5.html" style="display:flex;align-items:center"><img src="img/logoMetcar.webp" alt="Metcar" style="height:28px;width:auto;display:block" /></a>
+      <div style="display:flex;gap:26px;flex:1;justify-content:center">
+        <a href="catalogo.html" style="font-family:'Barlow';font-weight:500;font-size:13px;color:rgba(255,255,255,.65);text-decoration:none;border-bottom:1px solid transparent;padding-bottom:1px;transition:color .16s ease,border-color .16s ease" style-hover="color:#fff;border-bottom-color:rgba(255,255,255,.2)">Catálogo</a>
+        <a href="#" style="font-family:'Barlow';font-weight:500;font-size:13px;color:#fff;text-decoration:none;border-bottom:1px solid #B83214;padding-bottom:1px">Configurador</a>
+        <a href="sobre-nosotros.html" style="font-family:'Barlow';font-weight:500;font-size:13px;color:rgba(255,255,255,.65);text-decoration:none;border-bottom:1px solid transparent;padding-bottom:1px;transition:color .16s ease,border-color .16s ease" style-hover="color:#fff;border-bottom-color:rgba(255,255,255,.2)">Sobre Metcar</a>
+        <a href="metcar_homepage_v5.html#contacto" style="font-family:'Barlow';font-weight:500;font-size:13px;color:rgba(255,255,255,.65);text-decoration:none;border-bottom:1px solid transparent;padding-bottom:1px;transition:color .16s ease,border-color .16s ease" style-hover="color:#fff;border-bottom-color:rgba(255,255,255,.2)">Contacto</a>
+      </div>
+      <div style="display:flex;align-items:center;gap:2px;flex-shrink:0">
+        <button style="background:none;border:none;color:rgba(255,255,255,.55);padding:8px;display:flex;transition:color .16s ease" style-hover="color:#fff" aria-label="Buscar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></button>
+        <button id="nav-cart-btn" data-open-cart style="background:none;border:none;color:rgba(255,255,255,.55);padding:8px;display:flex;position:relative;transition:color .16s ease" style-hover="color:#fff" aria-label="Mi pedido"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span id="cart-badge" style="position:absolute;top:4px;right:4px;background:#B83214;color:#fff;border-radius:50%;width:13px;height:13px;font-family:'Barlow Condensed';font-weight:700;font-size:8px;display:flex;align-items:center;justify-content:center">0</span></button>
+        <button style="border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.68);padding:6px 16px;margin-left:10px;font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;background:none;border-radius:1px;transition:color .16s ease,border-color .16s ease" style-hover="border-color:rgba(255,255,255,.45);color:#fff">Ingresar</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- WORKSPACE -->
+  <div style="display:grid;grid-template-columns:minmax(0,1fr) 420px;align-items:start">
+
+    <!-- STAGE -->
+    <div style="position:sticky;top:62px;height:calc(100vh - 62px);min-height:600px;background:#15171a url('img/FondoConfigurador.webp') center center/cover no-repeat;display:flex;flex-direction:column;overflow:hidden;border-right:1px solid rgba(255,255,255,.08)">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:26px 34px 0">
+        <div>
+          <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#B83214;margin-bottom:5px">Configurador · manguera a medida</div>
+          <h1 style="font-family:'Bebas Neue';font-weight:400;font-size:32px;line-height:.95;letter-spacing:.5px;color:#F4F2EC;margin:0">Armá tu manguera hidráulica</h1>
+          <div style="font-family:'JetBrains Mono';font-size:11px;letter-spacing:.3px;color:rgba(255,255,255,.6);margin-top:8px">{{ specLine }}</div>
+        </div>
+        <div style="font-family:'JetBrains Mono';font-size:11px;color:#F5C518;letter-spacing:.5px;background:#0B0B0B;padding:7px 12px;border-radius:2px;white-space:nowrap">{{ refCode }}</div>
+      </div>
+
+      <div style="position:relative;flex:1;margin:0 22px">
+        <div style="position:absolute;inset:0;transform:scale({{ zoom }});transition:transform .25s cubic-bezier(0.22,1,0.36,1)">{{ viz }}</div>
+
+        <sc-if value="{{ emptyState }}">
+          <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px">
+            <span style="font-family:'Bebas Neue';font-size:28px;letter-spacing:1px;color:rgba(255,255,255,.55)">Elegí el tipo para empezar</span>
+            <span style="font-family:'Barlow';font-size:13px;color:rgba(255,255,255,.4)">La manguera se arma en vivo, pieza por pieza</span>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ hasType }}" hint-placeholder-val="{{ true }}">
+          <div style="position:absolute;left:0;right:0;bottom:62px;display:flex;justify-content:space-between;padding:0 44px;pointer-events:none">
+            <div style="text-align:left"><div style="font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:1.8px;color:#E0552E">EXTREMO A</div><div style="font-family:'Barlow';font-weight:500;font-size:12px;color:rgba(255,255,255,.72);text-shadow:0 1px 3px rgba(0,0,0,.5)">{{ aName }}</div></div>
+            <div style="text-align:right"><div style="font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:1.8px;color:#E0552E">EXTREMO B</div><div style="font-family:'Barlow';font-weight:500;font-size:12px;color:rgba(255,255,255,.72);text-shadow:0 1px 3px rgba(0,0,0,.5)">{{ bName }}</div></div>
+          </div>
+        </sc-if>
+
+        <div style="position:absolute;bottom:14px;right:12px;display:flex;gap:7px">
+          <button onClick="{{ zoomOut }}" style="width:34px;height:34px;display:flex;align-items:center;justify-content:center;background:#fff;border:1px solid rgba(27,25,22,.16);border-radius:3px;color:#1B1916;font-size:17px;box-shadow:0 2px 5px rgba(0,0,0,.07)">−</button>
+          <button onClick="{{ zoomReset }}" style="width:34px;height:34px;display:flex;align-items:center;justify-content:center;background:#fff;border:1px solid rgba(27,25,22,.16);border-radius:3px;color:#1B1916;box-shadow:0 2px 5px rgba(0,0,0,.07)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.7 9.7 0 0 0-6.7 2.9L3 8"/><path d="M3 3v5h5"/></svg></button>
+          <button onClick="{{ zoomIn }}" style="width:34px;height:34px;display:flex;align-items:center;justify-content:center;background:#fff;border:1px solid rgba(27,25,22,.16);border-radius:3px;color:#1B1916;font-size:17px;box-shadow:0 2px 5px rgba(0,0,0,.07)">+</button>
+        </div>
+        <div style="position:absolute;bottom:14px;left:10px;font-family:'Barlow Condensed';font-weight:600;font-size:9.5px;letter-spacing:1.6px;color:rgba(255,255,255,.32)">VISTA ESQUEMÁTICA · NO A ESCALA</div>
+      </div>
+    </div>
+
+    <!-- OPTIONS PANEL -->
+    <div class="mc-panel" style="background:#fff;height:calc(100vh - 62px);min-height:600px;overflow-y:auto;overscroll-behavior:contain;display:flex;flex-direction:column;color:#1B1916">
+      <div style="flex:1">
+
+        <sc-if value="{{ editing }}">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 24px;background:#FCEFEA;border-bottom:1px solid rgba(184,50,20,.25)">
+            <span style="display:flex;align-items:center;gap:8px;font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#B83214"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>Editando manguera del pedido</span>
+            <button onClick="{{ cancelEdit }}" style="font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:.8px;text-transform:uppercase;color:rgba(27,25,22,.55);background:none;border:none;cursor:pointer" style-hover="color:#1B1916">Cancelar</button>
+          </div>
+        </sc-if>
+
+        <!-- NAME -->
+        <div style="padding:22px 24px 20px">
+          <div style="font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:1.8px;text-transform:uppercase;color:rgba(27,25,22,.42);margin-bottom:9px">Nombre de la manguera · opcional</div>
+          <input value="{{ name }}" onInput="{{ onName }}" placeholder="Ej: Retroexcavadora — brazo izquierdo" style="width:100%;background:#F8F6F1;border:1px solid rgba(27,25,22,.14);border-radius:3px;color:#1B1916;font-family:'Barlow';font-size:14px;font-weight:500;padding:11px 13px;outline:none" />
+          <p style="font-family:'Barlow';font-size:11.5px;color:rgba(27,25,22,.45);margin:8px 0 0;line-height:1.4">Para identificarla después en el carrito y en tus pedidos.</p>
+        </div>
+
+        <!-- 01 TIPO -->
+        <div style="padding:20px 24px;border-top:1px solid rgba(27,25,22,.08)">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:13px">
+            <span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:#1B1916">01 · Tipo de manguera</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px">
+            <sc-for list="{{ typeCards }}" as="c" hint-placeholder-count="4">
+              <button onClick="{{ c.onSelect }}" style="{{ c.style }}">
+                <span style="font-family:'Bebas Neue';font-size:20px;letter-spacing:.5px;color:#1B1916;line-height:1.1">{{ c.name }}</span>
+                <span style="font-family:'JetBrains Mono';font-size:10px;color:rgba(27,25,22,.5);margin-top:3px">{{ c.sae }}</span>
+                <span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:.6px;color:#B83214;margin-top:5px">{{ c.bar }}</span>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+
+        <!-- 02 DIAMETRO -->
+        <div style="padding:20px 24px;border-top:1px solid rgba(27,25,22,.08)">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:13px">
+            <span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:#1B1916">02 · Diámetro interior</span>
+            <span style="font-family:'Barlow';font-size:12px;color:rgba(27,25,22,.45)">pulgadas</span>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <sc-for list="{{ gaugeChips }}" as="c" hint-placeholder-count="5">
+              <button onClick="{{ c.onSelect }}" style="{{ c.style }}">{{ c.label }}</button>
+            </sc-for>
+          </div>
+        </div>
+
+        <!-- 03 LARGO -->
+        <div style="padding:20px 24px;border-top:1px solid rgba(27,25,22,.08)">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px">
+            <span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:#1B1916">03 · Largo del cuerpo</span>
+            <div style="display:flex;align-items:center;gap:8px">
+              <input inputmode="decimal" value="{{ lengthRaw }}" onInput="{{ onLenInput }}" onBlur="{{ onLenBlur }}" style="width:92px;text-align:right;background:#F8F6F1;border:1px solid rgba(27,25,22,.16);border-radius:3px;color:#1B1916;font-family:'Bebas Neue';font-size:23px;letter-spacing:1px;padding:4px 11px;outline:none" />
+              <span style="font-family:'Barlow Condensed';font-weight:700;font-size:13px;letter-spacing:1px;color:#fff;background:#B83214;border-radius:3px;padding:8px 12px">M</span>
+            </div>
+          </div>
+          <input type="range" min="{{ sliderMin }}" max="{{ sliderMax }}" step="0.05" value="{{ sliderVal }}" onInput="{{ onSlider }}" style="{{ sliderStyle }}" />
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
+            <span style="font-family:'Barlow';font-size:10.5px;color:rgba(27,25,22,.4)">{{ minLabel }}</span>
+            <span style="font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:1px;color:rgba(27,25,22,.45)">SOLO CUERPO · SIN TERMINALES</span>
+            <span style="font-family:'Barlow';font-size:10.5px;color:rgba(27,25,22,.4)">{{ maxLabel }}</span>
+          </div>
+        </div>
+
+        <!-- 04 TERMINAL A -->
+        <div style="padding:20px 24px;border-top:1px solid rgba(27,25,22,.08)">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:12px">
+            <span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:#1B1916">04 · Terminal — extremo A</span>
+            <span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:.5px;color:#B83214">{{ aNameShort }}</span>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:7px">
+            <sc-for list="{{ threadCardsA }}" as="c" hint-placeholder-count="4">
+              <button onClick="{{ c.onSelect }}" style="{{ c.style }}">{{ c.label }}</button>
+            </sc-for>
+          </div>
+          <div style="font-family:'Barlow Condensed';font-weight:700;font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(27,25,22,.4);margin:13px 0 8px">Orientación</div>
+          <div style="display:flex;gap:8px">
+            <sc-for list="{{ angleOptsA }}" as="c" hint-placeholder-count="3">
+              <button onClick="{{ c.onSelect }}" style="{{ c.style }}">{{ c.icon }}<span style="{{ c.labelStyle }}">{{ c.label }}</span></button>
+            </sc-for>
+          </div>
+        </div>
+
+        <!-- 05 TERMINAL B -->
+        <div style="padding:20px 24px;border-top:1px solid rgba(27,25,22,.08)">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px">
+            <span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:#1B1916">05 · Terminal — extremo B</span>
+            <button onClick="{{ copyAtoB }}" style="font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:.8px;text-transform:uppercase;color:#B83214;background:none;border:1px solid rgba(184,50,20,.4);border-radius:2px;padding:4px 9px">Igual que A</button>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:7px">
+            <sc-for list="{{ threadCardsB }}" as="c" hint-placeholder-count="4">
+              <button onClick="{{ c.onSelect }}" style="{{ c.style }}">{{ c.label }}</button>
+            </sc-for>
+          </div>
+          <div style="font-family:'Barlow Condensed';font-weight:700;font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(27,25,22,.4);margin:13px 0 8px">Orientación</div>
+          <div style="display:flex;gap:8px">
+            <sc-for list="{{ angleOptsB }}" as="c" hint-placeholder-count="3">
+              <button onClick="{{ c.onSelect }}" style="{{ c.style }}">{{ c.icon }}<span style="{{ c.labelStyle }}">{{ c.label }}</span></button>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+
+      <!-- STICKY SUMMARY FOOTER -->
+      <div style="position:sticky;bottom:0;background:#fff;border-top:1px solid rgba(27,25,22,.12);padding:14px 24px 16px;box-shadow:0 -10px 26px rgba(0,0,0,.06)">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px">
+          <div style="min-width:0">
+            <div style="font-family:'Bebas Neue';font-size:18px;letter-spacing:.5px;color:#1B1916;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ sumName }}</div>
+            <div style="font-family:'JetBrains Mono';font-size:10.5px;color:rgba(27,25,22,.5);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ sumLine }}</div>
+          </div>
+          <span title="{{ stockTitle }}" style="{{ stockBadgeStyle }}"><span style="{{ stockDotStyle }}"></span>{{ stockLabel }}</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:11px">
+          <div style="display:flex;align-items:center;border:1px solid rgba(27,25,22,.16);border-radius:3px">
+            <button onClick="{{ qtyDown }}" style="width:32px;height:34px;background:none;border:none;color:#1B1916;font-size:17px">−</button>
+            <span style="font-family:'Bebas Neue';font-size:18px;min-width:30px;text-align:center;color:#1B1916">{{ qty }}</span>
+            <button onClick="{{ qtyUp }}" style="width:32px;height:34px;background:none;border:none;color:#1B1916;font-size:17px">+</button>
+          </div>
+          <div style="flex:1;text-align:right">
+            <div style="font-family:'Barlow';font-size:9.5px;color:rgba(27,25,22,.42);text-transform:uppercase;letter-spacing:1.2px">Precio</div>
+            <div style="font-family:'Bebas Neue';font-size:22px;letter-spacing:.5px;color:#B83214;line-height:1">{{ priceText }}</div>
+          </div>
+        </div>
+        <sc-if value="{{ outStock }}"><div style="font-family:'Barlow';font-size:11.5px;color:#8A7010;text-align:center;margin-bottom:9px;line-height:1.4">Disponibilidad a confirmar en cotización</div></sc-if>
+        <button onClick="{{ onContinue }}" style="width:100%;font-family:'Barlow Condensed';font-weight:700;font-size:14px;letter-spacing:1.5px;text-transform:uppercase;color:#fff;background:#B83214;border:none;border-radius:2px;padding:14px;display:flex;align-items:center;justify-content:center;gap:8px">{{ continueLabel }} <span style="font-size:16px">→</span></button>
+        <div style="text-align:center;font-family:'JetBrains Mono';font-size:10px;color:rgba(27,25,22,.4);margin-top:9px">{{ refCode }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <sc-if value="{{ added }}">
+    <div style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:300;background:#161412;border:1px solid rgba(245,197,24,.35);border-left:3px solid #1F9D55;border-radius:4px;padding:13px 20px;display:flex;align-items:center;gap:12px;box-shadow:0 14px 40px rgba(0,0,0,.6)">
+      <span style="width:24px;height:24px;border-radius:50%;background:#1F9D55;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px">✓</span>
+      <span style="font-family:'Barlow';font-size:13.5px;color:#fff">{{ toastName }} agregada · <span style="font-family:'JetBrains Mono';font-size:11px;color:#F5C518">{{ refCode }}</span></span>
+      <button onClick="{{ shareWa }}" style="font-family:'Barlow Condensed';font-weight:700;font-size:10.5px;letter-spacing:1px;text-transform:uppercase;color:#0E0D0C;background:#F5C518;border:none;border-radius:2px;padding:7px 11px">Enviar por WhatsApp</button>
+    </div>
+  </sc-if>
+
+  <!-- FOOTER -->
+  <footer style="background:#1B1916;border-top:3px solid #B83214;padding:60px 32px 36px">
+    <div style="max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:44px;padding-bottom:44px;border-bottom:1px solid rgba(255,255,255,.07);margin-bottom:24px">
+      <div>
+        <a href="metcar_homepage_v5.html" style="display:flex;align-items:center;margin-bottom:14px"><img src="img/logoMetcar.webp" alt="Metcar" style="height:30px;width:auto;display:block" /></a>
+        <p style="font-family:'Barlow';font-size:13px;line-height:1.6;color:rgba(255,255,255,.38);max-width:220px;margin:0 0 20px">Importación y distribución de insumos hidráulicos y herramientas industriales. Sarandí Grande, Uruguay.</p>
+        <div style="font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2)">Importador directo · desde 2014</div>
+      </div>
+      <div>
+        <div style="font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:18px">Catálogo</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <a href="catalogo.html" style="font-family:'Barlow';font-weight:500;font-size:13px;color:rgba(255,255,255,.52);text-decoration:none">Mangueras Hidráulicas</a>
+          <a href="catalogo.html" style="font-family:'Barlow';font-weight:500;font-size:13px;color:rgba(255,255,255,.52);text-decoration:none">Terminales y Punteros</a>
+          <a href="catalogo.html" style="font-family:'Barlow';font-weight:500;font-size:13px;color:rgba(255,255,255,.52);text-decoration:none">Discos de Corte</a>
+          <a href="catalogo.html" style="font-family:'Barlow';font-weight:500;font-size:13px;color:rgba(255,255,255,.52);text-decoration:none">Herramientas de Torno</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:18px">Empresa</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <a href="metcar_homepage_v5.html" style="font-family:'Barlow';font-weight:500;font-size:13px;color:rgba(255,255,255,.52);text-decoration:none">Sobre Metcar</a>
+          <a href="metcar_homepage_v5.html#cobertura" style="font-family:'Barlow';font-weight:500;font-size:13px;color:rgba(255,255,255,.52);text-decoration:none">Giras mensuales</a>
+          <a href="{{ waLink }}" target="_blank" rel="noopener" style="font-family:'Barlow';font-weight:500;font-size:13px;color:rgba(255,255,255,.52);text-decoration:none">Contacto</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:18px">Contacto</div>
+        <div style="margin-bottom:14px"><div style="font-family:'Barlow Condensed';font-weight:700;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.22);margin-bottom:2px">Celular</div><div style="font-family:'Barlow';font-size:13px;color:rgba(255,255,255,.55)">099 414 733</div></div>
+        <div style="margin-bottom:14px"><div style="font-family:'Barlow Condensed';font-weight:700;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.22);margin-bottom:2px">Email</div><div style="font-family:'Barlow';font-size:13px;color:rgba(255,255,255,.55)">info@metcar.com.uy</div></div>
+        <div><div style="font-family:'Barlow Condensed';font-weight:700;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.22);margin-bottom:2px">Dirección</div><div style="font-family:'Barlow';font-size:13px;color:rgba(255,255,255,.55)">Andrés Romero esq. Treinta y Tres<br>Sarandí Grande, Florida</div></div>
+      </div>
+    </div>
+    <div style="max-width:1160px;margin:0 auto;display:flex;justify-content:space-between;align-items:center">
+      <span style="font-family:'Barlow Condensed';font-size:11px;color:rgba(255,255,255,.18);letter-spacing:.5px">© 2026 Metcar Uruguay. Todos los derechos reservados.</span>
+      <span style="font-family:'Barlow Condensed';font-size:11px;color:rgba(255,255,255,.12);letter-spacing:.5px">metcar.uy</span>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: 1160, &quot;height&quot;: 1180 },
+  &quot;whatsapp&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;59899414733&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;minLengthM&quot;: { &quot;editor&quot;: &quot;float&quot;, &quot;default&quot;: 0.1, &quot;min&quot;: 0.05, &quot;max&quot;: 2, &quot;step&quot;: 0.05, &quot;tsType&quot;: &quot;number&quot; },
+  &quot;maxLengthM&quot;: { &quot;editor&quot;: &quot;float&quot;, &quot;default&quot;: 3, &quot;min&quot;: 1, &quot;max&quot;: 50, &quot;step&quot;: 0.5, &quot;tsType&quot;: &quot;number&quot; }
+}">
+class Component extends DCLogic {
+  catalog = {
+    hoseTypes: [
+      { id:'h1', tok:'H1', name:'1 malla',       sae:'SAE 100R1AT', gauges:['g14','g38','g12','g34'],      bar:{g14:225,g38:200,g12:160,g34:130} },
+      { id:'h2', tok:'H2', name:'2 mallas',      sae:'SAE 100R2AT', gauges:['g14','g38','g12','g34','g1'], bar:{g14:400,g38:330,g12:275,g34:215,g1:165} },
+      { id:'h4', tok:'H4', name:'4 espirales',   sae:'SAE 100R12',  gauges:['g12','g34','g1','g114'],      bar:{g12:280,g34:280,g1:210,g114:185} },
+      { id:'ht', tok:'HT', name:'Termoplástica', sae:'SAE 100R7',   gauges:['g14','g38','g12'],            bar:{g14:210,g38:190,g12:160} },
+    ],
+    gauges: [
+      { id:'g14', label:'1/4"',   code:'04', h:15 },
+      { id:'g38', label:'3/8"',   code:'06', h:18 },
+      { id:'g12', label:'1/2"',   code:'12', h:21 },
+      { id:'g34', label:'3/4"',   code:'19', h:25 },
+      { id:'g1',  label:'1"',     code:'25', h:29 },
+      { id:'g114',label:'1.1/4"', code:'31', h:33 },
+    ],
+  };
+
+  state = {
+    typeId:'h2', gaugeId:'g12', lengthValue:1, name:'',
+    endAThread:'JIC', endAAngle:0, endBThread:'JIC', endBAngle:90,
+    qty:1, zoom:1, added:false, editingLine:null,
+  };
+
+  componentDidMount(){
+    let applied=false;
+    // ¿Venimos a EDITAR una manguera ya armada del pedido?  (?edit=<code>)
+    try{
+      const ep=new URLSearchParams(location.search).get('edit');
+      if(ep && window.MCCart){
+        const item=MCCart.items().find(i=>i.code===ep);
+        if(item && item.custom && item.custom.config){
+          this.setState(Object.assign({}, item.custom.config, {qty:item.qty||1, editingLine:ep, added:false}), ()=>this.validateEnds());
+          applied=true;
+        }
+      }
+    }catch(e){}
+    if(!applied){
+      try{const s=JSON.parse(localStorage.getItem('mc_visual_v2')||'null');if(s)this.setState(s,()=>this.validateEnds());else this.validateEnds();}catch(e){this.validateEnds();}
+    }
+    if(window.MCCart&&MCCart.refresh)MCCart.refresh();   // pinta el badge del carrito al montar
+  }
+  persist(){try{const {added,zoom,editingLine,...rest}=this.state;localStorage.setItem('mc_visual_v2',JSON.stringify(rest));}catch(e){}}
+  cancelEdit=()=>{ window.location.href='carrito.html'; };
+  set(patch){this.setState(patch,()=>this.persist());}
+
+  terms(){
+    const T=window.MC_TERMINALES;
+    const al=(T&&T.angleLabel)||{0:'Recto',45:'Codo 45°',90:'Codo 90°'};
+    if(T&&T.items){
+      const fams=[];
+      T.items.filter(i=>i.end!==false).forEach(i=>{
+        let f=fams.find(x=>x.id===i.fam);
+        if(!f){f={id:i.fam,label:i.famLabel,angles:[]};fams.push(f);}
+        if(!f.angles.some(a=>a.id===i.angle))f.angles.push({id:i.angle,label:al[i.angle]||(i.angle?'Codo '+i.angle+'°':'Recto')});
+      });
+      fams.forEach(f=>f.angles.sort((a,b)=>a.id-b.id));
+      if(fams.length)return {fams,al};
+    }
+    return {fams:[
+      {id:'JIC',label:'JIC 74°',angles:[{id:0,label:'Recto'},{id:90,label:'Codo 90°'}]},
+      {id:'BSP',label:'BSP 60°',angles:[{id:0,label:'Recto'},{id:45,label:'Codo 45°'}]},
+      {id:'NPT',label:'NPT',angles:[{id:0,label:'Recto'}]},
+      {id:'MET',label:'Métrico 24°',angles:[{id:0,label:'Recto'}]},
+    ],al};
+  }
+  fam(id){return this.terms().fams.find(f=>f.id===id);}
+  termItem(fam,angle){const T=window.MC_TERMINALES;if(!T||!T.items)return null;const its=T.items.filter(i=>i.fam===fam&&i.angle===angle&&i.end!==false);if(!its.length)return null;return {stock:its.some(i=>i.stock),name:its[0].famLabel+(angle?` codo ${angle}°`:' recto')};}
+  validateEnds(){
+    const {fams}=this.terms();if(!fams.length)return;const fix={};
+    const mn=this.minM(),mx=this.maxM(),lv=this.state.lengthValue;
+    if(lv!=null&&(lv<mn||lv>mx)){fix.lengthValue=Math.max(mn,Math.min(mx,lv));fix.lengthRaw=this.fmt2(fix.lengthValue);}
+    for(const e of ['A','B']){
+      let f=fams.find(x=>x.id===this.state['end'+e+'Thread']);
+      if(!f){f=fams[0];fix['end'+e+'Thread']=f.id;}
+      const ang=this.state['end'+e+'Angle'];
+      if(!f.angles.some(a=>a.id===ang))fix['end'+e+'Angle']=f.angles[0].id;
+    }
+    if(Object.keys(fix).length)this.set(fix);
+  }
+  selectThread(end,fid){
+    const f=this.fam(fid);const cur=this.state['end'+end+'Angle'];const p={['end'+end+'Thread']:fid};
+    if(f&&!f.angles.some(a=>a.id===cur))p['end'+end+'Angle']=f.angles[0].id;
+    this.set(p);
+  }
+  selectAngle(end,aid){this.set({['end'+end+'Angle']:aid});}
+
+  type(id){return this.catalog.hoseTypes.find(t=>t.id===id);}
+  gauge(id){return this.catalog.gauges.find(g=>g.id===id);}
+
+  fmt2(n){if(n==null||isNaN(n))return'';return (Math.round(n*100)/100).toFixed(2).replace('.',',');}
+  lenCm(){return this.state.lengthValue!=null?this.state.lengthValue*100:null;}
+  minM(){return this.props.minLengthM??0.1;}
+  maxM(){return this.props.maxLengthM??3;}
+  lenLabel(){return this.state.lengthValue!=null?`${this.fmt2(this.state.lengthValue)} m`:'—';}
+
+  fitShort(thr,ang){const f=this.fam(thr);return (f?f.id:'—')+(ang?` ${ang}°`:'');}
+  fitFull(thr,ang){const f=this.fam(thr);const al=this.terms().al;return (f?f.label:'—')+' · '+(al[ang]||(ang?'Codo '+ang+'°':'Recto'));}
+  endCode(thr,ang){return (thr||'···')+(ang?ang:'');}
+
+  refCode(){
+    const s=this.state,t=this.type(s.typeId),g=this.gauge(s.gaugeId);
+    const cm=this.lenCm();const len=cm!=null?String(Math.round(cm)).padStart(4,'0'):'····';
+    return `MC-${t?t.tok:'··'}-${g?g.code:'··'}-${len}-${this.endCode(s.endAThread,s.endAAngle)}-${this.endCode(s.endBThread,s.endBAngle)}`;
+  }
+
+  onType=(id)=>{const t=this.type(id);const p={typeId:id};if(!t.gauges.includes(this.state.gaugeId))p.gaugeId=t.gauges[0];this.set(p);};
+  onGauge=(id)=>this.set({gaugeId:id});
+  onName=(e)=>this.set({name:e.target.value});
+  onLenInput=(e)=>{const r=e.target.value;const n=parseFloat(r.replace(',','.'));this.set({lengthRaw:r,lengthValue:isNaN(n)?null:n});};
+  onLenBlur=()=>{const v=this.state.lengthValue;if(v==null)return;const c=Math.max(this.minM(),Math.min(this.maxM(),v));this.set({lengthValue:c,lengthRaw:this.fmt2(c)});};
+  onSlider=(e)=>{const v=parseFloat(e.target.value);this.set({lengthValue:v,lengthRaw:this.fmt2(v)});};
+  copyAtoB=()=>this.set({endBThread:this.state.endAThread,endBAngle:this.state.endAAngle});
+  qtyDelta(d){this.set({qty:Math.max(1,(this.state.qty||1)+d)});}
+  zoomIn=()=>this.setState({zoom:Math.min(1.6,this.state.zoom+0.15)});
+  zoomOut=()=>this.setState({zoom:Math.max(0.7,this.state.zoom-0.15)});
+  zoomReset=()=>this.setState({zoom:1});
+  onContinue=(e)=>{
+    const s=this.state, t=this.type(s.typeId), g=this.gauge(s.gaugeId);
+    if(!t||!g) return;
+    const outNames=[];
+    [[s.endAThread,s.endAAngle],[s.endBThread,s.endBAngle]].forEach(([f,a])=>{const it=this.termItem(f,a);if(it&&!it.stock)outNames.push(it.name);});
+    const custom={
+      name: s.name ? s.name : 'Manguera a medida',
+      cat:'mangueras', configured:true,
+      specs:[ g.label, t.sae, this.lenLabel() ],
+      stock: outNames.length===0,
+      detail:[
+        `Tipo: ${t.name} · ${t.sae}`,
+        `Largo: ${this.lenLabel()} · solo cuerpo`,
+        `Terminal A: ${this.fitFull(s.endAThread,s.endAAngle)}`,
+        `Terminal B: ${this.fitFull(s.endBThread,s.endBAngle)}`,
+        `Ref: ${this.refCode()}`,
+      ],
+      // selecciones completas — permiten volver a editar este ítem en el configurador
+      config:{ typeId:s.typeId, gaugeId:s.gaugeId, lengthValue:s.lengthValue, lengthRaw:s.lengthRaw,
+        name:s.name, endAThread:s.endAThread, endAAngle:s.endAAngle, endBThread:s.endBThread, endBAngle:s.endBAngle, qty:s.qty },
+    };
+    const btn = e && e.currentTarget;
+    if(window.MCCart){
+      if(s.editingLine) MCCart.remove(s.editingLine);   // si estábamos editando, reemplaza esa manguera
+      MCCart.addCustom(custom, s.qty||1, {fromEl: btn});
+    }
+    if(s.editingLine) this.setState({editingLine:null});
+  };
+
+  waNumber(){return this.props.whatsapp||'59899414733';}
+  waLink(){return 'https://wa.me/'+this.waNumber();}
+  shareWa=()=>{const s=this.state,t=this.type(s.typeId),g=this.gauge(s.gaugeId);const nm=s.name?`"${s.name}"\n`:'';const txt=encodeURIComponent(`Hola Metcar, quiero cotizar esta manguera:\n\n${nm}${t?t.name:''} ${g?g.label:''} · ${this.lenLabel()} (solo cuerpo)\nTerminal A: ${this.fitFull(s.endAThread,s.endAAngle)}\nTerminal B: ${this.fitFull(s.endBThread,s.endBAngle)}\nCantidad: ${s.qty}\nRef: ${this.refCode()}\n\n¡Gracias!`);window.open(`https://wa.me/${this.waNumber()}?text=${txt}`,'_blank');};
+
+  thickness(){const g=this.gauge(this.state.gaugeId);const h=g?g.h:21;return 34+h*1.2;}
+  hoseLenPx(){const cm=this.lenCm();const mn=this.minM()*100,mx=this.maxM()*100;if(cm==null)return 300;const t=Math.max(0,Math.min(1,(cm-mn)/(mx-mn)));return 190+Math.sqrt(t)*380;}
+
+  hexNut(cx,cy,r,ang){
+    let pts=[];
+    for(let i=0;i<6;i++){const a=ang+Math.PI/6+i*Math.PI/3;pts.push((cx+r*Math.cos(a)).toFixed(1)+','+(cy+r*Math.sin(a)).toFixed(1));}
+    const bore=`<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="${(r*0.46).toFixed(1)}" fill="#26282a"/><circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="${(r*0.46).toFixed(1)}" fill="none" stroke="rgba(0,0,0,.45)" stroke-width="1.4"/>`;
+    return `<polygon points="${pts.join(' ')}" fill="url(#mcMet)" stroke="rgba(0,0,0,.28)" stroke-width="1.6" stroke-linejoin="round"/>${bore}`;
+  }
+
+  buildViz(){
+    const s=this.state, t=this.type(s.typeId), g=this.gauge(s.gaugeId);
+    if(!t||!g) return null;
+    const W=960,H=348,CY=168,MARGIN=78;
+    const T=this.thickness();
+    const CF=T*0.82, TL=Math.max(46,T*0.66), Nr=T*0.62, Tw=T*0.78;
+    const hext=(a)=>{if(a===0)return CF+TL+Nr;if(a===45)return CF+TL*0.5+TL*0.5*0.707+Nr*0.7;return CF+TL*0.42+Nr*0.6;};
+    const leftExt=hext(s.endAAngle), rightExt=hext(s.endBAngle);
+    const maxHL=(W-2*MARGIN)-leftExt-rightExt;
+    const HL=Math.max(90,Math.min(this.hoseLenPx(),maxHL));
+    const total=leftExt+HL+rightExt;
+    const Lx=(W-total)/2+leftExt, Rx=Lx+HL;
+    const bar=t.bar[g.id];
+
+    const defs=`<defs>
+      <linearGradient id="mcRub" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#514c43"/><stop offset=".14" stop-color="#2c2924"/><stop offset=".34" stop-color="#17140e"/><stop offset=".5" stop-color="#0c0a07"/><stop offset=".66" stop-color="#1c180f"/><stop offset=".86" stop-color="#332e28"/><stop offset="1" stop-color="#0a0806"/>
+      </linearGradient>
+      <linearGradient id="mcMet" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#fafbfc"/><stop offset=".16" stop-color="#d6d9dd"/><stop offset=".4" stop-color="#a0a4a9"/><stop offset=".52" stop-color="#696c70"/><stop offset=".68" stop-color="#b4b8bd"/><stop offset=".85" stop-color="#7f8287"/><stop offset="1" stop-color="#55575b"/>
+      </linearGradient>
+      <filter id="mcSoft" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="6"/></filter>
+    </defs>`;
+
+    const sx0=Lx-leftExt, sx1=Rx+rightExt;
+    const shadow=`<ellipse cx="${((sx0+sx1)/2).toFixed(1)}" cy="${(CY+T*0.62).toFixed(1)}" rx="${((sx1-sx0)/2*0.94).toFixed(1)}" ry="${(T*0.2).toFixed(1)}" fill="rgba(0,0,0,.17)" filter="url(#mcSoft)"/>`;
+
+    const rr=Math.max(2,T*0.13);
+    const hose=`
+      <rect x="${Lx.toFixed(1)}" y="${(CY-T/2).toFixed(1)}" width="${HL.toFixed(1)}" height="${T.toFixed(1)}" rx="${rr.toFixed(1)}" fill="url(#mcRub)"/>
+      <path d="M${(Lx+3).toFixed(1)} ${(CY-T*0.29).toFixed(1)}H${(Rx-3).toFixed(1)}" stroke="rgba(255,255,255,.13)" stroke-width="${(T*0.11).toFixed(1)}" stroke-linecap="round"/>
+      <path d="M${Lx.toFixed(1)} ${(CY-T*0.16).toFixed(1)}H${Rx.toFixed(1)}" stroke="#B83214" stroke-width="${Math.max(2,T*0.055).toFixed(1)}" opacity=".92"/>`;
+
+    let code='';
+    if(HL>380) code=`METCAR     ${g.label}     ${t.sae}     ${bar} BAR`;
+    else if(HL>250) code=`METCAR    ${g.label}  ·  ${t.sae}`;
+    else code=`METCAR   ${g.label}`;
+    const tf=Math.max(9,Math.min(15,T*0.25));
+    const text=`<text x="${((Lx+Rx)/2).toFixed(1)}" y="${(CY+tf*0.36).toFixed(1)}" text-anchor="middle" fill="#F5C518" font-family="Barlow Condensed, sans-serif" font-weight="700" font-size="${tf.toFixed(1)}" letter-spacing="2" opacity=".95">${code}</text>`;
+
+    const fitting=(bx,dir,thr,ang)=>{
+      const Fx=bx+dir*CF;
+      // crimp ferrule — filled rect (a horizontal stroke gradient renders transparent)
+      const fh=T*1.14, fx0=Math.min(bx,Fx), fw=Math.abs(bx-Fx);
+      const fr=`<rect x="${fx0.toFixed(1)}" y="${(CY-fh/2).toFixed(1)}" width="${fw.toFixed(1)}" height="${fh.toFixed(1)}" rx="2.5" fill="url(#mcMet)" stroke="rgba(0,0,0,.16)" stroke-width="1"/>`;
+      let ridges='';
+      for(let i=1;i<=3;i++){const rx=bx+dir*(CF*i/4);ridges+=`<line x1="${rx.toFixed(1)}" y1="${(CY-T*0.5).toFixed(1)}" x2="${rx.toFixed(1)}" y2="${(CY+T*0.5).toFixed(1)}" stroke="rgba(0,0,0,.16)" stroke-width="1.4"/>`;}
+      let part, endX, endY, endAng;
+      if(ang===0){
+        const tx0=Math.min(Fx,Fx+dir*TL);
+        part=`<rect x="${tx0.toFixed(1)}" y="${(CY-Tw/2).toFixed(1)}" width="${TL.toFixed(1)}" height="${Tw.toFixed(1)}" rx="${(Tw*0.32).toFixed(1)}" fill="url(#mcMet)" stroke="rgba(0,0,0,.14)" stroke-width="1"/>`;
+        endX=Fx+dir*TL; endY=CY; endAng=dir<0?Math.PI:0;
+      } else {
+        let pts;
+        if(ang===45){const ax=Fx+dir*TL*0.5;pts=[[Fx,CY],[ax,CY],[ax+dir*TL*0.5*0.707,CY-TL*0.5*0.707]];}
+        else{const ax=Fx+dir*TL*0.42;pts=[[Fx,CY],[ax,CY],[ax,CY-TL*0.78]];}
+        const end=pts[pts.length-1], prev=pts[pts.length-2];
+        endAng=Math.atan2(end[1]-prev[1],end[0]-prev[0]); endX=end[0]; endY=end[1];
+        const d='M'+pts.map(p=>p[0].toFixed(1)+' '+p[1].toFixed(1)).join('L');
+        part=`<path d="${d}" fill="none" stroke="url(#mcMet)" stroke-width="${Tw.toFixed(1)}" stroke-linecap="round" stroke-linejoin="round"/>`;
+      }
+      return fr+ridges+part+this.hexNut(endX,endY,Nr,endAng);
+    };
+
+    const svg=`<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" style="width:100%;height:100%;display:block">${defs}${shadow}${hose}${fitting(Lx,-1,s.endAThread,s.endAAngle)}${fitting(Rx,1,s.endBThread,s.endBAngle)}${text}</svg>`;
+    return React.createElement('div',{style:{width:'100%',height:'100%'},dangerouslySetInnerHTML:{__html:svg}});
+  }
+
+  angleIcon(ang,on){
+    const c=on?'#B83214':'rgba(27,25,22,.5)';
+    const map={0:{d:'M4 13H19',dot:[19,13]},45:{d:'M4 17H11L19 9',dot:[19,9]},90:{d:'M6 19H13V7',dot:[13,7]}};
+    const m=map[ang];
+    const svg=`<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="${m.d}"/><circle cx="${m.dot[0]}" cy="${m.dot[1]}" r="2" fill="${c}" stroke="none"/></svg>`;
+    return React.createElement('span',{style:{display:'flex'},dangerouslySetInnerHTML:{__html:svg}});
+  }
+
+  typeStyle(sel){return `display:flex;flex-direction:column;align-items:flex-start;text-align:left;padding:12px 13px;background:${sel?'#FCEFEA':'#fff'};border:1.5px solid ${sel?'#B83214':'rgba(27,25,22,.12)'};border-radius:3px;cursor:pointer;transition:all .15s ease`;}
+  chipStyle(sel){return `min-width:52px;padding:9px 15px;font-family:'Barlow Condensed';font-weight:700;font-size:14px;letter-spacing:.4px;background:${sel?'#B83214':'#fff'};color:${sel?'#fff':'#1B1916'};border:1.5px solid ${sel?'#B83214':'rgba(27,25,22,.14)'};border-radius:3px;cursor:pointer;transition:all .15s ease`;}
+  threadStyle(sel){return `padding:8px 13px;font-family:'Barlow Condensed';font-weight:700;font-size:12.5px;letter-spacing:.4px;background:${sel?'#B83214':'#fff'};color:${sel?'#fff':'#1B1916'};border:1.5px solid ${sel?'#B83214':'rgba(27,25,22,.14)'};border-radius:3px;cursor:pointer;transition:all .15s ease`;}
+  angleStyle(sel){return `flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;padding:10px 6px;background:${sel?'#FCEFEA':'#fff'};border:1.5px solid ${sel?'#B83214':'rgba(27,25,22,.12)'};border-radius:3px;cursor:pointer;transition:all .15s ease`;}
+  angleLabelStyle(sel){return `font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:.8px;text-transform:uppercase;color:${sel?'#B83214':'rgba(27,25,22,.6)'}`;}
+
+  renderVals(){
+    const s=this.state, t=this.type(s.typeId), g=this.gauge(s.gaugeId);
+    const hasType=!!t;
+    const bar=(t&&g)?t.bar[g.id]:null;
+
+    const typeCards=this.catalog.hoseTypes.map(h=>({
+      name:h.name, sae:h.sae, bar:Math.max(...Object.values(h.bar))+' BAR máx',
+      selected:s.typeId===h.id, onSelect:()=>this.onType(h.id), style:this.typeStyle(s.typeId===h.id),
+    }));
+    const gaugeChips=(t?t.gauges:[]).map(gid=>({
+      label:this.gauge(gid).label, selected:s.gaugeId===gid, onSelect:()=>this.onGauge(gid), style:this.chipStyle(s.gaugeId===gid),
+    }));
+    const tdata=this.terms();
+    const threadCards=(end)=>tdata.fams.map(f=>{
+      const cur=end==='A'?s.endAThread:s.endBThread;
+      return {label:f.label, selected:cur===f.id, onSelect:()=>this.selectThread(end,f.id), style:this.threadStyle(cur===f.id)};
+    });
+    const angleOpts=(end)=>{
+      const cur=end==='A'?s.endAThread:s.endBThread;
+      const f=tdata.fams.find(x=>x.id===cur)||tdata.fams[0];
+      const curAng=end==='A'?s.endAAngle:s.endBAngle;
+      return (f?f.angles:[]).map(a=>({label:a.id?`${a.id}°`:'Recto', icon:this.angleIcon(a.id,curAng===a.id), selected:curAng===a.id, onSelect:()=>this.selectAngle(end,a.id), style:this.angleStyle(curAng===a.id), labelStyle:this.angleLabelStyle(curAng===a.id)}));
+    };
+
+    const sliderMin=this.minM(), sliderMax=this.maxM();
+    const sliderVal=s.lengthValue!=null?Math.max(sliderMin,Math.min(sliderMax,s.lengthValue)):sliderMin;
+    const sp=((sliderVal-sliderMin)/(sliderMax-sliderMin)*100).toFixed(1);
+
+    const aShort=this.fitShort(s.endAThread,s.endAAngle), bShort=this.fitShort(s.endBThread,s.endBAngle);
+    const sumName=s.name?s.name:'Manguera a medida';
+    const outNames=[];
+    [[s.endAThread,s.endAAngle],[s.endBThread,s.endBAngle]].forEach(([f,a])=>{const it=this.termItem(f,a);if(it&&!it.stock)outNames.push(it.name);});
+    const outStock=outNames.length>0;
+    const stockLabel=outStock?'SIN STOCK':'EN STOCK';
+    const stockColor=outStock?'#8A7010':'#F5C518';
+    const stockBadgeStyle=`display:inline-flex;align-items:center;gap:6px;font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:1.2px;color:${stockColor};background:#0B0B0B;border-radius:2px;padding:5px 10px;flex-shrink:0;cursor:default`;
+    const stockDotStyle=`width:6px;height:6px;border-radius:50%;background:${stockColor};${outStock?'':'animation:mcPulse 2s ease-in-out infinite'}`;
+    const stockTitle=outStock?('Sin stock: '+outNames.join(' · ')+'. Disponibilidad a confirmar en la cotización.'):'Componentes en stock';
+
+    return {
+      refCode:this.refCode(), waLink:this.waLink(), shareWa:this.shareWa, added:s.added,
+      hasType, emptyState:!hasType, viz:this.buildViz(), zoom:s.zoom,
+      zoomIn:this.zoomIn, zoomOut:this.zoomOut, zoomReset:this.zoomReset,
+      specLine:t?`${t.sae} · ${g?g.label:''}${bar?' · '+bar+' BAR':''}`:'METCAR HYDRAULICS',
+      aName:this.fitFull(s.endAThread,s.endAAngle), bName:this.fitFull(s.endBThread,s.endBAngle),
+      name:s.name, onName:this.onName,
+      typeCards, gaugeChips,
+      threadCardsA:threadCards('A'), threadCardsB:threadCards('B'),
+      angleOptsA:angleOpts('A'), angleOptsB:angleOpts('B'),
+      aNameShort:aShort, bNameShort:bShort, copyAtoB:this.copyAtoB,
+      lengthRaw:s.lengthRaw!=null?s.lengthRaw:this.fmt2(s.lengthValue), onLenInput:this.onLenInput, onLenBlur:this.onLenBlur,
+      sliderMin, sliderMax, sliderVal, onSlider:this.onSlider, sliderStyle:`width:100%;--p:${sp}%`,
+      minLabel:this.fmt2(sliderMin)+' m', maxLabel:this.fmt2(sliderMax)+' m',
+      sumName, toastName:sumName,
+      sumLine:`${t?t.name:'—'} · ${g?g.label:'—'} · ${this.lenLabel()} · ${aShort}→${bShort}`,
+      qty:s.qty, qtyUp:()=>this.qtyDelta(1), qtyDown:()=>this.qtyDelta(-1),
+      outStock, stockLabel, stockBadgeStyle, stockDotStyle, stockTitle,
+      priceText:'A cotizar', onContinue:this.onContinue,
+      editing:!!s.editingLine, continueLabel:s.editingLine?'Guardar cambios':'Agregar al carrito', cancelEdit:this.cancelEdit,
+    };
+  }
+}
+</script>
+</body>
+</html>

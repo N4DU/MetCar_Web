@@ -1,0 +1,37 @@
+/* ============================================================
+   METCAR · SPACING, RADII & LAYOUT TOKENS
+   Tight, mechanical radii (industrial — almost square corners).
+   Spacing on a 4px base.
+   ============================================================ */
+:root {
+  /* ── Spacing scale (4px base) ─────────────────────────────── */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-25: 100px;
+
+  /* ── Radii — deliberately minimal. Metal doesn't round. ───── */
+  --radius-none: 0px;
+  --radius-xs:   1px;   /* buttons, badges — barely there       */
+  --radius-sm:   2px;   /* cards, inputs                        */
+  --radius-md:   3px;   /* hose strips, media                   */
+  --radius-lg:   4px;   /* spec capsules                        */
+  --radius-pill: 999px; /* rare — status dots, avatar only      */
+
+  /* ── Layout ───────────────────────────────────────────────── */
+  --layout-max:   1160px;  /* content max-width      */
+  --layout-gutter:32px;    /* page side padding      */
+  --layout-gap:   14px;    /* default grid gap       */
+
+  /* ── Section rhythm ───────────────────────────────────────── */
+  --section-pad-y: 80px;
+  --section-pad-y-sm: 56px;
+}
