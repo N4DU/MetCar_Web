@@ -10,6 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;700&display=swap" rel="stylesheet">
 <script src="config.js"></script>
+<script src="auth.js"></script>
 <script src="terminales.js"></script>
 <script src="catalog-data.js"></script>
 <script src="cart.js"></script>
@@ -84,24 +85,41 @@ img{display:block;max-width:100%}
 .btn-wa:hover{border-color:#25D366;color:#25D366}
 .btn-wa:active{transform:scale(.98)}
 
-/* ══ HERO ══ */
-.sn-hero{background:var(--dark2);padding:50px var(--px) 62px;position:relative;overflow:hidden}
-.sn-hero::before{content:'';position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(ellipse at 12% 30%,rgba(184,50,20,.12) 0%,transparent 55%)}
-.sn-hero-in{max-width:var(--mw);margin:0 auto;position:relative}
+/* ══ HERO (foto modo taller) ══ */
+.sn-hero{position:relative;min-height:600px;display:flex;flex-direction:column;
+  justify-content:flex-end;overflow:hidden;background:var(--dark2)}
+.sn-hero-bg{position:absolute;inset:0;z-index:0}
+.sn-hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center 62%}
+.sn-hero-grad{position:absolute;inset:0;z-index:1;
+  background:linear-gradient(90deg,rgba(11,11,11,.85) 0%,rgba(11,11,11,.5) 40%,rgba(11,11,11,.15) 68%,rgba(11,11,11,0) 100%),
+  linear-gradient(180deg,rgba(11,11,11,.45) 0%,rgba(11,11,11,.12) 26%,rgba(19,17,16,.5) 64%,rgba(19,17,16,.97) 100%)}
+.sn-hero-grad::after{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 6% 36%,rgba(184,50,20,.22),transparent 50%)}
+.sn-hero-in{position:relative;z-index:2;max-width:var(--mw);margin:0 auto;width:100%;padding:128px var(--px) 40px}
 .crumbs{display:flex;align-items:center;gap:8px;font-family:var(--ft);font-weight:500;
   font-size:11px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:26px}
-.crumb{color:rgba(255,255,255,.35);transition:color var(--t1)}
+.crumb{color:rgba(255,255,255,.5);transition:color var(--t1)}
 a.crumb:hover{color:#fff}
-.crumb-sep{color:rgba(255,255,255,.18)}
-.crumb--on{color:rgba(255,255,255,.75)}
+.crumb-sep{color:rgba(255,255,255,.28)}
+.crumb--on{color:rgba(255,255,255,.85)}
 .sn-eye{font-family:var(--ft);font-weight:700;font-size:11px;letter-spacing:3px;
-  text-transform:uppercase;color:var(--red);margin-bottom:16px}
+  text-transform:uppercase;color:#ff5630;margin-bottom:16px}
 .sn-h1{font-family:var(--fd);font-size:clamp(48px,7vw,92px);line-height:.86;
-  letter-spacing:.5px;color:#fff;max-width:760px}
-.sn-h1 .r{color:var(--red)}
-.sn-lead{font-family:var(--fb);font-size:17px;line-height:1.62;color:rgba(255,255,255,.5);
-  max-width:540px;margin-top:24px}
+  letter-spacing:.5px;color:#fff;max-width:840px;text-shadow:0 2px 34px rgba(0,0,0,.45)}
+.sn-h1 .r{color:#E0431B}
+.sn-lead{font-family:var(--fb);font-size:17px;line-height:1.62;color:rgba(255,255,255,.66);
+  max-width:560px;margin-top:24px}
+/* franja de stats */
+.sn-hero-stats{position:relative;z-index:2;width:100%;border-top:1px solid rgba(255,255,255,.13);
+  background:rgba(11,11,11,.36);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+.sn-hero-stats-in{max-width:var(--mw);margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);padding:0 var(--px)}
+.sn-stat{padding:24px 26px}
+.sn-stat:first-child{padding-left:0}
+.sn-stat + .sn-stat{border-left:1px solid rgba(255,255,255,.1)}
+.sn-stat-n{font-family:var(--fd);font-size:clamp(32px,3.4vw,44px);line-height:.84;color:#fff;letter-spacing:.5px}
+.sn-stat-n .r{color:#E0431B}
+.sn-stat-l{font-family:var(--ft);font-weight:700;font-size:10.5px;letter-spacing:1.4px;
+  text-transform:uppercase;color:rgba(255,255,255,.52);margin-top:9px;line-height:1.3}
 
 /* ══ SECTION BASE ══ */
 .sec{padding:84px var(--px)}
@@ -128,11 +146,42 @@ a.crumb:hover{color:#fff}
 .sn-sign-bar{width:34px;height:2px;background:var(--red)}
 .sn-sign-txt{font-family:var(--ft);font-weight:700;font-size:11.5px;letter-spacing:1.5px;
   text-transform:uppercase;color:var(--txt3)}
+.sn-checks{margin-top:30px;display:flex;flex-direction:column;gap:13px}
+.sn-check{display:flex;gap:12px;align-items:flex-start}
+.sn-check-ic{width:23px;height:23px;border-radius:2px;background:rgba(184,50,20,.1);color:var(--red);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.sn-check-t{font-family:var(--fb);font-size:14px;line-height:1.45;color:var(--txt2)}
+.sn-check-t b{font-weight:600;color:var(--txt)}
+
+/* ══ COBERTURA (banda con foto camioneta) ══ */
+.sn-cover{position:relative;display:grid;grid-template-columns:1.08fr .92fr;background:var(--dark);overflow:hidden}
+.sn-cover-img{position:relative;min-height:460px;overflow:hidden}
+.sn-cover-img img{width:100%;height:100%;object-fit:cover;object-position:center;
+  transition:transform .7s cubic-bezier(.22,1,.36,1)}
+.sn-cover:hover .sn-cover-img img{transform:scale(1.04)}
+.sn-cover-img::after{content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent 55%,rgba(27,25,22,.72) 100%)}
+.sn-cover-body{padding:clamp(48px,6vw,76px) clamp(32px,5vw,72px);display:flex;flex-direction:column;
+  justify-content:center;position:relative}
+.sn-cover-body::before{content:'';position:absolute;left:0;top:clamp(48px,6vw,76px);width:36px;height:3px;background:var(--red)}
+.sn-cover-p{font-family:var(--fb);font-size:15px;line-height:1.65;color:rgba(255,255,255,.58);max-width:430px;margin:18px 0 30px}
+.sn-cover-stats{display:flex;gap:40px;margin-bottom:32px}
+.sn-cmini-n{font-family:var(--fd);font-size:36px;color:#fff;line-height:.88;letter-spacing:.5px}
+.sn-cmini-n .r{color:#E0431B}
+.sn-cmini-l{font-family:var(--ft);font-weight:700;font-size:10.5px;letter-spacing:1.3px;
+  text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:7px}
+.sn-cover-link{display:inline-flex;align-items:center;gap:9px;align-self:flex-start;
+  font-family:var(--ft);font-weight:700;font-size:12.5px;letter-spacing:1.5px;text-transform:uppercase;
+  color:#fff;border:1.5px solid rgba(255,255,255,.22);padding:13px 24px;border-radius:1px;
+  transition:border-color var(--t1),color var(--t1)}
+.sn-cover-link:hover{border-color:var(--red);color:#ff5630}
+.sn-cover-link svg{transition:transform var(--t1)}
+.sn-cover-link:hover svg{transform:translateX(3px)}
 
 /* ══ GALLERY ══ */
 .sn-gallery{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
 .sn-fig{position:relative;margin:0;border-radius:2px;overflow:hidden;background:var(--blk)}
-.sn-fig img{width:100%;height:100%;object-fit:cover;display:block;
+.sn-fig img{width:100%;height:100%;object-fit:cover;display:block;cursor:zoom-in;
   transition:transform .55s cubic-bezier(.22,1,.36,1)}
 .sn-fig:hover img{transform:scale(1.04)}
 .sn-fig--wide{grid-column:span 4;aspect-ratio:1.85/1}
@@ -150,6 +199,25 @@ a.crumb:hover{color:#fff}
 .sn-ph-in svg{opacity:.55}
 .sn-ph-lbl{font-family:var(--ft);font-weight:700;font-size:10.5px;letter-spacing:1.5px;
   text-transform:uppercase;line-height:1.4}
+
+/* ══ LIGHTBOX ══ */
+.sn-lb{position:fixed;inset:0;z-index:600;display:flex;align-items:center;justify-content:center;
+  padding:28px;background:rgba(8,8,8,.9);backdrop-filter:blur(3px);opacity:0;pointer-events:none;
+  transition:opacity .22s ease}
+.sn-lb.show{opacity:1;pointer-events:auto}
+.sn-lb-fig{position:relative;max-width:1100px;max-height:88vh;transform:scale(.97);transition:transform .26s cubic-bezier(.22,1,.36,1)}
+.sn-lb.show .sn-lb-fig{transform:scale(1)}
+.sn-lb-img{display:block;max-width:100%;max-height:84vh;width:auto;height:auto;object-fit:contain;
+  border:1px solid rgba(255,255,255,.1);box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.sn-lb-cap{margin-top:14px;font-family:var(--ft);font-weight:700;font-size:12px;letter-spacing:1.2px;
+  text-transform:uppercase;color:rgba(255,255,255,.7);text-align:center}
+.sn-lb-cap span{color:var(--yel)}
+.sn-lb-x{position:absolute;top:-14px;right:-14px;width:38px;height:38px;border-radius:50%;background:var(--red);
+  color:#fff;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;
+  box-shadow:0 6px 18px rgba(0,0,0,.4);transition:background var(--t1),transform .1s}
+.sn-lb-x:hover{background:#9E2810}
+.sn-lb-x:active{transform:scale(.92)}
+@media (max-width:560px){.sn-lb-x{top:-12px;right:-6px}}
 
 /* ══ TIMELINE ══ */
 .sn-time-hd{margin-bottom:48px}
@@ -195,8 +263,13 @@ a.crumb:hover{color:#fff}
 
 /* ══ CTA ══ */
 .sn-cta{background:var(--blk);padding:88px var(--px);text-align:center;position:relative;overflow:hidden}
-.sn-cta::before{content:'';position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(ellipse at 50% 120%,rgba(184,50,20,.16),transparent 60%)}
+.glow::before{content:'';position:absolute;z-index:0;pointer-events:none;width:760px;height:760px;
+  border-radius:50%;left:var(--gx,50%);top:var(--gy,50%);margin-left:-380px;margin-top:-380px;
+  background:radial-gradient(circle,rgba(184,50,20,.24),rgba(184,50,20,0) 68%);
+  transition:left .5s cubic-bezier(.22,1,.36,1),top .5s cubic-bezier(.22,1,.36,1);
+  animation:glowPulse 5.5s ease-in-out infinite;will-change:left,top,transform,opacity}
+.glow > *{position:relative;z-index:1}
+@keyframes glowPulse{0%,100%{opacity:.45;transform:scale(1)}50%{opacity:.9;transform:scale(1.12)}}
 .sn-cta-in{max-width:600px;margin:0 auto;position:relative}
 .sn-cta-eye{font-family:var(--ft);font-weight:700;font-size:10px;letter-spacing:3px;
   text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:16px}
@@ -240,7 +313,16 @@ a.crumb:hover{color:#fff}
   .nav-ham{display:flex}
   .nav-logo{flex:1}
   .sec{padding:60px var(--px)}
+  .sn-hero{min-height:520px}
+  .sn-hero-in{padding-top:96px}
+  .sn-hero-stats-in{grid-template-columns:1fr 1fr;padding:0}
+  .sn-stat{padding:18px var(--px);border-top:1px solid rgba(255,255,255,.1)}
+  .sn-stat:first-child{padding-left:var(--px)}
+  .sn-stat:nth-child(odd){border-left:0}
   .sn-story{grid-template-columns:1fr;gap:30px}
+  .sn-cover{grid-template-columns:1fr}
+  .sn-cover-img{min-height:280px}
+  .sn-cover-img::after{background:linear-gradient(180deg,transparent 60%,rgba(27,25,22,.6) 100%)}
   .sn-fig--wide{grid-column:span 6}
   .sn-fig--tall{grid-column:span 3;grid-row:auto;aspect-ratio:1/0.82}
   .sn-fig--t{grid-column:span 3}
@@ -257,6 +339,8 @@ a.crumb:hover{color:#fff}
   .nav-in{height:56px}
   .nav-mobile{top:56px}
   .btn-login{display:none}
+  .sn-hero-stats-in{grid-template-columns:1fr 1fr}
+  .sn-cover-stats{gap:30px}
   .sn-fig--t,.sn-fig--tall{grid-column:span 6}
   .sn-time{grid-template-columns:1fr}
   .sn-val-grid{grid-template-columns:1fr}
@@ -266,6 +350,7 @@ a.crumb:hover{color:#fff}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .anim{animation:none!important;opacity:1!important}
+  .glow::before{animation:none}
   *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}
 }
 </style>
@@ -305,15 +390,25 @@ a.crumb:hover{color:#fff}
 
 <!-- ══════════════════════════════════════ HERO -->
 <header class="sn-hero" data-screen-label="Sobre Metcar — header">
+  <div class="sn-hero-bg"><img src="img/camionetaMetcar.webp" alt="Camioneta Metcar en la ruta al atardecer, rumbo al interior del país"></div>
+  <div class="sn-hero-grad"></div>
   <div class="sn-hero-in">
     <nav class="crumbs" aria-label="Ruta de navegación">
       <a class="crumb" href="metcar_homepage_v5.html">Inicio</a>
       <span class="crumb-sep">/</span>
       <span class="crumb crumb--on">Sobre Metcar</span>
     </nav>
-    <div class="sn-eye anim">Nuestra historia</div>
-    <h1 class="sn-h1 anim" style="animation-delay:.08s">DE UN TALLER FAMILIAR<br>A TU PROVEEDOR DE <span class="r">CONFIANZA</span></h1>
-    <p class="sn-lead anim" style="animation-delay:.18s">Más de diez años importando insumos hidráulicos directo de fábrica. Pero antes que importadores, fuimos —y seguimos siendo— una familia de trabajo en Sarandí Grande.</p>
+    <div class="sn-eye">Nuestra historia</div>
+    <h1 class="sn-h1">DE UN TALLER FAMILIAR<br>A TU PROVEEDOR DE <span class="r">CONFIANZA</span></h1>
+    <p class="sn-lead">Más de diez años importando insumos hidráulicos directo de fábrica. Pero antes que importadores, fuimos —y seguimos siendo— una familia de trabajo en Sarandí Grande.</p>
+  </div>
+  <div class="sn-hero-stats">
+    <div class="sn-hero-stats-in">
+      <div class="sn-stat"><div class="sn-stat-n"><span class="r">+10</span></div><div class="sn-stat-l">Años de trayectoria</div></div>
+      <div class="sn-stat"><div class="sn-stat-n">19</div><div class="sn-stat-l">Departamentos con cobertura</div></div>
+      <div class="sn-stat"><div class="sn-stat-n">24–48<span style="font-size:.6em">H</span></div><div class="sn-stat-l">Despacho de pedidos</div></div>
+      <div class="sn-stat"><div class="sn-stat-n">Stock</div><div class="sn-stat-l">Propio y permanente</div></div>
+    </div>
   </div>
 </header>
 
@@ -327,6 +422,12 @@ a.crumb:hover{color:#fff}
         <div class="sn-story-sign">
           <span class="sn-sign-bar"></span>
           <span class="sn-sign-txt">Familia Carreras · Sarandí Grande</span>
+        </div>
+        <div class="sn-checks">
+          <div class="sn-check"><span class="sn-check-ic"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sn-check-t"><b>Importación directa de fábrica</b> — sin intermediarios.</span></div>
+          <div class="sn-check"><span class="sn-check-ic"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sn-check-t"><b>Stock propio y permanente</b> en depósito.</span></div>
+          <div class="sn-check"><span class="sn-check-ic"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sn-check-t"><b>Envíos a todo el país</b> en 24–48 horas.</span></div>
+          <div class="sn-check"><span class="sn-check-ic"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="sn-check-t"><b>Asesoramiento técnico real</b>, de quien sabe del rubro.</span></div>
         </div>
       </div>
       <div class="sn-story-body">
@@ -392,13 +493,13 @@ a.crumb:hover{color:#fff}
         <span class="sn-tdot"></span>
         <div class="sn-ty">Hoy</div>
         <div class="sn-tt">Cobertura nacional</div>
-        <div class="sn-tx">Stock propio, envíos en 24–48hs y giras mensuales al interior del país.</div>
+        <div class="sn-tx">Stock propio, envíos en 24–48hs, giras mensuales al interior y catálogo con configurador de mangueras online.</div>
       </div>
       <div class="sn-tnode">
         <span class="sn-tdot"></span>
         <div class="sn-ty">Mañana</div>
         <div class="sn-tt">Hacia dónde vamos</div>
-        <div class="sn-tx">Catálogo y configurador online, para que pedir a medida sea tan simple como un mensaje.</div>
+        <div class="sn-tx">Crecer en la región y llevar el mismo servicio a clientes de Argentina y Brasil.</div>
       </div>
     </div>
   </div>
@@ -471,7 +572,7 @@ a.crumb:hover{color:#fff}
 </section>
 
 <!-- ══════════════════════════════════════ CTA -->
-<section class="sn-cta" data-screen-label="Sobre Metcar — cta">
+<section class="sn-cta glow" data-screen-label="Sobre Metcar — cta">
   <div class="sn-cta-in">
     <div class="sn-cta-eye">Trabajemos juntos</div>
     <h2 class="sn-cta-h">¿Empezamos tu pedido?</h2>
@@ -482,6 +583,15 @@ a.crumb:hover{color:#fff}
     </div>
   </div>
 </section>
+
+<!-- ══════════════════════════════════════ LIGHTBOX -->
+<div class="sn-lb" id="lightbox" aria-hidden="true">
+  <figure class="sn-lb-fig">
+    <button class="sn-lb-x" data-lb-close aria-label="Cerrar"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    <img class="sn-lb-img" id="lb-img" src="" alt="">
+    <figcaption class="sn-lb-cap" id="lb-cap"></figcaption>
+  </figure>
+</div>
 
 <!-- ══════════════════════════════════════ FOOTER -->
 <footer class="footer" id="contacto">
@@ -555,13 +665,59 @@ const obs = new IntersectionObserver((entries) => {
     }
   });
 }, {threshold: 0.14});
-document.querySelectorAll('.sn-fig,.sn-tnode,.sn-vcard').forEach(el => {
+document.querySelectorAll('.sn-fig,.sn-tnode,.sn-vcard,.sn-check,.sn-cover-body').forEach(el => {
   el.style.opacity = '0';
   obs.observe(el);
 });
 
 // ── Año dinámico ──
 document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+// ── Lightbox: ver fotos en grande ──
+(function(){
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lb-img');
+  const lbCap = document.getElementById('lb-cap');
+  function open(img){
+    lbImg.src = img.src;
+    lbImg.alt = img.alt || '';
+    const cap = img.closest('.sn-fig') && img.closest('.sn-fig').querySelector('.sn-cap');
+    lbCap.innerHTML = cap ? cap.innerHTML : '';
+    lb.classList.add('show');
+    lb.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+  }
+  function close(){
+    lb.classList.remove('show');
+    lb.setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+  }
+  document.querySelectorAll('.sn-fig img').forEach(img => {
+    img.addEventListener('click', () => open(img));
+  });
+  lb.addEventListener('click', e => { if(e.target === lb || e.target.closest('[data-lb-close]')) close(); });
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') close(); });
+})();
+
+// ── Glow que sigue al cursor en el CTA (igual que el home) ──
+(function(){
+  document.querySelectorAll('.glow').forEach(sec => {
+    let raf = null, px = 0, py = 0;
+    sec.addEventListener('pointermove', e => {
+      const r = sec.getBoundingClientRect();
+      px = e.clientX - r.left; py = e.clientY - r.top;
+      if(raf) return;
+      raf = requestAnimationFrame(() => {
+        sec.style.setProperty('--gx', px + 'px');
+        sec.style.setProperty('--gy', py + 'px');
+        raf = null;
+      });
+    });
+    sec.addEventListener('pointerleave', () => {
+      sec.style.removeProperty('--gx'); sec.style.removeProperty('--gy');
+    });
+  });
+})();
 </script>
 </body>
 </html>

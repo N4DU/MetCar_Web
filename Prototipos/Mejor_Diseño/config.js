@@ -19,7 +19,7 @@ window.MC = {
   tel:       '4354-9363',                          // Teléfono fijo
   cel:       '099 414 733',                         // Celular (como se muestra)
   wa:        '59899414733',                         // Mismo celular para WhatsApp (598 + número sin 0, sin espacios)
-  email:     'info@metcar.com.uy',                  // Email de contacto
+  email:     'aleravsacul@gmail.com',               // Email de contacto (MODO PRUEBAS — cambiar a info@metcar.com.uy en producción)
   dirCalle:  'Andrés Romero esq. Treinta y Tres',   // Dirección — calle
   dirCiudad: 'Sarandí Grande, Florida',             // Dirección — ciudad / departamento
   horario:   'Lun–Vie 8:00–17:00 · Sáb 8:00–12:00', // Horario de atención

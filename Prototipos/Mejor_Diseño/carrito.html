@@ -10,6 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;700&display=swap" rel="stylesheet">
 <script src="config.js"></script>
+<script src="auth.js"></script>
 <script src="terminales.js"></script>
 <script src="catalog-data.js"></script>
 <style>
@@ -253,6 +254,24 @@ a.crumb:hover{color:#fff}
 .modal-btns{display:flex;flex-direction:column;gap:10px}
 .modal-btns .btn-p,.modal-btns .btn-g{width:100%;justify-content:center}
 .modal-mini{font-family:var(--fb);font-size:12px;color:var(--txt3);text-align:center;margin-top:16px;line-height:1.5}
+.q-pad{padding:34px 30px 30px;text-align:center}
+.q-ic{width:62px;height:62px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 18px}
+.q-ic.ok{background:rgba(31,138,91,.12);color:var(--green)}
+.q-ic.err{background:rgba(184,50,20,.1);color:var(--red)}
+.q-spin{width:46px;height:46px;border:3px solid rgba(27,25,22,.12);border-top-color:var(--red);border-radius:50%;margin:6px auto 20px;animation:qspin .8s linear infinite}
+@keyframes qspin{to{transform:rotate(360deg)}}
+.q-h{font-family:var(--fd);font-size:30px;line-height:1;letter-spacing:.5px;color:var(--txt);margin-bottom:10px}
+.q-p{font-family:var(--fb);font-size:14px;line-height:1.6;color:var(--txt2);max-width:340px;margin:0 auto 6px}
+.q-p b{color:var(--txt);font-weight:600}
+.q-ref{display:inline-block;margin:14px 0 4px;font-family:var(--ft);font-weight:700;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--txt3);background:var(--owh);border:1px solid var(--bdr);border-radius:2px;padding:7px 14px}
+.q-ref b{color:var(--red)}
+.q-badge{display:inline-flex;align-items:center;gap:6px;margin:14px auto 0;font-family:var(--ft);font-weight:700;font-size:10px;letter-spacing:1.2px;text-transform:uppercase;padding:5px 11px;border-radius:2px;background:rgba(245,197,24,.14);color:#8A7010}
+.q-badge .d{width:6px;height:6px;border-radius:50%;background:var(--yel)}
+.q-btns{display:flex;flex-direction:column;gap:10px;margin-top:24px}
+.q-btns .btn-p,.q-btns .btn-g{width:100%;justify-content:center}
+.q-wa{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;background:transparent;border:1.5px solid var(--bdr);border-radius:1px;padding:13px;font-family:var(--ft);font-weight:700;font-size:12.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--txt);transition:border-color var(--t1),color var(--t1)}
+.q-wa:hover{border-color:#1da851;color:#1da851}
+.q-wa svg{color:#25D366}
 
 /* ══ FOOTER (idéntico al resto) ══ */
 .footer{background:var(--dark);border-top:3px solid var(--red);padding:60px var(--px) 36px}
@@ -372,12 +391,18 @@ a.crumb:hover{color:#fff}
     <div class="modal-body">
       <p class="modal-p">Para <b>enviar tu pedido a cotizar</b> necesitás una cuenta Metcar. Es rápido y tu pedido queda guardado tal como está. Una vez que lo recibimos, te pasamos los precios y coordinamos la entrega.</p>
       <div class="modal-btns">
-        <a class="btn-p" href="login.html">Ya tengo cuenta — Ingresar</a>
-        <a class="btn-g" href="registro.html">Crear cuenta nueva</a>
+        <a class="btn-p" href="login.html?next=carrito.html">Ya tengo cuenta — Ingresar</a>
+        <a class="btn-g" href="registro.html?next=carrito.html">Crear cuenta nueva</a>
       </div>
       <p class="modal-mini">Tu pedido actual se asocia automáticamente a tu cuenta al ingresar.</p>
     </div>
   </div>
+</div>
+
+<!-- ══════════════════════════════════════ MODAL RESULTADO COTIZACIÓN -->
+<div class="modal" id="quote-modal" aria-hidden="true">
+  <div class="modal-ovl" data-qmodal-close></div>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-label="Estado del pedido"><div id="quote-card"></div></div>
 </div>
 
 <!-- ══════════════════════════════════════ FOOTER -->
@@ -581,7 +606,7 @@ a.crumb:hover{color:#fff}
       if(confirm('¿Vaciar todo el pedido? Esta acción no se puede deshacer.')) MCCart.clear();
       return;
     }
-    if(e.target.closest('#btn-quote')){ openModal(); return; }
+    if(e.target.closest('#btn-quote')){ onQuoteClick(); return; }
     if(e.target.closest('#btn-save')){ saveOrder(e.target.closest('#btn-save')); return; }
   });
 
@@ -616,6 +641,90 @@ a.crumb:hover{color:#fff}
   modal.addEventListener('click', function(e){ if(e.target.closest('[data-modal-close]')) closeModal(); });
   document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeModal(); });
 
+  /* ── Solicitar cotización ── */
+  var QINTENT = 'mc_quote_intent';
+  var qmodal = document.getElementById('quote-modal');
+  var qcard = document.getElementById('quote-card');
+  var qSending = false;
+  function openQ(){ qmodal.classList.add('show'); qmodal.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; }
+  function closeQ(){ if(qSending) return; qmodal.classList.remove('show'); qmodal.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
+  qmodal.addEventListener('click', function(e){ if(e.target.closest('[data-qmodal-close]')) closeQ(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeQ(); });
+
+  function onQuoteClick(){
+    persistNote();
+    if(window.MCAuth && MCAuth.current()){ doSendQuote(); }
+    else { try{ sessionStorage.setItem(QINTENT,'1'); }catch(e){} openModal(); }
+  }
+
+  function waFallbackHref(){
+    var items = MCCart.items();
+    var lineTxt = items.map(function(i){ var c = i.code.indexOf('CFG-')===0?'a medida':i.code; return '• '+i.qty+'x '+i.p.name+' ('+c+')'; }).join('\n');
+    var note=''; try{ note = sessionStorage.getItem(NOTE_KEY)||''; }catch(e){}
+    var msg = '¡Hola Metcar! Quiero cotizar este pedido:\n'+lineTxt + (note?'\n\nNota: '+note:'');
+    return 'https://wa.me/'+(MC.wa||'59899414733')+'?text='+encodeURIComponent(msg);
+  }
+
+  async function doSendQuote(){
+    try{ sessionStorage.removeItem(QINTENT); }catch(e){}
+    var items = MCCart.items();
+    if(!items.length){ return; }
+    var note=''; try{ note = sessionStorage.getItem(NOTE_KEY)||''; }catch(e){}
+    showQuote('sending');
+    try{
+      var r = await MCAuth.sendQuote(items, note);
+      showQuote('success', r);
+      MCCart.clear();
+      try{ sessionStorage.removeItem(NOTE_KEY); }catch(e){}
+    }catch(ex){
+      showQuote('error', { msg: (ex && ex.message) || 'Error de conexión.' });
+    }
+  }
+
+  function showQuote(state, data){
+    data = data || {};
+    openQ();
+    if(state==='sending'){
+      qSending = true;
+      qcard.innerHTML = '<div class="q-pad"><div class="q-spin"></div>'+
+        '<div class="q-h">Enviando tu pedido…</div>'+
+        '<p class="q-p">Estamos registrando tu solicitud de cotización. Un segundo.</p></div>';
+      return;
+    }
+    qSending = false;
+    if(state==='success'){
+      var u = (window.MCAuth && MCAuth.current()) || {};
+      var pend = data.estado !== 'validado';
+      var pendBadge = pend ? '<div class="q-badge"><span class="d"></span>Cuenta pendiente de validación</div>' : '';
+      var msg = pend
+        ? 'Recibimos tu pedido. Como tu cuenta es nueva, la validamos y enseguida te enviamos la cotización con los precios.'
+        : 'Recibimos tu pedido y ya estamos preparando la cotización. Te llegan los precios y coordinamos el pago.';
+      qcard.innerHTML = '<div class="q-pad">'+
+        '<div class="q-ic ok"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>'+
+        '<div class="q-h">¡Pedido enviado!</div>'+
+        '<p class="q-p">'+esc(msg)+'</p>'+
+        '<div class="q-ref">Nº de pedido <b>'+esc(data.ref||'')+'</b></div>'+
+        pendBadge +
+        '<div class="q-btns">'+
+          '<a class="btn-p" href="catalogo.html">Seguir explorando el catálogo</a>'+
+          '<a class="btn-g" href="metcar_homepage_v5.html">Volver al inicio</a>'+
+        '</div></div>';
+      return;
+    }
+    // error
+    qcard.innerHTML = '<div class="q-pad">'+
+      '<div class="q-ic err"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg></div>'+
+      '<div class="q-h">No se pudo enviar</div>'+
+      '<p class="q-p">Hubo un problema al enviar el pedido. Probá de nuevo o mandanos el pedido por WhatsApp y te cotizamos igual.</p>'+
+      '<div class="q-btns">'+
+        '<button class="btn-p" id="q-retry">Reintentar envío</button>'+
+        '<a class="q-wa" href="'+waFallbackHref()+'" target="_blank" rel="noopener"><svg width="15" height="15" viewBox="0 0 32 32" fill="currentColor"><path d="M16 2C8.28 2 2 8.28 2 16c0 2.45.65 4.75 1.78 6.74L2 30l7.51-1.96A13.93 13.93 0 0 0 16 30c7.72 0 14-6.28 14-14S23.72 2 16 2zm0 25.5c-2.18 0-4.24-.6-6-1.65l-.43-.26-4.46 1.17 1.19-4.35-.28-.45A11.48 11.48 0 0 1 4.5 16c0-6.35 5.15-11.5 11.5-11.5S27.5 9.65 27.5 16 22.35 27.5 16 27.5z"/></svg>Cotizar por WhatsApp</a>'+
+        '<button class="btn-g" id="q-close">Cerrar</button>'+
+      '</div></div>';
+    var rt = document.getElementById('q-retry'); if(rt) rt.onclick = doSendQuote;
+    var cl = document.getElementById('q-close'); if(cl) cl.onclick = closeQ;
+  }
+
   /* Re-render cuando cambia el carrito (drawer, etc.) — preserva la nota escrita */
   MCCart.onChange(function(){ persistNote(); render(); });
 
@@ -631,6 +740,15 @@ a.crumb:hover{color:#fff}
 
   document.getElementById('footer-year').textContent = new Date().getFullYear();
   render();
+
+  /* Si volvió logueado con intención de cotizar, enviar automáticamente */
+  (function(){
+    if(window.MCAuth && MCAuth.current()){
+      var intent=''; try{ intent = sessionStorage.getItem(QINTENT)||''; }catch(e){}
+      if(intent==='1' && MCCart.count()>0){ doSendQuote(); }
+      else { try{ sessionStorage.removeItem(QINTENT); }catch(e){} }
+    }
+  })();
 })();
 </script>
 </body>

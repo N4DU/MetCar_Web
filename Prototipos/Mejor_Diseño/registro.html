@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#131110">
+<title>Crear cuenta — Metcar</title>
+<meta name="description" content="Creá tu cuenta Metcar para enviar pedidos a cotizar y seguir su estado.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;700&display=swap" rel="stylesheet">
+<script src="config.js"></script>
+<script src="auth.js"></script>
+<style>
+:root{
+  --red:#B83214;--blk:#0B0B0B;--yel:#F5C518;--dark:#1B1916;--dark2:#131110;
+  --owh:#F4F2EC;--wht:#FFFFFF;--txt:#1B1916;--txt2:#4A4744;--txt3:#68686A;--green:#1F8A5B;
+  --bdr:rgba(27,25,22,.12);--fd:'Bebas Neue',sans-serif;--fb:'Barlow',sans-serif;--ft:'Barlow Condensed',sans-serif;
+  --t1:.16s ease;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--fb);background:var(--owh);color:var(--txt);min-height:100vh;
+  -webkit-font-smoothing:antialiased;display:flex;flex-direction:column}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;border:none;background:none;font-family:inherit}
+
+.auth-nav{background:var(--dark);border-bottom:1px solid rgba(255,255,255,.07);padding:0 24px;height:60px;
+  display:flex;align-items:center;justify-content:space-between}
+.auth-nav img{height:26px;display:block}
+.auth-nav a.back{font-family:var(--ft);font-weight:700;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;
+  color:rgba(255,255,255,.55);display:flex;align-items:center;gap:7px;transition:color var(--t1)}
+.auth-nav a.back:hover{color:#fff}
+
+.auth-wrap{flex:1;display:grid;grid-template-columns:1fr 1fr;min-height:0}
+.auth-aside{background:var(--dark2);color:#fff;padding:54px 52px;position:relative;overflow:hidden;
+  display:flex;flex-direction:column;justify-content:center}
+.auth-aside::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse at 20% 25%,rgba(184,50,20,.16),transparent 58%)}
+.auth-aside-in{position:relative;max-width:420px}
+.auth-eye{font-family:var(--ft);font-weight:700;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:18px}
+.auth-aside h1{font-family:var(--fd);font-size:clamp(38px,4vw,56px);line-height:.92;letter-spacing:.5px;margin-bottom:20px}
+.auth-aside h1 .r{color:var(--red)}
+.auth-aside p{font-family:var(--fb);font-size:15px;line-height:1.65;color:rgba(255,255,255,.55);margin-bottom:30px}
+.auth-feats{display:flex;flex-direction:column;gap:15px}
+.auth-feat{display:flex;gap:12px;align-items:flex-start}
+.auth-feat-ic{width:30px;height:30px;border:1px solid rgba(255,255,255,.16);border-radius:2px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;color:var(--yel)}
+.auth-feat-t{font-family:var(--ft);font-weight:700;font-size:13.5px;letter-spacing:.5px;color:rgba(255,255,255,.9);line-height:1.2;margin-bottom:2px}
+.auth-feat-s{font-family:var(--fb);font-size:12.5px;line-height:1.45;color:rgba(255,255,255,.45)}
+
+.auth-main{display:flex;align-items:flex-start;justify-content:center;padding:48px 40px;overflow-y:auto}
+.auth-card{width:100%;max-width:440px}
+.auth-card h2{font-family:var(--fd);font-size:34px;letter-spacing:.5px;line-height:1;margin-bottom:6px}
+.auth-card .sub{font-family:var(--fb);font-size:14px;color:var(--txt2);margin-bottom:26px}
+.auth-card .sub a{color:var(--red);font-weight:600}
+.auth-card .sub a:hover{text-decoration:underline}
+
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field{margin-bottom:15px}
+.field.full{grid-column:1/-1}
+.field label{display:block;font-family:var(--ft);font-weight:700;font-size:10.5px;letter-spacing:1.3px;
+  text-transform:uppercase;color:var(--txt3);margin-bottom:6px}
+.field input,.field select{width:100%;background:var(--wht);border:1.5px solid var(--bdr);border-radius:2px;
+  padding:12px 13px;font-family:var(--fb);font-size:14.5px;color:var(--txt);outline:none;transition:border-color var(--t1)}
+.field input::placeholder{color:#a8a39c}
+.field input:focus,.field select:focus{border-color:var(--red)}
+.seg{display:flex;gap:8px}
+.seg-opt{flex:1;position:relative}
+.seg-opt input{position:absolute;opacity:0;inset:0;cursor:pointer}
+.seg-opt span{display:flex;align-items:center;justify-content:center;gap:7px;padding:11px;border:1.5px solid var(--bdr);
+  border-radius:2px;background:var(--wht);font-family:var(--ft);font-weight:700;font-size:12.5px;letter-spacing:1px;
+  text-transform:uppercase;color:var(--txt2);transition:all var(--t1)}
+.seg-opt input:checked+span{border-color:var(--red);background:rgba(184,50,20,.06);color:var(--red)}
+
+.auth-err{display:none;background:rgba(184,50,20,.08);border-left:3px solid var(--red);border-radius:2px;
+  padding:11px 13px;font-family:var(--fb);font-size:13px;color:#8a2410;margin-bottom:16px;line-height:1.45}
+.auth-err.show{display:block}
+
+.btn-sub{width:100%;display:flex;align-items:center;justify-content:center;gap:9px;background:var(--red);color:#fff;
+  border:2px solid var(--red);padding:15px;font-family:var(--ft);font-weight:700;font-size:14px;letter-spacing:1.5px;
+  text-transform:uppercase;border-radius:1px;margin-top:8px;transition:background var(--t1),transform .1s}
+.btn-sub:hover{background:#9E2810;border-color:#9E2810}
+.btn-sub:active{transform:scale(.99)}
+.btn-sub:disabled{opacity:.6;cursor:default}
+.auth-fine{font-family:var(--fb);font-size:11.5px;line-height:1.55;color:var(--txt3);margin-top:16px;text-align:center}
+
+@media(max-width:880px){
+  .auth-wrap{grid-template-columns:1fr}
+  .auth-aside{display:none}
+  .auth-main{padding:40px 24px}
+}
+</style>
+</head>
+<body>
+
+<nav class="auth-nav">
+  <a href="metcar_homepage_v5.html"><img src="img/logoMetcar.webp" alt="Metcar"></a>
+  <a class="back" href="metcar_homepage_v5.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Volver al inicio</a>
+</nav>
+
+<div class="auth-wrap">
+  <aside class="auth-aside">
+    <div class="auth-aside-in">
+      <div class="auth-eye">Cuenta Metcar</div>
+      <h1>PEDÍ A MEDIDA,<br>SIN <span class="r">VUELTAS</span></h1>
+      <p>Creá tu cuenta una sola vez. Después armás tu pedido, lo enviás a cotizar y seguís su estado desde acá. La misma gente de siempre, ahora también online.</p>
+      <div class="auth-feats">
+        <div class="auth-feat">
+          <span class="auth-feat-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>
+          <div><div class="auth-feat-t">Pedidos sin precios públicos</div><div class="auth-feat-s">Armás el pedido y te cotizamos a vos directamente.</div></div>
+        </div>
+        <div class="auth-feat">
+          <span class="auth-feat-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span>
+          <div><div class="auth-feat-t">Seguimiento del pedido</div><div class="auth-feat-s">Mirás en qué estado va, de la cotización al envío.</div></div>
+        </div>
+        <div class="auth-feat">
+          <span class="auth-feat-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span>
+          <div><div class="auth-feat-t">Envíos a todo Uruguay</div><div class="auth-feat-s">Encomienda al interior en 24–48 hs.</div></div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="auth-main">
+    <div class="auth-card">
+      <h2>Crear cuenta</h2>
+      <p class="sub">¿Ya tenés cuenta? <a id="link-login" href="login.html">Iniciá sesión</a></p>
+
+      <div class="auth-err" id="err"></div>
+
+      <form id="reg-form" novalidate>
+        <div class="field full">
+          <label for="nombre">Nombre completo / Razón social</label>
+          <input type="text" id="nombre" name="nombre" placeholder="Ej: Juan Pérez · Taller Pérez SRL" autocomplete="name" required>
+        </div>
+
+        <div class="field full">
+          <label>Tipo de cuenta</label>
+          <div class="seg">
+            <label class="seg-opt"><input type="radio" name="tipo" value="particular" checked><span>Particular</span></label>
+            <label class="seg-opt"><input type="radio" name="tipo" value="empresa"><span>Empresa</span></label>
+          </div>
+        </div>
+
+        <div class="frow">
+          <div class="field">
+            <label for="email">Correo electrónico</label>
+            <input type="email" id="email" name="email" placeholder="tucorreo@email.com" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label for="tel">Teléfono</label>
+            <input type="tel" id="tel" name="tel" placeholder="099 123 456" autocomplete="tel" required>
+          </div>
+        </div>
+
+        <div class="field full">
+          <label for="calle">Dirección (calle y número)</label>
+          <input type="text" id="calle" name="calle" placeholder="Av. Principal 1234" autocomplete="address-line1" required>
+        </div>
+
+        <div class="frow">
+          <div class="field">
+            <label for="ciudad">Ciudad / Localidad</label>
+            <input type="text" id="ciudad" name="ciudad" placeholder="Sarandí Grande" autocomplete="address-level2" required>
+          </div>
+          <div class="field">
+            <label for="depto">Departamento</label>
+            <input type="text" id="depto" name="depto" placeholder="Florida" autocomplete="address-level1" required>
+          </div>
+        </div>
+
+        <div class="frow">
+          <div class="field">
+            <label for="pass">Contraseña</label>
+            <input type="password" id="pass" name="pass" placeholder="Mínimo 6 caracteres" autocomplete="new-password" required>
+          </div>
+          <div class="field">
+            <label for="pass2">Repetir contraseña</label>
+            <input type="password" id="pass2" name="pass2" placeholder="Repetí la contraseña" autocomplete="new-password" required>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-sub" id="submit">Crear cuenta y continuar<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+      </form>
+      <p class="auth-fine">Al crear la cuenta, tu pedido actual queda asociado automáticamente. Metcar valida cuentas nuevas antes del primer envío.</p>
+    </div>
+  </main>
+</div>
+
+<script>
+(function(){
+  var qs = new URLSearchParams(location.search);
+  var next = qs.get('next') || 'metcar_homepage_v5.html';
+  // mantener ?next en el link a login
+  var ll = document.getElementById('link-login');
+  ll.href = 'login.html?next=' + encodeURIComponent(next);
+
+  // Si ya está logueado, no tiene sentido registrarse
+  if (window.MCAuth && MCAuth.current()) { location.replace(next); return; }
+
+  var form = document.getElementById('reg-form');
+  var err = document.getElementById('err');
+  var btn = document.getElementById('submit');
+
+  function showErr(msg){ err.textContent = msg; err.classList.add('show'); err.scrollIntoView ? null : 0; }
+  function clearErr(){ err.classList.remove('show'); }
+
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    clearErr();
+    var d = {
+      nombre: form.nombre.value.trim(),
+      tipo: form.tipo.value,
+      email: form.email.value.trim(),
+      tel: form.tel.value.trim(),
+      calle: form.calle.value.trim(),
+      ciudad: form.ciudad.value.trim(),
+      depto: form.depto.value.trim(),
+      pass: form.pass.value,
+    };
+    if(!d.nombre){ return showErr('Ingresá tu nombre o razón social.'); }
+    if(!/.+@.+\..+/.test(d.email)){ return showErr('Ingresá un correo electrónico válido.'); }
+    if(d.pass.length < 6){ return showErr('La contraseña debe tener al menos 6 caracteres.'); }
+    if(d.pass !== form.pass2.value){ return showErr('Las contraseñas no coinciden.'); }
+
+    btn.disabled = true; var orig = btn.innerHTML; btn.textContent = 'Creando cuenta…';
+    try{
+      await MCAuth.register(d);
+      location.href = next;
+    }catch(ex){
+      btn.disabled = false; btn.innerHTML = orig;
+      showErr(ex.message || 'No se pudo crear la cuenta.');
+    }
+  });
+})();
+</script>
+</body>
+</html>

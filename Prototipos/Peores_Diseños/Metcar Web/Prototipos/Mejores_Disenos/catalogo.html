@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#131110">
+<title>Catálogo — Metcar · Insumos Hidráulicos y Herramientas · Uruguay</title>
+<meta name="description" content="Catálogo completo de Metcar Uruguay: mangueras hidráulicas SAE, terminales, discos de corte, herramientas de torno, gatos hidráulicos y prensas. Envíos a todo Uruguay.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;700&display=swap" rel="stylesheet">
+<script src="config.js"></script>
+<script src="auth.js"></script>
+<script src="terminales.js"></script>
+<script src="catalog-data.js"></script>
+<script src="cart.js"></script>
+<style>
+:root{
+  --red:#B83214;--blk:#0B0B0B;--yel:#F5C518;--yel-dim:#8A7010;
+  --dark:#1B1916;--dark2:#131110;
+  --owh:#F4F2EC;--wht:#FFFFFF;
+  --txt:#1B1916;--txt2:#4A4744;--txt3:#68686A;
+  --bdr:rgba(27,25,22,.09);--bdr-l:rgba(255,255,255,.07);
+  --fd:'Bebas Neue',sans-serif;--fb:'Barlow',sans-serif;--ft:'Barlow Condensed',sans-serif;
+  --t1:.16s ease;--t2:.28s ease;
+  --mw:1160px;--px:32px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--fb);background:var(--owh);color:var(--txt);
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;border:none;background:none;font-family:inherit}
+img{display:block;max-width:100%}
+
+/* ══ NAVBAR (idéntico al home) ══ */
+.nav{position:sticky;top:0;z-index:200;background:var(--dark);border-bottom:1px solid var(--bdr-l)}
+.nav-in{max-width:var(--mw);margin:0 auto;height:62px;display:flex;align-items:center;padding:0 var(--px)}
+.nav-logo-img{height:28px;width:auto;display:block}
+.nav-links{display:flex;gap:26px;flex:1;justify-content:center}
+.nl{font-family:var(--fb);font-weight:500;font-size:13px;color:rgba(255,255,255,.65);cursor:pointer;
+  letter-spacing:.1px;border-bottom:1px solid transparent;padding-bottom:1px;
+  transition:color var(--t1),border-color var(--t1)}
+.nl:hover{color:#fff;border-bottom-color:rgba(255,255,255,.2)}
+.nl--on{color:#fff;border-bottom-color:var(--red)}
+.nav-r{display:flex;align-items:center;gap:2px;flex-shrink:0}
+.ibtn{background:none;border:none;cursor:pointer;color:rgba(255,255,255,.55);padding:8px;
+  display:flex;align-items:center;justify-content:center;transition:color var(--t1);position:relative}
+.ibtn:hover{color:#fff}
+.cbadge{position:absolute;top:4px;right:4px;background:var(--red);color:#fff;border-radius:50%;
+  width:13px;height:13px;font-family:var(--ft);font-weight:700;font-size:8px;
+  display:flex;align-items:center;justify-content:center}
+.btn-login{border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.68);
+  padding:6px 16px;margin-left:10px;font-family:var(--ft);font-weight:700;font-size:11px;
+  letter-spacing:1.5px;text-transform:uppercase;transition:border-color var(--t1),color var(--t1);border-radius:1px}
+.btn-login:hover{border-color:rgba(255,255,255,.45);color:#fff}
+.nav-ham{display:none;flex-direction:column;justify-content:center;gap:5px;
+  padding:8px;margin-left:6px;background:none;border:none;cursor:pointer;flex-shrink:0}
+.nav-ham span{display:block;width:20px;height:2px;background:rgba(255,255,255,.7);
+  border-radius:1px;transition:all .24s ease}
+.nav-ham.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-ham.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.nav-ham.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.nav-mobile{display:none;position:fixed;top:62px;left:0;right:0;z-index:190;
+  background:var(--dark);border-top:1px solid var(--bdr-l);flex-direction:column;
+  box-shadow:0 8px 24px rgba(0,0,0,.4)}
+.nav-mobile.open{display:flex}
+.nl-m{font-family:var(--fb);font-weight:500;font-size:15px;
+  color:rgba(255,255,255,.72);padding:16px var(--px);
+  border-bottom:1px solid rgba(255,255,255,.05);cursor:pointer;
+  transition:color var(--t1),background var(--t1)}
+.nl-m:hover,.nl-m:active{color:#fff;background:rgba(255,255,255,.04)}
+
+/* ══ PAGE HEADER ══ */
+.phead{background:var(--dark2);padding:44px var(--px) 40px;position:relative;overflow:hidden}
+.phead::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse at 15% 40%,rgba(184,50,20,.07) 0%,transparent 55%)}
+.phead-in{max-width:var(--mw);margin:0 auto;position:relative}
+.crumbs{display:flex;align-items:center;gap:8px;font-family:var(--ft);font-weight:500;
+  font-size:11px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:18px}
+.crumb{color:rgba(255,255,255,.35);transition:color var(--t1)}
+a.crumb:hover{color:#fff}
+.crumb-sep{color:rgba(255,255,255,.18)}
+.crumb--on{color:rgba(255,255,255,.75)}
+.phead-row{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:26px;flex-wrap:wrap}
+.phead-h1{font-family:var(--fd);font-size:clamp(36px,4.5vw,54px);line-height:.9;
+  color:#fff;letter-spacing:.5px}
+.phead-h1 .r{color:var(--red)}
+.phead-count{font-family:var(--ft);font-weight:500;font-size:12px;letter-spacing:1.5px;
+  text-transform:uppercase;color:rgba(255,255,255,.35);padding-bottom:6px}
+.phead-count b{color:var(--yel);font-weight:700}
+
+/* Big search */
+.search-wrap{position:relative;max-width:640px}
+.search-ic{position:absolute;left:18px;top:50%;transform:translateY(-50%);
+  color:rgba(255,255,255,.35);pointer-events:none}
+.search-in{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.13);
+  border-radius:2px;padding:16px 48px 16px 50px;font-family:var(--fb);font-weight:500;
+  font-size:15px;color:#fff;outline:none;transition:border-color var(--t1),background var(--t1)}
+.search-in::placeholder{color:rgba(255,255,255,.32)}
+.search-in:focus{border-color:var(--red);background:rgba(255,255,255,.08)}
+.search-in::-webkit-search-cancel-button,.search-in::-webkit-search-decoration{-webkit-appearance:none;appearance:none;display:none}
+.search-clear{position:absolute;right:10px;top:50%;transform:translateY(-50%);
+  color:rgba(255,255,255,.4);padding:8px;display:none;transition:color var(--t1)}
+.search-clear:hover{color:#fff}
+.search-clear.show{display:block}
+.search-hint{font-family:var(--ft);font-weight:500;font-size:11px;letter-spacing:1px;
+  text-transform:uppercase;color:rgba(255,255,255,.22);margin-top:10px}
+.search-hint b{color:rgba(255,255,255,.4);font-weight:500}
+
+/* ══ CATEGORY BAR (sticky) ══ */
+.catbar{position:sticky;top:62px;z-index:150;background:var(--wht);
+  border-bottom:1px solid var(--bdr);box-shadow:0 1px 0 rgba(27,25,22,.02)}
+.catbar-in{max-width:var(--mw);margin:0 auto;padding:0 var(--px);
+  display:flex;align-items:center;gap:18px}
+.chips{display:flex;gap:4px;flex-wrap:wrap;flex:1;padding:10px 0}
+.chip{flex-shrink:0;font-family:var(--ft);font-weight:700;font-size:12px;
+  letter-spacing:1.2px;text-transform:uppercase;color:var(--txt3);
+  padding:8px 14px;border-radius:1px;border:1px solid transparent;
+  transition:color var(--t1),background var(--t1),border-color var(--t1);
+  display:flex;align-items:center;gap:7px;white-space:nowrap}
+.chip:hover{color:var(--txt);border-color:var(--bdr)}
+.chip .n{font-size:10px;color:var(--txt3);font-weight:500;letter-spacing:.5px}
+.chip.on{background:var(--blk);color:var(--yel);border-color:var(--blk)}
+.chip.on .n{color:var(--yel-dim)}
+.tools{display:flex;align-items:center;gap:14px;flex-shrink:0;padding:10px 0}
+.stock-tgl{display:flex;align-items:center;gap:8px;font-family:var(--ft);font-weight:700;
+  font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:var(--txt3);
+  cursor:pointer;user-select:none;transition:color var(--t1)}
+.stock-tgl:hover{color:var(--txt)}
+.tgl-box{width:30px;height:16px;border-radius:999px;background:rgba(27,25,22,.15);
+  position:relative;transition:background var(--t1);flex-shrink:0}
+.tgl-box::after{content:'';position:absolute;top:2px;left:2px;width:12px;height:12px;
+  border-radius:50%;background:#fff;transition:transform var(--t1)}
+.stock-tgl.on{color:var(--txt)}
+.stock-tgl.on .tgl-box{background:var(--red)}
+.stock-tgl.on .tgl-box::after{transform:translateX(14px)}
+.sort-sel{font-family:var(--ft);font-weight:700;font-size:11px;letter-spacing:1.2px;
+  text-transform:uppercase;color:var(--txt2);background:transparent;
+  border:1px solid var(--bdr);border-radius:1px;padding:7px 8px;cursor:pointer;outline:none}
+.sort-sel:hover{border-color:rgba(27,25,22,.25)}
+
+/* ══ CONFIGURADOR BANNER ══ */
+.cfg-banner{max-width:var(--mw);margin:20px auto 0;padding:0 var(--px)}
+.cfg-banner-in{position:relative;border-radius:3px;overflow:hidden;
+  background:linear-gradient(to bottom,rgba(30,28,26,1) 0%,rgba(50,47,43,1) 28%,rgba(40,37,34,1) 55%,rgba(18,16,14,1) 100%);
+  border-left:4px solid var(--red);
+  display:flex;align-items:center;justify-content:space-between;gap:18px;
+  padding:16px 20px;flex-wrap:wrap}
+.cfg-banner-in::before{content:'';position:absolute;inset:10% 0;pointer-events:none;
+  background-image:repeating-linear-gradient(-45deg,transparent 0,transparent 5px,rgba(255,255,255,.022) 5px,rgba(255,255,255,.022) 6px)}
+.cfgb-txt{font-family:var(--ft);font-weight:700;font-size:13px;color:var(--yel);
+  letter-spacing:2px;text-transform:uppercase}
+.cfgb-sub{font-family:var(--ft);font-weight:500;font-size:11px;color:rgba(245,197,24,.4);
+  letter-spacing:1.5px;text-transform:uppercase;margin-top:3px}
+.cfgb-btn{display:inline-flex;align-items:center;gap:8px;background:var(--red);color:#fff;
+  padding:10px 20px;font-family:var(--ft);font-weight:700;font-size:12px;
+  letter-spacing:1.5px;text-transform:uppercase;border-radius:1px;position:relative;
+  transition:background var(--t1),transform .1s}
+.cfgb-btn:hover{background:#9E2810}
+.cfgb-btn:active{transform:scale(.98)}
+
+/* ══ RESULTS META ══ */
+.rmeta{max-width:var(--mw);margin:0 auto;padding:24px var(--px) 0;
+  display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.rmeta-txt{font-family:var(--ft);font-weight:500;font-size:12px;letter-spacing:1.2px;
+  text-transform:uppercase;color:var(--txt3)}
+.rmeta-txt b{color:var(--txt);font-weight:700}
+.rmeta-q{color:var(--red);font-weight:700}
+
+/* ══ PRODUCT GRID ══ */
+.pwrap{max-width:var(--mw);margin:0 auto;padding:18px var(--px) 72px}
+.pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.pc{background:var(--wht);border:1px solid var(--bdr);border-radius:2px;
+  overflow:hidden;transition:border-color var(--t1),transform var(--t2);
+  position:relative;display:flex;flex-direction:column;cursor:pointer}
+.pc::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:var(--red);transform:scaleX(0);transition:transform var(--t2);transform-origin:left;z-index:3}
+.pc:hover{border-color:rgba(27,25,22,.22);transform:translateY(-2px)}
+.pc:hover::after{transform:scaleX(1)}
+.pc-img{width:100%;height:140px;cursor:pointer;
+  background:linear-gradient(150deg,#23211e 0%,#161412 70%,#0f0d0b 100%);
+  display:flex;align-items:center;justify-content:center;
+  border-bottom:1px solid var(--bdr);position:relative;overflow:hidden}
+.pc-img::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 32% 26%,rgba(245,197,24,.06),transparent 62%);z-index:1;pointer-events:none}
+.pc-ghost{font-family:var(--fd);font-size:44px;color:rgba(255,255,255,.05);
+  position:absolute;bottom:-8px;right:8px;letter-spacing:-1px;line-height:1;z-index:1}
+.pc-art{position:relative;z-index:2;color:rgba(255,255,255,.5);
+  filter:drop-shadow(0 5px 11px rgba(0,0,0,.5))}
+.pc--out .pc-img{filter:grayscale(.5)}
+.pc--out .pc-art{opacity:.4}
+.pc-stock{position:absolute;top:10px;left:10px;z-index:3;
+  display:inline-flex;align-items:center;gap:6px;background:var(--blk);
+  font-family:var(--ft);font-weight:700;font-size:9.5px;letter-spacing:1.5px;
+  text-transform:uppercase;padding:4px 9px;border-radius:4px}
+.pc-stock .dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.pc-stock--in{color:var(--yel)}
+.pc-stock--in .dot{background:var(--yel);animation:pulse 2s ease-in-out infinite}
+.pc-stock--out{color:var(--yel-dim)}
+.pc-stock--out .dot{background:var(--yel-dim)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.pc-body{padding:15px 16px 16px;display:flex;flex-direction:column;flex:1}
+.pc-cat{font-family:var(--ft);font-weight:700;font-size:9.5px;
+  letter-spacing:1.5px;text-transform:uppercase;color:var(--red);margin-bottom:5px}
+.pc-name{font-family:var(--ft);font-weight:700;font-size:14.5px;
+  color:var(--txt);line-height:1.25;margin-bottom:4px;cursor:pointer}
+.pc-name:hover{color:var(--red)}
+.pc-code{font-family:var(--ft);font-weight:500;font-size:10px;
+  color:var(--txt3);letter-spacing:1px;margin-bottom:10px}
+.pc-specs{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:14px}
+.pc-spec{display:inline-block;background:var(--blk);font-family:var(--ft);font-weight:700;
+  font-size:10.5px;color:var(--yel);letter-spacing:1px;padding:4px 9px;border-radius:4px;
+  text-transform:uppercase;white-space:nowrap}
+.pc-foot{margin-top:auto;display:flex;flex-direction:column;gap:6px}
+.pc-btn{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;
+  border:1.5px solid var(--bdr);color:var(--txt);background:transparent;
+  padding:9px;font-family:var(--ft);font-weight:700;font-size:11px;letter-spacing:1.5px;
+  text-transform:uppercase;text-align:center;transition:all var(--t1);border-radius:1px}
+.pc-btn:hover{background:var(--red);border-color:var(--red);color:#fff}
+.pc-btn:active{transform:scale(.98)}
+.pc-btn--cfg{background:var(--red);border-color:var(--red);color:#fff}
+.pc-btn--cfg:hover{background:#9E2810;border-color:#9E2810}
+.pc-note{font-family:var(--ft);font-weight:500;font-size:10px;letter-spacing:.8px;
+  text-transform:uppercase;color:var(--yel-dim);text-align:center}
+
+/* ══ LOAD MORE ══ */
+.loadmore{text-align:center;margin-top:36px}
+.btn-more{display:inline-flex;align-items:center;gap:8px;border:1.5px solid rgba(27,25,22,.18);
+  color:var(--txt);padding:12px 32px;font-family:var(--ft);font-weight:700;font-size:12px;
+  letter-spacing:1.5px;text-transform:uppercase;border-radius:1px;background:transparent;
+  transition:border-color var(--t1),color var(--t1)}
+.btn-more:hover{border-color:var(--red);color:var(--red)}
+.loadmore-meta{font-family:var(--ft);font-weight:500;font-size:11px;letter-spacing:1px;
+  text-transform:uppercase;color:var(--txt3);margin-top:12px}
+
+/* ══ EMPTY STATE ══ */
+.empty{max-width:560px;margin:0 auto;text-align:center;padding:56px 0 24px}
+.empty-ic{width:56px;height:56px;margin:0 auto 20px;border:1.5px solid var(--bdr);
+  border-radius:2px;display:flex;align-items:center;justify-content:center;color:var(--txt3)}
+.empty-h{font-family:var(--fd);font-size:28px;color:var(--txt);letter-spacing:.5px;margin-bottom:8px}
+.empty-h .q{color:var(--red)}
+.empty-cat{font-family:var(--fb);font-size:14px;color:var(--txt2);margin-bottom:18px;display:flex;align-items:center;gap:8px;justify-content:center;flex-wrap:wrap}
+.empty-cat b{color:var(--txt);font-weight:600}
+.empty-allcat{font-family:var(--fb);font-size:13px;font-weight:600;color:var(--red);
+  background:none;border:none;cursor:pointer;padding:0;text-decoration:underline;text-underline-offset:3px}
+.empty-allcat:hover{color:var(--txt)}
+.empty-txt{font-family:var(--fb);font-size:14px;line-height:1.65;color:var(--txt2);margin-bottom:24px}
+.empty-sug{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:32px}
+.sug-lbl{font-family:var(--ft);font-weight:700;font-size:11px;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--txt3);width:100%;margin-bottom:4px}
+.sug{font-family:var(--ft);font-weight:700;font-size:12px;letter-spacing:1px;
+  text-transform:uppercase;color:var(--txt2);border:1px solid var(--bdr);
+  padding:7px 14px;border-radius:1px;transition:all var(--t1);cursor:pointer;background:var(--wht)}
+.sug:hover{border-color:var(--red);color:var(--red)}
+.empty-wa{display:inline-flex;align-items:center;gap:9px;background:var(--blk);color:#fff;
+  padding:13px 26px;font-family:var(--ft);font-weight:700;font-size:12px;
+  letter-spacing:1.5px;text-transform:uppercase;border-radius:1px;transition:background var(--t1)}
+.empty-wa:hover{background:#222}
+.empty-wa svg{color:#25D366}
+.rel-lbl{font-family:var(--ft);font-weight:700;font-size:11px;letter-spacing:2px;
+  text-transform:uppercase;color:var(--red);text-align:center;margin:4px 0 18px;
+  padding-top:24px;border-top:1px solid var(--bdr)}
+
+/* ══ TOAST ══ */
+.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,16px);
+  background:var(--blk);color:#fff;border-left:3px solid var(--red);border-radius:2px;
+  padding:14px 20px;display:flex;align-items:center;gap:14px;z-index:300;
+  opacity:0;pointer-events:none;transition:opacity .25s ease,transform .25s ease;
+  box-shadow:0 12px 32px rgba(0,0,0,.35);max-width:calc(100vw - 40px)}
+.toast.show{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+.toast-txt{font-family:var(--fb);font-weight:500;font-size:13.5px;line-height:1.4}
+.toast-txt b{font-family:var(--ft);letter-spacing:.5px}
+.toast-sub{font-family:var(--ft);font-weight:500;font-size:11px;letter-spacing:1px;
+  text-transform:uppercase;color:var(--yel);margin-top:2px}
+.toast-link{font-family:var(--ft);font-weight:700;font-size:11px;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--yel);white-space:nowrap;flex-shrink:0;cursor:pointer}
+.toast-link:hover{text-decoration:underline}
+
+/* ══ FOOTER (idéntico al home) ══ */
+.footer{background:var(--dark);border-top:3px solid var(--red);padding:60px var(--px) 36px}
+.foot-grid{max-width:var(--mw);margin:0 auto;display:grid;
+  grid-template-columns:1.5fr 1fr 1fr 1fr;gap:44px;
+  padding-bottom:44px;border-bottom:1px solid rgba(255,255,255,.07);margin-bottom:24px}
+.foot-logo{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.foot-logo-img{height:30px;width:auto;display:block}
+.foot-tag{font-family:var(--fb);font-size:13px;line-height:1.6;
+  color:rgba(255,255,255,.38);max-width:220px;margin-bottom:20px}
+.foot-col-title{font-family:var(--ft);font-weight:700;font-size:10px;
+  letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:18px}
+.foot-links{display:flex;flex-direction:column;gap:10px}
+.foot-link{font-family:var(--fb);font-weight:500;font-size:13px;
+  color:rgba(255,255,255,.52);cursor:pointer;transition:color var(--t1)}
+.foot-link:hover{color:#fff}
+.foot-ci{margin-bottom:14px}
+.foot-clbl{font-family:var(--ft);font-weight:700;font-size:9px;letter-spacing:1.5px;
+  text-transform:uppercase;color:rgba(255,255,255,.22);margin-bottom:2px}
+.foot-cval{font-family:var(--fb);font-size:13px;color:rgba(255,255,255,.55)}
+.foot-btm{max-width:var(--mw);margin:0 auto;display:flex;
+  justify-content:space-between;align-items:center}
+.foot-copy{font-family:var(--ft);font-size:11px;color:rgba(255,255,255,.18);letter-spacing:.5px}
+.foot-made{font-family:var(--ft);font-size:11px;color:rgba(255,255,255,.12);letter-spacing:.5px}
+
+/* ══ ANIMATIONS ══ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.anim{opacity:0;animation:fadeUp .65s cubic-bezier(.22,1,.36,1) both}
+
+/* ══ A11Y: FOCO VISIBLE + MOVIMIENTO REDUCIDO ══ */
+.stock-tgl .lbl-short{display:none}
+.chip:focus-visible,.pc-btn:focus-visible,.btn-more:focus-visible,.sug:focus-visible,
+.stock-tgl:focus-visible,.sort-sel:focus-visible,.ibtn:focus-visible,.btn-login:focus-visible,
+[data-open]:focus-visible,.qv-close:focus-visible,.qv-step:focus-visible,.search-clear:focus-visible,
+.empty-wa:focus-visible,.cfgb-btn:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .anim,.pc{animation:none!important;opacity:1!important}
+  *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}
+}
+
+/* ══ QUICK VIEW ══ */
+.qv{position:fixed;inset:0;z-index:400;display:flex;align-items:center;justify-content:center;
+  padding:20px;opacity:0;pointer-events:none;transition:opacity .2s ease}
+.qv.show{opacity:1;pointer-events:auto}
+.qv-ovl{position:absolute;inset:0;background:rgba(11,11,11,.62)}
+.qv-panel{position:relative;background:var(--wht);border-radius:2px;max-width:760px;width:100%;
+  display:grid;grid-template-columns:290px 1fr;overflow:hidden;
+  box-shadow:0 24px 64px rgba(0,0,0,.45);transform:translateY(10px);transition:transform .22s ease;
+  max-height:calc(100vh - 40px)}
+.qv.show .qv-panel{transform:translateY(0)}
+.qv-art{background:linear-gradient(150deg,#23211e 0%,#161412 70%,#0f0d0b 100%);
+  position:relative;display:flex;align-items:center;justify-content:center;min-height:300px;overflow:hidden}
+.qv-art::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 32% 26%,rgba(245,197,24,.06),transparent 62%);pointer-events:none}
+.qv-icon{position:relative;color:rgba(255,255,255,.55);filter:drop-shadow(0 5px 11px rgba(0,0,0,.5))}
+.qv-icon svg{width:76px;height:76px}
+.qv-ghost{font-family:var(--fd);font-size:84px;color:rgba(255,255,255,.05);
+  position:absolute;bottom:-14px;right:12px;letter-spacing:-2px;line-height:1}
+.qv-close{position:absolute;top:8px;right:8px;z-index:5;color:var(--txt3);padding:10px;
+  background:var(--wht);border-radius:2px;transition:color var(--t1)}
+.qv-close:hover{color:var(--txt)}
+.qv-body{padding:26px 28px;overflow:auto}
+.qv-name{font-family:var(--ft);font-weight:700;font-size:22px;line-height:1.2;
+  color:var(--txt);margin-bottom:4px}
+.qv-rows{margin-top:18px;border-top:1px solid var(--bdr)}
+.qv-row{display:flex;justify-content:space-between;gap:12px;padding:9px 0;
+  border-bottom:1px solid var(--bdr)}
+.qv-row span{font-family:var(--ft);font-weight:700;font-size:10px;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--txt3);padding-top:2px}
+.qv-row b{font-family:var(--fb);font-weight:500;font-size:13px;color:var(--txt);text-align:right}
+.qv-actions{display:flex;gap:10px;margin-top:20px}
+.qv-qty{display:flex;align-items:stretch;border:1.5px solid var(--bdr);border-radius:1px;flex-shrink:0}
+.qv-step{width:36px;font-family:var(--ft);font-weight:700;font-size:16px;color:var(--txt2);
+  display:flex;align-items:center;justify-content:center;transition:background var(--t1)}
+.qv-step:hover{background:var(--owh)}
+.qv-qn{width:40px;display:flex;align-items:center;justify-content:center;
+  font-family:var(--ft);font-weight:700;font-size:14px;color:var(--txt);
+  border-left:1.5px solid var(--bdr);border-right:1.5px solid var(--bdr)}
+.qv-add{flex:1}
+.qv-wa{display:inline-flex;align-items:center;gap:7px;margin-top:16px;
+  font-family:var(--ft);font-weight:700;font-size:11px;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--txt3);transition:color var(--t1)}
+.qv-wa:hover{color:#1da851}
+.qv-wa svg{color:#25D366}
+@media(max-width:640px){
+  .qv{padding:0;align-items:flex-end}
+  .qv-panel{grid-template-columns:1fr;max-height:90vh;border-radius:6px 6px 0 0;max-width:none}
+  .qv-art{min-height:150px}
+  .qv-ghost{font-size:64px}
+  .qv-close{background:rgba(255,255,255,.92)}
+}
+
+/* ══ RESPONSIVE ══ */
+@media(max-width:900px){
+  :root{--px:24px}
+  .nav-links{display:none}
+  .nav-ham{display:flex}
+  .nav-logo{flex:1}
+  .pgrid{grid-template-columns:repeat(3,1fr)}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:32px}
+  .catbar-in{gap:10px}
+}
+@media(max-width:720px){
+  .pgrid{grid-template-columns:repeat(2,1fr)}
+  .tools{gap:10px}
+  .sort-sel{padding:6px 4px;font-size:10px}
+  .stock-tgl .lbl-full{display:none}
+  .stock-tgl .lbl-short{display:inline}
+  /* Categorías: una sola fila deslizable en vez de torre que tapa la pantalla */
+  .catbar-in{gap:8px}
+  .chips{flex-wrap:nowrap;overflow-x:auto;min-width:0;gap:2px;
+    scrollbar-width:none;-ms-overflow-style:none;
+    -webkit-mask-image:linear-gradient(to right,transparent 0,#000 14px,#000 calc(100% - 18px),transparent 100%);
+    mask-image:linear-gradient(to right,transparent 0,#000 14px,#000 calc(100% - 18px),transparent 100%)}
+  .chips::-webkit-scrollbar{display:none}
+}
+@media(max-width:600px){
+  :root{--px:20px}
+  .nav-in{height:56px}
+  .nav-mobile{top:56px}
+  .btn-login{display:none}
+  .catbar{top:56px}
+  .phead{padding:32px var(--px) 30px}
+  .pgrid{gap:10px}
+  .pc-img{height:116px}
+  .pc-body{padding:12px 12px 13px}
+  .foot-grid{grid-template-columns:1fr}
+  .foot-btm{flex-direction:column;gap:8px;text-align:center}
+  .cfg-banner-in{padding:14px 16px}
+}
+@media(max-width:420px){
+  .pgrid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════ NAVBAR -->
+<nav class="nav">
+  <div class="nav-in">
+    <div class="nav-logo">
+      <a href="metcar_homepage_v5.html" style="display:flex;align-items:center">
+        <img src="img/logoMetcar.webp" alt="Metcar" class="nav-logo-img">
+      </a>
+    </div>
+    <div class="nav-links">
+      <a class="nl nl--on" href="catalogo.html">Catálogo</a>
+      <a class="nl" href="Configurador Visual.dc.html">Configurador</a>
+      <a class="nl" href="sobre-nosotros.html">Sobre Metcar</a>
+      <a class="nl" href="metcar_homepage_v5.html#contacto">Contacto</a>
+    </div>
+    <div class="nav-r">
+      <button class="ibtn" id="nav-search-btn" aria-label="Buscar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></button>
+      <button class="ibtn" id="nav-cart-btn" data-open-cart aria-label="Mi pedido"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="cbadge" id="cart-badge">0</span></button>
+      <button class="btn-login">Ingresar</button>
+      <button class="nav-ham" id="nav-ham" aria-label="Abrir menú" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+<div class="nav-mobile" id="nav-mobile" aria-hidden="true">
+  <a class="nl-m" href="catalogo.html">Catálogo</a>
+  <a class="nl-m" href="Configurador Visual.dc.html">Configurador</a>
+  <a class="nl-m" href="sobre-nosotros.html">Sobre Metcar</a>
+  <a class="nl-m" href="metcar_homepage_v5.html#contacto">Contacto</a>
+</div>
+
+<!-- ══════════════════════════════════════ PAGE HEADER -->
+<header class="phead" data-screen-label="Catálogo — header">
+  <div class="phead-in">
+    <nav class="crumbs" aria-label="Ruta de navegación">
+      <a class="crumb" href="metcar_homepage_v5.html">Inicio</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb crumb--on">Catálogo</span>
+    </nav>
+    <div class="phead-row">
+      <h1 class="phead-h1 anim">CATÁLOGO <span class="r">METCAR</span></h1>
+      <div class="phead-count anim" style="animation-delay:.08s"><b id="total-count">0</b> productos · 100% Marca Metcar</div>
+    </div>
+    <div class="search-wrap anim" style="animation-delay:.14s">
+      <span class="search-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></span>
+      <input class="search-in" id="search" type="search" autocomplete="off" spellcheck="false"
+        placeholder="Buscar por nombre, código o medida — ej: manguera 1/2, MC-TH-204, disco inox" aria-label="Buscar productos">
+      <button class="search-clear" id="search-clear" aria-label="Limpiar búsqueda"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════ CATEGORY BAR -->
+<div class="catbar" data-screen-label="Catálogo — filtros">
+  <div class="catbar-in">
+    <div class="chips" id="chips" role="tablist" aria-label="Categorías"></div>
+    <div class="tools">
+      <button class="stock-tgl" id="stock-tgl" aria-pressed="false">
+        <span class="tgl-box"></span><span class="lbl lbl-full">Solo con stock</span><span class="lbl lbl-short">Stock</span>
+      </button>
+      <select class="sort-sel" id="sort" aria-label="Ordenar productos">
+        <option value="rel">Relevancia</option>
+        <option value="az">Nombre A–Z</option>
+        <option value="code">Código</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ CONFIGURADOR BANNER -->
+<div class="cfg-banner" id="cfg-banner">
+  <div class="cfg-banner-in">
+    <div>
+      <div class="cfgb-txt">¿Necesitás una manguera armada a medida?</div>
+      <div class="cfgb-sub">Tipo · Medida · Largo · Terminales — Lista para instalar</div>
+    </div>
+    <a class="cfgb-btn" href="Configurador Visual.dc.html">Ir al configurador<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ RESULTS -->
+<div class="rmeta">
+  <div class="rmeta-txt" id="rmeta" aria-live="polite"></div>
+</div>
+<main class="pwrap" data-screen-label="Catálogo — productos">
+  <div class="pgrid" id="grid"></div>
+  <div id="empty-holder"></div>
+  <div class="loadmore" id="loadmore" style="display:none">
+    <button class="btn-more" id="btn-more">Cargar más productos<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg></button>
+    <div class="loadmore-meta" id="loadmore-meta"></div>
+  </div>
+</main>
+
+<!-- ══════════════════════════════════════ TOAST -->
+<div class="toast" id="toast" role="status">
+  <div>
+    <div class="toast-txt" id="toast-txt"></div>
+    <div class="toast-sub" id="toast-sub" style="display:none"></div>
+  </div>
+  <span class="toast-link" id="toast-count"></span>
+</div>
+
+<!-- ══════════════════════════════════════ QUICK VIEW -->
+<div class="qv" id="qv" aria-hidden="true">
+  <div class="qv-ovl" id="qv-ovl"></div>
+  <div class="qv-panel" id="qv-panel" role="dialog" aria-modal="true"></div>
+</div>
+
+<!-- ══════════════════════════════════════ FOOTER -->
+<footer class="footer" id="contacto">
+  <div class="foot-grid">
+    <div>
+      <div class="foot-logo"><a href="metcar_homepage_v5.html" style="display:flex;align-items:center"><img src="img/logoMetcar.webp" alt="Metcar" class="foot-logo-img"></a></div>
+      <p class="foot-tag">Importación y distribución de insumos hidráulicos y herramientas industriales. Sarandí Grande, Uruguay.</p>
+      <div style="font-family:var(--ft);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2)">IMPORTADOR DIRECTO · DESDE 2014</div>
+    </div>
+    <div>
+      <div class="foot-col-title">Catálogo</div>
+      <div class="foot-links">
+        <a class="foot-link" href="catalogo.html?cat=mangueras">Mangueras Hidráulicas</a>
+        <a class="foot-link" href="catalogo.html?cat=terminales">Terminales y Punteros</a>
+        <a class="foot-link" href="catalogo.html?cat=discos">Discos de Corte</a>
+        <a class="foot-link" href="catalogo.html?cat=torno">Herramientas de Torno</a>
+        <a class="foot-link" href="catalogo.html?cat=gatos">Gatos Hidráulicos</a>
+        <a class="foot-link" href="catalogo.html">Ver todo el catálogo</a>
+      </div>
+    </div>
+    <div>
+      <div class="foot-col-title">Empresa</div>
+      <div class="foot-links">
+        <a class="foot-link" href="sobre-nosotros.html">Sobre Metcar</a>
+        <a class="foot-link" href="metcar_homepage_v5.html#cobertura">Giras mensuales</a>
+        <a class="foot-link" href="Configurador Visual.dc.html">Configurador de mangueras</a>
+        <a class="foot-link" href="metcar_homepage_v5.html#contacto">Contacto</a>
+        <a class="foot-link">Mi cuenta</a>
+      </div>
+    </div>
+    <div>
+      <div class="foot-col-title">Contacto</div>
+      <div class="foot-ci"><div class="foot-clbl">Teléfono</div><div class="foot-cval" data-mc="tel">4354-9363</div></div>
+      <div class="foot-ci"><div class="foot-clbl">Celular</div><div class="foot-cval" data-mc="cel">099 414 733</div></div>
+      <div class="foot-ci"><div class="foot-clbl">Email</div><div class="foot-cval" data-mc="email">info@metcar.com.uy</div></div>
+      <div class="foot-ci"><div class="foot-clbl">Dirección</div><div class="foot-cval"><span data-mc="dirCalle">Andrés Romero esq. Treinta y Tres</span><br><span data-mc="dirCiudad">Sarandí Grande, Florida</span></div></div>
+      <div style="margin-top:6px"><div class="foot-clbl">Horario</div><div class="foot-cval" style="font-size:12px" data-mc="horario">Lun–Vie 8:00–17:00 · Sáb 8:00–12:00</div></div>
+    </div>
+  </div>
+  <div class="foot-btm">
+    <span class="foot-copy">© <span id="footer-year">2024</span> Metcar Uruguay. Todos los derechos reservados.</span>
+    <span class="foot-made">metcar.uy</span>
+  </div>
+</footer>
+
+<script>
+/* ══════════════════════════════════════════════════════
+   CONFIGURACIÓN METCAR
+   ══════════════════════════════════════════════════════ */
+const MC = window.MC;   // ► todos los datos de contacto viven en config.js (único lugar para editarlos)
+
+/* ══════════════════════════════════════════════════════
+   CATEGORÍAS · ÍCONOS · PRODUCTOS — fuente única: catalog-data.js
+   (la misma data alimenta el catálogo y el carrito)
+   ══════════════════════════════════════════════════════ */
+const { CATS, ICONS, PRODUCTS } = window.MC_CATALOG;
+
+/* ══════════════════════════════════════════════════════
+   ESTADO + UTILIDADES
+   ══════════════════════════════════════════════════════ */
+const PAGE = 12;
+let state = { cat:'all', q:'', sort:'rel', onlyStock:false, shown:PAGE };
+
+const norm = s => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+  .replace(/[^a-z0-9"\/.\- ]/g,' ').replace(/\s+/g,' ').trim();
+
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+const catName = id => (CATS.find(c=>c.id===id)||{}).name || id;
+
+/* Búsqueda tolerante: acentos (norm), plural/singular y errores de tipeo
+   (distancia de edición 1 en tokens de 4+ letras: "mangera" → "manguera"). */
+PRODUCTS.forEach(p => {
+  p.ix = norm(p.name+' '+p.code+' '+catName(p.cat)+' '+p.specs.join(' '));
+  p.words = p.ix.split(' ');
+});
+function d1(a, b){
+  if(a === b) return true;
+  const la = a.length, lb = b.length;
+  if(Math.abs(la - lb) > 1) return false;
+  let i = 0, j = 0, edits = 0;
+  while(i < la && j < lb){
+    if(a[i] === b[j]){ i++; j++; continue; }
+    if(++edits > 1) return false;
+    if(la > lb) i++;
+    else if(lb > la) j++;
+    else { i++; j++; }
+  }
+  return edits + (la - i) + (lb - j) <= 1;
+}
+function tokenMatch(p, t){
+  if(p.ix.includes(t)) return 2;
+  const sg = t.replace(/(es|s)$/,'');
+  if(sg.length > 2 && p.ix.includes(sg)) return 2;
+  if(t.length >= 4 && p.words.some(w => w.length >= 4 && d1(w, t))) return 1;
+  if(t.length >= 3 && p.words.some(w => w.startsWith(t))) return 1;
+  return 0;
+}
+function matches(p, q){
+  if(!q) return true;
+  return norm(q).split(' ').every(t => tokenMatch(p, t) > 0);
+}
+function relScore(p, q){
+  let s = 0;
+  norm(q).split(' ').forEach(t => {
+    if(norm(p.code).includes(t)) s += 5;
+    if(norm(p.name).includes(t)) s += 3;
+    s += tokenMatch(p, t);
+  });
+  return s;
+}
+/* Distancia de edición con tope (para recomendaciones "con sentido") */
+function levCap(a, b, cap){
+  if(Math.abs(a.length - b.length) > cap) return cap + 1;
+  let prev = Array.from({length: b.length + 1}, (_, i) => i);
+  for(let i = 1; i <= a.length; i++){
+    const cur = [i];
+    let rowMin = i;
+    for(let j = 1; j <= b.length; j++){
+      cur[j] = Math.min(prev[j] + 1, cur[j-1] + 1, prev[j-1] + (a[i-1] === b[j-1] ? 0 : 1));
+      rowMin = Math.min(rowMin, cur[j]);
+    }
+    if(rowMin > cap) return cap + 1;
+    prev = cur;
+  }
+  return prev[b.length];
+}
+/* Productos relacionados con una búsqueda sin resultados exactos:
+   coincidencia parcial > error de tipeo (dist ≤2) > mismo prefijo. */
+function relatedProducts(q){
+  const toks = norm(q).split(' ').filter(Boolean);
+  const scored = PRODUCTS.map(p => {
+    let s = 0;
+    toks.forEach(t => {
+      if(p.ix.includes(t)) s += 4;
+      else if(t.length >= 4 && p.words.some(w => w.length >= 4 && levCap(w, t, 2) <= 2)) s += 2;
+      else if(t.length >= 3 && p.words.some(w => w.startsWith(t.slice(0, 3)))) s += 1;
+    });
+    if(s > 0 && p.stock) s += .5;
+    return [s, p];
+  }).filter(x => x[0] > 0).sort((a, b) => b[0] - a[0]);
+  return scored.slice(0, 4).map(x => x[1]);
+}
+
+function filtered(){
+  let list = PRODUCTS.filter(p =>
+    (state.cat==='all' || p.cat===state.cat) &&
+    (!state.onlyStock || p.stock) &&
+    matches(p, state.q));
+  if(state.sort==='az')   list.sort((a,b)=>a.name.localeCompare(b.name,'es'));
+  else if(state.sort==='code') list.sort((a,b)=>a.code.localeCompare(b.code));
+  else if(state.q){ // relevancia real: la manguera a medida (configurable) primero, luego mejor coincidencia (código > nombre > resto)
+    list.sort((a,b)=>
+      ((b.tipo==='configurable')-(a.tipo==='configurable')) ||
+      (relScore(b,state.q)-relScore(a,state.q)) || (b.stock-a.stock));
+  } else { // sin búsqueda: con stock primero, configurables al frente
+    list.sort((a,b)=>(b.stock-a.stock) || (b.tipo==='configurable')-(a.tipo==='configurable'));
+  }
+  return list;
+}
+
+/* ══════════════════════════════════════════════════════
+   CARRITO (sesión)
+   ══════════════════════════════════════════════════════ */
+/* El estado del carrito y el badge los maneja el módulo compartido cart.js (MCCart). */
+function cartCount(){ return MCCart.count(); }
+function updateBadge(){ /* cart.js mantiene el badge actualizado en todas las páginas */ }
+
+/* ══════════════════════════════════════════════════════
+   RENDER
+   ══════════════════════════════════════════════════════ */
+const $grid = document.getElementById('grid');
+const $rmeta = document.getElementById('rmeta');
+const $empty = document.getElementById('empty-holder');
+const $loadmore = document.getElementById('loadmore');
+
+function chipHTML(id, name, count, on){
+  return `<button class="chip${on?' on':''}" role="tab" aria-selected="${on}" data-cat="${id}">${name}<span class="n">${count}</span></button>`;
+}
+function renderChips(){
+  const counts = {};
+  CATS.forEach(c => counts[c.id] = PRODUCTS.filter(p=>p.cat===c.id).length);
+  let html = chipHTML('all','Todo',PRODUCTS.length,state.cat==='all');
+  CATS.forEach(c => html += chipHTML(c.id, c.name, counts[c.id], state.cat===c.id));
+  document.getElementById('chips').innerHTML = html;
+  // Mantén el chip activo a la vista en la fila deslizable de mobile
+  const box = document.getElementById('chips');
+  const active = box.querySelector('.chip.on');
+  if(active){
+    const target = active.offsetLeft - box.clientWidth/2 + active.offsetWidth/2;
+    box.scrollTo({left:Math.max(0,target), behavior:'smooth'});
+  }
+}
+
+function cardHTML(p, i, animFrom){
+  const cfg = p.tipo==='configurable';
+  const isNew = i >= (animFrom||0);          // solo los recién aparecidos animan
+  const animClass = isNew ? ' anim' : '';
+  const animStyle = isNew ? ` style="animation-delay:${Math.min((i-(animFrom||0))%PAGE,11)*0.04}s"` : '';
+  const stockBadge = p.stock
+    ? '<span class="pc-stock pc-stock--in"><span class="dot"></span>En stock</span>'
+    : '<span class="pc-stock pc-stock--out"><span class="dot"></span>Sin stock</span>';
+  const specs = p.specs.map(s=>`<span class="pc-spec">${s}</span>`).join('');
+  const btn = cfg
+    ? `<a class="pc-btn pc-btn--cfg" href="Configurador Visual.dc.html">Configurar a medida<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>`
+    : `<button class="pc-btn" data-add="${p.code}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>Agregar al pedido</button>`;
+  const note = (!p.stock && !cfg) ? '<span class="pc-note">Disponibilidad a confirmar en cotización</span>' : '';
+  return `<article class="pc${p.stock?'':' pc--out'}${animClass}"${animStyle}>
+    <div class="pc-img" data-open="${p.code}" role="button" tabindex="0" aria-label="Ver detalle de ${p.name}">
+      ${stockBadge}
+      <span class="pc-art">${ICONS[p.cat]||''}</span>
+      <span class="pc-ghost">${p.code.slice(-3)}</span>
+    </div>
+    <div class="pc-body">
+      <div class="pc-cat">${catName(p.cat)}</div>
+      <h3 class="pc-name" data-open="${p.code}" tabindex="0" role="button">${p.name}</h3>
+      <div class="pc-code">${p.code}</div>
+      <div class="pc-specs">${specs}</div>
+      <div class="pc-foot">${note}${btn}</div>
+    </div>
+  </article>`;
+}
+
+function emptyHTML(){
+  const rel = relatedProducts(state.q);
+  const relBlock = rel.length
+    ? `<div class="rel-lbl">Relacionado con tu búsqueda</div><div class="pgrid">${rel.map(cardHTML).join('')}</div>`
+    : '';
+  const inCat = state.cat!=='all'
+    ? `<div class="empty-cat">en la categoría <b>${esc(catName(state.cat))}</b> · <button class="empty-allcat" data-allcat="1">Buscar en todo el catálogo</button></div>`
+    : '';
+  return `<div class="empty">
+    <div class="empty-ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M8 11h6"/></svg></div>
+    <h2 class="empty-h">No encontramos <span class="q">"${esc(state.q)}"</span></h2>
+    ${inCat}
+    <p class="empty-txt">${rel.length ? 'Pero esto se parece a lo que buscás — mirá abajo.<br>Y si no es, consultanos directo: respondemos rápido.' : 'Puede que lo tengamos igual — el catálogo online se actualiza constantemente.<br>Consultanos directo: respondemos rápido.'}</p>
+    <a class="empty-wa" href="https://wa.me/${MC.wa}?text=${encodeURIComponent(waMsg(MC.waMsgBusqueda,{busqueda:state.q}))}" target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 32 32" fill="currentColor"><path d="M16 2C8.28 2 2 8.28 2 16c0 2.45.65 4.75 1.78 6.74L2 30l7.51-1.96A13.93 13.93 0 0 0 16 30c7.72 0 14-6.28 14-14S23.72 2 16 2zm0 25.5c-2.18 0-4.24-.6-6-1.65l-.43-.26-4.46 1.17 1.19-4.35-.28-.45A11.48 11.48 0 0 1 4.5 16c0-6.35 5.15-11.5 11.5-11.5S27.5 9.65 27.5 16 22.35 27.5 16 27.5z"/></svg>
+      Consultar disponibilidad por WhatsApp</a>
+  </div>${relBlock}`;
+}
+
+function render(animFrom){
+  animFrom = animFrom||0;
+  const list = filtered();
+  const visible = list.slice(0, state.shown);
+
+  // meta
+  const catLbl = state.cat==='all' ? 'todo el catálogo' : catName(state.cat);
+  $rmeta.innerHTML = state.q
+    ? `<b>${list.length}</b> resultado${list.length===1?'':'s'} para <span class="rmeta-q">"${esc(state.q)}"</span> en ${catLbl}`
+    : `Mostrando <b>${visible.length}</b> de <b>${list.length}</b> productos · ${catLbl}`;
+
+  // grid / empty
+  if(list.length === 0){
+    $grid.innerHTML = '';
+    $empty.innerHTML = emptyHTML();
+    $loadmore.style.display = 'none';
+  } else {
+    $empty.innerHTML = '';
+    $grid.innerHTML = visible.map((p,i)=>cardHTML(p,i,animFrom)).join('');
+    const rest = list.length - visible.length;
+    $loadmore.style.display = rest > 0 ? 'block' : 'none';
+    if(rest > 0) document.getElementById('loadmore-meta').textContent = rest + ' producto' + (rest===1?'':'s') + ' más';
+  }
+
+  // banner: visible en "todo" y en mangueras
+  document.getElementById('cfg-banner').style.display =
+    (state.cat==='all' || state.cat==='mangueras') && !state.q ? 'block' : 'none';
+
+  // URL deep-link
+  const params = new URLSearchParams();
+  if(state.cat!=='all') params.set('cat', state.cat);
+  if(state.q) params.set('q', state.q);
+  const qs = params.toString();
+  history.replaceState(null,'', location.pathname + (qs?'?'+qs:''));
+}
+
+/* ══════════════════════════════════════════════════════
+   EVENTOS
+   ══════════════════════════════════════════════════════ */
+document.getElementById('chips').addEventListener('click', e => {
+  const chip = e.target.closest('.chip');
+  if(!chip) return;
+  state.cat = chip.dataset.cat;
+  state.shown = PAGE;
+  renderChips(); render();
+});
+
+const $search = document.getElementById('search');
+const $clear = document.getElementById('search-clear');
+let debounce;
+$search.addEventListener('input', () => {
+  clearTimeout(debounce);
+  debounce = setTimeout(() => {
+    state.q = $search.value.trim();
+    state.shown = PAGE;
+    $clear.classList.toggle('show', !!state.q);
+    render();
+  }, 120);
+});
+$clear.addEventListener('click', () => {
+  $search.value=''; state.q=''; state.shown=PAGE;
+  $clear.classList.remove('show'); render(); $search.focus();
+});
+document.getElementById('nav-search-btn').addEventListener('click', () => {
+  window.scrollTo({top:0, behavior:'smooth'});
+  setTimeout(()=>$search.focus({preventScroll:true}), 350);
+});
+
+document.getElementById('stock-tgl').addEventListener('click', function(){
+  state.onlyStock = !state.onlyStock;
+  state.shown = PAGE;
+  this.classList.toggle('on', state.onlyStock);
+  this.setAttribute('aria-pressed', state.onlyStock);
+  render();
+});
+
+document.getElementById('sort').addEventListener('change', function(){
+  state.sort = this.value; render();
+});
+
+document.getElementById('btn-more').addEventListener('click', () => {
+  const prev = state.shown;       // anima únicamente los nuevos, no los ya visibles
+  state.shown += PAGE; render(prev);
+});
+
+/* Delegación: quick view + agregar al carrito + sugerencias */
+document.addEventListener('click', e => {
+  const add = e.target.closest('[data-add]');
+  if(add){
+    const p = PRODUCTS.find(x=>x.code===add.dataset.add);
+    MCCart.add(p.code, 1, {fromEl: add});   // suma, vuela al carrito y abre el mini-pedido
+    return;
+  }
+  const open = e.target.closest('[data-open]');
+  if(open){ openQV(open.dataset.open); return; }
+  // Clic en cualquier parte de la tarjeta (excepto botones/links con acción propia)
+  const card = e.target.closest('article.pc');
+  if(card && !e.target.closest('button,a')){
+    const trigger = card.querySelector('[data-open]');
+    if(trigger){ openQV(trigger.dataset.open); return; }
+  }
+  const sug = e.target.closest('[data-sug]');
+  if(sug){
+    $search.value = sug.dataset.sug;
+    state.q = sug.dataset.sug; state.shown = PAGE;
+    $clear.classList.add('show');
+    render();
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+  if(e.target.closest('[data-allcat]')){
+    state.cat = 'all'; state.shown = PAGE;
+    renderChips(); render();
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+});
+
+/* Toast */
+let toastTimer;
+function showToast(html, sub){
+  const $t = document.getElementById('toast');
+  document.getElementById('toast-txt').innerHTML = html;
+  const $s = document.getElementById('toast-sub');
+  if(sub){ $s.textContent = sub; $s.style.display='block'; } else { $s.style.display='none'; }
+  const n = cartCount();
+  document.getElementById('toast-count').textContent = n + ' ítem' + (n===1?'':'s') + ' en el pedido';
+  $t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>$t.classList.remove('show'), 3200);
+}
+
+/* ══════════════════════════════════════════════════════
+   QUICK VIEW — detalle de producto sin perder el scroll
+   ══════════════════════════════════════════════════════ */
+const $qv = document.getElementById('qv');
+let qvProduct = null, qvQty = 1;
+
+function openQV(code){
+  const p = PRODUCTS.find(x=>x.code===code);
+  if(!p) return;
+  qvProduct = p; qvQty = 1;
+  renderQV();
+  $qv.classList.add('show');
+  $qv.setAttribute('aria-hidden','false');
+  document.body.style.overflow = 'hidden';
+  const c = $qv.querySelector('.qv-close');
+  if(c) c.focus();
+}
+function closeQV(){
+  if(!$qv.classList.contains('show')) return;
+  $qv.classList.remove('show');
+  $qv.setAttribute('aria-hidden','true');
+  document.body.style.overflow = '';
+  qvProduct = null;
+}
+function renderQV(){
+  const p = qvProduct, cfg = p.tipo==='configurable';
+  const stockBadge = p.stock
+    ? '<span class="pc-stock pc-stock--in"><span class="dot"></span>En stock</span>'
+    : '<span class="pc-stock pc-stock--out"><span class="dot"></span>Sin stock</span>';
+  const venta = cfg ? 'Armada a medida en nuestro taller'
+    : p.tipo==='metraje' ? 'Por metro — indicá el largo en el pedido'
+    : 'Por unidad';
+  const actions = cfg
+    ? `<a class="pc-btn pc-btn--cfg qv-add" href="Configurador Visual.dc.html">Configurar a medida<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>`
+    : `<div class="qv-qty" role="group" aria-label="Cantidad">\n        <button class="qv-step" data-qv="minus" aria-label="Restar cantidad">−</button>\n        <span class="qv-qn">${qvQty}</span>\n        <button class="qv-step" data-qv="plus" aria-label="Sumar cantidad">+</button>\n      </div>\n      <button class="pc-btn pc-btn--cfg qv-add" data-qv="add">Agregar al pedido</button>`;
+  const note = (!p.stock && !cfg) ? '<div class="pc-note" style="margin-top:10px;text-align:left">Sin stock — disponibilidad a confirmar en la cotización</div>' : '';
+  const $panel = document.getElementById('qv-panel');
+  $panel.setAttribute('aria-label', p.name);
+  $panel.innerHTML = `
+    <button class="qv-close" data-qv="close" aria-label="Cerrar detalle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    <div class="qv-art">${stockBadge}<span class="qv-icon">${ICONS[p.cat]||''}</span><span class="qv-ghost">${p.code.slice(-3)}</span></div>
+    <div class="qv-body">
+      <div class="pc-cat">${catName(p.cat)}</div>
+      <h2 class="qv-name">${p.name}</h2>
+      <div class="pc-code" style="margin-bottom:14px">${p.code}</div>
+      <div class="pc-specs">${p.specs.map(s=>`<span class="pc-spec">${s}</span>`).join('')}</div>
+      <div class="qv-rows">
+        <div class="qv-row"><span>Venta</span><b>${venta}</b></div>
+        <div class="qv-row"><span>Disponibilidad</span><b>${p.stock?'En stock':'A confirmar'}</b></div>
+        <div class="qv-row"><span>Marca</span><b>Metcar</b></div>
+      </div>
+      <div class="qv-actions">${actions}</div>
+      ${note}
+      <a class="qv-wa" href="https://wa.me/${MC.wa}?text=${encodeURIComponent(waMsg(MC.waMsgProducto,{nombre:p.name,codigo:p.code,medida:p.specs.join(' · ')}))}" target="_blank" rel="noopener"><svg width="13" height="13" viewBox="0 0 32 32" fill="currentColor"><path d="M16 2C8.28 2 2 8.28 2 16c0 2.45.65 4.75 1.78 6.74L2 30l7.51-1.96A13.93 13.93 0 0 0 16 30c7.72 0 14-6.28 14-14S23.72 2 16 2zm0 25.5c-2.18 0-4.24-.6-6-1.65l-.43-.26-4.46 1.17 1.19-4.35-.28-.45A11.48 11.48 0 0 1 4.5 16c0-6.35 5.15-11.5 11.5-11.5S27.5 9.65 27.5 16 22.35 27.5 16 27.5z"/></svg>Consultar por WhatsApp</a>
+    </div>`;
+}
+$qv.addEventListener('click', e => {
+  if(e.target.id === 'qv-ovl'){ closeQV(); return; }
+  const act = e.target.closest('[data-qv]');
+  if(!act) return;
+  const k = act.dataset.qv;
+  if(k==='close') closeQV();
+  else if(k==='minus'){ qvQty = Math.max(1, qvQty-1); renderQV(); }
+  else if(k==='plus'){ qvQty++; renderQV(); }
+  else if(k==='add'){
+    const p = qvProduct, n = qvQty;
+    const r = act.getBoundingClientRect();      // capturo la posición del botón antes de cerrar
+    closeQV();
+    MCCart.add(p.code, n, {fromEl: {getBoundingClientRect: () => r}});
+  }
+});
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape'){ closeQV(); return; }
+  if((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches('[data-open]')){
+    e.preventDefault();
+    openQV(e.target.dataset.open);
+  }
+});
+
+/* Hamburger */
+(function(){
+  const ham = document.getElementById('nav-ham');
+  const mob = document.getElementById('nav-mobile');
+  if(!ham||!mob) return;
+  function close(){ ham.classList.remove('open'); mob.classList.remove('open'); ham.setAttribute('aria-expanded','false'); mob.setAttribute('aria-hidden','true'); }
+  ham.addEventListener('click', () => {
+    const open = ham.classList.toggle('open');
+    mob.classList.toggle('open', open);
+    ham.setAttribute('aria-expanded', open);
+    mob.setAttribute('aria-hidden', String(!open));
+  });
+  document.addEventListener('click', e => { if(!ham.contains(e.target)&&!mob.contains(e.target)) close(); });
+  window.addEventListener('resize', () => { if(window.innerWidth > 900) close(); });
+})();
+
+/* ══════════════════════════════════════════════════════
+   INIT — leer estado desde URL (?cat= & ?q=)
+   ══════════════════════════════════════════════════════ */
+(function init(){
+  const params = new URLSearchParams(location.search);
+  const cat = params.get('cat');
+  if(cat && (cat==='all' || CATS.some(c=>c.id===cat))) state.cat = cat;
+  const q = params.get('q');
+  if(q){ state.q = q; $search.value = q; $clear.classList.add('show'); }
+  document.getElementById('total-count').textContent = PRODUCTS.length;
+  document.getElementById('footer-year').textContent = new Date().getFullYear();
+  renderChips();
+  render();
+  updateBadge();
+})();
+</script>
+</body>
+</html>

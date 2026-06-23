@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#131110">
+<title>Ingresar — Metcar</title>
+<meta name="description" content="Ingresá a tu cuenta Metcar para enviar pedidos a cotizar y seguir su estado.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;700&display=swap" rel="stylesheet">
+<script src="config.js"></script>
+<script src="auth.js"></script>
+<style>
+:root{
+  --red:#B83214;--blk:#0B0B0B;--yel:#F5C518;--dark:#1B1916;--dark2:#131110;
+  --owh:#F4F2EC;--wht:#FFFFFF;--txt:#1B1916;--txt2:#4A4744;--txt3:#68686A;--green:#1F8A5B;
+  --bdr:rgba(27,25,22,.12);--fd:'Bebas Neue',sans-serif;--fb:'Barlow',sans-serif;--ft:'Barlow Condensed',sans-serif;
+  --t1:.16s ease;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--fb);background:var(--owh);color:var(--txt);min-height:100vh;
+  -webkit-font-smoothing:antialiased;display:flex;flex-direction:column}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;border:none;background:none;font-family:inherit}
+
+.auth-nav{background:var(--dark);border-bottom:1px solid rgba(255,255,255,.07);padding:0 24px;height:60px;
+  display:flex;align-items:center;justify-content:space-between}
+.auth-nav img{height:26px;display:block}
+.auth-nav a.back{font-family:var(--ft);font-weight:700;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;
+  color:rgba(255,255,255,.55);display:flex;align-items:center;gap:7px;transition:color var(--t1)}
+.auth-nav a.back:hover{color:#fff}
+
+.auth-wrap{flex:1;display:grid;grid-template-columns:1fr 1fr;min-height:0}
+.auth-aside{background:var(--dark2);color:#fff;padding:54px 52px;position:relative;overflow:hidden;
+  display:flex;flex-direction:column;justify-content:center}
+.auth-aside::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse at 20% 25%,rgba(184,50,20,.16),transparent 58%)}
+.auth-aside-in{position:relative;max-width:420px}
+.auth-eye{font-family:var(--ft);font-weight:700;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:18px}
+.auth-aside h1{font-family:var(--fd);font-size:clamp(38px,4vw,56px);line-height:.92;letter-spacing:.5px;margin-bottom:20px}
+.auth-aside h1 .r{color:var(--red)}
+.auth-aside p{font-family:var(--fb);font-size:15px;line-height:1.65;color:rgba(255,255,255,.55)}
+.auth-quote{margin-top:34px;padding-left:18px;border-left:2px solid var(--red)}
+.auth-quote p{font-family:var(--fd);font-size:22px;line-height:1.12;letter-spacing:.5px;color:rgba(255,255,255,.92)}
+.auth-quote span{display:block;margin-top:8px;font-family:var(--ft);font-weight:700;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.4)}
+
+.auth-main{display:flex;align-items:center;justify-content:center;padding:48px 40px;overflow-y:auto}
+.auth-card{width:100%;max-width:400px}
+.auth-card h2{font-family:var(--fd);font-size:34px;letter-spacing:.5px;line-height:1;margin-bottom:6px}
+.auth-card .sub{font-family:var(--fb);font-size:14px;color:var(--txt2);margin-bottom:26px}
+.auth-card .sub a{color:var(--red);font-weight:600}
+.auth-card .sub a:hover{text-decoration:underline}
+
+.field{margin-bottom:16px}
+.field label{display:block;font-family:var(--ft);font-weight:700;font-size:10.5px;letter-spacing:1.3px;
+  text-transform:uppercase;color:var(--txt3);margin-bottom:6px}
+.field input{width:100%;background:var(--wht);border:1.5px solid var(--bdr);border-radius:2px;
+  padding:12px 13px;font-family:var(--fb);font-size:14.5px;color:var(--txt);outline:none;transition:border-color var(--t1)}
+.field input::placeholder{color:#a8a39c}
+.field input:focus{border-color:var(--red)}
+
+.auth-err{display:none;background:rgba(184,50,20,.08);border-left:3px solid var(--red);border-radius:2px;
+  padding:11px 13px;font-family:var(--fb);font-size:13px;color:#8a2410;margin-bottom:16px;line-height:1.45}
+.auth-err.show{display:block}
+
+.btn-sub{width:100%;display:flex;align-items:center;justify-content:center;gap:9px;background:var(--red);color:#fff;
+  border:2px solid var(--red);padding:15px;font-family:var(--ft);font-weight:700;font-size:14px;letter-spacing:1.5px;
+  text-transform:uppercase;border-radius:1px;margin-top:8px;transition:background var(--t1),transform .1s}
+.btn-sub:hover{background:#9E2810;border-color:#9E2810}
+.btn-sub:active{transform:scale(.99)}
+.btn-sub:disabled{opacity:.6;cursor:default}
+.auth-alt{margin-top:22px;padding-top:22px;border-top:1px solid var(--bdr);text-align:center}
+.auth-alt p{font-family:var(--fb);font-size:13px;color:var(--txt3);margin-bottom:12px}
+.btn-alt{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border:1.5px solid var(--bdr);
+  border-radius:1px;padding:13px;font-family:var(--ft);font-weight:700;font-size:12.5px;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--txt);transition:border-color var(--t1),color var(--t1)}
+.btn-alt:hover{border-color:var(--red);color:var(--red)}
+
+@media(max-width:880px){
+  .auth-wrap{grid-template-columns:1fr}
+  .auth-aside{display:none}
+  .auth-main{padding:40px 24px}
+}
+</style>
+</head>
+<body>
+
+<nav class="auth-nav">
+  <a href="metcar_homepage_v5.html"><img src="img/logoMetcar.webp" alt="Metcar"></a>
+  <a class="back" href="metcar_homepage_v5.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Volver al inicio</a>
+</nav>
+
+<div class="auth-wrap">
+  <aside class="auth-aside">
+    <div class="auth-aside-in">
+      <div class="auth-eye">Bienvenido de nuevo</div>
+      <h1>TU PRÓXIMO<br>PEDIDO, EN <span class="r">MINUTOS</span></h1>
+      <p>Ingresá para enviar tu pedido a cotizar y ver el estado de tus pedidos anteriores.</p>
+      <div class="auth-quote">
+        <p>El cliente chico recibe el mismo servicio que el grande.</p>
+        <span>— Filosofía Metcar</span>
+      </div>
+    </div>
+  </aside>
+
+  <main class="auth-main">
+    <div class="auth-card">
+      <h2>Ingresar</h2>
+      <p class="sub">¿Todavía no tenés cuenta? <a id="link-reg" href="registro.html">Creá una</a></p>
+
+      <div class="auth-err" id="err"></div>
+
+      <form id="login-form" novalidate>
+        <div class="field">
+          <label for="email">Correo electrónico</label>
+          <input type="email" id="email" name="email" placeholder="tucorreo@email.com" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="pass">Contraseña</label>
+          <input type="password" id="pass" name="pass" placeholder="Tu contraseña" autocomplete="current-password" required>
+        </div>
+        <button type="submit" class="btn-sub" id="submit">Ingresar<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+      </form>
+
+      <div class="auth-alt">
+        <p>¿Primera vez en Metcar?</p>
+        <a class="btn-alt" id="btn-create" href="registro.html">Crear cuenta nueva</a>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+(function(){
+  var qs = new URLSearchParams(location.search);
+  var next = qs.get('next') || 'metcar_homepage_v5.html';
+  document.getElementById('link-reg').href = 'registro.html?next=' + encodeURIComponent(next);
+  document.getElementById('btn-create').href = 'registro.html?next=' + encodeURIComponent(next);
+
+  if (window.MCAuth && MCAuth.current()) { location.replace(next); return; }
+
+  var form = document.getElementById('login-form');
+  var err = document.getElementById('err');
+  var btn = document.getElementById('submit');
+  function showErr(msg){ err.textContent = msg; err.classList.add('show'); }
+  function clearErr(){ err.classList.remove('show'); }
+
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    clearErr();
+    var email = form.email.value.trim();
+    var pass = form.pass.value;
+    if(!email || !pass){ return showErr('Completá tu correo y contraseña.'); }
+    btn.disabled = true; var orig = btn.innerHTML; btn.textContent = 'Ingresando…';
+    try{
+      await MCAuth.login(email, pass);
+      location.href = next;
+    }catch(ex){
+      btn.disabled = false; btn.innerHTML = orig;
+      showErr(ex.message || 'No se pudo iniciar sesión.');
+    }
+  });
+})();
+</script>
+</body>
+</html>
