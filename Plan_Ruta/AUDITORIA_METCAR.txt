@@ -1,0 +1,337 @@
+================================================================================
+  AUDITORÍA PROFESIONAL — SITIO WEB METCAR
+  Detección de problemas + guía simple de corrección
+  Carpeta auditada: Prototipos/Mejores_Disenos/
+  Páginas: metcar_homepage_v5.html · catalogo.html · Configurador Visual.dc.html ·
+           carrito.html · (módulos: cart.js · catalog-data.js · config.js · terminales.js)
+  Fecha: 2026-06 · Versión del informe: 1.0
+================================================================================
+
+CÓMO LEER ESTE DOCUMENTO
+------------------------
+Cada hallazgo tiene:
+  • ID y SEVERIDAD (🔴 Crítico / 🟠 Alto / 🟡 Medio / ⚪ Bajo)
+  • DÓNDE   → archivo(s) y zona aproximada
+  • QUÉ PASA → el problema concreto
+  • POR QUÉ IMPORTA → impacto en negocio/usuario
+  • CÓMO CORREGIRLO → la forma más simple de resolverlo
+
+Orden sugerido de trabajo: primero los 🔴, después 🟠, luego 🟡 y por último ⚪.
+
+
+================================================================================
+RESUMEN EJECUTIVO
+================================================================================
+La base visual y de UX es sólida y está por encima del promedio del rubro. Los
+problemas graves NO son estéticos sino ESTRUCTURALES:
+  1) El flujo de cuenta/cotización no tiene a dónde ir (páginas faltantes).
+  2) El configurador se rompe en móvil.
+Resolver esos dos desbloquea el objetivo central del negocio (que el cliente
+envíe el pedido). En segundo plano, el catálogo renderizado por JavaScript y el
+"texto invisible" al cargar (FOIT) comprometen el otro objetivo declarado:
+captar clientes desde Google.
+
+CONTEO DE PROBLEMAS
+  🔴 Críticos : 3
+  🟠 Altos    : 4
+  🟡 Medios   : 9
+  ⚪ Bajos    : 7
+  TOTAL       : 23
+
+TOP 3 A ATACAR PRIMERO
+  1. Crear login.html / registro.html / sobre-nosotros.html (desbloquea cotizar).
+  2. Hacer responsive el configurador (+ menú hamburguesa móvil).
+  3. Catálogo indexable por Google + cambiar fuentes a display=swap.
+
+
+================================================================================
+🔴 CRÍTICOS  (rompen el objetivo de negocio)
+================================================================================
+
+--------------------------------------------------------------------------------
+C1 · 🔴  El flujo de cotización termina en error 404
+--------------------------------------------------------------------------------
+DÓNDE:
+  - carrito.html (modal de cuenta): enlaces a "login.html" y "registro.html".
+  - Todas las páginas (footer "Empresa" y navbar): "sobre-nosotros.html".
+  - Esas tres páginas NO existen en la carpeta.
+
+QUÉ PASA:
+  El CTA central "Solicitar cotización" abre el modal "Necesitás una cuenta" y sus
+  botones "Ingresar" / "Crear cuenta" llevan a páginas inexistentes (404). Igual
+  pasa con "Sobre Metcar". El cliente no puede terminar el pedido por ningún lado.
+
+POR QUÉ IMPORTA:
+  Es el objetivo #1 del proyecto: que el cliente arme y ENVÍE el pedido a cotizar.
+  Hoy es un callejón sin salida. También daña la confianza (Sobre Metcar = equipo,
+  historia, que el spec considera un pilar).
+
+CÓMO CORREGIRLO (simple):
+  - Crear las 3 páginas faltantes reutilizando el MISMO navbar + footer del resto
+    (copiar de catalogo.html para mantener la estética):
+      • login.html      → formulario email + contraseña + "¿Olvidaste tu clave?".
+      • registro.html   → campos del spec (Rol 2): nombre/razón social, email,
+                          contraseña, teléfono, dirección completa, tipo
+                          particular/empresa.
+      • sobre-nosotros.html → historia, equipo, giras, valores (texto del spec).
+  - Mientras no haya back-end, que "Ingresar"/"Crear cuenta" lleven a esas páginas
+    (aunque sean visuales) para que el flujo no muera.
+
+--------------------------------------------------------------------------------
+C2 · 🔴  El Configurador no funciona en móvil ni tablet
+--------------------------------------------------------------------------------
+DÓNDE:
+  - "Configurador Visual.dc.html", bloque WORKSPACE:
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) 420px;...">
+  - No hay NINGÚN @media en su <style>. El navbar tampoco tiene hamburguesa.
+
+QUÉ PASA:
+  El panel de 420px fijo aplasta el escenario en pantallas chicas y el layout se
+  rompe. Además, al achicar, los links del navbar desaparecen sin alternativa
+  (las otras páginas sí tienen menú hamburguesa móvil).
+
+POR QUÉ IMPORTA:
+  El spec es mobile-first y los clientes individuales operan desde el celular.
+  La herramienta estrella es inusable justo en el dispositivo principal.
+
+CÓMO CORREGIRLO (simple):
+  - Agregar @media (max-width:900px) que pase el grid a UNA columna:
+      grid-template-columns: 1fr;  (el escenario arriba, el panel debajo).
+  - Quitar el alto fijo del escenario en móvil (que no sea 100vh sticky).
+  - Copiar el patrón de hamburguesa de catalogo.html (botón .nav-ham + panel
+    .nav-mobile) al navbar del configurador.
+  - Hacer que el footer del configurador colapse a 1–2 columnas en móvil.
+
+--------------------------------------------------------------------------------
+C3 · 🔴  No existe forma real de iniciar sesión / "Mi cuenta"
+--------------------------------------------------------------------------------
+DÓNDE:
+  - Botón "Ingresar" (navbar, todas las páginas): es un <button> sin acción.
+  - Footer: enlace "Mi cuenta" SIN href (<a class="foot-link">Mi cuenta</a>).
+
+QUÉ PASA:
+  No hay destino de autenticación. Como el spec exige cuenta validada para enviar
+  pedidos, sin login no se cierra el flujo (relacionado con C1).
+
+POR QUÉ IMPORTA:
+  Sin autenticación, todo el sistema de pedidos/estados/tracking del spec queda
+  inalcanzable desde la web.
+
+CÓMO CORREGIRLO (simple):
+  - Que "Ingresar" enlace a login.html y "Mi cuenta" a /mi-cuenta (o login si no
+    hay sesión). Por ahora basta el destino visual creado en C1.
+
+
+================================================================================
+🟠 ALTOS  (impacto fuerte en SEO, velocidad o requisitos del spec)
+================================================================================
+
+--------------------------------------------------------------------------------
+A1 · 🟠  El catálogo es invisible para Google (render 100% por JavaScript)
+--------------------------------------------------------------------------------
+DÓNDE:
+  - catalogo.html: los productos salen del array PRODUCTS (catalog-data.js) y se
+    pintan con render() en el navegador. El HTML servido NO contiene productos.
+
+QUÉ PASA:
+  Un buscador (o un cliente con JS lento) ve una página casi vacía. Las palabras
+  clave por producto no están en el HTML inicial.
+
+POR QUÉ IMPORTA:
+  El spec prioriza SEO ("mangueras hidráulicas Uruguay", etc.). Así, el catálogo
+  no posiciona y se pierde el objetivo de captar clientes nuevos por Google.
+
+CÓMO CORREGIRLO (simple → avanzado):
+  - Simple/puente: dejar en el HTML una lista estática (oculta o real) con nombre,
+    código y categoría de cada producto, para que el buscador la lea.
+  - Correcto (cuando se migre a Next.js, como sugiere el spec): renderizar el
+    catálogo en el servidor (SSG/SSR) y URLs amigables /catalogo/[categoria].
+
+--------------------------------------------------------------------------------
+A2 · 🟠  El Configurador no tiene <title> ni descripción ni idioma
+--------------------------------------------------------------------------------
+DÓNDE:
+  - "Configurador Visual.dc.html", <head>: no hay <title>, ni
+    <meta name="description">, ni lang en <html>.
+
+QUÉ PASA:
+  La pestaña del navegador sale sin nombre; Google y redes no tienen título ni
+  descripción; los lectores de pantalla no anuncian el idioma.
+
+POR QUÉ IMPORTA:
+  Es una página clave y queda anónima para SEO, para compartir y para a11y.
+
+CÓMO CORREGIRLO (simple):
+  - Agregar en el <head>: <title>Configurador de mangueras — Metcar</title>,
+    <meta name="description" content="..."> y lang="es" en <html>.
+
+--------------------------------------------------------------------------------
+A3 · 🟠  "Texto invisible" al cargar (FOIT) por font-display:block
+--------------------------------------------------------------------------------
+DÓNDE:
+  - metcar_homepage_v5.html, catalogo.html, carrito.html: la URL de Google Fonts
+    termina en "&display=block".  (El configurador usa "swap", que es lo correcto.)
+
+QUÉ PASA:
+  Con display=block el texto queda invisible hasta ~3s mientras carga la fuente.
+  En conexiones lentas del interior se ve una página en blanco.
+
+POR QUÉ IMPORTA:
+  El spec menciona explícitamente conexiones lentas y celulares de gama media.
+  Es velocidad percibida y posible abandono.
+
+CÓMO CORREGIRLO (simple):
+  - Cambiar "display=block" por "display=swap" en las 3 páginas (una palabra).
+    Así el texto se ve al instante con una fuente de sistema y luego "cambia".
+
+--------------------------------------------------------------------------------
+A4 · 🟠  "Guardar pedido" es decorativo y el carrito se pierde al cerrar
+--------------------------------------------------------------------------------
+DÓNDE:
+  - carrito.html: botón "Guardar pedido" (solo muestra un check temporal).
+  - cart.js: el carrito vive en sessionStorage (se borra al cerrar la pestaña).
+
+QUÉ PASA:
+  Si el usuario cierra el navegador, pierde el carrito. "Guardar pedido" no guarda
+  nada real.
+
+POR QUÉ IMPORTA:
+  El spec pide carrito persistente asociado a la cuenta para clientes logueados.
+
+CÓMO CORREGIRLO (simple → real):
+  - Puente: usar localStorage en vez de sessionStorage para que sobreviva al cierre
+    (solo cambiar el storage en cart.js).
+  - Real: cuando exista cuenta/back-end, asociar y guardar el carrito en la cuenta.
+  - Mientras tanto, que "Guardar pedido" deshabilitado diga "Iniciá sesión para
+    guardar tu pedido" para no prometer algo que no hace.
+
+
+================================================================================
+🟡 MEDIOS  (fricción, consistencia, accesibilidad, mantenibilidad)
+================================================================================
+
+--------------------------------------------------------------------------------
+M1 · 🟡  La lupa (buscar) no hace nada en home ni configurador
+--------------------------------------------------------------------------------
+DÓNDE: metcar_homepage_v5.html y Configurador Visual.dc.html (botón lupa del navbar).
+QUÉ PASA: es un control muerto. En carrito.html sí redirige a catálogo.
+CÓMO CORREGIRLO: que la lupa lleve a catalogo.html (donde está el buscador real),
+  igual que ya hace el carrito. Una línea de href/onclick.
+
+--------------------------------------------------------------------------------
+M2 · 🟡  Falta foco de teclado en el drawer del carrito y en el modal de cuenta
+--------------------------------------------------------------------------------
+DÓNDE: cart.js (drawer) y carrito.html (modal de cuenta).
+QUÉ PASA: el foco no queda "atrapado" dentro del panel abierto y, al cerrar, no
+  vuelve al botón que lo abrió (WCAG 2.4.3 / 4.1.2).
+CÓMO CORREGIRLO: al abrir, enfocar el primer botón del panel; con Tab, ciclar
+  dentro del panel; al cerrar, devolver el foco al botón disparador. (Escape ya
+  cierra, eso está bien.)
+
+--------------------------------------------------------------------------------
+M3 · 🟡  Contraste de textos secundarios posiblemente bajo (WCAG AA)
+--------------------------------------------------------------------------------
+DÓNDE: textos con rgba(255,255,255,.28–.38) sobre oscuro y rgba(27,25,22,.40)
+  sobre claro (eyebrows, hints, labels, footer).
+QUÉ PASA: probablemente no llegan a 4.5:1, difíciles de leer.
+CÓMO CORREGIRLO: subir un poco la opacidad (p. ej. .55–.65) en los textos chicos
+  o usar un gris algo más claro/oscuro. Verificar con un medidor de contraste.
+
+--------------------------------------------------------------------------------
+M4 · 🟡  El sitio no explica por qué no hay precios (hasta el carrito)
+--------------------------------------------------------------------------------
+DÓNDE: home y catalogo.html (las fichas no muestran ni mencionan precio).
+QUÉ PASA: el usuario industrial busca precio, no lo encuentra y no entiende por qué.
+CÓMO CORREGIRLO: agregar un texto/insignia tipo "Precio por cotización" en las
+  fichas y una línea breve en el catálogo ("En Metcar cotizamos cada pedido; sin
+  precios públicos"). Reduce abandono.
+
+--------------------------------------------------------------------------------
+M5 · 🟡  Datos de contacto del configurador están "quemados" (no usan config.js)
+--------------------------------------------------------------------------------
+DÓNDE: Configurador Visual.dc.html (footer): teléfono/email/dirección escritos a mano.
+QUÉ PASA: si se cambian en config.js, el configurador queda desactualizado. Rompe
+  la idea de "un solo lugar para editar los datos".
+CÓMO CORREGIRLO: cargar config.js en el configurador y usar los mismos marcadores
+  data-mc, o pasar los datos como props del componente.
+
+--------------------------------------------------------------------------------
+M6 · 🟡  Navegación inconsistente: "Contacto" del configurador abre WhatsApp
+--------------------------------------------------------------------------------
+DÓNDE: Configurador Visual.dc.html (footer, enlace "Contacto" → wa.me).
+QUÉ PASA: en el resto del sitio "Contacto" va a #contacto (sección del home).
+CÓMO CORREGIRLO: unificar a metcar_homepage_v5.html#contacto en todas las páginas.
+
+--------------------------------------------------------------------------------
+M7 · 🟡  El contador del carrito muestra "0" aun estando vacío
+--------------------------------------------------------------------------------
+DÓNDE: badge "cart-badge" (todas las páginas) + cart.js (renderBadges).
+QUÉ PASA: ruido visual; la convención es ocultar el número cuando es 0.
+CÓMO CORREGIRLO: en renderBadges, ocultar el badge si el total es 0 y mostrarlo
+  cuando hay 1+.
+
+--------------------------------------------------------------------------------
+M8 · 🟡  No hay estado de error ni de carga
+--------------------------------------------------------------------------------
+DÓNDE: catalogo.html y configurador (dependen de catalog-data.js / terminales.js).
+QUÉ PASA: si un script falla o tarda, la página queda en blanco sin explicación.
+CÓMO CORREGIRLO: mostrar un mensaje "No se pudo cargar el catálogo, reintentá" si
+  los datos no están, y un esqueleto/spinner mientras cargan.
+
+--------------------------------------------------------------------------------
+M9 · 🟡  El dibujo del configurador se regenera entero en cada cambio
+--------------------------------------------------------------------------------
+DÓNDE: Configurador Visual.dc.html → buildViz() (arma el SVG y lo inyecta con
+  dangerouslySetInnerHTML en cada pulsación del largo/cantidad).
+QUÉ PASA: trabajo de render evitable; puede notarse lento en celulares modestos.
+CÓMO CORREGIRLO: no es urgente; si se nota, memorizar el SVG y recalcular solo
+  cuando cambian los parámetros que afectan el dibujo.
+
+
+================================================================================
+⚪ BAJOS  (pulido, limpieza, detalles)
+================================================================================
+
+B1 · ⚪  Footer "Mi cuenta" sin href en todas las páginas → enlace muerto.
+        FIX: darle href a /mi-cuenta o login.html.
+
+B2 · ⚪  Año del footer "quemado" como "© 2026" en el configurador (las demás lo
+        calculan solas). FIX: poner el año dinámico también en el configurador.
+
+B3 · ⚪  Código muerto: en catalogo.html quedó el HTML del toast viejo + la función
+        showToast() sin uso; en cart.js quedó trashSVG() sin uso.
+        FIX: borrarlos para evitar confusión a futuro.
+
+B4 · ⚪  Imágenes sin loading="lazy" (camioneta, etc.).
+        FIX: agregar loading="lazy" salvo en la imagen hero (que debe ser eager).
+
+B5 · ⚪  Falta favicon / apple-touch-icon en todas las páginas (y theme-color en
+        las que no lo tienen). FIX: agregar el isotipo de Metcar como favicon.
+
+B6 · ⚪  No hay página 404 personalizada. FIX: crear una 404.html con el navbar/
+        footer y un enlace de vuelta al catálogo.
+
+B7 · ⚪  La home no respeta "prefers-reduced-motion" (catálogo, carrito y cart.js
+        sí). FIX: añadir el bloque @media (prefers-reduced-motion: reduce) que ya
+        usan las otras páginas.
+
+
+================================================================================
+LO QUE YA FUNCIONA BIEN (no tocar)
+================================================================================
+  ✓ Estética de marca consistente (rojo/negro/amarillo, Bebas/Barlow, "hose code").
+  ✓ Agregar al carrito desde catálogo y configurador: animación de "vuelo" +
+    mini-pedido (drawer) coherente.
+  ✓ Editar manguera a medida desde el carrito (restaura todas las selecciones).
+  ✓ El "−" no baja de 1 ni borra; solo la papelera elimina.
+  ✓ Quitar elimina SOLO la línea elegida (ids únicos por línea).
+  ✓ Un único drawer en el configurador (sin duplicados).
+  ✓ Buscador del catálogo tolerante a acentos y errores de tipeo, con buen estado
+    vacío y productos relacionados.
+  ✓ Carrito sin precios + flujo de cotización + nota al pedido (fiel al spec:
+    no es e-commerce, no hay pago online).
+  ✓ Home, catálogo y carrito responsive con menú hamburguesa.
+
+================================================================================
+FIN DEL INFORME
+================================================================================

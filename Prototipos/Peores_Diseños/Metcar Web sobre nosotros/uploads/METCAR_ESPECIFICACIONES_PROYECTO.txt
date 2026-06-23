@@ -1,0 +1,1083 @@
+================================================================================
+   METCAR URUGUAY — ESPECIFICACIONES COMPLETAS DEL PROYECTO WEB
+   Documento maestro de funcionalidades, flujos y lógica del sistema
+   Versión: 1.0 — Base para desarrollo Frontend + Backend
+================================================================================
+
+ÍNDICE
+------
+  1.  Descripción de la empresa
+  2.  Objetivos del proyecto
+  3.  Filosofía de diseño
+  4.  Roles y tipos de usuario
+  5.  Flujos de usuario completos
+  6.  Catálogo de productos
+  7.  Configurador de mangueras
+  8.  Buscador de productos
+  9.  Sistema de carrito
+  10. Flujo completo de pedidos (cotización → entrega)
+  11. Sistema de precios (estructura interna)
+  12. Panel interno Metcar (Admin / Patricia)
+  13. Panel técnico (Maxi)
+  14. Sistema de reseñas
+  15. Sección de contacto
+  16. Contenido, SEO e idiomas
+  17. Tecnología recomendada
+  18. Seguridad
+  19. Alcance V1 vs. V2+
+  20. Referencias visuales y competidores
+  21. Notas adicionales y filosofía general
+
+
+================================================================================
+1. DESCRIPCIÓN DE LA EMPRESA
+================================================================================
+
+Nombre:         Metcar
+Dominio actual: metcar.uy
+Ubicación:      Andrés Romero esq. Treinta y Tres, Sarandí Grande, Florida, Uruguay
+Contacto:       Tel. 4354-9363 / Cel. 092.195.010 / info@metcar.com.uy
+Redes sociales: WhatsApp (uso básico). Sin Instagram ni Facebook activos.
+
+HISTORIA:
+  José Pedro Carreras ("Peteto"), fundador y dueño al 100%, comenzó fabricando
+  carrocerías para camiones y haciendo tornería en Uruguay. Hace aproximadamente
+  10 años inició actividades de importación, empezando con mangueras hidráulicas
+  y discos de corte. Desde entonces fue ampliando el catálogo de importaciones.
+  Hace un año cerró definitivamente la parte de tornería para dedicarse
+  exclusivamente a la importación y distribución de insumos.
+
+EQUIPO ACTUAL:
+  - José Pedro Carreras ("Peteto"): dueño, toma decisiones estratégicas.
+  - Federico Lezama: socio, encargado de todas las importaciones (negociación
+    con proveedores chinos, despachante de aduana, logística de importación).
+  - Patricia: asistente de Peteto. Lleva la parte contable, administración,
+    organización de pedidos y recordatorios. Es quien operará el panel interno
+    del sitio web. Usuario clave del sistema.
+  - Maxi: técnico del taller. Corta, prensa y arma mangueras hidráulicas a
+    medida. También realiza soldadura si algún trabajo lo requiere.
+    Su rol en la web es secundario pero está integrado al flujo de pedidos.
+
+OPERATIVA ACTUAL:
+  - Giras mensuales: cargan una camioneta con mangueras y salen a vender por
+    todo el país para conseguir y visitar clientes.
+  - Envíos: realizan envíos a todo el país por encomienda.
+  - Clientes se contactan principalmente por WhatsApp, correo o teléfono.
+  - Se publican estados de WhatsApp y publicaciones puntuales en Mercado Libre.
+
+MODELO DE NEGOCIO:
+  - Importación y distribución (no fabricación propia). Marca propia: Metcar.
+  - Todos los productos se venden bajo la marca Metcar.
+  - Mix B2B y B2C: clientes individuales con maquinaria + empresas medianas/grandes.
+  - La mayoría son clientes recurrentes del interior del Uruguay.
+  - Filosofía de empresa: trato igualitario a todos los clientes, sin importar
+    el tamaño. El cliente chico recibe el mismo servicio que el grande.
+
+
+================================================================================
+2. OBJETIVOS DEL PROYECTO
+================================================================================
+
+OBJETIVO PRINCIPAL:
+  Crear un sitio web profesional que funcione como catálogo interactivo +
+  sistema de pedidos/cotizaciones. NO es un e-commerce con pago online.
+  El objetivo es agilizar el proceso de pedido para clientes existentes
+  y captar clientes nuevos en todo Uruguay (y en el futuro, región).
+
+OBJETIVOS ESPECÍFICOS:
+  1. Mostrar el catálogo completo de productos de forma interactiva, moderna
+     y fácil de navegar (reemplazar el PDF desactualizado).
+  2. Permitir que los clientes armen sus pedidos online y los envíen a Metcar
+     para cotización, sin necesidad de llamar o escribir por WhatsApp.
+  3. Dar seguimiento al estado del pedido en tiempo real (cliente y empresa).
+  4. Captar nuevos clientes que busquen los productos en Google.
+  5. Transmitir imagen de empresa grande, profesional y confiable.
+  6. Posicionarse como referente en insumos hidráulicos y herramientas en Uruguay.
+  7. Reducir la carga de trabajo de Patricia al automatizar la recepción y
+     gestión de pedidos.
+  8. Dejar el sistema preparado para escalar (precios por cliente, e-commerce
+     real, analytics, chat) en futuras versiones.
+
+MÉTRICAS DE ÉXITO (V1):
+  - Cantidad de pedidos realizados a través de la página por mes.
+  - Cantidad de clientes nuevos registrados.
+  - Reducción de consultas repetitivas por WhatsApp/teléfono.
+  - Aumento de la velocidad del proceso de cotización.
+
+EXPANSIÓN GEOGRÁFICA:
+  - Foco principal: todo Uruguay (interior especialmente).
+  - Expansión futura: Argentina y Brasil (por eso se contempla multi-idioma).
+
+
+================================================================================
+3. FILOSOFÍA DE DISEÑO
+================================================================================
+
+PRINCIPIO RECTOR: "DEMOSTRAR MÁS, HABLAR MENOS"
+  En vez de poner texto diciendo "tenemos amplio stock de calidad...", la página
+  debe mostrarlo visualmente: catálogo visual, fotos profesionales, productos
+  organizados. El usuario tiene que entender la empresa sin leer mucho.
+
+ESTÉTICA:
+  - Diseño moderno, limpio, premium. Inspiración: cómo muestran productos
+    empresas como Apple, Nike o Hydraulics Direct (hydraulicsdirect.com).
+  - La página tiene que provocar confianza absoluta al primer vistazo.
+  - Evitar: demasiado texto, ruido visual, diseño anticuado.
+  - Referencia negativa: dreghal.com.uy (mucho ruido, poco intuitivo).
+  - Referencia negativa: tifor.com.uy (mucha info, poco interactivo).
+
+USABILIDAD:
+  - Fácil e intuitiva para talleres del interior. No requiere conocimientos
+    técnicos de informática.
+  - Todo lo que se puede hacer, debe quedar claro sin instrucciones.
+  - Eliminar fricción en todos los puntos del flujo.
+  - Mobile-first en diseño, pero con foco mayor en desktop (clientes empresas
+    suelen operar desde computadora; clientes individuales desde celular).
+
+TONO:
+  - Profesional pero accesible. No académico ni técnico en exceso.
+  - Terminología del rubro hidráulico usada correctamente (transmite
+    credibilidad a quienes saben del tema).
+  - Imagen de empresa grande y en crecimiento (no "empresa familiar pequeña").
+
+
+================================================================================
+4. ROLES Y TIPOS DE USUARIO
+================================================================================
+
+Se definen 4 roles en el sistema:
+
+────────────────────────────────────────────────────────────────────────────────
+ROL 1: VISITANTE ANÓNIMO
+────────────────────────────────────────────────────────────────────────────────
+Descripción: Cualquier persona que entra al sitio sin cuenta.
+Puede:
+  - Navegar por todas las páginas públicas del sitio.
+  - Ver el catálogo completo de productos.
+  - Ver fichas individuales de productos.
+  - Usar el buscador.
+  - Agregar productos al carrito (carrito temporal en sesión).
+  - Usar el configurador de mangueras.
+  - Enviar una consulta simple (formulario de contacto sin cuenta).
+  - Ver la sección "Sobre Metcar", "Contacto", reseñas públicas, etc.
+
+No puede:
+  - Enviar un pedido/cotización (requiere cuenta).
+  - Ver precios (no hay precios públicos).
+  - Ver panel interno.
+
+────────────────────────────────────────────────────────────────────────────────
+ROL 2: CLIENTE REGISTRADO
+────────────────────────────────────────────────────────────────────────────────
+Descripción: Persona o empresa que se registró en el sitio.
+  - Sub-estado A: "Pendiente de validación" → se registró pero Patricia aún no
+    avaló la cuenta. Puede mandar la primera cotización/pedido, que queda
+    congelado hasta el aval de Patricia.
+  - Sub-estado B: "Validado" → Patricia aprobó la cuenta. Puede operar con
+    normalidad en todos los pedidos futuros.
+
+Puede (estado Validado):
+  - Todo lo que puede el Visitante Anónimo.
+  - Armar carrito y enviar pedido/cotización.
+  - Ver su panel de cliente: pedidos activos, historial de pedidos.
+  - Ver el estado de cada pedido en tiempo real.
+  - Ver precios cuando Patricia aprueba una cotización.
+  - Subir comprobante de pago a un pedido.
+  - Marcar un pedido como "Recibido".
+  - Dejar reseña (solo si tiene al menos un pedido completado).
+  - Editar su perfil: datos personales, dirección de envío, contraseña.
+
+Datos requeridos en el registro:
+  - Nombre completo / Razón social (empresa).
+  - Correo electrónico (usado como usuario).
+  - Contraseña (elegida por el cliente, mínimo seguro).
+  - Teléfono de contacto.
+  - Dirección completa (calle, ciudad, departamento, código postal).
+  - Tipo: particular / empresa (opcional pero útil).
+  - Cualquier otra información que el equipo de Metcar considere relevante.
+  (Patricia define el formulario de registro desde la configuración del admin)
+
+────────────────────────────────────────────────────────────────────────────────
+ROL 3: TÉCNICO (Maxi)
+────────────────────────────────────────────────────────────────────────────────
+Descripción: Empleado técnico del taller. Acceso limitado al panel interno.
+Puede:
+  - Ver los pedidos que están en estado "En preparación" asignados al taller.
+  - Marcar un pedido como "Armado / Listo para despachar" (acción opcional,
+    no bloquea el proceso si no la realiza).
+  - Ver detalles del pedido: productos, cantidades, especificaciones.
+
+No puede:
+  - Ver precios de productos ni totales de pedidos.
+  - Gestionar usuarios, catálogo, ni ninguna configuración del sistema.
+  - Ver información de contacto de clientes más allá de lo necesario.
+
+────────────────────────────────────────────────────────────────────────────────
+ROL 4: ADMIN (Peteto y Patricia)
+────────────────────────────────────────────────────────────────────────────────
+Descripción: Acceso total a todas las funcionalidades del sitio.
+Puede:
+  - Todo lo que puede cualquier otro rol.
+  - Gestionar pedidos: ver, editar estado, aprobar cotizaciones, subir
+    número de encomienda, cerrar pedidos.
+  - Gestionar catálogo: agregar, editar y eliminar productos; definir stock,
+    precios base, compatibilidades en el configurador.
+  - Gestionar usuarios: validar/rechazar cuentas nuevas, editar datos de
+    clientes, suspender cuentas, asignar multiplicadores de precio.
+  - Gestionar reseñas: aprobar o rechazar reseñas antes de publicarlas;
+    configurar si las reseñas requieren validación o no.
+  - Configuración general del sitio: textos, datos de contacto, configuración
+    de notificaciones, campos del formulario de registro, etc.
+  - Ver y gestionar comprobantes de pago subidos por clientes.
+
+────────────────────────────────────────────────────────────────────────────────
+ROL 5: DEVELOPER (equipo de desarrollo)
+────────────────────────────────────────────────────────────────────────────────
+Descripción: Acceso técnico total + herramientas de desarrollo y testing.
+Puede:
+  - Todo lo que puede Admin.
+  - Acceso a logs, configuración técnica del sistema, variables de entorno.
+  - Herramientas de prueba (crear pedidos de prueba, simular estados, etc.).
+  - Modificar lógica y estructura del sistema.
+
+Nota: Este rol no es operativo en producción, es para mantenimiento y mejoras.
+
+PERMISOS SON CONFIGURABLES:
+  Desde la cuenta Admin principal, se deben poder ajustar los permisos de
+  cada rol de forma sencilla e intuitiva, sin necesidad de programar.
+
+
+================================================================================
+5. FLUJOS DE USUARIO COMPLETOS
+================================================================================
+
+────────────────────────────────────────────────────────────────────────────────
+FLUJO A: VISITANTE QUE NAVEGA Y CONSULTA (sin cuenta)
+────────────────────────────────────────────────────────────────────────────────
+1. Usuario entra al sitio → ve la página de inicio (Home).
+2. Puede navegar libremente: catálogo, buscador, fichas de productos, configurador.
+3. Puede agregar productos al carrito (carrito temporal, se pierde al cerrar sesión).
+4. En cualquier momento puede ir a "Contacto" y enviar una consulta simple:
+   - Formulario: nombre, correo, teléfono, mensaje libre.
+   - Opcionalmente puede incluir productos del catálogo en la consulta
+     (selección anclada al mensaje).
+   - Esta consulta llega al correo de Metcar Y aparece en el panel de Patricia.
+   - No requiere cuenta. Patricia responde por correo o teléfono.
+5. Si el visitante quiere hacer un pedido formal → ver Flujo B.
+
+────────────────────────────────────────────────────────────────────────────────
+FLUJO B: PRIMER PEDIDO DE UN CLIENTE NUEVO
+────────────────────────────────────────────────────────────────────────────────
+1. Usuario navega y agrega productos al carrito (sin cuenta).
+2. Hace clic en "Cotizar pedido" o "Enviar pedido".
+3. El sitio le informa que necesita una cuenta para continuar.
+4. Opciones:
+   a) "Ya tengo cuenta" → va al login → si la cuenta está validada, continúa.
+   b) "Crear cuenta" → formulario de registro completo (ver campos en Rol 2).
+5. El usuario completa el registro y confirma su correo electrónico
+   (verificación por email con enlace de confirmación).
+6. Una vez confirmado el correo, el usuario puede enviar su pedido.
+   El pedido queda en estado: "Pendiente de validación de cuenta".
+7. Metcar recibe notificación (email + panel interno) de que:
+   a) Un cliente nuevo se registró.
+   b) Tiene un pedido en espera.
+8. Patricia entra al panel → revisa el perfil del cliente nuevo → decide:
+   a) VALIDAR la cuenta → el pedido pasa a estado "Recibido, en cotización".
+   b) RECHAZAR la cuenta → se notifica al cliente con el motivo.
+9. A partir de aquí, el proceso sigue el Flujo D (flujo de pedido estándar).
+10. En todos los pedidos futuros de ese cliente (ya validado), los pasos 6-8
+    no se repiten. El pedido entra directamente en "Recibido, en cotización".
+
+────────────────────────────────────────────────────────────────────────────────
+FLUJO C: PEDIDO DE UN CLIENTE YA VALIDADO
+────────────────────────────────────────────────────────────────────────────────
+1. Cliente entra al sitio → inicia sesión.
+2. Navega por el catálogo y agrega productos al carrito (simples o configurados).
+3. Revisa el carrito: puede ajustar cantidades, quitar productos, agregar
+   un comentario/nota libre al pedido.
+4. Hace clic en "Enviar pedido / Solicitar cotización".
+5. El pedido entra directamente al sistema en estado "Recibido, en cotización".
+6. Cliente ve en su panel el pedido con ese estado y queda a la espera de la
+   cotización de Metcar.
+7. Continúa en Flujo D.
+
+────────────────────────────────────────────────────────────────────────────────
+FLUJO D: PROCESO COMPLETO DEL PEDIDO (lado Metcar)
+────────────────────────────────────────────────────────────────────────────────
+ESTADO 1 — "Recibido, en cotización"
+  - Patricia recibe notificación (email automático + panel).
+  - Patricia entra al panel y ve el pedido del cliente con:
+    · Lista de productos solicitados.
+    · Precio base de cada producto (visible solo internamente).
+    · Multiplicador del cliente (por defecto x1, ajustable).
+    · Precio calculado por producto (precio base × multiplicador).
+    · Total calculado automáticamente.
+  - Patricia puede ajustar:
+    · Precio individual de cualquier ítem (override manual).
+    · Multiplicador global para ese pedido específico.
+  - Patricia también ve el comentario/nota del cliente si lo dejó.
+  - Cuando Patricia está conforme con la cotización, hace clic en
+    "Aprobar cotización".
+
+ESTADO 2 — "Cotización aprobada, esperando pago"
+  - El cliente recibe:
+    · Notificación en su panel con el precio de cada ítem y el total.
+    · Email automático con el detalle de la cotización.
+  - En el panel del cliente se muestran los datos de pago:
+    · Cuenta bancaria, transferencia, datos para pagar (configurable por Admin).
+  - El cliente realiza el pago por fuera de la página (transferencia, depósito,
+    efectivo en local, etc.).
+  - El cliente puede (opcional pero recomendado) subir el comprobante de pago
+    directamente en la página, asociado a ese pedido (imagen o PDF).
+  - Patricia puede avanzar el estado con o sin comprobante. Si el cliente
+    lo sube, el comprobante queda permanentemente archivado en el pedido.
+
+ESTADO 3 — "Pago confirmado, en preparación"
+  - Patricia confirma que recibió el pago (con o sin comprobante en sistema).
+  - Cambia el estado a "En preparación".
+  - Maxi recibe notificación en su panel/dispositivo:
+    · Detalle del pedido: productos, cantidades, especificaciones técnicas.
+    · Sin información de precios ni totales.
+  - Maxi arma el pedido en el taller.
+  - Maxi puede (no obligatorio) marcar "Pedido armado" cuando termina.
+    Si no lo hace, Patricia puede avanzar el estado de igual forma.
+
+ESTADO 4 — "Listo para despachar"
+  - Se alcanza cuando:
+    a) Maxi marcó "Pedido armado", O
+    b) Patricia lo cambió manualmente (Patricia siempre puede avanzar estados).
+  - Patricia prepara el envío.
+
+ESTADO 5 — "Enviado / En camino"
+  - Patricia carga el número de encomienda o tracking del envío.
+  - El cliente ve en su panel:
+    · Estado: "Enviado".
+    · Número de encomienda (si aplica).
+  - El cliente recibe notificación por email informando que el pedido fue enviado.
+
+ESTADO 6 — "Entregado / Completado"
+  - Se alcanza cuando:
+    a) El cliente marca "Confirmar recepción" en su panel, O
+    b) Admin lo marca manualmente.
+  - El pedido queda cerrado y pasa al historial.
+  - Al cerrarse el pedido, el sistema puede ofrecerle al cliente la opción
+    de dejar una reseña (si cumple las condiciones: cuenta validada + pedido
+    completado).
+
+RESUMEN DE ESTADOS DEL PEDIDO:
+  [1] Pendiente de validación de cuenta  (solo primera vez, cliente nuevo)
+  [2] Recibido, en cotización
+  [3] Cotización aprobada, esperando pago
+  [4] Pago confirmado, en preparación
+  [5] Listo para despachar
+  [6] Enviado / En camino
+  [7] Entregado / Completado
+
+NOTA IMPORTANTE SOBRE ESTADOS:
+  Los nombres exactos de los estados son una sugerencia. El equipo de Metcar
+  (Admin) puede configurar los nombres de los estados desde el panel de
+  administración. Lo que no cambia es la lógica de transición entre ellos.
+
+NOTA IMPORTANTE SOBRE EL ROL DE MAXI:
+  La acción de Maxi ("Pedido armado") NUNCA bloquea el proceso. Patricia
+  siempre puede avanzar el estado sin esperar a Maxi. El rol de Maxi
+  es un apoyo operativo opcional, no un cuello de botella.
+
+
+================================================================================
+6. CATÁLOGO DE PRODUCTOS
+================================================================================
+
+DESCRIPCIÓN GENERAL:
+  El catálogo reemplaza completamente al PDF desactualizado. Es interactivo,
+  visual y navegable dentro del sitio. Todos los productos son de marca Metcar.
+
+CANTIDAD DE PRODUCTOS:
+  Cientos de productos. El catálogo exacto se cargará en el backend a partir
+  de la base de datos Excel que maneja actualmente la empresa.
+
+ORGANIZACIÓN:
+  Los productos se organizan por CATEGORÍAS (no por marca, ya que todos son
+  Metcar). Las categorías exactas se definirán con la base de datos del cliente.
+  Ejemplos de categorías esperadas:
+  - Mangueras hidráulicas
+  - Terminales / Punteros hidráulicos
+  - Discos de corte / Abrasivos
+  - Herramientas para torno (brocas, punteros de torno, ejes, etc.)
+  - Gatos hidráulicos
+  - Prensas para mangueras
+  - Masas y ejes para trailers
+  - Otros / Accesorios
+
+FICHA DE PRODUCTO:
+  Cada producto tiene su propia página con:
+  - Nombre del producto
+  - Código/referencia único
+  - Categoría
+  - Foto(s) del producto (fondo neutro, estandarizado)
+  - Descripción técnica
+  - Especificaciones: medidas, materiales, presión, etc.
+  - Disponibilidad de stock (hay stock / sin stock)
+  - Botón "Agregar al carrito"
+  - Si es un producto configurable (manguera a medida): link/botón al
+    configurador de mangueras.
+  - NO se muestran precios al público.
+
+STOCK:
+  - Cada producto tiene un campo de stock vinculado a la base de datos interna.
+  - Si hay stock → se muestra normalmente, botón "Agregar al carrito" activo.
+  - Si no hay stock → el producto aparece con un indicador visual diferenciado
+    (gris, badge "Sin stock" o similar) pero SIGUE SIENDO VISIBLE en el catálogo.
+  - El cliente PUEDE agregar al carrito productos sin stock.
+  - Al hacerlo, el sistema le informa: "Este producto puede no estar disponible
+    al momento de la entrega. Será confirmado en la cotización."
+  - Esta información también queda visible a Patricia en el pedido para que
+    pueda gestionar la disponibilidad.
+
+TIPOS DE COMPRA EN EL CATÁLOGO:
+  1. Producto simple: cantidad fija. Ej: "10 discos de corte 4.5 pulgadas".
+  2. Producto por metraje: Ej: "50 metros de manguera hidráulica 1/2 pulgada
+     (rollo, sin punteros)". El cliente especifica la cantidad/metraje.
+  3. Manguera configurada a medida: va al Configurador de Mangueras (ver sección 7).
+
+ADMINISTRACIÓN DEL CATÁLOGO (por Admin):
+  - Agregar nuevo producto: formulario intuitivo con todos los campos.
+  - Editar producto existente: edición directa desde el panel.
+  - Desactivar/eliminar producto.
+  - Actualizar stock manualmente o desde importación de Excel.
+  - Actualizar precios manualmente o desde importación de Excel.
+  - Subir y gestionar fotos de productos.
+  - Definir compatibilidades para el configurador de mangueras.
+  El sistema debe ser tan intuitivo que Patricia pueda hacerlo sin asistencia.
+
+
+================================================================================
+7. CONFIGURADOR DE MANGUERAS
+================================================================================
+
+DESCRIPCIÓN:
+  Herramienta especial para que el cliente pueda armar una manguera hidráulica
+  a medida, especificando todos los parámetros. El resultado se agrega al
+  carrito como un ítem configurado único.
+
+¿QUÉ ES UNA MANGUERA A MEDIDA?
+  En Metcar, Maxi corta la manguera al largo pedido y le prensa (fija)
+  los terminales (punteros) en cada extremo. El resultado es una manguera
+  lista para instalar en la máquina del cliente.
+
+PARÁMETROS DEL CONFIGURADOR:
+  El cliente selecciona paso a paso:
+  1. Tipo de manguera (ej: 2 mallas, 4 mallas, alta presión, etc.)
+  2. Medida de la manguera (ej: 1/4", 3/8", 1/2", 3/4", 1"...)
+  3. Largo de la manguera (en metros o centímetros, con campo numérico)
+  4. Terminal extremo A: tipo de puntero + medida del puntero
+  5. Terminal extremo B: tipo de puntero + medida del puntero
+     (puede ser igual o diferente al extremo A)
+
+LÓGICA DE COMPATIBILIDAD:
+  NO todas las combinaciones de manguera + puntero son válidas.
+  El configurador debe:
+  - Cuando el cliente selecciona un tipo/medida de manguera, solo mostrar
+    los punteros compatibles para los extremos A y B.
+  - Si el cliente intenta una combinación inválida, mostrar un aviso claro y
+    amigable: "Este terminal no es compatible con la manguera seleccionada."
+  - La lógica de compatibilidad se define en el panel Admin al cargar los
+    productos: al crear o editar una manguera, se especifica con qué punteros
+    es compatible; al crear un puntero, se puede verificar o definir con qué
+    mangueras es compatible.
+  - AUTOMATIZACIÓN: dado que la medida del puntero debe coincidir con la medida
+    de la manguera en muchos casos, el sistema debe intentar pre-filtrar
+    automáticamente por medida coincidente y mostrar solo los compatibles,
+    reduciendo el trabajo manual de configuración en el admin.
+
+RESULTADO EN EL CARRITO:
+  El ítem configurado aparece en el carrito como:
+  "Manguera hidráulica a medida:
+   - Tipo: [seleccionado]
+   - Medida: [seleccionada]
+   - Largo: [X metros]
+   - Terminal A: [puntero seleccionado]
+   - Terminal B: [puntero seleccionado]
+   - Cantidad: [1 unidad de este conjunto]"
+  El cliente puede pedir múltiples mangueras configuradas distintas en el mismo pedido.
+
+ADMINISTRACIÓN (por Admin):
+  Al agregar un producto de tipo "manguera" o "puntero" al catálogo, aparece
+  una sección intuitiva para definir las compatibilidades. El Admin no necesita
+  conocimientos técnicos para hacerlo: interfaz de checkboxes o selección múltiple.
+
+
+================================================================================
+8. BUSCADOR DE PRODUCTOS
+================================================================================
+
+CARACTERÍSTICAS:
+  - Buscador visible y accesible desde el catálogo y desde el header.
+  - Busca por: nombre del producto, código de referencia, categoría,
+    descripción, especificaciones.
+  - Tolerante a errores tipográficos (ej: "manguera" encuentra "mangueras").
+  - Tolerante a acentos (ej: "hidraulica" encuentra "hidráulica").
+  - Si no encuentra exacto, sugiere productos similares o relacionados
+    ("No encontramos X, ¿buscabas Y?").
+  - Resultados en tiempo real (muestra sugerencias mientras el usuario escribe).
+  - Si el término buscado no existe en el catálogo, no da un resultado vacío
+    frío: sugiere contactar a Metcar para consultar disponibilidad.
+
+NAVEGACIÓN POR CATEGORÍAS:
+  Complementa al buscador. El usuario puede navegar por menú de categorías
+  para explorar el catálogo sin saber exactamente qué busca. Las
+  especificaciones detalladas están dentro de cada ficha de producto individual
+  (no en filtros avanzados en el listado general).
+
+
+================================================================================
+9. SISTEMA DE CARRITO
+================================================================================
+
+CARRITO SIN CUENTA:
+  - El visitante anónimo puede agregar productos al carrito libremente.
+  - El carrito se mantiene durante la sesión del navegador.
+  - Si el usuario cierra el navegador sin haberse registrado, el carrito
+    se pierde (comportamiento estándar de sesión).
+  - Si el usuario se registra o inicia sesión durante la sesión con el
+    carrito activo, el carrito se asocia a su cuenta.
+
+CONTENIDO DEL CARRITO:
+  - Listado de productos con nombre, código, especificaciones y cantidad.
+  - Indicador de stock por cada ítem (disponible / sin stock - consultar).
+  - NO se muestran precios en el carrito del cliente.
+  - Campo de texto libre (opcional) para comentarios o aclaraciones al pedido.
+  - Botón "Enviar pedido / Solicitar cotización" (requiere cuenta para ejecutar).
+  - Botón "Guardar carrito" para usuarios logueados (pueden volver después).
+
+NOTA SOBRE PRODUCTOS SIN STOCK EN EL CARRITO:
+  El producto se agrega normalmente pero con un badge/aviso visible:
+  "Sin stock - disponibilidad a confirmar". El cliente es informado y
+  puede igualmente enviar el pedido. Patricia verá el aviso en el panel.
+
+
+================================================================================
+10. FLUJO COMPLETO DE PEDIDOS (RESUMEN VISUAL DE ESTADOS)
+================================================================================
+
+CLIENTE NUEVO (primera vez):
+  Carrito → "Cotizar" → Registro → Confirmación email → Pedido enviado
+  → [ESTADO 1: Pendiente validación cuenta] → Patricia valida cuenta
+  → [ESTADO 2: Recibido, en cotización] → [continúa igual que cliente existente]
+
+CLIENTE EXISTENTE (ya validado):
+  Carrito → "Cotizar" → [ESTADO 2: Recibido, en cotización]
+  → Patricia cotiza y aprueba
+  → [ESTADO 3: Cotización aprobada, esperando pago]
+  → Cliente paga (transferencia/efectivo/otro) → cliente sube comprobante (opcional)
+  → Patricia confirma pago
+  → [ESTADO 4: En preparación] → Maxi notificado → Maxi arma pedido
+  → Maxi marca "Armado" (opcional) o Patricia avanza
+  → [ESTADO 5: Listo para despachar]
+  → Patricia despacha + carga número de encomienda
+  → [ESTADO 6: Enviado / En camino] → cliente notificado por email
+  → Cliente confirma recepción (o Admin lo confirma)
+  → [ESTADO 7: Completado / Entregado]
+  → Sistema ofrece al cliente dejar una reseña
+
+NOTIFICACIONES AUTOMÁTICAS:
+  - Al cliente: por email en cada cambio de estado relevante.
+  - A Patricia/Admin: por email y en panel cuando llega un pedido nuevo,
+    cuando un cliente se registra, cuando un cliente sube un comprobante.
+  - A Maxi: cuando un pedido pasa a estado "En preparación".
+  Configuración de notificaciones: activables/desactivables desde Admin.
+
+
+================================================================================
+11. SISTEMA DE PRECIOS (ESTRUCTURA INTERNA)
+================================================================================
+
+PRECIOS PÚBLICOS: NO. Los precios no se muestran en ninguna página pública
+del sitio en la V1.
+
+ESTRUCTURA DE PRECIOS INTERNA:
+  Cada producto tiene un "precio base" en dólares (importado de la base de
+  datos de la empresa, actualmente en Excel). Este precio solo es visible
+  para los usuarios Admin en el panel interno.
+
+MULTIPLICADOR POR CLIENTE:
+  Cada cliente tiene un "multiplicador de precio" asignado por Admin.
+  - Por defecto: x1.0 (mismo precio que el base).
+  - Puede ajustarse a x0.8 (descuento por volumen), x1.2 (crédito), etc.
+  - Esto permite precios personalizados por cliente sin mostrarlo públicamente.
+  - En V1, todos los clientes tienen x1.0. La infraestructura está lista para V2.
+
+MULTIPLICADOR POR PEDIDO:
+  Además del multiplicador del cliente, Patricia puede aplicar un ajuste
+  específico para un pedido puntual (override por pedido). Útil para casos
+  especiales sin alterar el multiplicador general del cliente.
+
+CÁLCULO EN EL PANEL DE PATRICIA:
+  Al ver un pedido, Patricia ve:
+  - Producto | Cantidad | Precio base (USD) | Multiplicador cliente | Precio final | Subtotal
+  - El sistema calcula automáticamente el total.
+  - Patricia puede editar el precio de un ítem individual (override manual).
+  - Patricia puede cambiar el multiplicador del pedido.
+  - El total se recalcula en tiempo real.
+  - Todo esto es EXCLUSIVO del panel interno, nunca visible al cliente.
+
+CONVERSIÓN USD → UYU:
+  Los precios están en dólares. Si se desea mostrar en pesos uruguayos,
+  el sistema puede (en V2) conectarse a un tipo de cambio actualizado.
+  En V1, Patricia maneja la conversión manualmente al cotizar.
+
+FUTURA VISIBILIDAD DE PRECIOS (V2):
+  La arquitectura está construida para que, en el futuro, se pueda:
+  - Mostrar precios al cliente logueado (usando su multiplicador).
+  - Definir diferentes multiplicadores por segmento de cliente.
+  - Activar o desactivar la visualización de precios desde config. del Admin.
+
+COMPROBANTE DE PAGO:
+  El cliente puede subir el comprobante (imagen JPG/PNG o PDF) en el pedido.
+  El archivo queda archivado permanentemente en ese pedido.
+  Patricia puede ver y descargar el comprobante desde el panel.
+  Patricia puede avanzar el estado del pedido con o sin comprobante.
+
+
+================================================================================
+12. PANEL INTERNO METCAR (ADMIN / PATRICIA)
+================================================================================
+
+ACCESO: Solo roles Admin y Developer.
+URL: /admin o /panel (ruta protegida, no indexada por Google).
+Diseño: funcional, limpio, intuitivo. Patricia no es programadora.
+
+SECCIONES DEL PANEL:
+
+12.1 GESTIÓN DE PEDIDOS
+  - Vista general: lista de todos los pedidos con filtros por estado, fecha,
+    cliente, departamento.
+  - Vista de pedido individual: todos los detalles del pedido, acciones
+    para avanzar estados, ver/descargar comprobante, ver notas del cliente.
+  - Búsqueda de pedidos por nombre de cliente, número de pedido, fecha.
+  - Indicadores visuales claros del estado de cada pedido.
+
+12.2 GESTIÓN DE CATÁLOGO
+  - Lista de todos los productos con buscador y filtros.
+  - Agregar nuevo producto: formulario paso a paso con todos los campos.
+  - Editar producto: desde la lista, en una sola pantalla.
+  - Gestionar stock: actualizar cantidad disponible por producto.
+  - Gestionar precios base: actualizar desde el panel o importar desde Excel.
+  - Importación masiva desde Excel: subir el archivo Excel de la empresa y
+    el sistema actualiza precios y stock automáticamente.
+  - Gestión de compatibilidades del configurador (ver sección 7).
+  - Subida y gestión de fotos de productos.
+
+12.3 GESTIÓN DE CLIENTES / USUARIOS
+  - Lista de clientes registrados con estado (pendiente / validado / rechazado).
+  - Acción rápida: validar o rechazar cuenta nueva (con un clic + motivo opcional).
+  - Ver perfil completo de cada cliente.
+  - Editar datos del cliente si es necesario.
+  - Ver historial de pedidos de cada cliente.
+  - Ajustar multiplicador de precio del cliente.
+  - Suspender/reactivar una cuenta.
+
+12.4 GESTIÓN DE CONSULTAS (no pedidos)
+  - Lista de consultas recibidas desde el formulario de contacto.
+  - Ver el mensaje, datos del consultante, y si incluyó productos en la consulta.
+  - Marcar consulta como atendida / en proceso / cerrada.
+
+12.5 GESTIÓN DE RESEÑAS
+  - Lista de reseñas pendientes de aprobación.
+  - Aprobar o rechazar con un clic.
+  - Ver reseñas publicadas y poder despublicarlas si es necesario.
+  - Configuración: activar/desactivar moderación previa; definir qué clientes
+    pueden dejar reseña (solo con pedido completado, etc.).
+
+12.6 CONFIGURACIÓN GENERAL
+  - Datos de la empresa: nombre, dirección, teléfonos, emails, horarios.
+  - Datos bancarios para el pago (los que se muestran al cliente al cotizar).
+  - Configuración de notificaciones: qué eventos disparan emails y a quién.
+  - Gestión de roles y permisos: qué puede hacer cada rol.
+  - Configuración del formulario de registro de clientes.
+  - Textos editables del sitio (footer, avisos, etc.).
+  - Gestión de idiomas disponibles (activar/desactivar, añadir nuevos).
+  - Configuración de estados del pedido (nombres, orden, colores).
+
+12.7 ÁREA DE MAXI (TÉCNICO)
+  Vista simplificada solo con pedidos en estado "En preparación".
+  Detalle del pedido sin precios.
+  Botón de acción "Marcar como armado".
+
+
+================================================================================
+13. PANEL TÉCNICO (MAXI)
+================================================================================
+
+ACCESO: Solo rol Técnico.
+URL: /taller o similar (ruta protegida).
+Diseño: ultra-simplificado. Solo lo necesario.
+
+VISTA:
+  - Lista de pedidos en estado "En preparación" ordenados por fecha.
+  - Al hacer clic en un pedido:
+    · Lista de productos a armar: nombre, código, cantidad, especificaciones.
+    · En el caso de mangueras: tipo, medida, largo, terminal A, terminal B.
+    · Comentario del cliente si lo dejó.
+    · SIN información de precios ni datos de pago.
+  - Botón "Marcar pedido como armado" (opcional, no bloquea el proceso).
+  - Historial de pedidos que ya fueron armados (referencia).
+
+
+================================================================================
+14. SISTEMA DE RESEÑAS
+================================================================================
+
+¿APLICA EN V1? SÍ.
+
+CONDICIONES PARA DEJAR RESEÑA:
+  - El usuario debe estar registrado y validado.
+  - Debe tener al menos un pedido en estado "Completado / Entregado".
+  - Solo puede dejar una reseña por pedido completado (para evitar spam).
+  - Estas condiciones son configurables desde el Admin.
+
+PROCESO:
+  1. Al completarse un pedido, el sistema puede ofrecerle al cliente dejar reseña.
+  2. El cliente la escribe (texto + puntuación en estrellas).
+  3. La reseña queda en estado "Enviada, Gracias por su reseña :)".
+  4. Patricia recibe notificación de nueva reseña pendiente.
+  5. Patricia revisa y aprueba o rechaza desde el panel Admin.
+  6. Si se aprueba, la reseña aparece en la sección pública del sitio.
+  7. Si se rechaza, la reseña no aparece en la sección pública del sitio pero igualmente queda registrada internamente.
+  (al cliente no se le informa si la reseña fue aprovada o rechazada)
+
+VISUALIZACIÓN PÚBLICA:
+  Sección en la página principal o en una página dedicada, con reseñas de
+  clientes reales. Muestra: nombre (o inicial + apellido) o Anonimo (si el cliente quiere discrecion), texto, puntuación,
+  fecha. Genera confianza en visitantes nuevos.
+
+CONFIGURACIÓN:
+  Desde Admin se puede activar/desactivar la moderación previa, definir
+  si solo clientes con pedido completado pueden opinar, ocultar o mostrar
+  toda la sección de reseñas.
+
+
+================================================================================
+15. SECCIÓN DE CONTACTO
+================================================================================
+
+ACCESO: Público, sin necesidad de cuenta.
+
+CONTENIDO:
+  - Formulario de consulta simple:
+    · Nombre
+    · Correo electrónico
+    · Teléfono (opcional)
+    · Mensaje libre
+    · Opción de adjuntar hasta 2-3 fotos o archivos (para consultas técnicas)
+    · Opción de seleccionar productos del catálogo para incluir en la consulta
+      (no un carrito formal, sino una referencia de productos de interés).
+  - Datos de contacto de la empresa:
+    · Teléfono fijo y celular.
+    · Correo electrónico.
+    · Dirección física.
+  - Mapa de Google Maps embebido con la ubicación de la empresa.
+  - Horarios de atención.
+  - Información sobre las giras mensuales (zonas que recorren y frecuencia).
+
+DESTINO DE LA CONSULTA:
+  - Email automático al correo de Metcar.
+  - Aparece también en el panel de Patricia (sección "Consultas").
+
+
+================================================================================
+16. CONTENIDO, SEO E IDIOMAS
+================================================================================
+
+IDIOMAS — ESTRATEGIA:
+  DECISIÓN: En V1 se lanza únicamente en español. Sin embargo, la arquitectura
+  de internacionalización (i18n) se implementa correctamente desde el inicio,
+  de forma que agregar portugués e inglés en V2 sea limpio y sin parches.
+
+  Implementación técnica: sistema de archivos de traducción (ej: /locales/es.json,
+  /locales/pt.json, /locales/en.json). En V1 solo existe es.json completo.
+  El resto son archivos vacíos o con strings de placeholder. El selector de
+  idioma puede estar presente en el header pero solo mostrando "ES" activo.
+
+  Prioridad de idiomas a añadir en V2: Portugués (mercado brasileño) → Inglés.
+
+CONTENIDO TEXTUAL:
+  - Toda la redacción se hace desde cero (no hay textos existentes válidos).
+  - Nada se pone en el sitio sin la revisión y aprobación del equipo de Metcar.
+  - Tono: profesional, accesible, con terminología técnica correcta del rubro.
+  - Filosofía: "mostrar, no decir". El catálogo y las fotos hablan por la empresa.
+  - Se necesita: sesión fotográfica de instalaciones y productos con IA para
+    estandarizar las imágenes (mismo ángulo, fondo, iluminación).
+
+SEO — PALABRAS CLAVE PRIORITARIAS (sugeridas):
+  Las palabras clave más relevantes para el mercado uruguayo:
+  - "mangueras hidráulicas Uruguay"
+  - "terminales hidráulicos Uruguay"
+  - "discos de corte Uruguay"
+  - "herramientas para torno Uruguay"
+  - "insumos hidráulicos Uruguay"
+  - "gatos hidráulicos Uruguay"
+  - "prensa mangueras hidráulicas Uruguay"
+  - "importadora de herramientas Uruguay"
+  - "insumos para maquinaria agrícola Uruguay"
+  El foco geográfico es Uruguay completo (no solo Sarandí Grande), ya que
+  los envíos son a todo el país.
+
+SEO — ESTRATEGIA TÉCNICA:
+  - Estructura HTML semántica (h1, h2, meta descriptions).
+  - URL amigables: /catalogo/mangueras-hidraulicas, /catalogo/discos-de-corte.
+  - Optimización de imágenes (alt text descriptivo, formato WebP).
+  - Velocidad de carga: imágenes optimizadas, código eficiente.
+  - Google My Business: activar y optimizar (pendiente de gestión externa).
+  - Sin blog en V1. En V2 se puede evaluar.
+
+PÁGINAS PRINCIPALES DEL SITIO (SITEMAP PRELIMINAR):
+  Públicas:
+    - / (Home / Inicio)
+    - /catalogo (Listado de productos con categorías y buscador)
+    - /catalogo/[categoria] (Productos por categoría)
+    - /producto/[slug] (Ficha de producto individual)
+    - /configurador-mangueras (Configurador de mangueras a medida)
+    - /carrito (Vista del carrito)
+    - /contacto (Formulario de contacto + mapa + datos)
+    - /sobre-metcar (Historia, equipo, valores, giras)
+    - /reseñas (Sección pública de reseñas, o integrada en Home)
+    - /registro (Formulario de creación de cuenta)
+    - /login (Inicio de sesión)
+    - /verificar-email (Confirmación de correo tras registro)
+
+  Área de cliente (requiere login):
+    - /mi-cuenta (Panel del cliente)
+    - /mi-cuenta/pedidos (Lista de pedidos activos e historial)
+    - /mi-cuenta/pedidos/[id] (Detalle de pedido, tracking, subida de comprobante)
+    - /mi-cuenta/perfil (Editar datos personales)
+    - /mi-cuenta/carrito (Carrito guardado)
+
+  Panel interno Metcar (requiere Admin):
+    - /admin (Dashboard resumen)
+    - /admin/pedidos (Gestión de pedidos)
+    - /admin/pedidos/[id] (Detalle de pedido con herramientas de Admin)
+    - /admin/catalogo (Gestión de productos)
+    - /admin/catalogo/nuevo (Agregar producto)
+    - /admin/catalogo/[id]/editar (Editar producto)
+    - /admin/clientes (Gestión de clientes y cuentas)
+    - /admin/clientes/[id] (Perfil y pedidos de un cliente)
+    - /admin/consultas (Gestión de consultas de contacto)
+    - /admin/reseñas (Moderación de reseñas)
+    - /admin/configuracion (Configuración general del sitio)
+
+  Panel técnico (requiere Técnico):
+    - /taller (Vista de pedidos en preparación para Maxi)
+
+  Error:
+    - /404 (Página no encontrada)
+
+
+================================================================================
+17. TECNOLOGÍA RECOMENDADA
+================================================================================
+
+STACK RECOMENDADO:
+
+  FRONTEND: Next.js (React)
+    - Framework moderno, ideal para sitios con partes públicas (SEO) y
+      partes privadas (panel admin, área de cliente).
+    - Renderizado híbrido: SSG para páginas de catálogo (rápidas en Google),
+      SSR/CSR para paneles dinámicos.
+    - Excelente soporte para i18n (next-intl).
+    - Integración perfecta con Tailwind CSS para el diseño.
+
+  BACKEND / BASE DE DATOS: Supabase
+    - PostgreSQL gestionado: base de datos robusta y escalable.
+    - Autenticación integrada: registro, login, roles, sesiones.
+    - Storage: para fotos de productos y comprobantes de pago.
+    - Real-time: para actualizaciones de estado de pedidos en tiempo real.
+    - API automática: reduce el código de backend necesario.
+    - Plan gratuito generoso para el volumen de Metcar.
+
+  HOSTING / DEPLOY: Vercel
+    - Integración nativa con Next.js.
+    - Deploy automático desde GitHub.
+    - Plan gratuito suficiente para V1.
+    - CDN global para velocidad de carga.
+
+  EMAIL: Resend o similar
+    - Envío de emails transaccionales: confirmación de registro, cambios de
+      estado de pedido, notificaciones a Patricia, cotizaciones al cliente.
+    - Plantillas de email profesionales y personalizables.
+
+  RAZÓN POR LA QUE NO SE USA WORDPRESS/CMS:
+    La complejidad del sistema (configurador de mangueras con lógica de
+    compatibilidad, flujo de pedidos multi-estado, roles personalizados,
+    sistema de precios con multiplicadores, integración con Excel) hace que
+    un CMS genérico sea una solución forzada que resulta más difícil de
+    mantener que un desarrollo a medida con el stack mencionado.
+    Con Next.js + Supabase, el panel de Patricia es igualmente intuitivo
+    y el sistema es mucho más robusto y escalable.
+
+  INTEGRACIÓN CON EXCEL:
+    El Excel de Metcar (precios y stock) se conecta al sistema de dos formas:
+    a) Importación manual: Patricia sube el archivo Excel desde el Admin y el
+       sistema actualiza los precios y stock automáticamente.
+    b) (V2) Sincronización automática si el Excel migra a Google Sheets u
+       otro sistema con API.
+    En ambos casos, la base de datos del sitio es la fuente de verdad para
+    el frontend; el Excel es la fuente de verdad para la empresa internamente.
+
+
+================================================================================
+18. SEGURIDAD
+================================================================================
+
+La ciberseguridad es una prioridad absoluta del proyecto.
+
+MEDIDAS A IMPLEMENTAR:
+  - Autenticación segura: Supabase Auth (estándar de la industria, tokens JWT).
+  - Contraseñas: hash seguro (bcrypt), sin almacenamiento en texto plano.
+  - HTTPS obligatorio en todo el sitio (certificado SSL).
+  - Validación de inputs en frontend Y backend (nunca solo en uno).
+  - Protección contra inyección SQL: uso de ORM/queries parametrizadas.
+  - Protección CSRF en formularios.
+  - Rate limiting en endpoints sensibles (login, registro, envío de pedidos).
+  - Rutas del panel Admin protegidas por middleware de autenticación y rol.
+  - No exposición de precios, datos de clientes ni información sensible en
+    el frontend (todo manejado por API con verificación de sesión en backend).
+  - Archivos subidos (comprobantes): validación de tipo y tamaño, almacenamiento
+    seguro en Supabase Storage con acceso controlado.
+  - Logs de acceso y acciones en el panel Admin (auditoría básica).
+  - Variables de entorno para claves API y datos sensibles (nunca en el código).
+  - Dependencias actualizadas y sin vulnerabilidades conocidas.
+  - El panel /admin no es indexable por buscadores (robots.txt + noindex).
+  - Revisión de seguridad antes del lanzamiento.
+
+
+================================================================================
+19. ALCANCE V1 vs. V2+
+================================================================================
+
+──────────────────────────────────────────────
+INCLUIDO EN V1 (primer lanzamiento):
+──────────────────────────────────────────────
+  - Sitio público completo: Home, Catálogo, Fichas de producto, Configurador
+    de mangueras, Carrito, Contacto, Sobre Metcar.
+  - Sistema de registro y login de clientes (con validación por Patricia).
+  - Flujo completo de pedidos / cotizaciones (7 estados).
+  - Panel interno de Patricia: pedidos, catálogo, clientes, consultas, reseñas.
+  - Panel técnico de Maxi.
+  - Tracking de pedidos para el cliente.
+  - Subida de comprobante de pago por el cliente.
+  - Sistema de reseñas con moderación.
+  - Buscador de productos inteligente.
+  - Notificaciones por email automáticas.
+  - Arquitectura de precios (precios base + multiplicador por cliente, sin
+    mostrarse al público).
+  - Importación de Excel para actualizar precios y stock.
+  - Infraestructura de i18n lista (solo español activo en V1).
+  - Diseño responsive: mobile + desktop.
+  - SEO técnico base.
+  - HTTPS y medidas de seguridad fundamentales.
+
+──────────────────────────────────────────────
+FUERA DE V1 (para V2 y siguientes):
+──────────────────────────────────────────────
+  - Pago online (integración con Mercado Pago u otro gateway).
+  - Chat interno en tiempo real cliente ↔ Metcar.
+  - Dashboard de analytics / estadísticas para Admin.
+  - Chatbot IA de asesoramiento de productos.
+  - Precios personalizados visibles para clientes logueados.
+  - Integración automática con sistema de facturación.
+  - Múltiples idiomas activos (Portugués, Inglés).
+  - Blog / artículos técnicos.
+  - Ofertas y promociones personalizadas por cliente.
+  - Sincronización automática con Google Sheets / ERP.
+  - App móvil nativa.
+  - Expansión de mercado a Argentina / Brasil.
+
+
+================================================================================
+20. REFERENCIAS VISUALES Y COMPETIDORES
+================================================================================
+
+COMPETIDORES IDENTIFICADOS (para análisis y superación):
+  - bilpa.com.uy
+  - emporiodelosfiltros.com
+  - pertilco.com.uy
+  - drhegal.com.uy
+
+PÁGINAS EJEMPLO — CÓMO NO HACER (referencias negativas):
+  - https://www.dreghal.com.uy/ → mucho ruido visual, poco intuitivo.
+  - https://www.tifor.com.uy/ → demasiado texto, poca interacción.
+  - https://castroltda.com.uy/ → da ganas de llamar en vez de navegar.
+
+PÁGINAS EJEMPLO — TOMAR IDEAS (referencias positivas):
+  - https://serviflex.com.uy/ → por encima del promedio del mercado local.
+  - https://libreriavila.com.uy/ → buena interacción con productos (rubro distinto).
+  - https://www.hydraulicsdirect.com/ → la referencia más cercana al rubro
+    y la que más les gustó. Metcar debe superarla en intuitividad y diseño.
+  
+
+INSPIRACIÓN DE ESTILO GENERAL:
+  Apple, Nike: en cuanto a claridad visual, jerarquía de la información,
+  presentación de productos y confianza que transmite el diseño.
+
+OBJETIVO: la página de Metcar debe ser notoriamente mejor que todas las
+páginas de competidores uruguayos del rubro, y comparable en calidad visual
+y UX a las mejores referencias internacionales.
+
+
+================================================================================
+21. NOTAS ADICIONALES Y FILOSOFÍA GENERAL
+================================================================================
+
+"DEMOSTRAR MÁS, HABLAR MENOS":
+  Esta es la filosofía central del sitio. En vez de textos largos explicando
+  lo buena que es la empresa, el diseño, el catálogo visual y las fotos
+  deben transmitirlo solos. Menos párrafos, más evidencia.
+
+ELIMINACIÓN DE FRICCIÓN:
+  En cada punto donde el usuario podría abandonar o frustrarse, hay que
+  preguntarse: ¿cómo lo hacemos más fácil? El ejemplo claro: un visitante
+  puede navegar TODO el sitio sin crear cuenta. Solo en el momento de cotizar
+  se le pide que se registre.
+
+INDEPENDENCIA ENTRE PÁGINA Y EMPRESA:
+  La página optimiza los procesos internos pero no los reemplaza. Los clientes
+  pueden seguir llamando por teléfono, escribiendo por WhatsApp o yendo en
+  persona. La página convive con esos métodos sin conflicto, y gradualmente
+  va ganando peso como canal principal.
+
+PREPARADO PARA CRECER:
+  Todo lo que se construye en V1 debe poder escalar. Infraestructura de precios
+  lista para cuando se quieran mostrar. I18n lista para cuando se quieran más
+  idiomas. Sistema de pedidos listo para conectar con pagos online.
+
+MANTENIDO POR NO-TÉCNICOS:
+  Patricia debe poder actualizar stock, precios, agregar productos, validar
+  clientes, gestionar pedidos y aprobar reseñas sin necesitar ayuda del equipo
+  de desarrollo. El diseño del panel Admin debe ser tan claro que se aprenda
+  con una sola sesión de capacitación o de un solo vistazo.
+
+INDEPENDENCIA DE PERSONAS:
+  El sistema debe funcionar igual si Patricia es reemplazada por otra persona.
+  No puede depender del conocimiento tácito de nadie. Todo el flujo operativo
+  debe ser autoexplicativo dentro del panel.
+
+CONFIANZA COMO PILAR:
+  La empresa vende a clientes del interior que confían en el boca a boca.
+  La página debe ser una extensión de esa confianza: reseñas reales, datos
+  claros de contacto, ubicación en mapa, información de las giras, foto del
+  equipo. Nada que genere dudas sobre la legitimidad de la empresa.
+
+ACCESIBILIDAD TÉCNICA DEL CLIENTE:
+  Los clientes son talleres, agricultores, industrias. No todos son usuarios
+  digitales avanzados. El sitio debe funcionar bien en conexiones lentas del
+  interior, en celulares de gama media, y debe ser tan simple de usar como
+  cualquier app de delivery conocida.
+
+================================================================================
+FIN DEL DOCUMENTO
+================================================================================
+Versión: 1.0
+Estado: Aprobado para inicio de desarrollo Frontend
+Próximo paso: Mapa de páginas (Sitemap) + Wireframes de pantallas clave
+================================================================================

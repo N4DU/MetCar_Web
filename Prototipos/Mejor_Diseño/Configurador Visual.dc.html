@@ -27,6 +27,20 @@
   .mc-panel::-webkit-scrollbar{width:9px}
   .mc-panel::-webkit-scrollbar-thumb{background:rgba(27,25,22,.16);border-radius:4px}
   @keyframes mcPulse{0%,100%{opacity:1}50%{opacity:.3}}
+  .mcfg-ham{display:none}
+  @media(max-width:860px){
+    .mcfg-workspace{grid-template-columns:1fr!important}
+    .mcfg-stage{position:relative!important;top:auto!important;height:52vh!important;min-height:340px!important;border-right:none!important;border-bottom:1px solid rgba(255,255,255,.08)!important}
+    .mc-panel{height:auto!important;min-height:0!important}
+    .mcfg-nav-links{display:none!important}
+    .mcfg-ham{display:flex!important}
+  }
+  @media(max-width:520px){
+    .mcfg-foot-grid{grid-template-columns:1fr 1fr!important;gap:28px!important}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  }
 </style>
 </helmet>
 
@@ -36,25 +50,40 @@
   <nav style="position:sticky;top:0;z-index:200;background:#1B1916;border-bottom:1px solid rgba(255,255,255,.07)">
     <div style="max-width:1280px;margin:0 auto;height:62px;display:flex;align-items:center;padding:0 28px">
       <a href="metcar_homepage_v5.html" style="display:flex;align-items:center"><img src="img/logoMetcar.webp" alt="Metcar" style="height:28px;width:auto;display:block" /></a>
-      <div style="display:flex;gap:26px;flex:1;justify-content:center">
+      <div class="mcfg-nav-links" style="display:flex;gap:26px;flex:1;justify-content:center">
         <a href="catalogo.html" style="font-family:'Barlow';font-weight:500;font-size:13px;color:rgba(255,255,255,.65);text-decoration:none;border-bottom:1px solid transparent;padding-bottom:1px;transition:color .16s ease,border-color .16s ease" style-hover="color:#fff;border-bottom-color:rgba(255,255,255,.2)">Catálogo</a>
         <a href="#" style="font-family:'Barlow';font-weight:500;font-size:13px;color:#fff;text-decoration:none;border-bottom:1px solid #B83214;padding-bottom:1px">Configurador</a>
         <a href="sobre-nosotros.html" style="font-family:'Barlow';font-weight:500;font-size:13px;color:rgba(255,255,255,.65);text-decoration:none;border-bottom:1px solid transparent;padding-bottom:1px;transition:color .16s ease,border-color .16s ease" style-hover="color:#fff;border-bottom-color:rgba(255,255,255,.2)">Sobre Metcar</a>
         <a href="metcar_homepage_v5.html#contacto" style="font-family:'Barlow';font-weight:500;font-size:13px;color:rgba(255,255,255,.65);text-decoration:none;border-bottom:1px solid transparent;padding-bottom:1px;transition:color .16s ease,border-color .16s ease" style-hover="color:#fff;border-bottom-color:rgba(255,255,255,.2)">Contacto</a>
       </div>
       <div style="display:flex;align-items:center;gap:2px;flex-shrink:0">
-        <button style="background:none;border:none;color:rgba(255,255,255,.55);padding:8px;display:flex;transition:color .16s ease" style-hover="color:#fff" aria-label="Buscar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></button>
-        <button id="nav-cart-btn" data-open-cart style="background:none;border:none;color:rgba(255,255,255,.55);padding:8px;display:flex;position:relative;transition:color .16s ease" style-hover="color:#fff" aria-label="Mi pedido"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span id="cart-badge" style="position:absolute;top:4px;right:4px;background:#B83214;color:#fff;border-radius:50%;width:13px;height:13px;font-family:'Barlow Condensed';font-weight:700;font-size:8px;display:flex;align-items:center;justify-content:center">0</span></button>
+        <button onClick="{{ goSearch }}" style="background:none;border:none;color:rgba(255,255,255,.55);padding:8px;display:flex;transition:color .16s ease" style-hover="color:#fff" aria-label="Buscar en el catálogo"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></button>
+        <button id="nav-cart-btn" data-open-cart style="background:none;border:none;color:rgba(255,255,255,.55);padding:8px;display:flex;position:relative;transition:color .16s ease" style-hover="color:#fff" aria-label="Mi pedido"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><sc-if value="{{ hasCart }}"><span style="position:absolute;top:4px;right:4px;background:#B83214;color:#fff;border-radius:50%;width:13px;height:13px;font-family:'Barlow Condensed';font-weight:700;font-size:8px;display:flex;align-items:center;justify-content:center">{{ cartN }}</span></sc-if></button>
         <button style="border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.68);padding:6px 16px;margin-left:10px;font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;background:none;border-radius:1px;transition:color .16s ease,border-color .16s ease" style-hover="border-color:rgba(255,255,255,.45);color:#fff">Ingresar</button>
+        <button class="mcfg-ham" onClick="{{ toggleMenu }}" aria-label="Menú" style="display:none;flex-direction:column;justify-content:center;gap:5px;padding:8px;margin-left:6px;background:none;border:none;cursor:pointer">
+          <span style="display:block;width:20px;height:2px;background:rgba(255,255,255,.7);border-radius:1px"></span>
+          <span style="display:block;width:20px;height:2px;background:rgba(255,255,255,.7);border-radius:1px"></span>
+          <span style="display:block;width:20px;height:2px;background:rgba(255,255,255,.7);border-radius:1px"></span>
+        </button>
       </div>
     </div>
   </nav>
 
+  <!-- MOBILE MENU -->
+  <sc-if value="{{ menuOpen }}">
+    <div style="position:fixed;top:62px;left:0;right:0;z-index:190;background:#1B1916;border-top:1px solid rgba(255,255,255,.07);box-shadow:0 8px 24px rgba(0,0,0,.4)">
+      <a href="catalogo.html" onClick="{{ closeMenu }}" style="display:block;font-family:'Barlow';font-weight:500;font-size:15px;color:rgba(255,255,255,.72);padding:15px 28px;border-bottom:1px solid rgba(255,255,255,.05);text-decoration:none">Catálogo</a>
+      <a href="#" onClick="{{ closeMenu }}" style="display:block;font-family:'Barlow';font-weight:500;font-size:15px;color:#fff;padding:15px 28px;border-bottom:1px solid rgba(255,255,255,.05);text-decoration:none">Configurador</a>
+      <a href="sobre-nosotros.html" onClick="{{ closeMenu }}" style="display:block;font-family:'Barlow';font-weight:500;font-size:15px;color:rgba(255,255,255,.72);padding:15px 28px;border-bottom:1px solid rgba(255,255,255,.05);text-decoration:none">Sobre Metcar</a>
+      <a href="metcar_homepage_v5.html#contacto" onClick="{{ closeMenu }}" style="display:block;font-family:'Barlow';font-weight:500;font-size:15px;color:rgba(255,255,255,.72);padding:15px 28px;text-decoration:none">Contacto</a>
+    </div>
+  </sc-if>
+
   <!-- WORKSPACE -->
-  <div style="display:grid;grid-template-columns:minmax(0,1fr) 420px;align-items:start">
+  <div class="mcfg-workspace" style="display:grid;grid-template-columns:minmax(0,1fr) 420px;align-items:start">
 
     <!-- STAGE -->
-    <div style="position:sticky;top:62px;height:calc(100vh - 62px);min-height:600px;background:#15171a url('img/FondoConfigurador.webp') center center/cover no-repeat;display:flex;flex-direction:column;overflow:hidden;border-right:1px solid rgba(255,255,255,.08)">
+    <div class="mcfg-stage" style="position:sticky;top:62px;height:calc(100vh - 62px);min-height:600px;background:#15171a url('img/FondoConfigurador.webp') center center/cover no-repeat;display:flex;flex-direction:column;overflow:hidden;border-right:1px solid rgba(255,255,255,.08)">
       <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:26px 34px 0">
         <div>
           <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#B83214;margin-bottom:5px">Configurador · manguera a medida</div>
@@ -231,7 +260,7 @@
 
   <!-- FOOTER -->
   <footer style="background:#1B1916;border-top:3px solid #B83214;padding:60px 32px 36px">
-    <div style="max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:44px;padding-bottom:44px;border-bottom:1px solid rgba(255,255,255,.07);margin-bottom:24px">
+    <div class="mcfg-foot-grid" style="max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:44px;padding-bottom:44px;border-bottom:1px solid rgba(255,255,255,.07);margin-bottom:24px">
       <div>
         <a href="metcar_homepage_v5.html" style="display:flex;align-items:center;margin-bottom:14px"><img src="img/logoMetcar.webp" alt="Metcar" style="height:30px;width:auto;display:block" /></a>
         <p style="font-family:'Barlow';font-size:13px;line-height:1.6;color:rgba(255,255,255,.38);max-width:220px;margin:0 0 20px">Importación y distribución de insumos hidráulicos y herramientas industriales. Sarandí Grande, Uruguay.</p>
@@ -262,7 +291,7 @@
       </div>
     </div>
     <div style="max-width:1160px;margin:0 auto;display:flex;justify-content:space-between;align-items:center">
-      <span style="font-family:'Barlow Condensed';font-size:11px;color:rgba(255,255,255,.18);letter-spacing:.5px">© 2026 Metcar Uruguay. Todos los derechos reservados.</span>
+      <span style="font-family:'Barlow Condensed';font-size:11px;color:rgba(255,255,255,.18);letter-spacing:.5px">© {{ year }} Metcar Uruguay. Todos los derechos reservados.</span>
       <span style="font-family:'Barlow Condensed';font-size:11px;color:rgba(255,255,255,.12);letter-spacing:.5px">metcar.uy</span>
     </div>
   </footer>
@@ -295,8 +324,10 @@ class Component extends DCLogic {
   state = {
     typeId:'h2', gaugeId:'g12', lengthValue:1, name:'',
     endAThread:'JIC', endAAngle:0, endBThread:'JIC', endBAngle:90,
-    qty:1, zoom:1, added:false, editingLine:null,
+    qty:1, zoom:1, added:false, editingLine:null, menuOpen:false, cartN:0,
   };
+
+  syncCart=()=>{ try{ this.setState({cartN: window.MCCart?MCCart.count():0}); }catch(e){} };
 
   componentDidMount(){
     let applied=false;
@@ -304,7 +335,7 @@ class Component extends DCLogic {
     try{
       const ep=new URLSearchParams(location.search).get('edit');
       if(ep && window.MCCart){
-        const item=MCCart.items().find(i=>i.code===ep);
+        const item=MCCart.items().find(i=>i.line===ep||i.code===ep);
         if(item && item.custom && item.custom.config){
           this.setState(Object.assign({}, item.custom.config, {qty:item.qty||1, editingLine:ep, added:false}), ()=>this.validateEnds());
           applied=true;
@@ -314,10 +345,15 @@ class Component extends DCLogic {
     if(!applied){
       try{const s=JSON.parse(localStorage.getItem('mc_visual_v2')||'null');if(s)this.setState(s,()=>this.validateEnds());else this.validateEnds();}catch(e){this.validateEnds();}
     }
-    if(window.MCCart&&MCCart.refresh)MCCart.refresh();   // pinta el badge del carrito al montar
+    // El badge lo controla el propio DC (React es dueño de ese nodo; cart.js no puede mutarlo acá)
+    if(window.MCCart){ this.syncCart(); MCCart.onChange(this.syncCart); }
   }
   persist(){try{const {added,zoom,editingLine,...rest}=this.state;localStorage.setItem('mc_visual_v2',JSON.stringify(rest));}catch(e){}}
   cancelEdit=()=>{ window.location.href='carrito.html'; };
+  goSearch=()=>{ window.location.href='catalogo.html'; };
+  toggleMenu=()=>this.setState({menuOpen:!this.state.menuOpen});
+  closeMenu=()=>this.setState({menuOpen:false});
+  year(){return new Date().getFullYear();}
   set(patch){this.setState(patch,()=>this.persist());}
 
   terms(){
@@ -392,6 +428,16 @@ class Component extends DCLogic {
   zoomOut=()=>this.setState({zoom:Math.max(0.7,this.state.zoom-0.15)});
   zoomReset=()=>this.setState({zoom:1});
   onContinue=(e)=>{
+    const btn = e && e.currentTarget;
+    // Guard: si el campo de largo quedó vacío, lo fijamos al mínimo válido antes de agregar
+    if(this.state.lengthValue==null||isNaN(this.state.lengthValue)){
+      const lv=this.minM();
+      this.setState({lengthValue:lv,lengthRaw:this.fmt2(lv)}, ()=>this._doAdd(btn));
+      return;
+    }
+    this._doAdd(btn);
+  };
+  _doAdd=(btn)=>{
     const s=this.state, t=this.type(s.typeId), g=this.gauge(s.gaugeId);
     if(!t||!g) return;
     const outNames=[];
@@ -412,7 +458,6 @@ class Component extends DCLogic {
       config:{ typeId:s.typeId, gaugeId:s.gaugeId, lengthValue:s.lengthValue, lengthRaw:s.lengthRaw,
         name:s.name, endAThread:s.endAThread, endAAngle:s.endAAngle, endBThread:s.endBThread, endBAngle:s.endBAngle, qty:s.qty },
     };
-    const btn = e && e.currentTarget;
     if(window.MCCart){
       if(s.editingLine) MCCart.remove(s.editingLine);   // si estábamos editando, reemplaza esa manguera
       MCCart.addCustom(custom, s.qty||1, {fromEl: btn});
@@ -575,6 +620,8 @@ class Component extends DCLogic {
       outStock, stockLabel, stockBadgeStyle, stockDotStyle, stockTitle,
       priceText:'A cotizar', onContinue:this.onContinue,
       editing:!!s.editingLine, continueLabel:s.editingLine?'Guardar cambios':'Agregar al carrito', cancelEdit:this.cancelEdit,
+      menuOpen:s.menuOpen, toggleMenu:this.toggleMenu, closeMenu:this.closeMenu, goSearch:this.goSearch, year:this.year(),
+      cartN:s.cartN, hasCart:s.cartN>0,
     };
   }
 }

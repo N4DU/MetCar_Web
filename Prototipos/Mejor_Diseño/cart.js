@@ -140,7 +140,7 @@
     els.forEach(function (el) {
       var prev = el.textContent;
       el.textContent = n;
-      el.style.display = '';                 // visible siempre (coherente con el diseño actual)
+      el.style.display = n > 0 ? '' : 'none';   // se oculta cuando el pedido está vacío (no mostrar "0")
       if (String(n) !== prev && n > 0) {
         el.classList.remove('mc-badge-bump');
         void el.offsetWidth;
@@ -294,7 +294,10 @@
       '<div class="mc-cart-empty-ic"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div>' +
       '<div class="mc-cart-empty-h">Tu pedido está vacío</div>' +
       '<p class="mc-cart-empty-t">Agregá productos del catálogo o armá una manguera a medida en el configurador.</p>' +
-      '<a class="mc-btn mc-btn-p" href="catalogo.html">Ver catálogo<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>' +
+      '<div class="mc-cart-empty-ctas">' +
+        '<a class="mc-btn mc-btn-p mc-btn-block" href="catalogo.html">Ver catálogo<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>' +
+        '<a class="mc-btn mc-btn-g mc-btn-block" href="Configurador Visual.dc.html">Configurar manguera</a>' +
+      '</div>' +
     '</div>';
   }
 
@@ -404,6 +407,9 @@
 .mc-btn-p{background:var(--mc-red);color:#fff;border:2px solid var(--mc-red);padding:14px 22px}
 .mc-btn-p:hover{background:#9E2810;border-color:#9E2810}
 .mc-btn-block{width:100%}
+.mc-btn-g{background:transparent;color:#1B1916;border:1.5px solid var(--mc-bdr);padding:13px 22px}
+.mc-btn-g:hover{border-color:var(--mc-red);color:var(--mc-red)}
+.mc-cart-empty-ctas{display:flex;flex-direction:column;gap:10px;width:100%;max-width:280px}
 .mc-cart-keep{display:block;width:100%;text-align:center;margin-top:10px;background:none;border:none;cursor:pointer;font-family:var(--mc-ft);font-weight:700;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#68686A;padding:6px;transition:color .16s ease}
 .mc-cart-keep:hover{color:#1B1916}
 

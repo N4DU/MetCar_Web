@@ -1,0 +1,51 @@
+/* ============================================================
+   METCAR · TYPOGRAPHY TOKENS
+   Three type roles — Display (Bebas), Body (Barlow),
+   Technical (Barlow Condensed). The hierarchy is intentionally
+   industrial.
+   ============================================================ */
+:root {
+  /* ── Families ─────────────────────────────────────────────── */
+  --font-display: 'Bebas Neue', 'Arial Narrow', sans-serif;     /* uppercase brand voice */
+  --font-body:    'Barlow', system-ui, sans-serif;              /* reading text          */
+  --font-tech:    'Barlow Condensed', 'Arial Narrow', sans-serif;/* specs, badges, labels */
+  --font-mono:    'JetBrains Mono', ui-monospace, monospace;    /* hex codes, refs        */
+
+  /* ── Display scale (Bebas Neue — line-height ~0.9) ────────── */
+  --display-hero:   clamp(40px, 5vw, 62px); /* @kind font */
+  --display-xl:     46px;                   /* section monoliths  */
+  --display-lg:     40px;                   /* section titles     */
+  --display-md:     28px;                   /* card / sub-titles  */
+  --display-sm:     20px;                   /* nav name, eyebrow+ */
+
+  /* ── Body scale (Barlow) ──────────────────────────────────── */
+  --body-lg:        17px;
+  --body-md:        15px;                   /* default paragraph  */
+  --body-sm:        13.5px;
+  --body-xs:        12px;
+
+  /* ── Technical scale (Barlow Condensed) ───────────────────── */
+  --tech-lg:        15px;                   /* hose-band spec     */
+  --tech-md:        13px;                   /* button labels      */
+  --tech-sm:        11px;                   /* spec badges        */
+  --tech-xs:        10px;                   /* eyebrows, overline */
+  --tech-2xs:       9.5px;                  /* micro labels       */
+
+  /* ── Weights ──────────────────────────────────────────────── */
+  --weight-regular: 400;
+  --weight-medium:  500;
+  --weight-semibold:600;
+  --weight-bold:    700;
+
+  /* ── Letter-spacing (industrial = wide tracking on tech) ──── */
+  --track-display:  0.5px;
+  --track-tech:     1.5px;                  /* default tech track */
+  --track-tech-wide:2.5px;                  /* hose-print spacing */
+  --track-eyebrow:  3px;                    /* uppercase eyebrows */
+
+  /* ── Line-heights ─────────────────────────────────────────── */
+  --leading-display: 0.9;
+  --leading-tight:   1.3;
+  --leading-body:    1.65;
+  --leading-relaxed: 1.72;
+}

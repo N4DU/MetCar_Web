@@ -41,7 +41,7 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;700&display=block" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;700&display=swap" rel="stylesheet">
 <script src="config.js"></script>
 <script src="terminales.js"></script>
 <script src="catalog-data.js"></script>
@@ -306,7 +306,33 @@ img{display:block;max-width:100%}
 .cfg-step-title{font-family:var(--fb);font-weight:600;font-size:13.5px;
   color:rgba(255,255,255,.78);margin-bottom:2px}
 .cfg-step-sub{font-family:var(--ft);font-size:11px;color:rgba(255,255,255,.3);letter-spacing:.5px}
-.cfg-footer{margin-top:20px}
+.cfg-footer{margin-top:32px}
+.cfg-title{font-family:var(--fd);font-size:clamp(32px,4vw,52px);line-height:.92;letter-spacing:.5px;color:#fff;text-transform:uppercase}
+.cfg-sub{font-family:var(--fb);font-size:16px;line-height:1.55;color:rgba(255,255,255,.5);margin-top:18px}
+.cfg-diagram{display:flex;align-items:flex-start;justify-content:center;gap:clamp(12px,2vw,24px)}
+.cfg-dstep{transition:transform var(--t2)}
+.cfg-dstep:hover{transform:translateY(-5px)}
+.cfg-dstep:hover .cfg-dlbl{color:rgba(255,255,255,.7)}
+.cfg-dimg{transition:transform var(--t2)}
+.cfg-dstep:hover .cfg-dimg{transform:scale(1.04)}
+.cfg-dlbl{transition:color var(--t2)}
+.cfg-dstep{display:flex;flex-direction:column;align-items:center;gap:18px;flex:0 1 auto}
+.cfg-dimg{height:150px;display:flex;align-items:center;justify-content:center}
+.cfg-dimg img{height:100%;width:auto;object-fit:contain;mix-blend-mode:lighten}
+.cfg-dlbl{font-family:var(--ft);font-weight:700;font-size:13px;letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,255,255,.45);text-align:center;line-height:1.35}
+.cfg-darrow{color:rgba(255,255,255,.26);flex-shrink:0;margin-top:65px}
+/* configurator panel */
+.cfg-panel{border:1px solid rgba(255,255,255,.1);border-radius:2px;background-color:rgba(255,255,255,.015);background-image:linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);background-size:36px 36px;overflow:hidden}
+.cfg-panel-bar{display:flex;align-items:center;justify-content:space-between;padding:11px 16px;border-bottom:1px solid rgba(255,255,255,.08);background:rgba(0,0,0,.28)}
+.cfg-panel-tag{display:flex;align-items:center;gap:8px;font-family:var(--ft);font-weight:700;font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.4)}
+.cfg-panel-tag::before{content:"";width:18px;height:2px;background:var(--red)}
+.cfg-panel-live{display:flex;align-items:center;gap:7px;font-family:var(--ft);font-weight:700;font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.42)}
+.cfg-panel-live i{width:7px;height:7px;border-radius:50%;background:var(--red);animation:cfgPulse 2s ease-in-out infinite}
+@keyframes cfgPulse{0%,100%{opacity:1}50%{opacity:.3}}
+.cfg-result{display:flex;align-items:center;gap:14px;position:relative;margin:0 16px 16px;padding:13px 16px 13px 18px;background:var(--blk);border-radius:2px;overflow:hidden}
+.cfg-result::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--red)}
+.cfg-result-code{flex:1;font-family:var(--ft);font-weight:700;font-size:13px;letter-spacing:1px;text-transform:uppercase;color:var(--yel);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cfg-result-tag{flex-shrink:0;font-family:var(--ft);font-weight:700;font-size:10px;letter-spacing:1.3px;text-transform:uppercase;color:rgba(255,255,255,.34)}
 
 /* ══ PRODUCTS ══ */
 .prod-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
@@ -384,7 +410,7 @@ img{display:block;max-width:100%}
   color:rgba(255,255,255,.65);border:1.5px solid rgba(255,255,255,.18);padding:13px 26px;
   font-family:var(--ft);font-weight:700;font-size:13px;letter-spacing:1.5px;
   text-transform:uppercase;border-radius:1px;transition:border-color var(--t1),color var(--t1)}
-.btn-wa:hover{border-color:rgba(255,255,255,.45);color:#fff}
+.btn-wa:hover{border-color:#25D366;color:#25D366}
 
 /* ══ FOOTER ══ */
 .footer{background:var(--dark);border-top:3px solid var(--red);
@@ -498,6 +524,24 @@ img{display:block;max-width:100%}
 /* ══ ANIMATIONS ══ */
 @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 .anim{opacity:0;animation:fadeUp .65s cubic-bezier(.22,1,.36,1) both}
+/* ══ GLOW ══ */
+.glow{position:relative;overflow:hidden}
+.glow::before{content:"";position:absolute;z-index:0;pointer-events:none;width:640px;height:640px;border-radius:50%;left:var(--gx,50%);top:var(--gy,38%);margin-left:-320px;margin-top:-320px;background:radial-gradient(circle,rgba(184,50,20,.20),rgba(184,50,20,0) 70%);transition:left .5s cubic-bezier(.22,1,.36,1),top .5s cubic-bezier(.22,1,.36,1);animation:glowPulse 5.5s ease-in-out infinite;will-change:left,top,transform,opacity}
+.glow > *{position:relative;z-index:1}
+.glow--tr{--gx:82%;--gy:6%}
+.glow--bl{--gx:14%;--gy:94%}
+.glow--bl::before{animation-delay:-2.5s}
+.glow--c{--gx:50%;--gy:50%}
+.glow--c::before{width:760px;height:760px;margin-left:-380px;margin-top:-380px;background:radial-gradient(circle,rgba(184,50,20,.24),rgba(184,50,20,0) 68%)}
+@keyframes glowPulse{0%,100%{opacity:.45;transform:scale(1)}50%{opacity:.9;transform:scale(1.12)}}
+@media (prefers-reduced-motion:reduce){.glow::before{animation:none}}
+
+/* ══ MOVIMIENTO REDUCIDO ══ */
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .anim{animation:none!important;opacity:1!important}
+  *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}
+}
 </style>
 </head>
 <body>
@@ -517,7 +561,7 @@ img{display:block;max-width:100%}
       <a class="nl" href="#contacto">Contacto</a>
     </div>
     <div class="nav-r">
-      <button class="ibtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></button>
+      <button class="ibtn" aria-label="Buscar en el catálogo" onclick="location.href='catalogo.html'"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></button>
       <button class="ibtn" id="nav-cart-btn" data-open-cart aria-label="Mi pedido"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="cbadge" id="cart-badge">0</span></button>
       <button class="btn-login">Ingresar</button>
       <button class="nav-ham" id="nav-ham" aria-label="Abrir menú" aria-expanded="false">
@@ -714,24 +758,32 @@ img{display:block;max-width:100%}
 </section>
 
 <!-- ══════════════════════════════════════ 5. CONFIGURADOR -->
-<section class="sec sec--dark" id="configurador">
+<section class="sec sec--dark glow glow--tr" id="configurador">
   <div class="inner">
     <div class="cfg-grid">
       <div>
-        <div class="sec-eye sec-eye--l">Herramienta exclusiva</div>
-        <h2 class="sec-title sec-title--l" style="margin-bottom:16px">Configurá tu manguera a medida</h2>
-        <p class="sec-sub sec-sub--l" style="margin-bottom:32px">No más medidas incorrectas ni viajes al taller. Elegís el tipo, la medida, el largo y los terminales. Tu manguera llega lista para instalar.</p>
+        <h2 class="cfg-title">Configurá tu<br>manguera a medida.</h2>
+        <p class="cfg-sub">Tu manguera llega lista para instalar.</p>
         <div class="cfg-footer">
           <a class="btn-p" href="Configurador Visual.dc.html">Ir al configurador<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
         </div>
       </div>
       <div>
-        <div class="cfg-steps">
-          <div class="cfg-step"><div class="cfg-num">1</div><div class="cfg-text"><div class="cfg-step-title">Tipo de manguera</div><div class="cfg-step-sub">1 malla · 2 mallas · 4 mallas · alta presión</div></div></div>
-          <div class="cfg-step"><div class="cfg-num">2</div><div class="cfg-text"><div class="cfg-step-title">Medida del diámetro</div><div class="cfg-step-sub">1/4" · 3/8" · 1/2" · 3/4" · 1"</div></div></div>
-          <div class="cfg-step"><div class="cfg-num">3</div><div class="cfg-text"><div class="cfg-step-title">Largo de la manguera</div><div class="cfg-step-sub">En metros o centímetros</div></div></div>
-          <div class="cfg-step"><div class="cfg-num">4</div><div class="cfg-text"><div class="cfg-step-title">Terminal extremo A</div><div class="cfg-step-sub">Solo se muestran compatibles con la manguera</div></div></div>
-          <div class="cfg-step"><div class="cfg-num">5</div><div class="cfg-text"><div class="cfg-step-title">Terminal extremo B</div><div class="cfg-step-sub">Puede ser igual o diferente al extremo A</div></div></div>
+        <div class="cfg-diagram">
+          <div class="cfg-dstep">
+            <div class="cfg-dimg"><img src="img/MangueraDibujo.webp" alt="Tipo de manguera"></div>
+            <div class="cfg-dlbl">1. Tipo de<br>manguera</div>
+          </div>
+          <div class="cfg-darrow"><svg width="34" height="14" viewBox="0 0 34 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M0 7h32M26 1l6 6-6 6"/></svg></div>
+          <div class="cfg-dstep">
+            <div class="cfg-dimg"><img src="img/MedidaDibujo.webp" alt="Medidas y diámetros"></div>
+            <div class="cfg-dlbl">2. Medidas y<br>diámetros</div>
+          </div>
+          <div class="cfg-darrow"><svg width="34" height="14" viewBox="0 0 34 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M0 7h32M26 1l6 6-6 6"/></svg></div>
+          <div class="cfg-dstep">
+            <div class="cfg-dimg"><img src="img/PunteroDibujo.webp" alt="Seleccioná tus punteros"></div>
+            <div class="cfg-dlbl">3. Seleccioná<br>tus punteros</div>
+          </div>
         </div>
       </div>
     </div>
@@ -739,7 +791,7 @@ img{display:block;max-width:100%}
 </section>
 
 <!-- ══════════════════════════════════════ 7. COBERTURA NACIONAL -->
-<section class="sec sec--blk" id="cobertura">
+<section class="sec sec--blk glow glow--bl" id="cobertura">
   <div class="inner">
     <div class="cov-grid">
       <div>
@@ -788,9 +840,9 @@ img{display:block;max-width:100%}
 </section>
 
 <!-- ══════════════════════════════════════ 9. CTA FINAL -->
-<section class="fcta">
+<section class="fcta glow glow--c">
   <div class="fcta-in">
-    <div class="fcta-eye">Empezar ahora</div>
+    <div class="fcta-eye">Trabajemos juntos</div>
     <h2 class="fcta-h">¿Ya sabés lo que necesitás?</h2>
     <p class="fcta-body">Armá tu pedido en minutos. Sin llamadas, sin esperas innecesarias. Cotización rápida directamente desde el catálogo online.</p>
     <div class="fcta-btns">
@@ -888,6 +940,28 @@ document.querySelectorAll(
 
 // Copyright año dinámico
 document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+// Glow que sigue al cursor en las secciones oscuras
+(function(){
+  document.querySelectorAll('.glow').forEach(sec => {
+    let raf = null, px = 0, py = 0;
+    sec.addEventListener('pointermove', e => {
+      const r = sec.getBoundingClientRect();
+      px = e.clientX - r.left;
+      py = e.clientY - r.top;
+      if(raf) return;
+      raf = requestAnimationFrame(() => {
+        sec.style.setProperty('--gx', px + 'px');
+        sec.style.setProperty('--gy', py + 'px');
+        raf = null;
+      });
+    });
+    sec.addEventListener('pointerleave', () => {
+      sec.style.removeProperty('--gx');
+      sec.style.removeProperty('--gy');
+    });
+  });
+})();
 </script>
 </body>
 </html>
