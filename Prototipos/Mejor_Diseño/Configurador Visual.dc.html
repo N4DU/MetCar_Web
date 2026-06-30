@@ -48,6 +48,14 @@
   @media(prefers-reduced-motion:reduce){
     *{animation-duration:.01ms!important;transition-duration:.01ms!important}
   }
+  /* Foco visible por teclado (accesibilidad + intuitividad) */
+  a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{
+    outline:2px solid #B83214;outline-offset:2px;border-radius:2px}
+  .mcfg-stage button:focus-visible{outline-color:#F5C518;outline-offset:3px}
+  /* Realce al pasar el mouse por opciones seleccionables */
+  .mc-panel button[aria-pressed]{transition:transform .12s ease,box-shadow .15s ease,border-color .15s ease,background .15s ease}
+  .mc-panel button[aria-pressed]:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(27,25,22,.10)}
+  .mc-panel button[aria-pressed="true"]{box-shadow:0 2px 8px rgba(184,50,20,.18)}
 </style>
 </helmet>
 
@@ -140,7 +148,7 @@
         <!-- NAME -->
         <div style="padding:22px 24px 20px">
           <div style="font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:1.8px;text-transform:uppercase;color:rgba(27,25,22,.62);margin-bottom:9px">Nombre de la manguera · opcional</div>
-          <input value="{{ name }}" onInput="{{ onName }}" placeholder="Ej: Retroexcavadora, brazo izquierdo" style="width:100%;background:#F8F6F1;border:1px solid rgba(27,25,22,.14);border-radius:3px;color:#1B1916;font-family:'Barlow';font-size:14px;font-weight:500;padding:11px 13px;outline:none" />
+          <input value="{{ name }}" onInput="{{ onName }}" aria-label="Nombre de la manguera (opcional)" placeholder="Ej: Retroexcavadora, brazo izquierdo" style="width:100%;background:#F8F6F1;border:1px solid rgba(27,25,22,.14);border-radius:3px;color:#1B1916;font-family:'Barlow';font-size:14px;font-weight:500;padding:11px 13px;outline:none" />
           <p style="font-family:'Barlow';font-size:11.5px;color:rgba(27,25,22,.62);margin:8px 0 0;line-height:1.4">Para identificarla después en el carrito y en tus pedidos.</p>
         </div>
 
@@ -151,7 +159,7 @@
           </div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px">
             <sc-for list="{{ typeCards }}" as="c" hint-placeholder-count="4">
-              <button onClick="{{ c.onSelect }}" style="{{ c.style }}">
+              <button type="button" onClick="{{ c.onSelect }}" aria-pressed="{{ c.selected }}" aria-label="{{ c.aria }}" style="{{ c.style }}">
                 <span style="font-family:'Bebas Neue';font-size:20px;letter-spacing:.5px;color:#1B1916;line-height:1.1">{{ c.name }}</span>
                 <span style="font-family:'JetBrains Mono';font-size:10px;color:rgba(27,25,22,.62);margin-top:3px">{{ c.sae }}</span>
                 <span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:.6px;color:#B83214;margin-top:5px">{{ c.bar }}</span>
@@ -168,7 +176,7 @@
           </div>
           <div style="display:flex;flex-wrap:wrap;gap:8px">
             <sc-for list="{{ gaugeChips }}" as="c" hint-placeholder-count="5">
-              <button onClick="{{ c.onSelect }}" style="{{ c.style }}">{{ c.label }}</button>
+              <button type="button" onClick="{{ c.onSelect }}" aria-pressed="{{ c.selected }}" style="{{ c.style }}">{{ c.label }}</button>
             </sc-for>
           </div>
         </div>
@@ -178,11 +186,11 @@
           <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px">
             <span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:#1B1916">03 · Largo del cuerpo</span>
             <div style="display:flex;align-items:center;gap:8px">
-              <input inputmode="decimal" value="{{ lengthRaw }}" onInput="{{ onLenInput }}" onBlur="{{ onLenBlur }}" style="width:92px;text-align:right;background:#F8F6F1;border:1px solid rgba(27,25,22,.16);border-radius:3px;color:#1B1916;font-family:'Bebas Neue';font-size:23px;letter-spacing:1px;padding:4px 11px;outline:none" />
+              <input inputmode="decimal" value="{{ lengthRaw }}" onInput="{{ onLenInput }}" onBlur="{{ onLenBlur }}" aria-label="Largo del cuerpo en metros" style="width:92px;text-align:right;background:#F8F6F1;border:1px solid rgba(27,25,22,.16);border-radius:3px;color:#1B1916;font-family:'Bebas Neue';font-size:23px;letter-spacing:1px;padding:4px 11px;outline:none" />
               <span style="font-family:'Barlow Condensed';font-weight:700;font-size:13px;letter-spacing:1px;color:#fff;background:#B83214;border-radius:3px;padding:8px 12px">M</span>
             </div>
           </div>
-          <input type="range" min="{{ sliderMin }}" max="{{ sliderMax }}" step="0.05" value="{{ sliderVal }}" onInput="{{ onSlider }}" style="{{ sliderStyle }}" />
+          <input type="range" min="{{ sliderMin }}" max="{{ sliderMax }}" step="0.05" value="{{ sliderVal }}" onInput="{{ onSlider }}" aria-label="Largo del cuerpo en metros" style="{{ sliderStyle }}" />
           <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
             <span style="font-family:'Barlow';font-size:10.5px;color:rgba(27,25,22,.62)">{{ minLabel }}</span>
             <span style="font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:1px;color:rgba(27,25,22,.62)">SOLO CUERPO · SIN TERMINALES</span>
@@ -198,13 +206,13 @@
           </div>
           <div style="display:flex;flex-wrap:wrap;gap:7px">
             <sc-for list="{{ threadCardsA }}" as="c" hint-placeholder-count="4">
-              <button onClick="{{ c.onSelect }}" style="{{ c.style }}">{{ c.label }}</button>
+              <button type="button" onClick="{{ c.onSelect }}" aria-pressed="{{ c.selected }}" style="{{ c.style }}">{{ c.label }}</button>
             </sc-for>
           </div>
           <div style="font-family:'Barlow Condensed';font-weight:700;font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(27,25,22,.62);margin:13px 0 8px">Orientación</div>
           <div style="display:flex;gap:8px">
             <sc-for list="{{ angleOptsA }}" as="c" hint-placeholder-count="3">
-              <button onClick="{{ c.onSelect }}" style="{{ c.style }}">{{ c.icon }}<span style="{{ c.labelStyle }}">{{ c.label }}</span></button>
+              <button type="button" onClick="{{ c.onSelect }}" aria-pressed="{{ c.selected }}" style="{{ c.style }}">{{ c.icon }}<span style="{{ c.labelStyle }}">{{ c.label }}</span></button>
             </sc-for>
           </div>
         </div>
@@ -217,13 +225,13 @@
           </div>
           <div style="display:flex;flex-wrap:wrap;gap:7px">
             <sc-for list="{{ threadCardsB }}" as="c" hint-placeholder-count="4">
-              <button onClick="{{ c.onSelect }}" style="{{ c.style }}">{{ c.label }}</button>
+              <button type="button" onClick="{{ c.onSelect }}" aria-pressed="{{ c.selected }}" style="{{ c.style }}">{{ c.label }}</button>
             </sc-for>
           </div>
           <div style="font-family:'Barlow Condensed';font-weight:700;font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(27,25,22,.62);margin:13px 0 8px">Orientación</div>
           <div style="display:flex;gap:8px">
             <sc-for list="{{ angleOptsB }}" as="c" hint-placeholder-count="3">
-              <button onClick="{{ c.onSelect }}" style="{{ c.style }}">{{ c.icon }}<span style="{{ c.labelStyle }}">{{ c.label }}</span></button>
+              <button type="button" onClick="{{ c.onSelect }}" aria-pressed="{{ c.selected }}" style="{{ c.style }}">{{ c.icon }}<span style="{{ c.labelStyle }}">{{ c.label }}</span></button>
             </sc-for>
           </div>
         </div>
@@ -479,11 +487,30 @@ class Component extends DCLogic {
   thickness(){const g=this.gauge(this.state.gaugeId);const h=g?g.h:21;return 34+h*1.2;}
   hoseLenPx(){const cm=this.lenCm();const mn=this.minM()*100,mx=this.maxM()*100;if(cm==null)return 300;const t=Math.max(0,Math.min(1,(cm-mn)/(mx-mn)));return 190+Math.sqrt(t)*380;}
 
+  // Tuerca hexagonal facetada (pseudo-3D): bisel chaflán + caras sombreadas según la luz + bore con profundidad
   hexNut(cx,cy,r,ang){
-    let pts=[];
-    for(let i=0;i<6;i++){const a=ang+Math.PI/6+i*Math.PI/3;pts.push((cx+r*Math.cos(a)).toFixed(1)+','+(cy+r*Math.sin(a)).toFixed(1));}
-    const bore=`<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="${(r*0.46).toFixed(1)}" fill="#26282a"/><circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="${(r*0.46).toFixed(1)}" fill="none" stroke="rgba(0,0,0,.45)" stroke-width="1.4"/>`;
-    return `<polygon points="${pts.join(' ')}" fill="url(#mcMet)" stroke="rgba(0,0,0,.28)" stroke-width="1.6" stroke-linejoin="round"/>${bore}`;
+    const Lx=-0.55, Ly=-0.83;            // dirección de luz (arriba-izquierda)
+    const out=[], inn=[]; const ir=r*0.72;
+    for(let i=0;i<6;i++){const a=ang+Math.PI/6+i*Math.PI/3;out.push([cx+r*Math.cos(a),cy+r*Math.sin(a)]);inn.push([cx+ir*Math.cos(a),cy+ir*Math.sin(a)]);}
+    const poly=out.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ');
+    const ipoly=inn.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ');
+    let s=`<polygon points="${poly}" fill="url(#mcChrome)" stroke="rgba(0,0,0,.34)" stroke-width="1.4" stroke-linejoin="round"/>`;
+    // chaflán: 6 cuadros (anillo entre hex exterior e interior) sombreados por la normal de cada arista
+    for(let i=0;i<6;i++){
+      const o1=out[i],o2=out[(i+1)%6],i1=inn[i],i2=inn[(i+1)%6];
+      let mx=(o1[0]+o2[0])/2-cx, my=(o1[1]+o2[1])/2-cy; const ml=Math.hypot(mx,my)||1; mx/=ml; my/=ml;
+      const dot=mx*Lx+my*Ly;                 // -1 (sombra) .. 1 (luz)
+      const col=dot>=0?`rgba(255,255,255,${(dot*0.55).toFixed(2)})`:`rgba(0,0,0,${(-dot*0.42).toFixed(2)})`;
+      s+=`<polygon points="${o1[0].toFixed(1)},${o1[1].toFixed(1)} ${o2[0].toFixed(1)},${o2[1].toFixed(1)} ${i2[0].toFixed(1)},${i2[1].toFixed(1)} ${i1[0].toFixed(1)},${i1[1].toFixed(1)}" fill="${col}"/>`;
+    }
+    // cara interior (cromo limpio) + bore con anillo de profundidad
+    s+=`<polygon points="${ipoly}" fill="url(#mcChrome)"/>`;
+    const br=r*0.44;
+    s+=`<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="${br.toFixed(1)}" fill="#202325"/>`;
+    s+=`<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="${br.toFixed(1)}" fill="url(#mcBore)"/>`;
+    s+=`<circle cx="${(cx-br*0.16).toFixed(1)}" cy="${(cy-br*0.16).toFixed(1)}" r="${(br*0.62).toFixed(1)}" fill="none" stroke="rgba(255,255,255,.10)" stroke-width="1.2"/>`;
+    s+=`<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="${br.toFixed(1)}" fill="none" stroke="rgba(0,0,0,.5)" stroke-width="1.4"/>`;
+    return s;
   }
 
   buildViz(){
@@ -499,44 +526,91 @@ class Component extends DCLogic {
     const total=leftExt+HL+rightExt;
     const Lx=(W-total)/2+leftExt, Rx=Lx+HL;
     const bar=t.bar[g.id];
+    const n2=(v)=>v.toFixed(1);
 
     const defs=`<defs>
       <linearGradient id="mcRub" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#514c43"/><stop offset=".14" stop-color="#2c2924"/><stop offset=".34" stop-color="#17140e"/><stop offset=".5" stop-color="#0c0a07"/><stop offset=".66" stop-color="#1c180f"/><stop offset=".86" stop-color="#332e28"/><stop offset="1" stop-color="#0a0806"/>
+        <stop offset="0" stop-color="#46413a"/><stop offset=".10" stop-color="#5b554b"/><stop offset=".20" stop-color="#6e675b"/><stop offset=".30" stop-color="#3a352c"/><stop offset=".46" stop-color="#1a160f"/><stop offset=".58" stop-color="#0c0a06"/><stop offset=".70" stop-color="#0a0805"/><stop offset=".86" stop-color="#241f17"/><stop offset="1" stop-color="#080604"/>
       </linearGradient>
-      <linearGradient id="mcMet" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#fafbfc"/><stop offset=".16" stop-color="#d6d9dd"/><stop offset=".4" stop-color="#a0a4a9"/><stop offset=".52" stop-color="#696c70"/><stop offset=".68" stop-color="#b4b8bd"/><stop offset=".85" stop-color="#7f8287"/><stop offset="1" stop-color="#55575b"/>
+      <linearGradient id="mcChrome" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#eef1f4"/><stop offset=".10" stop-color="#ffffff"/><stop offset=".22" stop-color="#cfd3d8"/><stop offset=".38" stop-color="#8d9197"/><stop offset=".50" stop-color="#494d51"/><stop offset=".60" stop-color="#6c7075"/><stop offset=".74" stop-color="#e2e6ea"/><stop offset=".86" stop-color="#9a9ea3"/><stop offset="1" stop-color="#5a5d61"/>
       </linearGradient>
+      <radialGradient id="mcBore" cx=".5" cy=".5" r=".5">
+        <stop offset="0" stop-color="#0a0b0c"/><stop offset=".7" stop-color="#202325"/><stop offset="1" stop-color="#34383b"/>
+      </radialGradient>
+      <linearGradient id="mcAOl" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="rgba(0,0,0,.42)"/><stop offset="1" stop-color="rgba(0,0,0,0)"/>
+      </linearGradient>
+      <linearGradient id="mcAOr" x1="1" y1="0" x2="0" y2="0">
+        <stop offset="0" stop-color="rgba(0,0,0,.42)"/><stop offset="1" stop-color="rgba(0,0,0,0)"/>
+      </linearGradient>
+      <clipPath id="mcHClip"><rect x="${n2(Lx)}" y="${n2(CY-T/2)}" width="${n2(HL)}" height="${n2(T)}" rx="${n2(Math.max(2,T*0.13))}"/></clipPath>
       <filter id="mcSoft" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="6"/></filter>
+      <filter id="mcSpec" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="3.2"/></filter>
     </defs>`;
 
     const sx0=Lx-leftExt, sx1=Rx+rightExt;
-    const shadow=`<ellipse cx="${((sx0+sx1)/2).toFixed(1)}" cy="${(CY+T*0.62).toFixed(1)}" rx="${((sx1-sx0)/2*0.94).toFixed(1)}" ry="${(T*0.2).toFixed(1)}" fill="rgba(0,0,0,.17)" filter="url(#mcSoft)"/>`;
+    // sombra de contacto en dos capas (suave + núcleo)
+    const shadow=`<ellipse cx="${n2((sx0+sx1)/2)}" cy="${n2(CY+T*0.72)}" rx="${n2((sx1-sx0)/2*0.96)}" ry="${n2(T*0.22)}" fill="rgba(0,0,0,.18)" filter="url(#mcSoft)"/>`+
+      `<ellipse cx="${n2((sx0+sx1)/2)}" cy="${n2(CY+T*0.66)}" rx="${n2((sx1-sx0)/2*0.74)}" ry="${n2(T*0.12)}" fill="rgba(0,0,0,.22)" filter="url(#mcSoft)"/>`;
 
     const rr=Math.max(2,T*0.13);
+    // textura de superficie según el tipo de manguera (mallas = cruzado · espiral = una diagonal · termoplástica = liso)
+    let tex='';
+    const braided=(t.id==='h1'||t.id==='h2'), spiral=(t.id==='h4');
+    if(braided||spiral){
+      const sp=Math.max(7,T*0.42), dirs=braided?[1,-1]:[1];
+      for(const d of dirs){
+        for(let x=Lx-T;x<Rx+T;x+=sp){
+          tex+=`<line x1="${n2(x)}" y1="${n2(CY+T/2)}" x2="${n2(x+T*d)}" y2="${n2(CY-T/2)}" stroke="rgba(0,0,0,.16)" stroke-width="2"/>`;
+          tex+=`<line x1="${n2(x+1.4)}" y1="${n2(CY+T/2)}" x2="${n2(x+1.4+T*d)}" y2="${n2(CY-T/2)}" stroke="rgba(255,255,255,.06)" stroke-width="1"/>`;
+        }
+      }
+    } else { // termoplástica: par de líneas longitudinales sutiles
+      tex+=`<path d="M${n2(Lx)} ${n2(CY-T*0.07)}H${n2(Rx)}" stroke="rgba(255,255,255,.05)" stroke-width="${n2(T*0.04)}"/>`+
+           `<path d="M${n2(Lx)} ${n2(CY+T*0.14)}H${n2(Rx)}" stroke="rgba(0,0,0,.10)" stroke-width="${n2(T*0.03)}"/>`;
+    }
+
     const hose=`
-      <rect x="${Lx.toFixed(1)}" y="${(CY-T/2).toFixed(1)}" width="${HL.toFixed(1)}" height="${T.toFixed(1)}" rx="${rr.toFixed(1)}" fill="url(#mcRub)"/>
-      <path d="M${(Lx+3).toFixed(1)} ${(CY-T*0.29).toFixed(1)}H${(Rx-3).toFixed(1)}" stroke="rgba(255,255,255,.13)" stroke-width="${(T*0.11).toFixed(1)}" stroke-linecap="round"/>
-      <path d="M${Lx.toFixed(1)} ${(CY-T*0.16).toFixed(1)}H${Rx.toFixed(1)}" stroke="#B83214" stroke-width="${Math.max(2,T*0.055).toFixed(1)}" opacity=".92"/>`;
+      <rect x="${n2(Lx)}" y="${n2(CY-T/2)}" width="${n2(HL)}" height="${n2(T)}" rx="${n2(rr)}" fill="url(#mcRub)"/>
+      <g clip-path="url(#mcHClip)" opacity=".7">${tex}</g>
+      <rect x="${n2(Lx+2)}" y="${n2(CY-T*0.40)}" width="${n2(HL-4)}" height="${n2(T*0.17)}" rx="${n2(T*0.08)}" fill="rgba(255,255,255,.16)" filter="url(#mcSpec)" clip-path="url(#mcHClip)"/>
+      <rect x="${n2(Lx+3)}" y="${n2(CY-T*0.30)}" width="${n2(HL-6)}" height="${n2(T*0.045)}" fill="rgba(255,255,255,.22)" clip-path="url(#mcHClip)"/>
+      <rect x="${n2(Lx+3)}" y="${n2(CY+T*0.34)}" width="${n2(HL-6)}" height="${n2(T*0.07)}" rx="${n2(T*0.03)}" fill="rgba(255,255,255,.05)" filter="url(#mcSpec)" clip-path="url(#mcHClip)"/>
+      <rect x="${n2(Lx)}" y="${n2(CY-T*0.16)}" width="${n2(HL)}" height="${n2(Math.max(2.4,T*0.07))}" fill="#B83214" opacity=".95" clip-path="url(#mcHClip)"/>
+      <rect x="${n2(Lx)}" y="${n2(CY-T*0.16)}" width="${n2(HL)}" height="${n2(Math.max(1,T*0.02))}" fill="rgba(255,255,255,.18)" clip-path="url(#mcHClip)"/>
+      <rect x="${n2(Lx)}" y="${n2(CY-T/2)}" width="${n2(HL)}" height="${n2(T)}" rx="${n2(rr)}" fill="none" stroke="rgba(0,0,0,.28)" stroke-width="1"/>
+      <rect x="${n2(Lx)}" y="${n2(CY-T/2)}" width="${n2(Math.min(T*0.5,HL/2))}" height="${n2(T)}" fill="url(#mcAOl)" clip-path="url(#mcHClip)"/>
+      <rect x="${n2(Rx-Math.min(T*0.5,HL/2))}" y="${n2(CY-T/2)}" width="${n2(Math.min(T*0.5,HL/2))}" height="${n2(T)}" fill="url(#mcAOr)" clip-path="url(#mcHClip)"/>`;
 
     let code='';
     if(HL>380) code=`METCAR     ${g.label}     ${t.sae}     ${bar} BAR`;
     else if(HL>250) code=`METCAR    ${g.label}  ·  ${t.sae}`;
     else code=`METCAR   ${g.label}`;
     const tf=Math.max(9,Math.min(15,T*0.25));
-    const text=`<text x="${((Lx+Rx)/2).toFixed(1)}" y="${(CY+tf*0.36).toFixed(1)}" text-anchor="middle" fill="#F5C518" font-family="Barlow Condensed, sans-serif" font-weight="700" font-size="${tf.toFixed(1)}" letter-spacing="2" opacity=".95">${code}</text>`;
+    const text=`<text x="${n2((Lx+Rx)/2)}" y="${n2(CY+tf*0.36)}" text-anchor="middle" fill="#F5C518" font-family="Barlow Condensed, sans-serif" font-weight="700" font-size="${tf.toFixed(1)}" letter-spacing="2" opacity=".95">${code}</text>`;
 
     const fitting=(bx,dir,thr,ang)=>{
       const Fx=bx+dir*CF;
-      // crimp ferrule — filled rect (a horizontal stroke gradient renders transparent)
-      const fh=T*1.14, fx0=Math.min(bx,Fx), fw=Math.abs(bx-Fx);
-      const fr=`<rect x="${fx0.toFixed(1)}" y="${(CY-fh/2).toFixed(1)}" width="${fw.toFixed(1)}" height="${fh.toFixed(1)}" rx="2.5" fill="url(#mcMet)" stroke="rgba(0,0,0,.16)" stroke-width="1"/>`;
+      // ── ferrule (casquillo de prensado): cilindro cromado con estrías en relieve ──
+      const fh=T*1.16, fx0=Math.min(bx,Fx), fw=Math.abs(bx-Fx);
+      let fr=`<rect x="${n2(fx0)}" y="${n2(CY-fh/2)}" width="${n2(fw)}" height="${n2(fh)}" rx="3" fill="url(#mcChrome)" stroke="rgba(0,0,0,.26)" stroke-width="1"/>`;
+      // oclusión donde el ferrule monta sobre la manguera
+      fr+=`<rect x="${n2(bx-dir*4 - (dir<0?4:0))}" y="${n2(CY-fh/2)}" width="4" height="${n2(fh)}" fill="rgba(0,0,0,.22)"/>`;
       let ridges='';
-      for(let i=1;i<=3;i++){const rx=bx+dir*(CF*i/4);ridges+=`<line x1="${rx.toFixed(1)}" y1="${(CY-T*0.5).toFixed(1)}" x2="${rx.toFixed(1)}" y2="${(CY+T*0.5).toFixed(1)}" stroke="rgba(0,0,0,.16)" stroke-width="1.4"/>`;}
+      for(let i=1;i<=4;i++){
+        const rx=bx+dir*(CF*i/4.7);
+        ridges+=`<line x1="${n2(rx)}" y1="${n2(CY-fh*0.45)}" x2="${n2(rx)}" y2="${n2(CY+fh*0.45)}" stroke="rgba(0,0,0,.30)" stroke-width="2"/>`;
+        ridges+=`<line x1="${n2(rx+dir*1.8)}" y1="${n2(CY-fh*0.45)}" x2="${n2(rx+dir*1.8)}" y2="${n2(CY+fh*0.45)}" stroke="rgba(255,255,255,.24)" stroke-width="1.1"/>`;
+      }
       let part, endX, endY, endAng;
       if(ang===0){
         const tx0=Math.min(Fx,Fx+dir*TL);
-        part=`<rect x="${tx0.toFixed(1)}" y="${(CY-Tw/2).toFixed(1)}" width="${TL.toFixed(1)}" height="${Tw.toFixed(1)}" rx="${(Tw*0.32).toFixed(1)}" fill="url(#mcMet)" stroke="rgba(0,0,0,.14)" stroke-width="1"/>`;
+        part=`<rect x="${n2(tx0)}" y="${n2(CY-Tw/2)}" width="${n2(TL)}" height="${n2(Tw)}" rx="${n2(Tw*0.34)}" fill="url(#mcChrome)" stroke="rgba(0,0,0,.20)" stroke-width="1"/>`;
+        // collar mecanizado a mitad del cuerpo (groove con relieve)
+        const gx=Fx+dir*TL*0.5;
+        part+=`<line x1="${n2(gx)}" y1="${n2(CY-Tw*0.5)}" x2="${n2(gx)}" y2="${n2(CY+Tw*0.5)}" stroke="rgba(0,0,0,.22)" stroke-width="2"/>`;
+        part+=`<line x1="${n2(gx+dir*1.8)}" y1="${n2(CY-Tw*0.5)}" x2="${n2(gx+dir*1.8)}" y2="${n2(CY+Tw*0.5)}" stroke="rgba(255,255,255,.22)" stroke-width="1.1"/>`;
         endX=Fx+dir*TL; endY=CY; endAng=dir<0?Math.PI:0;
       } else {
         let pts;
@@ -544,8 +618,11 @@ class Component extends DCLogic {
         else{const ax=Fx+dir*TL*0.42;pts=[[Fx,CY],[ax,CY],[ax,CY-TL*0.78]];}
         const end=pts[pts.length-1], prev=pts[pts.length-2];
         endAng=Math.atan2(end[1]-prev[1],end[0]-prev[0]); endX=end[0]; endY=end[1];
-        const d='M'+pts.map(p=>p[0].toFixed(1)+' '+p[1].toFixed(1)).join('L');
-        part=`<path d="${d}" fill="none" stroke="url(#mcMet)" stroke-width="${Tw.toFixed(1)}" stroke-linecap="round" stroke-linejoin="round"/>`;
+        const d='M'+pts.map(p=>n2(p[0])+' '+n2(p[1])).join('L');
+        // cuerpo del codo + reflejo especular siguiendo la curva
+        part=`<path d="${d}" fill="none" stroke="rgba(0,0,0,.28)" stroke-width="${n2(Tw+2)}" stroke-linecap="round" stroke-linejoin="round"/>`;
+        part+=`<path d="${d}" fill="none" stroke="url(#mcChrome)" stroke-width="${n2(Tw)}" stroke-linecap="round" stroke-linejoin="round"/>`;
+        part+=`<path d="${d}" fill="none" stroke="rgba(255,255,255,.30)" stroke-width="${n2(Tw*0.16)}" stroke-linecap="round" stroke-linejoin="round" transform="translate(0,${n2(-Tw*0.22)})"/>`;
       }
       return fr+ridges+part+this.hexNut(endX,endY,Nr,endAng);
     };
@@ -575,21 +652,23 @@ class Component extends DCLogic {
 
     const typeCards=this.catalog.hoseTypes.map(h=>({
       name:h.name, sae:h.sae, bar:Math.max(...Object.values(h.bar))+' BAR máx',
+      aria:`Tipo de manguera ${h.name}, ${h.sae}`,
       selected:s.typeId===h.id, onSelect:()=>this.onType(h.id), style:this.typeStyle(s.typeId===h.id),
     }));
     const gaugeChips=(t?t.gauges:[]).map(gid=>({
-      label:this.gauge(gid).label, selected:s.gaugeId===gid, onSelect:()=>this.onGauge(gid), style:this.chipStyle(s.gaugeId===gid),
+      label:this.gauge(gid).label, aria:`Diámetro interior ${this.gauge(gid).label}`,
+      selected:s.gaugeId===gid, onSelect:()=>this.onGauge(gid), style:this.chipStyle(s.gaugeId===gid),
     }));
     const tdata=this.terms();
     const threadCards=(end)=>tdata.fams.map(f=>{
       const cur=end==='A'?s.endAThread:s.endBThread;
-      return {label:f.label, selected:cur===f.id, onSelect:()=>this.selectThread(end,f.id), style:this.threadStyle(cur===f.id)};
+      return {label:f.label, aria:`Terminal extremo ${end}: ${f.label}`, selected:cur===f.id, onSelect:()=>this.selectThread(end,f.id), style:this.threadStyle(cur===f.id)};
     });
     const angleOpts=(end)=>{
       const cur=end==='A'?s.endAThread:s.endBThread;
       const f=tdata.fams.find(x=>x.id===cur)||tdata.fams[0];
       const curAng=end==='A'?s.endAAngle:s.endBAngle;
-      return (f?f.angles:[]).map(a=>({label:a.id?`${a.id}°`:'Recto', icon:this.angleIcon(a.id,curAng===a.id), selected:curAng===a.id, onSelect:()=>this.selectAngle(end,a.id), style:this.angleStyle(curAng===a.id), labelStyle:this.angleLabelStyle(curAng===a.id)}));
+      return (f?f.angles:[]).map(a=>({label:a.id?`${a.id}°`:'Recto', aria:`Orientación extremo ${end}: ${a.id?('codo '+a.id+' grados'):'recto'}`, icon:this.angleIcon(a.id,curAng===a.id), selected:curAng===a.id, onSelect:()=>this.selectAngle(end,a.id), style:this.angleStyle(curAng===a.id), labelStyle:this.angleLabelStyle(curAng===a.id)}));
     };
 
     const sliderMin=this.minM(), sliderMax=this.maxM();
