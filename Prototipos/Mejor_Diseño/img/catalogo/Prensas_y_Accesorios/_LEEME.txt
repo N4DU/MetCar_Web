@@ -1,0 +1,3 @@
+Subí acá las fotos de Prensas y Accesorios.
+Nombrá cada archivo con el CÓDIGO del producto (ej. MC-XX-000.webp o .png).
+Ver img/catalogo/_LEEME.txt para el instructivo completo.

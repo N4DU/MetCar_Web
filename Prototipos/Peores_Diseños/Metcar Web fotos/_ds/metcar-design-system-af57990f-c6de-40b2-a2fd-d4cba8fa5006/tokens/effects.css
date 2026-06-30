@@ -1,0 +1,46 @@
+/* ============================================================
+   METCAR · EFFECTS — shadows, motion, the "Hose Code" motif
+   ============================================================ */
+:root {
+  /* ── Shadows — restrained. Industrial = flat with a lift on
+        hover, not floaty drop-shadows everywhere. ──────────── */
+  --shadow-none:  none;
+  --shadow-card:  0 1px 2px rgba(27, 25, 22, 0.04);
+  --shadow-lift:  0 6px 18px rgba(27, 25, 22, 0.10);
+  --shadow-panel: 0 8px 24px rgba(0, 0, 0, 0.40);   /* dark menus  */
+  --shadow-band:  inset 4px 0 0 var(--mc-red);      /* red press band */
+
+  /* ── Motion ───────────────────────────────────────────────── */
+  --ease-out:     cubic-bezier(0.22, 1, 0.36, 1);   /* @kind other */
+  --transition-fast: 0.16s ease; /* @kind other */
+  --transition-base: 0.28s ease; /* @kind other */
+  --transition-press: 0.1s ease; /* @kind other */
+
+  /* ── The Hose Code — the brand's signature surface ────────────
+     Real hydraulic hoses print yellow technical text on black.
+     This gradient + the red side-stripe recreate that look. ─── */
+  --hose-stripe: 4px;
+  --hose-bg: linear-gradient(
+    to bottom,
+    rgba(30, 28, 26, 1) 0%,
+    rgba(50, 47, 43, 1) 28%,
+    rgba(40, 37, 34, 1) 55%,
+    rgba(18, 16, 14, 1) 100%
+  );
+
+  /* ── Red Pressure Band — recurring horizontal red rule ────── */
+  --pressure-band-w: 36px;
+  --pressure-band-h: 2px;
+}
+
+/* ── Standard entrance: fade-up on the signature ease ───────── */
+@keyframes mc-fade-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Stock pulse (the live "EN STOCK" dot) ──────────────────── */
+@keyframes mc-pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.5; }
+}

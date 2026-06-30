@@ -1,0 +1,28 @@
+CÓMO AGREGAR LA FOTO DE UN PRODUCTO
+====================================
+
+1. Generá la foto del producto (vista 3/4, fondo TRANSPARENTE, formato PNG).
+2. Renombrá el archivo con el CÓDIGO exacto del producto. Ejemplos:
+      MC-TH-209.png   (Terminal NPT codo 90°)
+      MC-DC-301.png   (Disco de corte 4½")
+3. Subila a la carpeta de su categoría (dentro de esta carpeta img/catalogo/):
+      Mangueras_Hidraulicas/
+      Terminales_Hidraulicos/
+      Discos_de_Corte/
+      Herramientas_de_Torno/
+      Gatos_Hidraulicos/
+      Prensas_y_Accesorios/
+
+¡Listo! El catálogo la toma sola, sin tocar ningún archivo de código.
+Si un producto no tiene foto, se muestra el ícono genérico de su categoría.
+
+FORMATO
+-------
+- Preferido: .webp (más liviano). También funciona .png.
+  El catálogo prueba primero <CODIGO>.webp y si no lo encuentra, <CODIGO>.png.
+- Fondo transparente, vista de 3/4 vertical, mismo encuadre/escala para todas.
+- Si subís PNG pesados de ChatGPT, pediles a Claude que los pase a WebP en lote.
+
+El código del producto se define en:
+  - terminales.js  → terminales/punteros
+  - catalog-data.js → resto de las categorías

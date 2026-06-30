@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Barlow+Semi+Condensed:wght@500;600;700&family=Barlow+Condensed:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #E7E4DA; font-family: 'Barlow', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  .doc-root { padding: 40px 20px 80px; }
+  .page {
+    max-width: 880px; margin: 0 auto 30px; background: #FFFFFF;
+    padding: 68px 74px; box-shadow: 0 2px 14px rgba(11,11,11,0.10);
+    border-radius: 3px; position: relative;
+  }
+  .page--dark { background: #1B1916; }
+  @media (max-width: 720px) { .page { padding: 40px 26px; } .doc-root { padding: 18px 10px 50px; } }
+  @media print {
+    body { background: #FFFFFF; }
+    .doc-root { padding: 0; }
+    .page { box-shadow: none; border-radius: 0; margin: 0; max-width: none;
+            padding: 0; break-after: page; }
+    .page:last-child { break-after: auto; }
+    .avoid-break { break-inside: avoid; }
+    * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    @page { margin: 0.7in; }
+  }
+  .avoid-break { break-inside: avoid; }
+</style>
+</helmet>
+<div class="doc-root">
+
+  <!-- ░░░░░░░░░░░░░░░░ COVER ░░░░░░░░░░░░░░░░ -->
+  <div class="page page--dark" data-screen-label="Portada" style="padding:0;overflow:hidden;background:#131110;">
+    <div style="height:6px;background:#B83214;"></div>
+    <div style="padding:64px 74px 56px;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:90px;">
+        <div style="font-family:'Bebas Neue';font-size:30px;letter-spacing:1px;color:#FFFFFF;line-height:1;">MET<span style="color:#B83214;">C</span>AR</div>
+        <div style="text-align:right;font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#8A7010;line-height:1.7;">
+          Documento Maestro<br><span style="color:#68686A;">Single Source of Truth · v2.0 (refinada)</span>
+        </div>
+      </div>
+
+      <div style="font-family:'Barlow Condensed';font-weight:700;font-size:13px;letter-spacing:4px;text-transform:uppercase;color:#F5C518;margin-bottom:18px;">
+        Capítulo 7 · Especificación de Producto
+      </div>
+      <h1 style="font-family:'Bebas Neue';font-weight:400;font-size:clamp(54px,9vw,104px);line-height:0.86;letter-spacing:0.5px;color:#FFFFFF;margin:0 0 8px;">
+        Configurador de<br>Mangueras a Medida
+      </h1>
+      <div style="height:2px;width:120px;background:#B83214;margin:26px 0 24px;"></div>
+      <p style="font-family:'Barlow';font-size:17px;line-height:1.6;color:rgba(255,255,255,0.62);max-width:560px;margin:0 0 56px;">
+        Arquitectura de experiencia, decisiones de diseño y especificación funcional
+        completa. Pensado para que el equipo de implementación construya el configurador
+        leyendo únicamente este documento.
+      </p>
+
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:64px;">
+        <span style="display:inline-block;background:#0B0B0B;color:#F5C518;font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;padding:5px 11px;border-radius:4px;">FASE: DISEÑO · NO IMPLEMENTACIÓN</span>
+        <span style="display:inline-block;background:#0B0B0B;color:#F5C518;font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;padding:5px 11px;border-radius:4px;">FRONTEND-FIRST</span>
+        <span style="display:inline-block;background:#0B0B0B;color:#F5C518;font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;padding:5px 11px;border-radius:4px;">METCAR.UY</span>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.08);">
+        <div style="background:#1B1916;padding:20px 22px;">
+          <div style="font-family:'Bebas Neue';font-size:40px;color:#B83214;line-height:0.9;">4</div>
+          <div style="font-family:'Barlow Condensed';font-weight:600;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-top:4px;">Decisiones del cliente</div>
+        </div>
+        <div style="background:#1B1916;padding:20px 22px;">
+          <div style="font-family:'Bebas Neue';font-size:40px;color:#B83214;line-height:0.9;">1</div>
+          <div style="font-family:'Barlow Condensed';font-weight:600;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-top:4px;">Pantalla, sin recargas</div>
+        </div>
+        <div style="background:#1B1916;padding:20px 22px;">
+          <div style="font-family:'Bebas Neue';font-size:40px;color:#B83214;line-height:0.9;">0</div>
+          <div style="font-family:'Barlow Condensed';font-weight:600;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-top:4px;">Precios al público</div>
+        </div>
+      </div>
+    </div>
+    <div style="height:2px;background:#B83214;"></div>
+  </div>
+
+  <!-- ░░░░░░░░░░░░░░░░ AUDITORÍA v2 — PARTE 1 ░░░░░░░░░░░░░░░░ -->
+  <div class="page" data-screen-label="Auditoría v2">
+    <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#68686A;margin-bottom:14px;">Segunda iteración · Auditoría crítica</div>
+    <h2 style="font-family:'Bebas Neue';font-weight:400;font-size:40px;line-height:1;letter-spacing:0.5px;color:#1B1916;margin:0 0 8px;">Qué cambió en la v2 y por qué</h2>
+    <div style="height:2px;background:#B83214;width:100%;margin:0 0 20px;"></div>
+
+    <p style="font-family:'Barlow';font-size:14px;line-height:1.62;color:#34302B;margin:0 0 14px;">
+      La v1 se auditó desde siete miradas —<strong>Product Designer, UX Architect, Frontend Architect, usuario final, cliente
+      industrial, operario de taller y responsable comercial</strong>— buscando activamente sobreingeniería, fricción e
+      inconsistencias. El objetivo de esta iteración <strong>no fue agregar, sino simplificar y endurecer</strong>. Solo se
+      incorporaron cambios objetivamente justificados.
+    </p>
+
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div class="avoid-break" style="border:0.5px solid rgba(27,25,22,0.12);border-left:3px solid #B83214;border-radius:0 2px 2px 0;padding:13px 16px;">
+        <div style="display:flex;gap:9px;align-items:center;margin-bottom:5px;"><span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1px;background:#0B0B0B;color:#F5C518;padding:2px 8px;border-radius:4px;">C1</span><strong style="font-family:'Barlow';font-size:14px;color:#1B1916;">Acordeón con auto-avance → 4 secciones siempre visibles (desktop)</strong></div>
+        <p style="font-family:'Barlow';font-size:12.5px;line-height:1.55;color:#34302B;margin:0;"><strong>Por qué:</strong> el acordeón que se auto-colapsa esconde lo ya elegido y agrega estado innecesario ("¿dónde quedó mi selección?"). Para un usuario técnico que reproduce una manguera, ver las 4 decisiones a la vez es más rápido y da más control. El acordeón queda solo en mobile, como ahorro de espacio.</p>
+      </div>
+      <div class="avoid-break" style="border:0.5px solid rgba(27,25,22,0.12);border-left:3px solid #B83214;border-radius:0 2px 2px 0;padding:13px 16px;">
+        <div style="display:flex;gap:9px;align-items:center;margin-bottom:5px;"><span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1px;background:#0B0B0B;color:#F5C518;padding:2px 8px;border-radius:4px;">C2</span><strong style="font-family:'Barlow';font-size:14px;color:#1B1916;">El cuerpo ya no se "estira" con el largo → cota numérica como única verdad</strong></div>
+        <p style="font-family:'Barlow';font-size:12.5px;line-height:1.55;color:#34302B;margin:0;"><strong>Por qué:</strong> estirar una textura fotográfica se ve mal y, peor, <em>sugiere una medida falsa</em>. La manguera se muestra a un largo representativo fijo; el largo lo comunica la cota, exacta. Diámetro y terminales sí cambian de verdad. Más honesto y más simple de construir.</p>
+      </div>
+      <div class="avoid-break" style="border:0.5px solid rgba(27,25,22,0.12);border-left:3px solid #B83214;border-radius:0 2px 2px 0;padding:13px 16px;">
+        <div style="display:flex;gap:9px;align-items:center;margin-bottom:5px;"><span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1px;background:#0B0B0B;color:#F5C518;padding:2px 8px;border-radius:4px;">C3</span><strong style="font-family:'Barlow';font-size:14px;color:#1B1916;">Backend: se elimina el endpoint <code style="font-family:'JetBrains Mono';font-size:12px;">POST /validate</code> de V1</strong></div>
+        <p style="font-family:'Barlow';font-size:12.5px;line-height:1.55;color:#34302B;margin:0;"><strong>Por qué:</strong> una validación server-side separada es prematura. La compatibilidad es dato simple: se resuelve en cliente y se revalida <em>dentro</em> del POST al carrito. Pasamos de 4 a 3 puntos de contacto. Menos superficie, menos para mantener.</p>
+      </div>
+      <div class="avoid-break" style="border:0.5px solid rgba(27,25,22,0.12);border-left:3px solid #B83214;border-radius:0 2px 2px 0;padding:13px 16px;">
+        <div style="display:flex;gap:9px;align-items:center;margin-bottom:5px;"><span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1px;background:#0B0B0B;color:#F5C518;padding:2px 8px;border-radius:4px;">C4</span><strong style="font-family:'Barlow';font-size:14px;color:#1B1916;">Conversión: el configurador y el carrito nunca exigen login</strong></div>
+        <p style="font-family:'Barlow';font-size:12.5px;line-height:1.55;color:#34302B;margin:0;"><strong>Por qué:</strong> gatear la herramienta detrás de una cuenta mata la conversión y contradice el rol "visitante anónimo puede configurar y usar el carrito" de la especificación. El login aparece <em>solo</em> al enviar el pedido. Lo elevamos a principio explícito.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ░░░░░░░░░░░░░░░░ AUDITORÍA v2 — PARTE 2 ░░░░░░░░░░░░░░░░ -->
+  <div class="page" data-screen-label="Auditoría v2 (cont.)">
+    <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#68686A;margin-bottom:14px;">Segunda iteración · Cambios (cont.)</div>
+    <h2 style="font-family:'Bebas Neue';font-weight:400;font-size:40px;line-height:1;letter-spacing:0.5px;color:#1B1916;margin:0 0 8px;">Cambios menores y lo que se mantuvo</h2>
+    <div style="height:2px;background:#B83214;width:100%;margin:0 0 20px;"></div>
+
+    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:22px;">
+      <div class="avoid-break" style="border:0.5px solid rgba(27,25,22,0.12);border-left:3px solid #B8860B;border-radius:0 2px 2px 0;padding:12px 16px;">
+        <div style="display:flex;gap:9px;align-items:center;margin-bottom:4px;"><span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1px;background:#0B0B0B;color:#F5C518;padding:2px 8px;border-radius:4px;">C5</span><strong style="font-family:'Barlow';font-size:13.5px;color:#1B1916;">Compartir: WhatsApp como único mecanismo en V1 (PDF → V2)</strong></div>
+        <p style="font-family:'Barlow';font-size:12.5px;line-height:1.5;color:#34302B;margin:0;"><strong>Por qué:</strong> dos vías de compartir es complejidad sin pago. WhatsApp es el canal real de Metcar; con eso alcanza para V1.</p>
+      </div>
+      <div class="avoid-break" style="border:0.5px solid rgba(27,25,22,0.12);border-left:3px solid #B8860B;border-radius:0 2px 2px 0;padding:12px 16px;">
+        <div style="display:flex;gap:9px;align-items:center;margin-bottom:4px;"><span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1px;background:#0B0B0B;color:#F5C518;padding:2px 8px;border-radius:4px;">C6</span><strong style="font-family:'Barlow';font-size:13.5px;color:#1B1916;">Oportunidades (§22) podadas y etiquetadas V1/V2</strong></div>
+        <p style="font-family:'Barlow';font-size:12.5px;line-height:1.5;color:#34302B;margin:0;"><strong>Por qué:</strong> "duplicar" se fusiona en "agregar otra" y "reproducir la rota" en "adjuntar foto". Menos ítems, cada uno con su versión. Evita scope creep.</p>
+      </div>
+      <div class="avoid-break" style="border:0.5px solid rgba(27,25,22,0.12);border-left:3px solid #B8860B;border-radius:0 2px 2px 0;padding:12px 16px;">
+        <div style="display:flex;gap:9px;align-items:center;margin-bottom:4px;"><span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1px;background:#0B0B0B;color:#F5C518;padding:2px 8px;border-radius:4px;">C7</span><strong style="font-family:'Barlow';font-size:13.5px;color:#1B1916;">Las secciones no se "bloquean"; los terminales solo esperan la medida</strong></div>
+        <p style="font-family:'Barlow';font-size:12.5px;line-height:1.5;color:#34302B;margin:0;"><strong>Por qué:</strong> "bloqueado" se siente como muro. La única dependencia real es que los terminales necesitan la medida para filtrarse. El largo está siempre disponible.</p>
+      </div>
+      <div class="avoid-break" style="border:0.5px solid rgba(27,25,22,0.12);border-left:3px solid #B8860B;border-radius:0 2px 2px 0;padding:12px 16px;">
+        <div style="display:flex;gap:9px;align-items:center;margin-bottom:4px;"><span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1px;background:#0B0B0B;color:#F5C518;padding:2px 8px;border-radius:4px;">C8</span><strong style="font-family:'Barlow';font-size:13.5px;color:#1B1916;">refCode degradado a "etiqueta humana"; la clave técnica es el id de sistema</strong></div>
+        <p style="font-family:'Barlow';font-size:12.5px;line-height:1.5;color:#34302B;margin:0;"><strong>Por qué:</strong> codificar toda la spec en un string es frágil al crecer el catálogo. El refCode sirve para WhatsApp y para buscar; el hilo técnico real es el id.</p>
+      </div>
+      <div class="avoid-break" style="border:0.5px solid rgba(27,25,22,0.12);border-left:3px solid #B8860B;border-radius:0 2px 2px 0;padding:12px 16px;">
+        <div style="display:flex;gap:9px;align-items:center;margin-bottom:4px;"><span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1px;background:#0B0B0B;color:#F5C518;padding:2px 8px;border-radius:4px;">C9</span><strong style="font-family:'Barlow';font-size:13.5px;color:#1B1916;">Nueva guarda de fabricación: ayuda "¿cómo medir?" + defecto ASCII corregido</strong></div>
+        <p style="font-family:'Barlow';font-size:12.5px;line-height:1.5;color:#34302B;margin:0;"><strong>Por qué:</strong> el error de fabricación más común es medir mal una manguera rota/estirada. Una ayuda visual de medición lo previene barato. Además se corrigió un carácter corrupto en el wireframe desktop.</p>
+      </div>
+    </div>
+
+    <div class="avoid-break" style="background:#1B1916;border-radius:2px;padding:18px 22px;">
+      <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;color:#F5C518;margin-bottom:8px;">LO QUE SE MANTUVO (resistió el escrutinio)</div>
+      <p style="font-family:'Barlow';font-size:12.5px;line-height:1.6;color:rgba(255,255,255,0.72);margin:0;">
+        Una sola pantalla · 4 decisiones · visualización 2.5D por capas con foto real · sin precios · la ficha final ES la orden de
+        taller. Se cuestionaron a fondo y siguen siendo la mejor decisión para los valores de Metcar. <strong style="color:#fff;">Cambiarlos
+        sería cambio por el cambio</strong> — la disciplina de esta iteración fue también saber qué <em>no</em> tocar.
+      </p>
+    </div>
+  </div>
+
+  <!-- ░░░░░░░░░░░░░░░░ RESUMEN EJECUTIVO ░░░░░░░░░░░░░░░░ -->
+  <div class="page" data-screen-label="Resumen ejecutivo">
+    <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#68686A;margin-bottom:14px;">00 · TL;DR para quien decide</div>
+    <h2 style="font-family:'Bebas Neue';font-weight:400;font-size:40px;line-height:1;letter-spacing:0.5px;color:#1B1916;margin:0 0 8px;">Resumen ejecutivo</h2>
+    <div style="height:2px;background:#B83214;width:100%;margin:0 0 24px;"></div>
+
+    <p style="font-family:'Barlow';font-size:15px;line-height:1.66;color:#34302B;margin:0 0 18px;">
+      El objetivo no es construir un formulario de cotización, sino una <strong>herramienta de especificación guiada</strong>:
+      el cliente arma su manguera viéndola en tiempo real, y el sistema produce una ficha tan precisa que se convierte
+      directamente en la <strong>orden de fabricación de Maxi</strong> sin una sola pregunta por WhatsApp. La propuesta central
+      reduce los 5 pasos del brief a <strong>4 decisiones reales en una sola pantalla</strong>, con resumen permanente y
+      visualización fotorrealista construida con assets 2.5D —no 3D en tiempo real—.
+    </p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:22px 0 26px;">
+      <div class="avoid-break" style="background:#F4F2EC;border:0.5px solid rgba(27,25,22,0.12);padding:16px 18px;border-radius:2px;">
+        <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#B83214;margin-bottom:8px;">La apuesta de diseño</div>
+        <ul style="margin:0;padding-left:18px;font-family:'Barlow';font-size:13.5px;line-height:1.6;color:#34302B;">
+          <li>Una sola pantalla, sin wizard de páginas separadas.</li>
+          <li>Visualización 2.5D por capas, no WebGL.</li>
+          <li>Resumen + esquema técnico siempre visibles.</li>
+          <li>Compatibilidad que <em>filtra</em>, no que regaña.</li>
+        </ul>
+      </div>
+      <div class="avoid-break" style="background:#F4F2EC;border:0.5px solid rgba(27,25,22,0.12);padding:16px 18px;border-radius:2px;">
+        <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#B83214;margin-bottom:8px;">El entregable del flujo</div>
+        <ul style="margin:0;padding-left:18px;font-family:'Barlow';font-size:13.5px;line-height:1.6;color:#34302B;">
+          <li>Ficha de especificación legible por cliente.</li>
+          <li>Esquema cotado punta-a-punta para el taller.</li>
+          <li>Código de referencia único reproducible.</li>
+          <li>Ítem listo para el carrito → cotización.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="avoid-break" style="border-left:3px solid #B83214;background:#F6E4DF;padding:16px 20px;border-radius:0 2px 2px 0;margin-bottom:14px;">
+      <div style="font-family:'Barlow Condensed';font-weight:700;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#B83214;margin-bottom:6px;">⚠ Corrección crítica al brief / referencia</div>
+      <p style="font-family:'Barlow';font-size:14px;line-height:1.6;color:#34302B;margin:0;">
+        La imagen de referencia muestra <strong>precios estimados</strong> ("Precio estimada $… -36,04$"). Esto contradice
+        directamente la especificación del proyecto: <strong>en V1 no se muestran precios en ninguna página pública</strong>.
+        El configurador <strong>no debe mostrar ni calcular precios</strong>. El cierre del flujo es "Solicitar cotización", no
+        "Comprar". Mantener un precio visible rompería el modelo de negocio (multiplicadores por cliente, cotización manual de Patricia).
+      </p>
+    </div>
+
+    <div class="avoid-break" style="border-left:3px solid #B8860B;background:#FBF1D9;padding:16px 20px;border-radius:0 2px 2px 0;">
+      <div style="font-family:'Barlow Condensed';font-weight:700;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#8A6D08;margin-bottom:6px;">▲ Ambigüedad de fabricación a resolver antes de codear</div>
+      <p style="font-family:'Barlow';font-size:14px;line-height:1.6;color:#34302B;margin:0;">
+        El "largo" es ambiguo para el taller: ¿se mide <strong>punta a punta (incluyendo terminales)</strong> o <strong>solo el cuerpo
+        de la manguera</strong>? Maxi corta y prensa según ese dato. El configurador debe definir explícitamente la convención y
+        comunicarla en la ficha. Recomendación detallada en §16 y §18.
+      </p>
+    </div>
+  </div>
+
+  <!-- ░░░░░░░░░░░░░░░░ ÍNDICE ░░░░░░░░░░░░░░░░ -->
+  <div class="page" data-screen-label="Índice">
+    <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#68686A;margin-bottom:14px;">Contenido</div>
+    <h2 style="font-family:'Bebas Neue';font-weight:400;font-size:40px;line-height:1;letter-spacing:0.5px;color:#1B1916;margin:0 0 8px;">Índice del documento</h2>
+    <div style="height:2px;background:#B83214;width:100%;margin:0 0 24px;"></div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 40px;">
+      <div>
+        <div style="display:flex;gap:12px;padding:7px 0;border-bottom:0.5px solid rgba(27,25,22,0.08);font-family:'Barlow';font-size:13.5px;color:#34302B;"><span style="font-family:'Barlow Condensed';font-weight:700;color:#B83214;min-width:24px;">01</span> Objetivos del configurador</div>
+        <div style="display:flex;gap:12px;padding:7px 0;border-bottom:0.5px solid rgba(27,25,22,0.08);font-family:'Barlow';font-size:13.5px;color:#34302B;"><span style="font-family:'Barlow Condensed';font-weight:700;color:#B83214;min-width:24px;">02</span> Casos de uso principales</div>
+        <div style="display:flex;gap:12px;padding:7px 0;border-bottom:0.5px solid rgba(27,25,22,0.08);font-family:'Barlow';font-size:13.5px;color:#34302B;"><span style="font-family:'Barlow Condensed';font-weight:700;color:#B83214;min-width:24px;">03</span> Casos de uso secundarios</div>
+        <div style="display:flex;gap:12px;padding:7px 0;border-bottom:0.5px solid rgba(27,25,22,0.08);font-family:'Barlow';font-size:13.5px;color:#34302B;"><span style="font-family:'Barlow Condensed';font-weight:700;color:#B83214;min-width:24px;">04</span> Perfiles de usuario</div>
+        <div style="display:flex;gap:12px;padding:7px 0;border-bottom:0.5px solid rgba(27,25,22,0.08);font-family:'Barlow';font-size:13.5px;color:#34302B;"><span style="font-family:'Barlow Condensed';font-weight:700;color:#B83214;min-width:24px;">05</span> Flujo ideal de usuario</div>
+        <div style="display:flex;gap:12px;padding:7px 0;border-bottom:0.5px solid rgba(27,25,22,0.08);font-family:'Barlow';font-size:13.5px;color:#34302B;"><span style="font-family:'Barlow Condensed';font-weight:700;color:#B83214;min-width:24px;">06</span> Arquitectura de la experiencia</div>
+        <div style="display:flex;gap:12px;padding:7px 0;border-bottom:0.5px solid rgba(27,25,22,0.08);font-family:'Barlow';font-size:13.5px;color:#34302B;"><span style="font-family:'Barlow Condensed';font-weight:700;color:#B83214;min-width:24px;">07</span> Estructura de pantallas</div>
+        <div style="display:flex;gap:12px;padding:7px 0;border-bottom:0.5px solid rgba(27,25,22,0.08);font-family:'Barlow';font-size:13.5px;color:#34302B;"><span style="font-family:'Barlow Condensed';font-weight:700;color:#B83214;min-width:24px;">08</span> Estructura desktop</div>
+        <div style="display:flex;gap:12px;padding:7px 0;border-bottom:0.5px solid rgba(27,25,22,0.08);font-family:'Barlow';font-size:13.5px;color:#34302B;"><span style="font-family:'Barlow Condensed';font-weight:700;color:#B83214;min-width:24px;">09</span> Estructura mobile</div>
+        <div style="display:flex;gap:12px;padding:7px 0;border-bottom:0.5px solid rgba(27,25,22,0.08);font-family:'Barlow';font-size:13.5px;color:#34302B;"><span style="font-family:'Barlow Condensed';font-weight:700;color:#B83214;min-width:24px;">10</span> Estrategia de visualización</div>
+        <div style="display:flex;gap:12px;padding:7px 0;border-bottom:0.5px solid rgba(27,25,22,0.08);font-family:'Barlow';font-size:13.5px;color:#34302B;"><span style="font-family:'Barlow Condensed';font-weight:700;color:#B83214;min-width:24px;">11</span> 3D real vs pseudo-3D vs 2D</div>
+        <div style="display:flex;gap:12px;padding:7px 0;border-bottom:0.5px solid rgba(27,25,22,0.08);font-family:'Barlow';font-size:13.5px;color:#34302B;"><span style="font-family:'Barlow Condensed';font-weight:700;color:#B83214;min-width:24px;">12</span> Recomendación técnica</div>
+        <div style="display:flex;gap:12px;padding:7px 0;border-bottom:0.5px solid rgba(27,25,22,0.08);font-family:'Barlow';font-size:13.5px;color:#34302B;"><span style="font-family:'Barlow Condensed';font-weight:700;color:#B83214;min-width:24px;">13</span> Componentes necesarios</div>
+        <div style="display:flex;gap:12px;padding:7px 0;font-family:'Barlow';font-size:13.5px;color:#34302B;"><span style="font-family:'Barlow Condensed';font-weight:700;color:#B83214;min-width:24px;">14</span> Estados de cada componente</div>
+      </div>
+      <div>
+        <div style="display:flex;gap:12px;padding:7px 0;border-bottom:0.5px solid rgba(27,25,22,0.08);font-family:'Barlow';font-size:13.5px;color:#34302B;"><span style="font-family:'Barlow Condensed';font-weight:700;color:#B83214;min-width:24px;">15</span> Sistema de progresión</div>
+        <div style="display:flex;gap:12px;padding:7px 0;border-bottom:0.5px solid rgba(27,25,22,0.08);font-family:'Barlow';font-size:13.5px;color:#34302B;"><span style="font-family:'Barlow Condensed';font-weight:700;color:#B83214;min-width:24px;">16</span> Sistema de validaciones</div>
+        <div style="display:flex;gap:12px;padding:7px 0;border-bottom:0.5px solid rgba(27,25,22,0.08);font-family:'Barlow';font-size:13.5px;color:#34302B;"><span style="font-family:'Barlow Condensed';font-weight:700;color:#B83214;min-width:24px;">17</span> Resumen permanente</div>
+        <div style="display:flex;gap:12px;padding:7px 0;border-bottom:0.5px solid rgba(27,25,22,0.08);font-family:'Barlow';font-size:13.5px;color:#34302B;"><span style="font-family:'Barlow Condensed';font-weight:700;color:#B83214;min-width:24px;">18</span> Pantalla final de especificación</div>
+        <div style="display:flex;gap:12px;padding:7px 0;border-bottom:0.5px solid rgba(27,25,22,0.08);font-family:'Barlow';font-size:13.5px;color:#34302B;"><span style="font-family:'Barlow Condensed';font-weight:700;color:#B83214;min-width:24px;">19</span> La orden de fabricación (Maxi)</div>
+        <div style="display:flex;gap:12px;padding:7px 0;border-bottom:0.5px solid rgba(27,25,22,0.08);font-family:'Barlow';font-size:13.5px;color:#34302B;"><span style="font-family:'Barlow Condensed';font-weight:700;color:#B83214;min-width:24px;">20</span> Errores de UX a evitar</div>
+        <div style="display:flex;gap:12px;padding:7px 0;border-bottom:0.5px solid rgba(27,25,22,0.08);font-family:'Barlow';font-size:13.5px;color:#34302B;"><span style="font-family:'Barlow Condensed';font-weight:700;color:#B83214;min-width:24px;">21</span> Riesgos de implementación</div>
+        <div style="display:flex;gap:12px;padding:7px 0;border-bottom:0.5px solid rgba(27,25,22,0.08);font-family:'Barlow';font-size:13.5px;color:#34302B;"><span style="font-family:'Barlow Condensed';font-weight:700;color:#B83214;min-width:24px;">22</span> Oportunidades de mejora</div>
+        <div style="display:flex;gap:12px;padding:7px 0;border-bottom:0.5px solid rgba(27,25,22,0.08);font-family:'Barlow';font-size:13.5px;color:#34302B;"><span style="font-family:'Barlow Condensed';font-weight:700;color:#B83214;min-width:24px;">23</span> Estrategia de rendimiento</div>
+        <div style="display:flex;gap:12px;padding:7px 0;border-bottom:0.5px solid rgba(27,25,22,0.08);font-family:'Barlow';font-size:13.5px;color:#34302B;"><span style="font-family:'Barlow Condensed';font-weight:700;color:#B83214;min-width:24px;">24</span> Escalabilidad futura</div>
+        <div style="display:flex;gap:12px;padding:7px 0;border-bottom:0.5px solid rgba(27,25,22,0.08);font-family:'Barlow';font-size:13.5px;color:#34302B;"><span style="font-family:'Barlow Condensed';font-weight:700;color:#B83214;min-width:24px;">25</span> Integración con backend</div>
+        <div style="display:flex;gap:12px;padding:7px 0;border-bottom:0.5px solid rgba(27,25,22,0.08);font-family:'Barlow';font-size:13.5px;color:#34302B;"><span style="font-family:'Barlow Condensed';font-weight:700;color:#B83214;min-width:24px;">26</span> Integración con catálogo</div>
+        <div style="display:flex;gap:12px;padding:7px 0;border-bottom:0.5px solid rgba(27,25,22,0.08);font-family:'Barlow';font-size:13.5px;color:#34302B;"><span style="font-family:'Barlow Condensed';font-weight:700;color:#B83214;min-width:24px;">27</span> Wireframes conceptuales (ASCII)</div>
+        <div style="display:flex;gap:12px;padding:7px 0;border-bottom:0.5px solid rgba(27,25,22,0.08);font-family:'Barlow';font-size:13.5px;color:#34302B;"><span style="font-family:'Barlow Condensed';font-weight:700;color:#B83214;min-width:24px;">28</span> Justificación de decisiones</div>
+        <div style="display:flex;gap:12px;padding:7px 0;font-family:'Barlow';font-size:13.5px;color:#34302B;"><span style="font-family:'Barlow Condensed';font-weight:700;color:#B83214;min-width:24px;">A·B</span> Preguntas pendientes + Modelo de datos</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ░░░ 01 · OBJETIVOS ░░░ -->
+  <div class="page" data-screen-label="01 Objetivos">
+    <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 6px;">
+      <span style="font-family:'Bebas Neue';font-size:46px;line-height:0.8;color:#B83214;">01</span>
+      <h2 style="font-family:'Bebas Neue';font-weight:400;font-size:36px;line-height:1;letter-spacing:0.5px;color:#1B1916;margin:0;">Objetivos del configurador</h2>
+    </div>
+    <div style="height:2px;background:#B83214;width:100%;margin:0 0 22px;"></div>
+
+    <p style="font-family:'Barlow';font-size:15px;line-height:1.66;color:#34302B;margin:0 0 20px;">
+      El configurador cumple <strong>dos funciones simultáneas</strong> que normalmente se diseñan por separado y aquí deben convivir
+      en una sola herramienta. Todo lo demás se subordina a estas dos.
+    </p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px;">
+      <div class="avoid-break" style="background:#1B1916;padding:22px 24px;border-radius:2px;">
+        <div style="font-family:'Bebas Neue';font-size:34px;color:#F5C518;line-height:0.9;margin-bottom:8px;">Para el cliente</div>
+        <p style="font-family:'Barlow';font-size:13.5px;line-height:1.6;color:rgba(255,255,255,0.72);margin:0;">
+          Armar la manguera que necesita de forma clara y sin dudas, viéndola tomar forma en cada decisión.
+          Que pueda terminar y enviar una solicitud perfectamente definida <strong style="color:#fff;">sin tener que explicar nada por WhatsApp</strong>.
+        </p>
+      </div>
+      <div class="avoid-break" style="background:#1B1916;padding:22px 24px;border-radius:2px;">
+        <div style="font-family:'Bebas Neue';font-size:34px;color:#F5C518;line-height:0.9;margin-bottom:8px;">Para el taller</div>
+        <p style="font-family:'Barlow';font-size:13.5px;line-height:1.6;color:rgba(255,255,255,0.72);margin:0;">
+          Generar una especificación tan precisa que se transforme directamente en una
+          <strong style="color:#fff;">orden de fabricación para Maxi</strong>: sin ambigüedad, sin re-preguntas, sin errores de corte o prensado.
+        </p>
+      </div>
+    </div>
+
+    <div style="font-family:'Barlow Condensed';font-weight:700;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#B83214;margin-bottom:10px;">Objetivos operativos medibles</div>
+    <ul style="margin:0 0 22px;padding-left:20px;font-family:'Barlow';font-size:14px;line-height:1.7;color:#34302B;">
+      <li><strong>Reducir errores y ambigüedades</strong> que hoy obligan a idas y vueltas por WhatsApp.</li>
+      <li><strong>Eliminar la traducción manual</strong> "lo que el cliente quiere" → "lo que el taller fabrica".</li>
+      <li><strong>Bajar la carga de Patricia</strong>: el pedido llega completo y autoexplicado, no como un mensaje suelto a interpretar.</li>
+      <li><strong>Transmitir ingeniería y confianza</strong> al primer contacto — coherente con "imagen de empresa grande y profesional".</li>
+      <li><strong>Velocidad</strong>: una manguera estándar se configura en menos de 60 segundos.</li>
+    </ul>
+
+    <div class="avoid-break" style="border-left:3px solid #2A5C8A;background:#E3ECF4;padding:14px 18px;border-radius:0 2px 2px 0;">
+      <p style="font-family:'Barlow';font-size:13.5px;line-height:1.6;color:#1B3650;margin:0;">
+        <strong>Principio rector heredado de la marca:</strong> "Demostrar más, hablar menos". El configurador no <em>explica</em> la
+        manguera con texto — la <em>muestra</em>. La visualización no es decoración: es el mecanismo principal de comprensión y de
+        reducción de errores.
+      </p>
+    </div>
+  </div>
+
+  <!-- ░░░ 02 · CASOS PRINCIPALES ░░░ -->
+  <div class="page" data-screen-label="02 Casos principales">
+    <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 6px;">
+      <span style="font-family:'Bebas Neue';font-size:46px;line-height:0.8;color:#B83214;">02</span>
+      <h2 style="font-family:'Bebas Neue';font-weight:400;font-size:36px;line-height:1;letter-spacing:0.5px;color:#1B1916;margin:0;">Casos de uso principales</h2>
+    </div>
+    <div style="height:2px;background:#B83214;width:100%;margin:0 0 22px;"></div>
+
+    <div class="avoid-break" style="margin-bottom:16px;border:0.5px solid rgba(27,25,22,0.12);border-left:3px solid #B83214;border-radius:0 2px 2px 0;padding:16px 20px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+        <span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;background:#0B0B0B;color:#F5C518;padding:3px 8px;border-radius:4px;">CU-01</span>
+        <strong style="font-family:'Barlow';font-size:15px;color:#1B1916;">Reposición de una manguera rota (el caso rey)</strong>
+      </div>
+      <p style="font-family:'Barlow';font-size:13.5px;line-height:1.6;color:#34302B;margin:0;">
+        Un mecánico tiene la manguera vieja en la mano. Sabe el diámetro, mide el largo, reconoce los terminales.
+        Quiere reproducirla idéntica, rápido. <strong>Necesita confianza de que pidió exactamente lo mismo.</strong> Es el 70–80% del tráfico:
+        el flujo entero debe optimizarse para este caso.
+      </p>
+    </div>
+
+    <div class="avoid-break" style="margin-bottom:16px;border:0.5px solid rgba(27,25,22,0.12);border-left:3px solid #B83214;border-radius:0 2px 2px 0;padding:16px 20px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+        <span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;background:#0B0B0B;color:#F5C518;padding:3px 8px;border-radius:4px;">CU-02</span>
+        <strong style="font-family:'Barlow';font-size:15px;color:#1B1916;">Mangueras con terminales distintos en cada extremo</strong>
+      </div>
+      <p style="font-family:'Barlow';font-size:13.5px;line-height:1.6;color:#34302B;margin:0;">
+        La máquina pide un terminal en un extremo y otro distinto en el otro (ej: BSP hembra de un lado, JIC macho del otro).
+        El configurador debe hacer esto <strong>obvio y sin fricción</strong>, sin obligar a repetir todo el flujo para el segundo extremo.
+      </p>
+    </div>
+
+    <div class="avoid-break" style="margin-bottom:16px;border:0.5px solid rgba(27,25,22,0.12);border-left:3px solid #B83214;border-radius:0 2px 2px 0;padding:16px 20px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+        <span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;background:#0B0B0B;color:#F5C518;padding:3px 8px;border-radius:4px;">CU-03</span>
+        <strong style="font-family:'Barlow';font-size:15px;color:#1B1916;">Varias mangueras distintas en el mismo pedido</strong>
+      </div>
+      <p style="font-family:'Barlow';font-size:13.5px;line-height:1.6;color:#34302B;margin:0;">
+        Un taller que repara una retroexcavadora necesita 4 ó 5 mangueras diferentes a la vez. Tras configurar una,
+        debe poder <strong>"agregar otra"</strong> reutilizando lo ya elegido (mismo tipo/medida), y mandar todo junto como un pedido.
+      </p>
+    </div>
+
+    <div class="avoid-break" style="border:0.5px solid rgba(27,25,22,0.12);border-left:3px solid #B83214;border-radius:0 2px 2px 0;padding:16px 20px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+        <span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;background:#0B0B0B;color:#F5C518;padding:3px 8px;border-radius:4px;">CU-04</span>
+        <strong style="font-family:'Barlow';font-size:15px;color:#1B1916;">Cliente que sabe el problema pero no la nomenclatura</strong>
+      </div>
+      <p style="font-family:'Barlow';font-size:13.5px;line-height:1.6;color:#34302B;margin:0;">
+        Productor agropecuario que no distingue "JIC" de "BSP". Necesita <strong>reconocer por imagen</strong> y por referencia visual
+        en vez de por nombre técnico. La visualización es lo que lo salva — y lo que evita un pedido mal especificado.
+      </p>
+    </div>
+  </div>
+
+  <!-- ░░░ 03 · CASOS SECUNDARIOS + 04 PERFILES ░░░ -->
+  <div class="page" data-screen-label="03 Secundarios">
+    <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 6px;">
+      <span style="font-family:'Bebas Neue';font-size:46px;line-height:0.8;color:#B83214;">03</span>
+      <h2 style="font-family:'Bebas Neue';font-weight:400;font-size:36px;line-height:1;letter-spacing:0.5px;color:#1B1916;margin:0;">Casos de uso secundarios</h2>
+    </div>
+    <div style="height:2px;background:#B83214;width:100%;margin:0 0 22px;"></div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:30px;">
+      <div class="avoid-break" style="background:#F4F2EC;border-radius:2px;padding:14px 16px;"><strong style="font-family:'Barlow';font-size:13.5px;color:#1B1916;">Cotizar sin comprar todavía</strong><p style="font-family:'Barlow';font-size:13px;line-height:1.55;color:#4A4744;margin:6px 0 0;">Definir la manguera para tener la especificación lista y consultar disponibilidad / presupuesto.</p></div>
+      <div class="avoid-break" style="background:#F4F2EC;border-radius:2px;padding:14px 16px;"><strong style="font-family:'Barlow';font-size:13.5px;color:#1B1916;">Compartir la config por WhatsApp</strong><p style="font-family:'Barlow';font-size:13px;line-height:1.55;color:#4A4744;margin:6px 0 0;">Generar un código/enlace de referencia para mandar a un colega o a Metcar directamente.</p></div>
+      <div class="avoid-break" style="background:#F4F2EC;border-radius:2px;padding:14px 16px;"><strong style="font-family:'Barlow';font-size:13.5px;color:#1B1916;">Re-pedir una config anterior</strong><p style="font-family:'Barlow';font-size:13px;line-height:1.55;color:#4A4744;margin:6px 0 0;">Cliente logueado que repite exactamente lo que ya pidió antes (V2 con cuenta).</p></div>
+      <div class="avoid-break" style="background:#F4F2EC;border-radius:2px;padding:14px 16px;"><strong style="font-family:'Barlow';font-size:13.5px;color:#1B1916;">Explorar / aprender</strong><p style="font-family:'Barlow';font-size:13px;line-height:1.55;color:#4A4744;margin:6px 0 0;">Cliente que tantea qué combinaciones existen, sin intención inmediata de compra.</p></div>
+      <div class="avoid-break" style="background:#F4F2EC;border-radius:2px;padding:14px 16px;"><strong style="font-family:'Barlow';font-size:13.5px;color:#1B1916;">Llegada desde ficha de producto</strong><p style="font-family:'Barlow';font-size:13px;line-height:1.55;color:#4A4744;margin:6px 0 0;">Entrar al configurador con tipo/medida ya pre-cargados desde el catálogo.</p></div>
+      <div class="avoid-break" style="background:#F4F2EC;border-radius:2px;padding:14px 16px;"><strong style="font-family:'Barlow';font-size:13.5px;color:#1B1916;">Patricia configura por el cliente</strong><p style="font-family:'Barlow';font-size:13px;line-height:1.55;color:#4A4744;margin:6px 0 0;">Usar la misma herramienta internamente al tomar un pedido telefónico.</p></div>
+    </div>
+
+    <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 6px;">
+      <span style="font-family:'Bebas Neue';font-size:46px;line-height:0.8;color:#B83214;">04</span>
+      <h2 style="font-family:'Bebas Neue';font-weight:400;font-size:36px;line-height:1;letter-spacing:0.5px;color:#1B1916;margin:0;">Perfiles de usuario</h2>
+    </div>
+    <div style="height:2px;background:#B83214;width:100%;margin:0 0 22px;"></div>
+
+    <table style="width:100%;border-collapse:collapse;font-family:'Barlow';">
+      <thead>
+        <tr>
+          <th style="text-align:left;background:#1B1916;color:#fff;font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;padding:9px 12px;">Perfil</th>
+          <th style="text-align:left;background:#1B1916;color:#fff;font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;padding:9px 12px;">Dispositivo</th>
+          <th style="text-align:left;background:#1B1916;color:#fff;font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;padding:9px 12px;">Nivel técnico</th>
+          <th style="text-align:left;background:#1B1916;color:#fff;font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;padding:9px 12px;">Qué necesita</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td style="padding:9px 12px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:13px;color:#1B1916;"><strong>Mecánico de taller</strong></td><td style="padding:9px 12px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:13px;color:#4A4744;">Mobile (en el taller)</td><td style="padding:9px 12px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:13px;color:#4A4744;">Alto</td><td style="padding:9px 12px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:13px;color:#4A4744;">Velocidad y precisión. Sabe lo que quiere.</td></tr>
+        <tr><td style="padding:9px 12px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:13px;color:#1B1916;"><strong>Encargado de empresa</strong></td><td style="padding:9px 12px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:13px;color:#4A4744;">Desktop (oficina)</td><td style="padding:9px 12px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:13px;color:#4A4744;">Medio-alto</td><td style="padding:9px 12px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:13px;color:#4A4744;">Pedir varias, dejar registro, profesionalismo.</td></tr>
+        <tr><td style="padding:9px 12px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:13px;color:#1B1916;"><strong>Productor agropecuario</strong></td><td style="padding:9px 12px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:13px;color:#4A4744;">Mobile (campo)</td><td style="padding:9px 12px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:13px;color:#4A4744;">Bajo-medio</td><td style="padding:9px 12px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:13px;color:#4A4744;">Reconocer por imagen, no por jerga. Red lenta.</td></tr>
+        <tr><td style="padding:9px 12px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:13px;color:#1B1916;"><strong>Patricia (interno)</strong></td><td style="padding:9px 12px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:13px;color:#4A4744;">Desktop</td><td style="padding:9px 12px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:13px;color:#4A4744;">Medio</td><td style="padding:9px 12px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:13px;color:#4A4744;">Tomar pedido por cliente, sin errores.</td></tr>
+        <tr><td style="padding:9px 12px;font-size:13px;color:#1B1916;"><strong>Maxi (taller, lectura)</strong></td><td style="padding:9px 12px;font-size:13px;color:#4A4744;">Impreso / pantalla</td><td style="padding:9px 12px;font-size:13px;color:#4A4744;">Alto (manual)</td><td style="padding:9px 12px;font-size:13px;color:#4A4744;">Ficha inequívoca para cortar y prensar.</td></tr>
+      </tbody>
+    </table>
+    <p style="font-family:'Barlow';font-size:13px;line-height:1.6;color:#68686A;margin:16px 0 0;font-style:italic;">
+      Implicación de diseño: el sistema debe servir igual de bien a un experto apurado en celular y a un novato que reconoce por foto.
+      Por eso cada opción lleva <strong>imagen + nombre técnico + medida</strong> juntos, nunca solo el nombre.
+    </p>
+  </div>
+
+  <!-- ░░░ 05 · FLUJO IDEAL ░░░ -->
+  <div class="page" data-screen-label="05 Flujo ideal">
+    <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 6px;">
+      <span style="font-family:'Bebas Neue';font-size:46px;line-height:0.8;color:#B83214;">05</span>
+      <h2 style="font-family:'Bebas Neue';font-weight:400;font-size:36px;line-height:1;letter-spacing:0.5px;color:#1B1916;margin:0;">Flujo ideal de usuario</h2>
+    </div>
+    <div style="height:2px;background:#B83214;width:100%;margin:0 0 22px;"></div>
+
+    <div class="avoid-break" style="border-left:3px solid #B8860B;background:#FBF1D9;padding:16px 20px;border-radius:0 2px 2px 0;margin-bottom:22px;">
+      <div style="font-family:'Barlow Condensed';font-weight:700;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#8A6D08;margin-bottom:6px;">Análisis crítico: ¿cuántos pasos de verdad?</div>
+      <p style="font-family:'Barlow';font-size:13.5px;line-height:1.6;color:#34302B;margin:0 0 8px;">
+        El brief y la referencia plantean <strong>5 pasos</strong> (tipo · medida · largo · terminal A · terminal B). Cuestionado a fondo:
+      </p>
+      <ul style="margin:0;padding-left:18px;font-family:'Barlow';font-size:13.5px;line-height:1.6;color:#34302B;">
+        <li><strong>Tipo y medida están acoplados</strong> — las medidas disponibles dependen del tipo. Fundirlos en "Elegí la manguera" evita un salto vacío.</li>
+        <li><strong>Terminal B casi siempre se relaciona con A</strong> — un atajo "igual que el extremo A" resuelve la mayoría sin un paso extra.</li>
+        <li>Más pasos ≠ más claridad. Pasos vacíos generan sensación de formulario largo, justo lo que hay que evitar.</li>
+      </ul>
+      <p style="font-family:'Barlow';font-size:13.5px;line-height:1.6;color:#34302B;margin:8px 0 0;">
+        <strong>Resolución:</strong> 4 decisiones reales, no 5 pasos. Todas viven en una sola pantalla con auto-avance, no en páginas separadas.
+      </p>
+    </div>
+
+    <div style="font-family:'Barlow Condensed';font-weight:700;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#B83214;margin-bottom:12px;">Las 4 decisiones</div>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px;">
+      <div class="avoid-break" style="display:flex;gap:16px;align-items:flex-start;background:#F4F2EC;border-radius:2px;padding:14px 18px;">
+        <span style="font-family:'Bebas Neue';font-size:30px;color:#B83214;line-height:0.9;min-width:28px;">1</span>
+        <div><strong style="font-family:'Barlow';font-size:14.5px;color:#1B1916;">La manguera</strong><span style="font-family:'Barlow';font-size:13px;color:#68686A;"> — tipo (2 mallas, 4 mallas, alta presión…) + diámetro (1/4", 3/8", 1/2"…).</span><br><span style="font-family:'Barlow';font-size:12.5px;color:#4A4744;">El diámetro se ofrece según el tipo. Define qué terminales serán compatibles.</span></div>
+      </div>
+      <div class="avoid-break" style="display:flex;gap:16px;align-items:flex-start;background:#F4F2EC;border-radius:2px;padding:14px 18px;">
+        <span style="font-family:'Bebas Neue';font-size:30px;color:#B83214;line-height:0.9;min-width:28px;">2</span>
+        <div><strong style="font-family:'Barlow';font-size:14.5px;color:#1B1916;">El largo</strong><span style="font-family:'Barlow';font-size:13px;color:#68686A;"> — campo numérico + unidad (m / cm), con convención de medición declarada.</span><br><span style="font-family:'Barlow';font-size:12.5px;color:#4A4744;">El esquema se estira en vivo. Atajos rápidos (0,5 · 1 · 1,5 · 2 m) para el caso típico.</span></div>
+      </div>
+      <div class="avoid-break" style="display:flex;gap:16px;align-items:flex-start;background:#F4F2EC;border-radius:2px;padding:14px 18px;">
+        <span style="font-family:'Bebas Neue';font-size:30px;color:#B83214;line-height:0.9;min-width:28px;">3</span>
+        <div><strong style="font-family:'Barlow';font-size:14.5px;color:#1B1916;">Terminal extremo A</strong><span style="font-family:'Barlow';font-size:13px;color:#68686A;"> — galería visual de punteros compatibles (tipo + medida).</span><br><span style="font-family:'Barlow';font-size:12.5px;color:#4A4744;">Solo se muestran los compatibles. La punta A de la manguera cambia en vivo.</span></div>
+      </div>
+      <div class="avoid-break" style="display:flex;gap:16px;align-items:flex-start;background:#F4F2EC;border-radius:2px;padding:14px 18px;">
+        <span style="font-family:'Bebas Neue';font-size:30px;color:#B83214;line-height:0.9;min-width:28px;">4</span>
+        <div><strong style="font-family:'Barlow';font-size:14.5px;color:#1B1916;">Terminal extremo B</strong><span style="font-family:'Barlow';font-size:13px;color:#68686A;"> — con atajo "igual que A" pre-seleccionado por defecto.</span><br><span style="font-family:'Barlow';font-size:12.5px;color:#4A4744;">Un toque para confirmar simétrica; un toque para diferenciarla. La punta B cambia en vivo.</span></div>
+      </div>
+    </div>
+
+    <div style="font-family:'Barlow Condensed';font-weight:700;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#B83214;margin-bottom:10px;">Recorrido completo (camino feliz)</div>
+    <pre style="font-family:'JetBrains Mono',monospace;font-size:11px;line-height:1.7;background:#131110;color:#D8D4CC;padding:18px 20px;border-radius:3px;overflow-x:auto;margin:0;">Entrada (home / catálogo / link directo)
+   │
+   ▼
+[1] Manguera ──▶ [2] Largo ──▶ [3] Terminal A ──▶ [4] Terminal B
+   │  (resumen permanente + visualización se actualizan en CADA cambio)
+   ▼
+Revisión → Ficha de especificación (código de referencia + esquema cotado)
+   │
+   ├─▶ "Agregar otra manguera"  (vuelve a [1], conserva tipo/medida)
+   │
+   └─▶ "Agregar al carrito" ──▶ Carrito ──▶ Solicitar cotización
+                                              (login SOLO al enviar — nunca antes)</pre>
+  </div>
+
+  <!-- ░░░ 06 · ARQUITECTURA ░░░ -->
+  <div class="page" data-screen-label="06 Arquitectura">
+    <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 6px;">
+      <span style="font-family:'Bebas Neue';font-size:46px;line-height:0.8;color:#B83214;">06</span>
+      <h2 style="font-family:'Bebas Neue';font-weight:400;font-size:36px;line-height:1;letter-spacing:0.5px;color:#1B1916;margin:0;">Arquitectura de la experiencia</h2>
+    </div>
+    <div style="height:2px;background:#B83214;width:100%;margin:0 0 22px;"></div>
+
+    <p style="font-family:'Barlow';font-size:15px;line-height:1.66;color:#34302B;margin:0 0 18px;">
+      Decisión arquitectónica central: <strong>una sola pantalla, no un wizard de páginas.</strong> El configurador es un
+      "taller virtual" donde la manguera está siempre presente y las decisiones la van moldeando. Tres zonas fijas conviven en
+      todo momento; en mobile se reorganizan, no se fragmentan.
+    </p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:24px;">
+      <div class="avoid-break" style="background:#1B1916;border-radius:2px;padding:18px;">
+        <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;color:#F5C518;margin-bottom:8px;">ZONA A · VISUALIZACIÓN</div>
+        <p style="font-family:'Barlow';font-size:12.5px;line-height:1.55;color:rgba(255,255,255,0.7);margin:0;">La manguera fotorrealista + el esquema técnico cotado. Es el corazón. Refleja cada cambio al instante.</p>
+      </div>
+      <div class="avoid-break" style="background:#1B1916;border-radius:2px;padding:18px;">
+        <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;color:#F5C518;margin-bottom:8px;">ZONA B · DECISIONES</div>
+        <p style="font-family:'Barlow';font-size:12.5px;line-height:1.55;color:rgba(255,255,255,0.7);margin:0;">Las 4 secciones de decisión, todas visibles a la vez en desktop (la activa resaltada). En mobile colapsan en acordeón para ahorrar espacio.</p>
+      </div>
+      <div class="avoid-break" style="background:#1B1916;border-radius:2px;padding:18px;">
+        <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;color:#F5C518;margin-bottom:8px;">ZONA C · RESUMEN</div>
+        <p style="font-family:'Barlow';font-size:12.5px;line-height:1.55;color:rgba(255,255,255,0.7);margin:0;">La configuración actual, siempre legible. Sin precio. Editable: tocar un dato vuelve a su sección.</p>
+      </div>
+    </div>
+
+    <div style="font-family:'Barlow Condensed';font-weight:700;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#B83214;margin-bottom:10px;">Modelo de estado (fuente única de verdad)</div>
+    <pre style="font-family:'JetBrains Mono',monospace;font-size:11px;line-height:1.6;background:#131110;color:#D8D4CC;padding:18px 20px;border-radius:3px;overflow-x:auto;margin:0 0 16px;">config = {
+  hose:    { typeId, typeName, gaugeId, gaugeLabel },   // [1]
+  length:  { value, unit:'m'|'cm', measureMode:'overall' },// [2]
+  endA:    { fittingId, fittingName, sizeLabel, angle },  // [3]
+  endB:    { sameAsA:true|false, fittingId, ... },        // [4]
+  qty:     1,
+  label:   'opcional: "manguera del cargador frontal"',
+  refCode: 'MC-H2-12-0250-BSPF-JICM'  // derivado, determinista
+}</pre>
+    <p style="font-family:'Barlow';font-size:13.5px;line-height:1.6;color:#4A4744;margin:0;">
+      Toda la UI (visualización, resumen, validaciones, ficha final) es una <strong>función de este objeto</strong>. Esto lo hace
+      trivialmente serializable: a URL (links compartibles), a <code style="font-family:'JetBrains Mono';font-size:12px;background:#F4F2EC;padding:1px 5px;border-radius:3px;">localStorage</code> (no perder trabajo), y al payload del backend.
+    </p>
+  </div>
+
+  <!-- ░░░ 07 · ESTRUCTURA DE PANTALLAS ░░░ -->
+  <div class="page" data-screen-label="07 Pantallas">
+    <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 6px;">
+      <span style="font-family:'Bebas Neue';font-size:46px;line-height:0.8;color:#B83214;">07</span>
+      <h2 style="font-family:'Bebas Neue';font-weight:400;font-size:36px;line-height:1;letter-spacing:0.5px;color:#1B1916;margin:0;">Estructura de pantallas</h2>
+    </div>
+    <div style="height:2px;background:#B83214;width:100%;margin:0 0 22px;"></div>
+
+    <p style="font-family:'Barlow';font-size:14.5px;line-height:1.64;color:#34302B;margin:0 0 18px;">
+      No es un flujo de muchas páginas: es <strong>una vista de configuración</strong> + <strong>una vista de especificación</strong>.
+      Todo lo demás son estados de esas dos.
+    </p>
+
+    <div class="avoid-break" style="border:0.5px solid rgba(27,25,22,0.12);border-radius:2px;padding:18px 20px;margin-bottom:14px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;"><span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;background:#B83214;color:#fff;padding:3px 9px;border-radius:1px;">PANTALLA 1</span><strong style="font-family:'Barlow';font-size:15px;color:#1B1916;">Configurador (la vista de trabajo)</strong></div>
+      <p style="font-family:'Barlow';font-size:13.5px;line-height:1.6;color:#34302B;margin:0;">Zonas A+B+C conviviendo. Estados: <em>inicial vacío</em> → <em>en progreso</em> → <em>completo válido</em>. Sin recargas entre decisiones.</p>
+    </div>
+    <div class="avoid-break" style="border:0.5px solid rgba(27,25,22,0.12);border-radius:2px;padding:18px 20px;margin-bottom:14px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;"><span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;background:#B83214;color:#fff;padding:3px 9px;border-radius:1px;">PANTALLA 2</span><strong style="font-family:'Barlow';font-size:15px;color:#1B1916;">Ficha de especificación (la confirmación)</strong></div>
+      <p style="font-family:'Barlow';font-size:13.5px;line-height:1.6;color:#34302B;margin:0;">Resumen formal con código de referencia, esquema cotado, y dos lecturas (cliente / taller). Acciones: editar, agregar otra, agregar al carrito, compartir/descargar.</p>
+    </div>
+    <div class="avoid-break" style="border:0.5px solid rgba(27,25,22,0.12);border-radius:2px;padding:18px 20px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;"><span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;background:#68686A;color:#fff;padding:3px 9px;border-radius:1px;">OVERLAYS</span><strong style="font-family:'Barlow';font-size:15px;color:#1B1916;">Capas, no páginas nuevas</strong></div>
+      <p style="font-family:'Barlow';font-size:13.5px;line-height:1.6;color:#34302B;margin:0;">Ayuda "¿qué terminal tengo?" (guía visual), zoom de imagen, aviso de incompatibilidad, mini-carrito de mangueras configuradas. Todos como sheets/modales sobre la pantalla 1.</p>
+    </div>
+  </div>
+
+  <!-- ░░░ 08 · DESKTOP ░░░ -->
+  <div class="page" data-screen-label="08 Desktop">
+    <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 6px;">
+      <span style="font-family:'Bebas Neue';font-size:46px;line-height:0.8;color:#B83214;">08</span>
+      <h2 style="font-family:'Bebas Neue';font-weight:400;font-size:36px;line-height:1;letter-spacing:0.5px;color:#1B1916;margin:0;">Estructura desktop</h2>
+    </div>
+    <div style="height:2px;background:#B83214;width:100%;margin:0 0 22px;"></div>
+
+    <p style="font-family:'Barlow';font-size:14.5px;line-height:1.64;color:#34302B;margin:0 0 16px;">
+      Dos columnas. <strong>Izquierda dominante = visualización</strong> (la manguera manda). <strong>Derecha = decisiones + resumen anclado abajo.</strong>
+      Nada hace scroll de la página: la visualización queda fija mientras se elige. Las 4 secciones se ven a la vez; elegir una la marca con ✓ y lleva el foco a la siguiente, <strong>sin ocultar las anteriores</strong>.
+    </p>
+
+    <pre style="font-family:'JetBrains Mono',monospace;font-size:10.5px;line-height:1.5;background:#131110;color:#D8D4CC;padding:18px 20px;border-radius:3px;overflow-x:auto;margin:0 0 16px;">┌───────────────────────────── NAVBAR METCAR ─────────────────────────────┐
+├──────────────────────────────────────────┬──────────────────────────────┤
+│  ZONA A · VISUALIZACIÓN (≈ 60%)           │  ZONA B · DECISIONES (≈ 40%)  │
+│                                           │  1) La manguera    2 mallas ✓ │
+│      ┌──────────────────────────┐         │     [1/4][3/8][·1/2·][3/4]    │
+│      │  manguera fotorrealista  │         │  2) El largo       2,50 m  ✓  │
+│      │  (A) ============== (B)  │         │     [ 2,50 ] m ·0,5·1·1,5·2·  │
+│      └──────────────────────────┘         │  3) Terminal A     BSP-H   ✓  │
+│   [zoom]                                  │     [card][card][card] ...    │
+│   ┌─────────────────────────────┐         │  4) Terminal B     = A     ✓  │
+│   │  esquema cotado             │         │     [ igual que A ] [ otro ]  │
+│   │  o├──────────────┤o  2,50 m │         │  ───── ZONA C · RESUMEN ───── │
+│   └─────────────────────────────┘         │   2 mallas · 1/2" · 2,50 m    │
+│   (todas las secciones visibles;          │   BSP-H 1/2"  →  JIC-M 1/2"   │
+│    elegir marca ✓ y enfoca la próxima)    │   (sin precio)                │
+│                                           │   [ REVISAR Y CONTINUAR ]     │
+└──────────────────────────────────────────┴──────────────────────────────┘</pre>
+
+    <ul style="margin:0;padding-left:20px;font-family:'Barlow';font-size:13.5px;line-height:1.7;color:#34302B;">
+      <li>La galería de terminales (paso 3/4) se despliega <strong>dentro de su sección</strong> en la columna derecha como grilla de cards con foto.</li>
+      <li>El CTA primario "Revisar y continuar" sólo se habilita cuando la config es válida y completa.</li>
+      <li>Atajos de teclado opcionales (1-4 para saltar de sección) — bonus de profesionalismo para usuarios power.</li>
+    </ul>
+  </div>
+
+  <!-- ░░░ 09 · MOBILE ░░░ -->
+  <div class="page" data-screen-label="09 Mobile">
+    <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 6px;">
+      <span style="font-family:'Bebas Neue';font-size:46px;line-height:0.8;color:#B83214;">09</span>
+      <h2 style="font-family:'Bebas Neue';font-weight:400;font-size:36px;line-height:1;letter-spacing:0.5px;color:#1B1916;margin:0;">Estructura mobile</h2>
+    </div>
+    <div style="height:2px;background:#B83214;width:100%;margin:0 0 22px;"></div>
+
+    <div class="avoid-break" style="border-left:3px solid #2A5C8A;background:#E3ECF4;padding:14px 18px;border-radius:0 2px 2px 0;margin-bottom:18px;">
+      <p style="font-family:'Barlow';font-size:13.5px;line-height:1.6;color:#1B3650;margin:0;">
+        <strong>Principio:</strong> mobile no es el desktop encogido. Se invierte la jerarquía a vertical y se usan patrones nativos
+        (visualización pegada arriba, decisiones abajo a pulgar, resumen como barra persistente). El brief exige que
+        <strong>ninguna plataforma se sienta como adaptación de la otra</strong>.
+      </p>
+    </div>
+
+    <div style="display:flex;gap:20px;flex-wrap:wrap;">
+      <pre style="flex:1;min-width:240px;font-family:'JetBrains Mono',monospace;font-size:10px;line-height:1.45;background:#131110;color:#D8D4CC;padding:16px;border-radius:3px;overflow-x:auto;margin:0;">┌─────────────────┐
+│   ☰  METCAR   ⊕ │
+├─────────────────┤
+│  VISUALIZACIÓN  │ ◀ sticky top
+│  ╔═══════════╗  │   (~38% alto)
+│  ║ manguera  ║  │
+│  ╚═══════════╝  │
+│  ●━━━━━━━━━━●    │ ◀ esquema
+├─────────────────┤
+│ ¹ La manguera ▾ │ ◀ acordeón
+│   [2 mallas]    │   (scroll)
+│   [1/2"  ▼]     │
+├─────────────────┤
+│ ² El largo      │
+│ ³ Terminal A    │
+│ ⁴ Terminal B    │
+│                 │
+│   (scroll...)   │
+├─────────────────┤
+│ RESUMEN ⌃  [→]  │ ◀ barra
+└─────────────────┘   persistente</pre>
+      <div style="flex:1.4;min-width:260px;">
+        <div style="font-family:'Barlow Condensed';font-weight:700;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#B83214;margin-bottom:10px;">Reglas mobile</div>
+        <ul style="margin:0;padding-left:20px;font-family:'Barlow';font-size:13.5px;line-height:1.7;color:#34302B;">
+          <li><strong>Visualización sticky arriba</strong> (~38% de alto): siempre ves la manguera mientras elegís debajo.</li>
+          <li><strong>Decisiones en acordeón vertical</strong>, una abierta a la vez (el acordeón es el ahorro de espacio propio de mobile; en desktop se ven las cuatro).</li>
+          <li><strong>Barra de resumen persistente</strong> abajo: toque para expandir a hoja completa; botón → para avanzar.</li>
+          <li><strong>Hit targets ≥ 44px.</strong> Cards de terminal grandes con foto — se reconoce por imagen, ideal para baja alfabetización técnica.</li>
+          <li><strong>Galería de terminales</strong> como grilla de 2 columnas scrolleable, no carrusel oculto.</li>
+          <li><strong>Input de largo</strong> con teclado numérico (<code style="font-family:'JetBrains Mono';font-size:11px;background:#F4F2EC;padding:1px 4px;border-radius:3px;">inputmode="decimal"</code>) y chips de valores frecuentes.</li>
+          <li>Diseñado para <strong>red lenta del interior</strong>: assets livianos, carga progresiva (ver §23).</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ░░░ 10 · VISUALIZACIÓN ░░░ -->
+  <div class="page" data-screen-label="10 Visualización">
+    <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 6px;">
+      <span style="font-family:'Bebas Neue';font-size:46px;line-height:0.8;color:#B83214;">10</span>
+      <h2 style="font-family:'Bebas Neue';font-weight:400;font-size:36px;line-height:1;letter-spacing:0.5px;color:#1B1916;margin:0;">Estrategia de visualización</h2>
+    </div>
+    <div style="height:2px;background:#B83214;width:100%;margin:0 0 22px;"></div>
+
+    <p style="font-family:'Barlow';font-size:15px;line-height:1.66;color:#34302B;margin:0 0 18px;">
+      La visualización es el motor de comprensión, no un adorno. Proponemos <strong>dos capas complementarias</strong> que se ven al
+      mismo tiempo y cumplen funciones distintas:
+    </p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px;">
+      <div class="avoid-break" style="background:#1B1916;border-radius:2px;padding:20px 22px;">
+        <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;color:#F5C518;margin-bottom:6px;">CAPA 1 · REALISTA</div>
+        <div style="font-family:'Bebas Neue';font-size:26px;color:#fff;line-height:1;margin-bottom:8px;">La manguera "de verdad"</div>
+        <p style="font-family:'Barlow';font-size:12.5px;line-height:1.55;color:rgba(255,255,255,0.7);margin:0;">
+          Cuerpo de manguera fotorrealista (malla metálica, banda roja Metcar) con la <strong style="color:#fff;">punta A</strong> y la
+          <strong style="color:#fff;">punta B</strong> compuestas según los terminales elegidos. Persuade, da confianza, "se ve real". Función emocional + reconocimiento.
+        </p>
+      </div>
+      <div class="avoid-break" style="background:#1B1916;border-radius:2px;padding:20px 22px;">
+        <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;color:#F5C518;margin-bottom:6px;">CAPA 2 · ESQUEMÁTICA</div>
+        <div style="font-family:'Bebas Neue';font-size:26px;color:#fff;line-height:1;margin-bottom:8px;">El plano cotado</div>
+        <p style="font-family:'Barlow';font-size:12.5px;line-height:1.55;color:rgba(255,255,255,0.7);margin:0;">
+          Diagrama técnico lineal con cotas: largo, símbolos de terminal A/B, diámetro. Inequívoco. Es lo que <strong style="color:#fff;">va a la
+          ficha de fabricación</strong>. Función técnica + precisión.
+        </p>
+      </div>
+    </div>
+
+    <div style="font-family:'Barlow Condensed';font-weight:700;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#B83214;margin-bottom:10px;">Qué refleja en tiempo real</div>
+    <table style="width:100%;border-collapse:collapse;font-family:'Barlow';margin-bottom:8px;">
+      <thead><tr>
+        <th style="text-align:left;background:#1B1916;color:#fff;font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;padding:9px 12px;">Decisión</th>
+        <th style="text-align:left;background:#1B1916;color:#fff;font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;padding:9px 12px;">Capa realista</th>
+        <th style="text-align:left;background:#1B1916;color:#fff;font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;padding:9px 12px;">Capa esquemática</th>
+      </tr></thead>
+      <tbody>
+        <tr><td style="padding:9px 12px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:13px;color:#1B1916;">Tipo / diámetro</td><td style="padding:9px 12px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:13px;color:#4A4744;">Grosor y textura del cuerpo</td><td style="padding:9px 12px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:13px;color:#4A4744;">Cota de diámetro + tipo</td></tr>
+        <tr><td style="padding:9px 12px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:13px;color:#1B1916;">Largo</td><td style="padding:9px 12px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:13px;color:#4A4744;">Cuerpo a largo representativo (no a escala)</td><td style="padding:9px 12px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:13px;color:#4A4744;">Cota numérica "2,50 m"</td></tr>
+        <tr><td style="padding:9px 12px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:13px;color:#1B1916;">Terminal A</td><td style="padding:9px 12px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:13px;color:#4A4744;">Puntero izquierdo cambia</td><td style="padding:9px 12px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:13px;color:#4A4744;">Símbolo + etiqueta A</td></tr>
+        <tr><td style="padding:9px 12px;font-size:13px;color:#1B1916;">Terminal B</td><td style="padding:9px 12px;font-size:13px;color:#4A4744;">Puntero derecho cambia</td><td style="padding:9px 12px;font-size:13px;color:#4A4744;">Símbolo + etiqueta B</td></tr>
+      </tbody>
+    </table>
+    <p style="font-family:'Barlow';font-size:13px;line-height:1.6;color:#68686A;margin:14px 0 0;font-style:italic;">
+      Largo: el cuerpo se muestra a un largo representativo fijo, no a escala real. Estirar una textura fotográfica se ve mal y puede sugerir una medida falsa, así que la cota numérica es la única verdad del largo; el diámetro y los terminales sí son exactos. Un micro-rótulo "esquema · no a escala" lo deja claro.
+    </p>
+  </div>
+
+  <!-- ░░░ 11 · 3D vs 2D ░░░ -->
+  <div class="page" data-screen-label="11 3D vs 2D">
+    <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 6px;">
+      <span style="font-family:'Bebas Neue';font-size:46px;line-height:0.8;color:#B83214;">11</span>
+      <h2 style="font-family:'Bebas Neue';font-weight:400;font-size:34px;line-height:1;letter-spacing:0.5px;color:#1B1916;margin:0;">3D real vs pseudo-3D vs 2D avanzada</h2>
+    </div>
+    <div style="height:2px;background:#B83214;width:100%;margin:0 0 22px;"></div>
+
+    <p style="font-family:'Barlow';font-size:14.5px;line-height:1.64;color:#34302B;margin:0 0 18px;">
+      Comparación honesta de las tres familias técnicas, evaluadas contra los valores de Metcar: <strong>velocidad, claridad,
+      simplicidad, mantenibilidad por gente no técnica, y red lenta del interior.</strong>
+    </p>
+
+    <table style="width:100%;border-collapse:collapse;font-family:'Barlow';margin-bottom:20px;">
+      <thead><tr>
+        <th style="text-align:left;background:#1B1916;color:#fff;font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:9px 10px;">Criterio</th>
+        <th style="text-align:left;background:#1B1916;color:#fff;font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:9px 10px;">3D real (WebGL)</th>
+        <th style="text-align:left;background:#B83214;color:#fff;font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:9px 10px;">2.5D por capas ★</th>
+        <th style="text-align:left;background:#1B1916;color:#fff;font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:9px 10px;">2D vectorial</th>
+      </tr></thead>
+      <tbody>
+        <tr><td style="padding:8px 10px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#1B1916;font-weight:600;">Realismo</td><td style="padding:8px 10px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#4A4744;">Alto (si hay buen modelo)</td><td style="padding:8px 10px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#1B1916;background:#FBF6EE;">Muy alto (¡son fotos!)</td><td style="padding:8px 10px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#4A4744;">Bajo (estilizado)</td></tr>
+        <tr><td style="padding:8px 10px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#1B1916;font-weight:600;">Carga / red lenta</td><td style="padding:8px 10px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#B83214;">Pesada (modelos+libs)</td><td style="padding:8px 10px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#1B1916;background:#FBF6EE;">Liviana (PNG/WebP)</td><td style="padding:8px 10px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#1F7A3D;">Mínima (SVG)</td></tr>
+        <tr><td style="padding:8px 10px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#1B1916;font-weight:600;">Rendimiento mobile</td><td style="padding:8px 10px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#B83214;">Riesgoso (gama baja)</td><td style="padding:8px 10px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#1B1916;background:#FBF6EE;">Excelente</td><td style="padding:8px 10px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#1F7A3D;">Excelente</td></tr>
+        <tr><td style="padding:8px 10px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#1B1916;font-weight:600;">Mantenimiento (admin)</td><td style="padding:8px 10px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#B83214;">Necesita modelar 3D</td><td style="padding:8px 10px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#1B1916;background:#FBF6EE;">Subir 1 foto por pieza</td><td style="padding:8px 10px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#4A4744;">Dibujar cada SVG</td></tr>
+        <tr><td style="padding:8px 10px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#1B1916;font-weight:600;">Esfuerzo de build</td><td style="padding:8px 10px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#B83214;">Alto</td><td style="padding:8px 10px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#1B1916;background:#FBF6EE;">Medio-bajo</td><td style="padding:8px 10px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#1F7A3D;">Bajo</td></tr>
+        <tr><td style="padding:8px 10px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#1B1916;font-weight:600;">Escalar a nuevas piezas</td><td style="padding:8px 10px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#B83214;">Cada pieza = modelo</td><td style="padding:8px 10px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#1B1916;background:#FBF6EE;">Cada pieza = 1 imagen</td><td style="padding:8px 10px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#4A4744;">Cada pieza = 1 vector</td></tr>
+        <tr><td style="padding:8px 10px;font-size:12.5px;color:#1B1916;font-weight:600;">Sensación "premium"</td><td style="padding:8px 10px;font-size:12.5px;color:#4A4744;">Alta (tipo Porsche)</td><td style="padding:8px 10px;font-size:12.5px;color:#1B1916;background:#FBF6EE;">Alta y consistente</td><td style="padding:8px 10px;font-size:12.5px;color:#4A4744;">Media (técnico/limpio)</td></tr>
+      </tbody>
+    </table>
+
+    <div class="avoid-break" style="border-left:3px solid #1F7A3D;background:#E5F0E7;padding:14px 18px;border-radius:0 2px 2px 0;">
+      <p style="font-family:'Barlow';font-size:13.5px;line-height:1.6;color:#1A4028;margin:0;">
+        <strong>Lectura clave:</strong> el 3D real promete la sensación Porsche pero cobra un precio alto en peso, rendimiento mobile
+        y mantenimiento — justo donde Metcar es más vulnerable (taller del interior, red lenta, admin no técnico). El 2.5D por capas
+        entrega <strong>el mismo impacto visual usando fotografías reales</strong>, que es lo que Metcar ya produce ("modo taller").
+      </p>
+    </div>
+  </div>
+
+  <!-- ░░░ 12 · RECOMENDACIÓN TÉCNICA ░░░ -->
+  <div class="page" data-screen-label="12 Recomendación">
+    <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 6px;">
+      <span style="font-family:'Bebas Neue';font-size:46px;line-height:0.8;color:#B83214;">12</span>
+      <h2 style="font-family:'Bebas Neue';font-weight:400;font-size:36px;line-height:1;letter-spacing:0.5px;color:#1B1916;margin:0;">Recomendación técnica</h2>
+    </div>
+    <div style="height:2px;background:#B83214;width:100%;margin:0 0 22px;"></div>
+
+    <div class="avoid-break" style="background:#B83214;border-radius:2px;padding:22px 26px;margin-bottom:22px;">
+      <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:6px;">Decisión</div>
+      <div style="font-family:'Bebas Neue';font-size:32px;color:#fff;line-height:1.02;">Visualización 2.5D por capas compuestas<br>con fotografía real — no WebGL.</div>
+    </div>
+
+    <div style="font-family:'Barlow Condensed';font-weight:700;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#B83214;margin-bottom:10px;">Cómo funciona</div>
+    <pre style="font-family:'JetBrains Mono',monospace;font-size:10.5px;line-height:1.55;background:#131110;color:#D8D4CC;padding:18px 20px;border-radius:3px;overflow-x:auto;margin:0 0 18px;">  ┌─ capa: TERMINAL A ─┐   ┌──── capa: CUERPO ────┐   ┌─ capa: TERMINAL B ─┐
+  │  img/fitting_      │   │  img/hose_2mallas_   │   │  img/fitting_      │
+  │  bspf_12.webp      │ + │  12.webp (repetible) │ + │  jicm_12.webp      │
+  └────────────────────┘   └──────────────────────┘   └────────────────────┘
+            └──────────── compuestas en un contenedor ───────────┘
+            cuerpo: width escala con el largo · puntas: ancladas
+            sombra + reflejo CSS · fondo negro "modo taller"</pre>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+      <div>
+        <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#1F7A3D;margin-bottom:8px;">Por qué gana</div>
+        <ul style="margin:0;padding-left:18px;font-family:'Barlow';font-size:13px;line-height:1.6;color:#34302B;">
+          <li>Usa la fotografía "modo taller" que Metcar ya hace.</li>
+          <li>Liviano: imágenes WebP, sin librerías 3D.</li>
+          <li>Mantenible: admin sube <strong>una foto por puntero</strong>.</li>
+          <li>Escalable: pieza nueva = imagen nueva, cero código.</li>
+          <li>Premium y consistente en todo dispositivo.</li>
+          <li>Degrada con gracia (ver §23): si una foto no carga, queda el esquema.</li>
+        </ul>
+      </div>
+      <div>
+        <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#B8860B;margin-bottom:8px;">Costos / mitigación</div>
+        <ul style="margin:0;padding-left:18px;font-family:'Barlow';font-size:13px;line-height:1.6;color:#34302B;">
+          <li>Requiere set de fotos consistente (mismo ángulo, luz, escala) → <strong>guía de fotografía</strong> para el taller.</li>
+          <li>No rota libre 360° → se ofrece 1–2 vistas fijas + zoom, suficiente para reconocer.</li>
+          <li>Empalme cuerpo/puntas debe calzar → definir <strong>punto de anclaje</strong> estándar en cada imagen.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="avoid-break" style="border-left:3px solid #2A5C8A;background:#E3ECF4;padding:14px 18px;border-radius:0 2px 2px 0;margin-top:18px;">
+      <p style="font-family:'Barlow';font-size:13px;line-height:1.6;color:#1B3650;margin:0;">
+        <strong>Camino de evolución:</strong> la arquitectura por capas deja la puerta abierta a, en V2, reemplazar las imágenes por
+        un visor 3D real <em>sin rehacer el flujo</em> — la Zona A es un componente aislado que consume el mismo objeto <code style="font-family:'JetBrains Mono';font-size:11px;">config</code>.
+        Se gana hoy en velocidad sin cerrar la puerta al "wow" futuro.
+      </p>
+    </div>
+  </div>
+
+  <!-- ░░░ 13 · COMPONENTES + 14 ESTADOS ░░░ -->
+  <div class="page" data-screen-label="13 Componentes">
+    <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 6px;">
+      <span style="font-family:'Bebas Neue';font-size:46px;line-height:0.8;color:#B83214;">13</span>
+      <h2 style="font-family:'Bebas Neue';font-weight:400;font-size:36px;line-height:1;letter-spacing:0.5px;color:#1B1916;margin:0;">Componentes necesarios</h2>
+    </div>
+    <div style="height:2px;background:#B83214;width:100%;margin:0 0 22px;"></div>
+    <p style="font-family:'Barlow';font-size:13.5px;line-height:1.6;color:#68686A;margin:0 0 16px;font-style:italic;">Reutilizando el Design System Metcar: Button, SpecBadge, CategoryTag, StockIndicator, HoseStrip. Lo nuevo se construye sobre esos tokens.</p>
+
+    <table style="width:100%;border-collapse:collapse;font-family:'Barlow';">
+      <thead><tr>
+        <th style="text-align:left;background:#1B1916;color:#fff;font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:8px 11px;">Componente</th>
+        <th style="text-align:left;background:#1B1916;color:#fff;font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:8px 11px;">Rol</th>
+        <th style="text-align:left;background:#1B1916;color:#fff;font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:8px 11px;">DS / nuevo</th>
+      </tr></thead>
+      <tbody>
+        <tr><td style="padding:7px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#1B1916;font-weight:600;">HoseViewer</td><td style="padding:7px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#4A4744;">Zona A — capas realista + esquema cotado</td><td style="padding:7px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#B83214;">Nuevo</td></tr>
+        <tr><td style="padding:7px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#1B1916;font-weight:600;">StepSectionList</td><td style="padding:7px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#4A4744;">Zona B — las 4 secciones, todas visibles (acordeón en mobile)</td><td style="padding:7px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#B83214;">Nuevo</td></tr>
+        <tr><td style="padding:7px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#1B1916;font-weight:600;">OptionCard</td><td style="padding:7px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#4A4744;">Card de tipo / terminal (foto+nombre+medida)</td><td style="padding:7px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#B83214;">Nuevo</td></tr>
+        <tr><td style="padding:7px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#1B1916;font-weight:600;">GaugeSelect</td><td style="padding:7px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#4A4744;">Selector de diámetro (chips de medida)</td><td style="padding:7px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#B83214;">Nuevo</td></tr>
+        <tr><td style="padding:7px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#1B1916;font-weight:600;">LengthInput</td><td style="padding:7px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#4A4744;">Número + unidad + chips frecuentes</td><td style="padding:7px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#B83214;">Nuevo</td></tr>
+        <tr><td style="padding:7px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#1B1916;font-weight:600;">SameAsAToggle</td><td style="padding:7px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#4A4744;">Atajo "terminal B = A"</td><td style="padding:7px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#B83214;">Nuevo</td></tr>
+        <tr><td style="padding:7px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#1B1916;font-weight:600;">SummaryPanel</td><td style="padding:7px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#4A4744;">Zona C — resumen permanente editable</td><td style="padding:7px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#B83214;">Nuevo</td></tr>
+        <tr><td style="padding:7px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#1B1916;font-weight:600;">SpecBadge</td><td style="padding:7px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#4A4744;">Specs negro+amarillo (1/2" · 225 BAR)</td><td style="padding:7px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#1F7A3D;">DS</td></tr>
+        <tr><td style="padding:7px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#1B1916;font-weight:600;">StockIndicator</td><td style="padding:7px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#4A4744;">Disponibilidad de pieza / config</td><td style="padding:7px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#1F7A3D;">DS</td></tr>
+        <tr><td style="padding:7px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#1B1916;font-weight:600;">IncompatNotice</td><td style="padding:7px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#4A4744;">Aviso amable de incompatibilidad</td><td style="padding:7px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#B83214;">Nuevo</td></tr>
+        <tr><td style="padding:7px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#1B1916;font-weight:600;">SpecSheet</td><td style="padding:7px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#4A4744;">Pantalla 2 — ficha final / orden</td><td style="padding:7px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#B83214;">Nuevo</td></tr>
+        <tr><td style="padding:7px 11px;font-size:12.5px;color:#1B1916;font-weight:600;">ConfigCartTray</td><td style="padding:7px 11px;font-size:12.5px;color:#4A4744;">Lista de mangueras configuradas del pedido</td><td style="padding:7px 11px;font-size:12.5px;color:#B83214;">Nuevo</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ░░░ 14 · ESTADOS ░░░ -->
+  <div class="page" data-screen-label="14 Estados">
+    <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 6px;">
+      <span style="font-family:'Bebas Neue';font-size:46px;line-height:0.8;color:#B83214;">14</span>
+      <h2 style="font-family:'Bebas Neue';font-weight:400;font-size:36px;line-height:1;letter-spacing:0.5px;color:#1B1916;margin:0;">Estados de cada componente</h2>
+    </div>
+    <div style="height:2px;background:#B83214;width:100%;margin:0 0 22px;"></div>
+
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div class="avoid-break" style="border:0.5px solid rgba(27,25,22,0.12);border-radius:2px;padding:14px 18px;">
+        <strong style="font-family:'Barlow';font-size:14px;color:#1B1916;">OptionCard (tipo / terminal)</strong>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">
+          <span style="font-family:'Barlow Condensed';font-weight:600;font-size:11px;letter-spacing:1px;background:#F4F2EC;color:#34302B;padding:3px 9px;border-radius:2px;">Default</span>
+          <span style="font-family:'Barlow Condensed';font-weight:600;font-size:11px;letter-spacing:1px;background:#F4F2EC;color:#34302B;padding:3px 9px;border-radius:2px;">Hover (translateY -2px)</span>
+          <span style="font-family:'Barlow Condensed';font-weight:600;font-size:11px;letter-spacing:1px;background:#0B0B0B;color:#F5C518;padding:3px 9px;border-radius:2px;">Seleccionada (borde rojo + check)</span>
+          <span style="font-family:'Barlow Condensed';font-weight:600;font-size:11px;letter-spacing:1px;background:#F6E4DF;color:#B83214;padding:3px 9px;border-radius:2px;">Incompatible (atenuada + tooltip)</span>
+          <span style="font-family:'Barlow Condensed';font-weight:600;font-size:11px;letter-spacing:1px;background:#FBF1D9;color:#8A6D08;padding:3px 9px;border-radius:2px;">Sin stock (badge)</span>
+          <span style="font-family:'Barlow Condensed';font-weight:600;font-size:11px;letter-spacing:1px;background:#ECE9E2;color:#9A968F;padding:3px 9px;border-radius:2px;">Cargando (skeleton)</span>
+        </div>
+      </div>
+      <div class="avoid-break" style="border:0.5px solid rgba(27,25,22,0.12);border-radius:2px;padding:14px 18px;">
+        <strong style="font-family:'Barlow';font-size:14px;color:#1B1916;">StepSection (sección de decisión)</strong>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">
+          <span style="font-family:'Barlow Condensed';font-weight:600;font-size:11px;letter-spacing:1px;background:#ECE9E2;color:#9A968F;padding:3px 9px;border-radius:2px;">En espera (terminales: falta la medida)</span>
+          <span style="font-family:'Barlow Condensed';font-weight:600;font-size:11px;letter-spacing:1px;background:#F4F2EC;color:#34302B;padding:3px 9px;border-radius:2px;">Disponible</span>
+          <span style="font-family:'Barlow Condensed';font-weight:600;font-size:11px;letter-spacing:1px;background:#B83214;color:#fff;padding:3px 9px;border-radius:2px;">Activa (resaltada)</span>
+          <span style="font-family:'Barlow Condensed';font-weight:600;font-size:11px;letter-spacing:1px;background:#E5F0E7;color:#1F7A3D;padding:3px 9px;border-radius:2px;">Completa (✓ + valor)</span>
+        </div>
+      </div>
+      <div class="avoid-break" style="border:0.5px solid rgba(27,25,22,0.12);border-radius:2px;padding:14px 18px;">
+        <strong style="font-family:'Barlow';font-size:14px;color:#1B1916;">LengthInput</strong>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">
+          <span style="font-family:'Barlow Condensed';font-weight:600;font-size:11px;letter-spacing:1px;background:#F4F2EC;color:#34302B;padding:3px 9px;border-radius:2px;">Vacío (placeholder)</span>
+          <span style="font-family:'Barlow Condensed';font-weight:600;font-size:11px;letter-spacing:1px;background:#F4F2EC;color:#34302B;padding:3px 9px;border-radius:2px;">Foco</span>
+          <span style="font-family:'Barlow Condensed';font-weight:600;font-size:11px;letter-spacing:1px;background:#E5F0E7;color:#1F7A3D;padding:3px 9px;border-radius:2px;">Válido</span>
+          <span style="font-family:'Barlow Condensed';font-weight:600;font-size:11px;letter-spacing:1px;background:#F6E4DF;color:#B83214;padding:3px 9px;border-radius:2px;">Fuera de rango (min/max)</span>
+        </div>
+      </div>
+      <div class="avoid-break" style="border:0.5px solid rgba(27,25,22,0.12);border-radius:2px;padding:14px 18px;">
+        <strong style="font-family:'Barlow';font-size:14px;color:#1B1916;">HoseViewer</strong>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">
+          <span style="font-family:'Barlow Condensed';font-weight:600;font-size:11px;letter-spacing:1px;background:#F4F2EC;color:#34302B;padding:3px 9px;border-radius:2px;">Esqueleto (sin elegir tipo)</span>
+          <span style="font-family:'Barlow Condensed';font-weight:600;font-size:11px;letter-spacing:1px;background:#F4F2EC;color:#34302B;padding:3px 9px;border-radius:2px;">Parcial (capas faltantes punteadas)</span>
+          <span style="font-family:'Barlow Condensed';font-weight:600;font-size:11px;letter-spacing:1px;background:#E5F0E7;color:#1F7A3D;padding:3px 9px;border-radius:2px;">Completa</span>
+          <span style="font-family:'Barlow Condensed';font-weight:600;font-size:11px;letter-spacing:1px;background:#FBF1D9;color:#8A6D08;padding:3px 9px;border-radius:2px;">Imagen no cargó → fallback esquema</span>
+        </div>
+      </div>
+      <div class="avoid-break" style="border:0.5px solid rgba(27,25,22,0.12);border-radius:2px;padding:14px 18px;">
+        <strong style="font-family:'Barlow';font-size:14px;color:#1B1916;">CTA "Revisar y continuar"</strong>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">
+          <span style="font-family:'Barlow Condensed';font-weight:600;font-size:11px;letter-spacing:1px;background:#ECE9E2;color:#9A968F;padding:3px 9px;border-radius:2px;">Deshabilitado (config incompleta)</span>
+          <span style="font-family:'Barlow Condensed';font-weight:600;font-size:11px;letter-spacing:1px;background:#B83214;color:#fff;padding:3px 9px;border-radius:2px;">Activo</span>
+          <span style="font-family:'Barlow Condensed';font-weight:600;font-size:11px;letter-spacing:1px;background:#9E2810;color:#fff;padding:3px 9px;border-radius:2px;">Press (scale .98)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ░░░ 15 · PROGRESIÓN ░░░ -->
+  <div class="page" data-screen-label="15 Progresión">
+    <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 6px;">
+      <span style="font-family:'Bebas Neue';font-size:46px;line-height:0.8;color:#B83214;">15</span>
+      <h2 style="font-family:'Bebas Neue';font-weight:400;font-size:36px;line-height:1;letter-spacing:0.5px;color:#1B1916;margin:0;">Sistema de progresión</h2>
+    </div>
+    <div style="height:2px;background:#B83214;width:100%;margin:0 0 22px;"></div>
+
+    <p style="font-family:'Barlow';font-size:14.5px;line-height:1.64;color:#34302B;margin:0 0 16px;">
+      La progresión es <strong>guiada pero no carcelaria</strong>. Lleva el foco hacia el siguiente vacío para sentir fluidez, pero <strong>no oculta lo ya elegido</strong> (desktop) y deja volver libremente. Nunca castiga; siempre orienta.
+    </p>
+
+    <pre style="font-family:'JetBrains Mono',monospace;font-size:11px;line-height:1.65;background:#131110;color:#D8D4CC;padding:18px 20px;border-radius:3px;overflow-x:auto;margin:0 0 16px;">[1] Manguera          [2] Largo          [3] Term. A        [4] Term. B
+ ●━━━━━━━━━━━━━━━━━━━━━━○━━━━━━━━━━━━━━━━━━○━━━━━━━━━━━━━━━━━━○
+ tipo + medida         siempre disponible filtrado por la    "igual que A"
+ → enfoca [2]          → enfoca [3]       medida elegida     pre-marcado →
+ (nada se oculta)      (nada se oculta)   → enfoca [4]        confirmar/otro
+  ✓ completa           ✓ completa         ✓ completa         ✓ → CTA activo</pre>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+      <div>
+        <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#1F7A3D;margin-bottom:8px;">Reglas de avance</div>
+        <ul style="margin:0;padding-left:18px;font-family:'Barlow';font-size:13px;line-height:1.6;color:#34302B;">
+          <li>Elegir un valor la marca con ✓ y lleva el foco a la siguiente; en desktop nada se oculta.</li>
+          <li>La cabecera de cada sección muestra ✓ y el valor elegido, siempre legible.</li>
+          <li>Tocar una sección completada la reabre para editar — sin perder las demás.</li>
+          <li>El progreso se guarda en <code style="font-family:'JetBrains Mono';font-size:11px;">localStorage</code>: cerrar y volver no pierde nada.</li>
+        </ul>
+      </div>
+      <div>
+        <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#B8860B;margin-bottom:8px;">Efecto de cambiar atrás</div>
+        <ul style="margin:0;padding-left:18px;font-family:'Barlow';font-size:13px;line-height:1.6;color:#34302B;">
+          <li>Cambiar la <strong>medida</strong> puede invalidar terminales elegidos → se avisa y se re-filtra, no se borra en silencio.</li>
+          <li>Si un terminal queda incompatible, se marca y se pide re-elegir solo ese.</li>
+          <li>El resto de la config se preserva siempre que sea posible.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ░░░ 16 · VALIDACIONES ░░░ -->
+  <div class="page" data-screen-label="16 Validaciones">
+    <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 6px;">
+      <span style="font-family:'Bebas Neue';font-size:46px;line-height:0.8;color:#B83214;">16</span>
+      <h2 style="font-family:'Bebas Neue';font-weight:400;font-size:36px;line-height:1;letter-spacing:0.5px;color:#1B1916;margin:0;">Sistema de validaciones</h2>
+    </div>
+    <div style="height:2px;background:#B83214;width:100%;margin:0 0 22px;"></div>
+
+    <div class="avoid-break" style="border-left:3px solid #1F7A3D;background:#E5F0E7;padding:14px 18px;border-radius:0 2px 2px 0;margin-bottom:18px;">
+      <p style="font-family:'Barlow';font-size:13.5px;line-height:1.6;color:#1A4028;margin:0;">
+        <strong>Filosofía:</strong> la mejor validación es la que nunca ocurre. En vez de dejar elegir mal y luego regañar, el sistema
+        <strong>solo ofrece lo compatible</strong>. El error se previene, no se corrige. El aviso de incompatibilidad es la red de
+        seguridad, no la primera línea.
+      </p>
+    </div>
+
+    <div style="font-family:'Barlow Condensed';font-weight:700;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#B83214;margin-bottom:10px;">Capas de validación</div>
+    <table style="width:100%;border-collapse:collapse;font-family:'Barlow';margin-bottom:18px;">
+      <thead><tr>
+        <th style="text-align:left;background:#1B1916;color:#fff;font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:8px 11px;">Validación</th>
+        <th style="text-align:left;background:#1B1916;color:#fff;font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:8px 11px;">Cuándo</th>
+        <th style="text-align:left;background:#1B1916;color:#fff;font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:8px 11px;">Comportamiento</th>
+      </tr></thead>
+      <tbody>
+        <tr><td style="padding:7px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#1B1916;font-weight:600;">Pre-filtro por medida</td><td style="padding:7px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#4A4744;">Al elegir diámetro</td><td style="padding:7px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#4A4744;">Solo muestra terminales de esa medida</td></tr>
+        <tr><td style="padding:7px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#1B1916;font-weight:600;">Compatibilidad explícita</td><td style="padding:7px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#4A4744;">Definida en admin</td><td style="padding:7px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#4A4744;">Oculta o atenúa los no compatibles</td></tr>
+        <tr><td style="padding:7px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#1B1916;font-weight:600;">Rango de largo</td><td style="padding:7px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#4A4744;">Al escribir</td><td style="padding:7px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#4A4744;">Min/max sensato; avisa, no bloquea el tipeo</td></tr>
+        <tr><td style="padding:7px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#1B1916;font-weight:600;">Completitud</td><td style="padding:7px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#4A4744;">Antes de continuar</td><td style="padding:7px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#4A4744;">CTA bloqueado hasta 4 decisiones válidas</td></tr>
+        <tr><td style="padding:7px 11px;font-size:12.5px;color:#1B1916;font-weight:600;">Disponibilidad / stock</td><td style="padding:7px 11px;font-size:12.5px;color:#4A4744;">En vivo</td><td style="padding:7px 11px;font-size:12.5px;color:#4A4744;">Badge "sin stock — a confirmar", no impide pedir</td></tr>
+      </tbody>
+    </table>
+
+    <div class="avoid-break" style="border-left:3px solid #B83214;background:#F6E4DF;padding:14px 18px;border-radius:0 2px 2px 0;margin-bottom:14px;">
+      <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#B83214;margin-bottom:6px;">Copy del aviso de incompatibilidad (voseo)</div>
+      <p style="font-family:'Barlow';font-size:13.5px;line-height:1.6;color:#34302B;margin:0;font-style:italic;">"Este terminal no se puede prensar en la manguera que elegiste. Te mostramos solo los compatibles."</p>
+    </div>
+
+    <div class="avoid-break" style="border-left:3px solid #B8860B;background:#FBF1D9;padding:14px 18px;border-radius:0 2px 2px 0;">
+      <p style="font-family:'Barlow';font-size:13px;line-height:1.6;color:#34302B;margin:0;">
+        <strong>La convención de largo es una validación de fabricación, no solo de UI.</strong> Recomendación: el largo declarado es
+        <strong>punta a punta (overall length)</strong>, la medida que el cliente realmente toma con la manguera vieja. La ficha lo dice
+        explícito para que Maxi descuente lo que corresponde al prensar. Confirmar con el taller (ver §A, pregunta abierta).<br><br>El error de largo más común es <strong>medir mal una manguera rota o estirada</strong>. Por eso el campo de largo lleva una ayuda "¿cómo medir?" con un diagrama de dónde empieza y termina la medida — prevención barata del error de fabricación más caro.
+      </p>
+    </div>
+  </div>
+
+  <!-- ░░░ 17 · RESUMEN PERMANENTE ░░░ -->
+  <div class="page" data-screen-label="17 Resumen">
+    <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 6px;">
+      <span style="font-family:'Bebas Neue';font-size:46px;line-height:0.8;color:#B83214;">17</span>
+      <h2 style="font-family:'Bebas Neue';font-weight:400;font-size:36px;line-height:1;letter-spacing:0.5px;color:#1B1916;margin:0;">Resumen permanente</h2>
+    </div>
+    <div style="height:2px;background:#B83214;width:100%;margin:0 0 22px;"></div>
+
+    <p style="font-family:'Barlow';font-size:14.5px;line-height:1.64;color:#34302B;margin:0 0 16px;">
+      El usuario <strong>nunca pierde contexto</strong>. La configuración actual está siempre visible: panel anclado (desktop) o barra
+      persistente expandible (mobile). Es la "fuente de verdad" legible para el cliente.
+    </p>
+
+    <div style="display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start;">
+      <div class="avoid-break" style="flex:1;min-width:240px;background:#1B1916;border-radius:2px;padding:20px 22px;">
+        <div style="font-family:'Bebas Neue';font-size:22px;color:#fff;line-height:1;margin-bottom:14px;">Configuración actual</div>
+        <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.08);"><span style="font-family:'Barlow';font-size:13px;color:rgba(255,255,255,0.5);">Manguera</span><span style="font-family:'Barlow Condensed';font-weight:600;font-size:13px;color:#fff;">2 mallas · 1/2"</span></div>
+        <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.08);"><span style="font-family:'Barlow';font-size:13px;color:rgba(255,255,255,0.5);">Largo</span><span style="font-family:'Barlow Condensed';font-weight:600;font-size:13px;color:#F5C518;">2,50 m · punta a punta</span></div>
+        <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.08);"><span style="font-family:'Barlow';font-size:13px;color:rgba(255,255,255,0.5);">Terminal A</span><span style="font-family:'Barlow Condensed';font-weight:600;font-size:13px;color:#fff;">BSP Hembra 1/2"</span></div>
+        <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.08);"><span style="font-family:'Barlow';font-size:13px;color:rgba(255,255,255,0.5);">Terminal B</span><span style="font-family:'Barlow Condensed';font-weight:600;font-size:13px;color:#fff;">JIC Macho 1/2"</span></div>
+        <div style="display:flex;justify-content:space-between;padding:7px 0;"><span style="font-family:'Barlow';font-size:13px;color:rgba(255,255,255,0.5);">Cantidad</span><span style="font-family:'Barlow Condensed';font-weight:600;font-size:13px;color:#fff;">1</span></div>
+        <div style="margin-top:14px;background:#B83214;color:#fff;text-align:center;font-family:'Barlow Condensed';font-weight:700;font-size:13px;letter-spacing:1.5px;padding:11px;border-radius:1px;">REVISAR Y CONTINUAR</div>
+        <div style="text-align:center;font-family:'Barlow';font-size:11px;color:rgba(255,255,255,0.35);margin-top:8px;">Sin precios — cotización a solicitar</div>
+      </div>
+      <div style="flex:1;min-width:240px;">
+        <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#B83214;margin-bottom:8px;">Reglas del resumen</div>
+        <ul style="margin:0;padding-left:18px;font-family:'Barlow';font-size:13px;line-height:1.7;color:#34302B;">
+          <li><strong>Sin precio.</strong> Coherente con el modelo (cotización manual de Patricia).</li>
+          <li>Cada línea es <strong>editable</strong>: tocarla reabre su sección.</li>
+          <li>Muestra la <strong>convención de largo</strong> ("punta a punta") para que no haya dudas.</li>
+          <li>Valores faltantes aparecen como guion, no se ocultan: el usuario ve qué falta.</li>
+          <li>En mobile: colapsado muestra 1 línea-resumen; expandido, todo.</li>
+          <li>Incluye campo opcional <strong>"identificá esta manguera"</strong> (ej: "del cargador frontal") para el cliente y el taller.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ░░░ 18 · FICHA FINAL ░░░ -->
+  <div class="page" data-screen-label="18 Ficha final">
+    <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 6px;">
+      <span style="font-family:'Bebas Neue';font-size:46px;line-height:0.8;color:#B83214;">18</span>
+      <h2 style="font-family:'Bebas Neue';font-weight:400;font-size:36px;line-height:1;letter-spacing:0.5px;color:#1B1916;margin:0;">Pantalla final de especificación</h2>
+    </div>
+    <div style="height:2px;background:#B83214;width:100%;margin:0 0 22px;"></div>
+
+    <p style="font-family:'Barlow';font-size:14.5px;line-height:1.64;color:#34302B;margin:0 0 16px;">
+      Es el <strong>contrato visual</strong> del pedido. Una sola pieza que el cliente entiende y que el taller puede ejecutar.
+      Doble lectura: arriba humana, abajo técnica.
+    </p>
+
+    <pre style="font-family:'JetBrains Mono',monospace;font-size:10px;line-height:1.5;background:#131110;color:#D8D4CC;padding:18px 20px;border-radius:3px;overflow-x:auto;margin:0 0 16px;">┌──────────────────────────────────────────────────────────────┐
+│ METCAR · ESPECIFICACIÓN DE MANGUERA       Ref: MC-H2-12-0250… │
+├──────────────────────────────────────────────────────────────┤
+│   ⊙├════════════════════════════════════════┤⊙               │
+│   BSP-H 1/2"        ◀──── 2,50 m p/p ────▶        JIC-M 1/2"  │
+│   (esquema cotado · imagen realista al lado)                 │
+├──────────────────────────────────────────────────────────────┤
+│  Tipo      Manguera hidráulica 2 mallas (SAE 100R2AT)        │
+│  Diámetro  1/2"                            Largo   2,50 m p/p │
+│  Term. A   BSP Hembra 1/2"     Term. B   JIC Macho 1/2"       │
+│  Cantidad  1        Identificador: "cargador frontal"        │
+│  Disponibilidad ● EN STOCK (a confirmar por Metcar)          │
+├──────────────────────────────────────────────────────────────┤
+│ [ ← EDITAR ]  [ + AGREGAR OTRA ]  [ AGREGAR AL CARRITO → ]    │
+│ [ compartir por WhatsApp ]                  (PDF: V2)        │
+└──────────────────────────────────────────────────────────────┘</pre>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+      <div>
+        <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#B83214;margin-bottom:8px;">Debe incluir</div>
+        <ul style="margin:0;padding-left:18px;font-family:'Barlow';font-size:13px;line-height:1.6;color:#34302B;">
+          <li><strong>Código de referencia</strong> legible (etiqueta para WhatsApp y panel).</li>
+          <li>Esquema cotado + imagen realista lado a lado.</li>
+          <li>Los 4 parámetros en lenguaje claro + nomenclatura técnica.</li>
+          <li>Convención de largo explícita ("punta a punta").</li>
+          <li>Identificador opcional del cliente.</li>
+          <li>Estado de disponibilidad (sin precio).</li>
+        </ul>
+      </div>
+      <div>
+        <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#B83214;margin-bottom:8px;">Acciones</div>
+        <ul style="margin:0;padding-left:18px;font-family:'Barlow';font-size:13px;line-height:1.6;color:#34302B;">
+          <li><strong>Editar</strong> → vuelve al configurador con todo cargado.</li>
+          <li><strong>Agregar otra</strong> → nueva manguera, conserva tipo/medida.</li>
+          <li><strong>Agregar al carrito</strong> → la integra como ítem único.</li>
+          <li><strong>Compartir por WhatsApp</strong> → envía el código + imagen de la ficha (único mecanismo de compartir en V1).</li>
+          <li><strong>Descargar PDF</strong> → diferido a V2, no en la primera versión.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ░░░ 19 · ORDEN DE FABRICACIÓN ░░░ -->
+  <div class="page" data-screen-label="19 Orden fabricación">
+    <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 6px;">
+      <span style="font-family:'Bebas Neue';font-size:46px;line-height:0.8;color:#B83214;">19</span>
+      <h2 style="font-family:'Bebas Neue';font-weight:400;font-size:34px;line-height:1;letter-spacing:0.5px;color:#1B1916;margin:0;">La orden de fabricación (Maxi)</h2>
+    </div>
+    <div style="height:2px;background:#B83214;width:100%;margin:0 0 22px;"></div>
+
+    <p style="font-family:'Barlow';font-size:14.5px;line-height:1.64;color:#34302B;margin:0 0 16px;">
+      La misma config, re-encuadrada para el taller. <strong>No la ve el cliente.</strong> Vive en el panel interno, pero se diseña
+      ahora porque define qué datos debe capturar el configurador. Si un dato falta acá, el flujo del cliente está incompleto.
+    </p>
+
+    <div style="font-family:'Barlow Condensed';font-weight:700;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#B83214;margin-bottom:10px;">Cómo debe verse para el taller</div>
+    <pre style="font-family:'JetBrains Mono',monospace;font-size:10px;line-height:1.5;background:#0B0B0B;color:#F5C518;padding:18px 20px;border-radius:3px;overflow-x:auto;margin:0 0 16px;">╔══════════════════════════════════════════════════════════════╗
+║ ORDEN DE TALLER · Pedido #1042 · Ítem 2 de 4    [ ARMAR ]    ║
+╟──────────────────────────────────────────────────────────────╢
+║  CORTAR:   Manguera 2 mallas  1/2"   →   2,50 m PUNTA A PUNTA ║
+║  PRENSAR A: BSP Hembra 1/2"      (cód. terminal: TF-BSPF-12)  ║
+║  PRENSAR B: JIC Macho 1/2"       (cód. terminal: TF-JICM-12)  ║
+║  CANT:     1     ID cliente: "cargador frontal"              ║
+║  Ref: MC-H2-12-0250-BSPF-JICM                                ║
+║  ┌─ esquema cotado (mismo de la ficha) ─┐                    ║
+║  └────────────────────────────────────────┘                  ║
+╚══════════════════════════════════════════════════════════════╝</pre>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+      <div class="avoid-break" style="background:#F4F2EC;border-radius:2px;padding:14px 16px;">
+        <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#1F7A3D;margin-bottom:6px;">Lenguaje de taller</div>
+        <p style="font-family:'Barlow';font-size:12.5px;line-height:1.55;color:#34302B;margin:0;">Verbos de acción: <strong>CORTAR</strong>, <strong>PRENSAR A/B</strong>. Códigos de pieza para tomar del estante. Sin floreos.</p>
+      </div>
+      <div class="avoid-break" style="background:#F4F2EC;border-radius:2px;padding:14px 16px;">
+        <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#1F7A3D;margin-bottom:6px;">Trazabilidad</div>
+        <p style="font-family:'Barlow';font-size:12.5px;line-height:1.55;color:#34302B;margin:0;">El <strong>código de referencia</strong> conecta cliente ↔ ficha ↔ orden ↔ estado del pedido. Una sola verdad de punta a punta.</p>
+      </div>
+    </div>
+    <div class="avoid-break" style="border-left:3px solid #2A5C8A;background:#E3ECF4;padding:14px 18px;border-radius:0 2px 2px 0;margin-top:16px;">
+      <p style="font-family:'Barlow';font-size:13px;line-height:1.6;color:#1B3650;margin:0;">
+        <strong>Implicación para el configurador:</strong> debe capturar todo lo que esta orden necesita — incluyendo la convención de
+        largo y (si el taller lo requiere) ángulo/orientación de terminales acodados. Lo que no se capture acá, Maxi lo tendrá que
+        preguntar — exactamente lo que queremos eliminar.
+      </p>
+    </div>
+  </div>
+
+  <!-- ░░░ 20 · ERRORES DE UX ░░░ -->
+  <div class="page" data-screen-label="20 Errores UX">
+    <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 6px;">
+      <span style="font-family:'Bebas Neue';font-size:46px;line-height:0.8;color:#B83214;">20</span>
+      <h2 style="font-family:'Bebas Neue';font-weight:400;font-size:36px;line-height:1;letter-spacing:0.5px;color:#1B1916;margin:0;">Errores de UX a evitar</h2>
+    </div>
+    <div style="height:2px;background:#B83214;width:100%;margin:0 0 22px;"></div>
+
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div class="avoid-break" style="display:grid;grid-template-columns:1fr 1fr;gap:0;border:0.5px solid rgba(27,25,22,0.12);border-radius:2px;overflow:hidden;">
+        <div style="padding:13px 16px;border-right:0.5px solid rgba(27,25,22,0.12);"><span style="font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:1.5px;color:#B83214;">EVITAR</span><p style="font-family:'Barlow';font-size:13px;line-height:1.5;color:#34302B;margin:4px 0 0;">Mostrar precios estimados (rompe el modelo de negocio).</p></div>
+        <div style="padding:13px 16px;background:#F4F2EC;"><span style="font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:1.5px;color:#1F7A3D;">EN SU LUGAR</span><p style="font-family:'Barlow';font-size:13px;line-height:1.5;color:#34302B;margin:4px 0 0;">"Solicitar cotización". El valor lo da Patricia.</p></div>
+      </div>
+      <div class="avoid-break" style="display:grid;grid-template-columns:1fr 1fr;gap:0;border:0.5px solid rgba(27,25,22,0.12);border-radius:2px;overflow:hidden;">
+        <div style="padding:13px 16px;border-right:0.5px solid rgba(27,25,22,0.12);"><span style="font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:1.5px;color:#B83214;">EVITAR</span><p style="font-family:'Barlow';font-size:13px;line-height:1.5;color:#34302B;margin:4px 0 0;">Wizard de páginas separadas con "Siguiente / Atrás".</p></div>
+        <div style="padding:13px 16px;background:#F4F2EC;"><span style="font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:1.5px;color:#1F7A3D;">EN SU LUGAR</span><p style="font-family:'Barlow';font-size:13px;line-height:1.5;color:#34302B;margin:4px 0 0;">Una pantalla, acordeón con auto-avance y vuelta libre.</p></div>
+      </div>
+      <div class="avoid-break" style="display:grid;grid-template-columns:1fr 1fr;gap:0;border:0.5px solid rgba(27,25,22,0.12);border-radius:2px;overflow:hidden;">
+        <div style="padding:13px 16px;border-right:0.5px solid rgba(27,25,22,0.12);"><span style="font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:1.5px;color:#B83214;">EVITAR</span><p style="font-family:'Barlow';font-size:13px;line-height:1.5;color:#34302B;margin:4px 0 0;">Listas de terminales solo con nombre técnico (JIC, BSP…).</p></div>
+        <div style="padding:13px 16px;background:#F4F2EC;"><span style="font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:1.5px;color:#1F7A3D;">EN SU LUGAR</span><p style="font-family:'Barlow';font-size:13px;line-height:1.5;color:#34302B;margin:4px 0 0;">Foto + nombre + medida juntos, siempre.</p></div>
+      </div>
+      <div class="avoid-break" style="display:grid;grid-template-columns:1fr 1fr;gap:0;border:0.5px solid rgba(27,25,22,0.12);border-radius:2px;overflow:hidden;">
+        <div style="padding:13px 16px;border-right:0.5px solid rgba(27,25,22,0.12);"><span style="font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:1.5px;color:#B83214;">EVITAR</span><p style="font-family:'Barlow';font-size:13px;line-height:1.5;color:#34302B;margin:4px 0 0;">Dejar elegir incompatible y luego mostrar error rojo.</p></div>
+        <div style="padding:13px 16px;background:#F4F2EC;"><span style="font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:1.5px;color:#1F7A3D;">EN SU LUGAR</span><p style="font-family:'Barlow';font-size:13px;line-height:1.5;color:#34302B;margin:4px 0 0;">Ofrecer solo lo compatible. Prevenir, no regañar.</p></div>
+      </div>
+      <div class="avoid-break" style="display:grid;grid-template-columns:1fr 1fr;gap:0;border:0.5px solid rgba(27,25,22,0.12);border-radius:2px;overflow:hidden;">
+        <div style="padding:13px 16px;border-right:0.5px solid rgba(27,25,22,0.12);"><span style="font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:1.5px;color:#B83214;">EVITAR</span><p style="font-family:'Barlow';font-size:13px;line-height:1.5;color:#34302B;margin:4px 0 0;">"Largo" sin decir si incluye terminales.</p></div>
+        <div style="padding:13px 16px;background:#F4F2EC;"><span style="font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:1.5px;color:#1F7A3D;">EN SU LUGAR</span><p style="font-family:'Barlow';font-size:13px;line-height:1.5;color:#34302B;margin:4px 0 0;">Declarar "punta a punta" con micro-diagrama.</p></div>
+      </div>
+      <div class="avoid-break" style="display:grid;grid-template-columns:1fr 1fr;gap:0;border:0.5px solid rgba(27,25,22,0.12);border-radius:2px;overflow:hidden;">
+        <div style="padding:13px 16px;border-right:0.5px solid rgba(27,25,22,0.12);"><span style="font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:1.5px;color:#B83214;">EVITAR</span><p style="font-family:'Barlow';font-size:13px;line-height:1.5;color:#34302B;margin:4px 0 0;">Perder la config al recargar o navegar atrás.</p></div>
+        <div style="padding:13px 16px;background:#F4F2EC;"><span style="font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:1.5px;color:#1F7A3D;">EN SU LUGAR</span><p style="font-family:'Barlow';font-size:13px;line-height:1.5;color:#34302B;margin:4px 0 0;">Persistir en localStorage + estado en URL.</p></div>
+      </div>
+      <div class="avoid-break" style="display:grid;grid-template-columns:1fr 1fr;gap:0;border:0.5px solid rgba(27,25,22,0.12);border-radius:2px;overflow:hidden;">
+        <div style="padding:13px 16px;border-right:0.5px solid rgba(27,25,22,0.12);"><span style="font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:1.5px;color:#B83214;">EVITAR</span><p style="font-family:'Barlow';font-size:13px;line-height:1.5;color:#34302B;margin:4px 0 0;">Estética gaming / sci-fi / efectos excesivos.</p></div>
+        <div style="padding:13px 16px;background:#F4F2EC;"><span style="font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:1.5px;color:#1F7A3D;">EN SU LUGAR</span><p style="font-family:'Barlow';font-size:13px;line-height:1.5;color:#34302B;margin:4px 0 0;">Ingeniería sobria: negro, rojo, amarillo hose, cero ruido.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ░░░ 21 · RIESGOS ░░░ -->
+  <div class="page" data-screen-label="21 Riesgos">
+    <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 6px;">
+      <span style="font-family:'Bebas Neue';font-size:46px;line-height:0.8;color:#B83214;">21</span>
+      <h2 style="font-family:'Bebas Neue';font-weight:400;font-size:36px;line-height:1;letter-spacing:0.5px;color:#1B1916;margin:0;">Riesgos de implementación</h2>
+    </div>
+    <div style="height:2px;background:#B83214;width:100%;margin:0 0 22px;"></div>
+
+    <table style="width:100%;border-collapse:collapse;font-family:'Barlow';">
+      <thead><tr>
+        <th style="text-align:left;background:#1B1916;color:#fff;font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:8px 11px;">Riesgo</th>
+        <th style="text-align:left;background:#1B1916;color:#fff;font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:8px 11px;">Impacto</th>
+        <th style="text-align:left;background:#1B1916;color:#fff;font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:8px 11px;">Mitigación</th>
+      </tr></thead>
+      <tbody>
+        <tr><td style="padding:8px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#1B1916;font-weight:600;">Fotos inconsistentes (ángulo/luz/escala)</td><td style="padding:8px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#B83214;">Alto</td><td style="padding:8px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#4A4744;">Guía de fotografía + punto de anclaje estándar + QA visual</td></tr>
+        <tr><td style="padding:8px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#1B1916;font-weight:600;">Matriz de compatibilidad incompleta</td><td style="padding:8px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#B83214;">Alto</td><td style="padding:8px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#4A4744;">Pre-filtro automático por medida + admin simple de checkboxes</td></tr>
+        <tr><td style="padding:8px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#1B1916;font-weight:600;">Datos reales del catálogo no disponibles aún</td><td style="padding:8px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#B8860B;">Medio</td><td style="padding:8px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#4A4744;">Mock con esquema de datos definido (§B); front desacoplado</td></tr>
+        <tr><td style="padding:8px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#1B1916;font-weight:600;">Ambigüedad de largo no resuelta</td><td style="padding:8px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#B83214;">Alto</td><td style="padding:8px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#4A4744;">Definir convención con el taller ANTES de codear (§A)</td></tr>
+        <tr><td style="padding:8px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#1B1916;font-weight:600;">Rendimiento en gama baja / red lenta</td><td style="padding:8px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#B8860B;">Medio</td><td style="padding:8px 11px;border-bottom:0.5px solid rgba(27,25,22,0.1);font-size:12.5px;color:#4A4744;">2.5D liviano, lazy-load, fallback a esquema (§23)</td></tr>
+        <tr><td style="padding:8px 11px;font-size:12.5px;color:#1B1916;font-weight:600;">Sobre-ingeniería del front antes del backend</td><td style="padding:8px 11px;font-size:12.5px;color:#B8860B;">Medio</td><td style="padding:8px 11px;font-size:12.5px;color:#4A4744;">Contrato de datos claro; UI consume una interfaz, no la BD</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ░░░ 22 · OPORTUNIDADES ░░░ -->
+  <div class="page" data-screen-label="22 Oportunidades">
+    <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 6px;">
+      <span style="font-family:'Bebas Neue';font-size:46px;line-height:0.8;color:#B83214;">22</span>
+      <h2 style="font-family:'Bebas Neue';font-weight:400;font-size:36px;line-height:1;letter-spacing:0.5px;color:#1B1916;margin:0;">Oportunidades de mejora</h2>
+    </div>
+    <div style="height:2px;background:#B83214;width:100%;margin:0 0 22px;"></div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div class="avoid-break" style="background:#F4F2EC;border-radius:2px;padding:15px 17px;"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;"><strong style="font-family:'Barlow';font-size:13.5px;color:#1B1916;">Guía visual "¿qué terminal tengo?"</strong><span style="font-family:'Barlow Condensed';font-weight:700;font-size:9.5px;letter-spacing:1px;background:#E5F0E7;color:#1F7A3D;padding:2px 7px;border-radius:4px;">V1</span></div><p style="font-family:'Barlow';font-size:12.5px;line-height:1.55;color:#4A4744;margin:0;">Fotos comparativas para quien no sabe la nomenclatura. Es la palanca más alta contra el error de origen — va en V1.</p></div>
+      <div class="avoid-break" style="background:#F4F2EC;border-radius:2px;padding:15px 17px;"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;"><strong style="font-family:'Barlow';font-size:13.5px;color:#1B1916;">Identificador por manguera</strong><span style="font-family:'Barlow Condensed';font-weight:700;font-size:9.5px;letter-spacing:1px;background:#E5F0E7;color:#1F7A3D;padding:2px 7px;border-radius:4px;">V1</span></div><p style="font-family:'Barlow';font-size:12.5px;line-height:1.55;color:#4A4744;margin:0;">"Del cargador frontal" — orienta al cliente que recibe 4 mangueras y al taller. Campo opcional, costo casi nulo.</p></div>
+      <div class="avoid-break" style="background:#F4F2EC;border-radius:2px;padding:15px 17px;"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;"><strong style="font-family:'Barlow';font-size:13.5px;color:#1B1916;">Adjuntar foto de referencia</strong><span style="font-family:'Barlow Condensed';font-weight:700;font-size:9.5px;letter-spacing:1px;background:#FBF1D9;color:#8A6D08;padding:2px 7px;border-radius:4px;">V1.x</span></div><p style="font-family:'Barlow';font-size:12.5px;line-height:1.55;color:#4A4744;margin:0;">Foto de la manguera vieja o la máquina junto al pedido. Cubre el caso "reproducir la rota": Patricia y Maxi confirman visualmente.</p></div>
+      <div class="avoid-break" style="background:#F4F2EC;border-radius:2px;padding:15px 17px;"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;"><strong style="font-family:'Barlow';font-size:13.5px;color:#1B1916;">Ángulo de terminales acodados</strong><span style="font-family:'Barlow Condensed';font-weight:700;font-size:9.5px;letter-spacing:1px;background:#ECE9E2;color:#68686A;padding:2px 7px;border-radius:4px;">V2</span></div><p style="font-family:'Barlow';font-size:12.5px;line-height:1.55;color:#4A4744;margin:0;">Orientación relativa A↔B para codos 45°/90°. Solo si el taller la necesita; añade complejidad — se evalúa para V2.</p></div>
+    </div>
+
+    <div class="avoid-break" style="border-left:3px solid #B8860B;background:#FBF1D9;padding:14px 18px;border-radius:0 2px 2px 0;margin-top:18px;">
+      <p style="font-family:'Barlow';font-size:13px;line-height:1.6;color:#34302B;margin:0;">
+        <strong>Disciplina de alcance:</strong> "mil noes por cada sí". Estas son oportunidades, no requisitos. V1 hace impecablemente
+        las 4 decisiones + ficha. Lo demás se prioriza con Metcar según valor real, no por completismo.
+      </p>
+    </div>
+  </div>
+
+  <!-- ░░░ 23 · RENDIMIENTO ░░░ -->
+  <div class="page" data-screen-label="23 Rendimiento">
+    <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 6px;">
+      <span style="font-family:'Bebas Neue';font-size:46px;line-height:0.8;color:#B83214;">23</span>
+      <h2 style="font-family:'Bebas Neue';font-weight:400;font-size:36px;line-height:1;letter-spacing:0.5px;color:#1B1916;margin:0;">Estrategia de rendimiento</h2>
+    </div>
+    <div style="height:2px;background:#B83214;width:100%;margin:0 0 22px;"></div>
+
+    <p style="font-family:'Barlow';font-size:14.5px;line-height:1.64;color:#34302B;margin:0 0 16px;">
+      El usuario está en un taller del interior con red móvil variable. <strong>Velocidad = confianza.</strong> El rendimiento no es
+      optimización tardía: es un requisito de producto.
+    </p>
+
+    <ul style="margin:0 0 18px;padding-left:20px;font-family:'Barlow';font-size:13.5px;line-height:1.7;color:#34302B;">
+      <li><strong>Assets WebP</strong> comprimidos, tamaños responsivos (<code style="font-family:'JetBrains Mono';font-size:11px;">srcset</code>). Sin librerías 3D pesadas.</li>
+      <li><strong>Carga progresiva:</strong> primero el esquema (instantáneo, SVG/CSS), luego la imagen realista. La herramienta es usable antes de que cargue la foto.</li>
+      <li><strong>Lazy-load</strong> de la galería de terminales: solo se cargan las miniaturas visibles.</li>
+      <li><strong>Precarga inteligente</strong> de las imágenes del terminal probable (misma medida) mientras el usuario elige el largo.</li>
+      <li><strong>Degradación elegante:</strong> si una imagen falla, el esquema cotado cubre la función. Nunca pantalla rota.</li>
+      <li><strong>Estado en cliente</strong> (sin round-trips por cada cambio): la UI responde al instante, el backend solo entra al cotizar.</li>
+      <li><strong>Sin layout shift:</strong> contenedores con tamaño reservado para imágenes (evita saltos al cargar).</li>
+    </ul>
+
+    <div class="avoid-break" style="background:#1B1916;border-radius:2px;padding:18px 22px;">
+      <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;color:#F5C518;margin-bottom:8px;">PRESUPUESTO DE RENDIMIENTO (objetivo)</div>
+      <div style="display:flex;gap:28px;flex-wrap:wrap;">
+        <div><span style="font-family:'Bebas Neue';font-size:30px;color:#fff;">&lt;2,5s</span><div style="font-family:'Barlow';font-size:11px;color:rgba(255,255,255,0.5);">interactivo en 4G</div></div>
+        <div><span style="font-family:'Bebas Neue';font-size:30px;color:#fff;">&lt;200KB</span><div style="font-family:'Barlow';font-size:11px;color:rgba(255,255,255,0.5);">primer render (sin fotos)</div></div>
+        <div><span style="font-family:'Bebas Neue';font-size:30px;color:#fff;">0</span><div style="font-family:'Barlow';font-size:11px;color:rgba(255,255,255,0.5);">recargas entre decisiones</div></div>
+        <div><span style="font-family:'Bebas Neue';font-size:30px;color:#fff;">60fps</span><div style="font-family:'Barlow';font-size:11px;color:rgba(255,255,255,0.5);">al estirar el largo</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ░░░ 24 · ESCALABILIDAD ░░░ -->
+  <div class="page" data-screen-label="24 Escalabilidad">
+    <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 6px;">
+      <span style="font-family:'Bebas Neue';font-size:46px;line-height:0.8;color:#B83214;">24</span>
+      <h2 style="font-family:'Bebas Neue';font-weight:400;font-size:36px;line-height:1;letter-spacing:0.5px;color:#1B1916;margin:0;">Escalabilidad futura</h2>
+    </div>
+    <div style="height:2px;background:#B83214;width:100%;margin:0 0 22px;"></div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+      <div>
+        <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#B83214;margin-bottom:8px;">Escala de catálogo</div>
+        <ul style="margin:0 0 16px;padding-left:18px;font-family:'Barlow';font-size:13px;line-height:1.6;color:#34302B;">
+          <li>Nuevo tipo de manguera o terminal = <strong>fila de datos + 1 imagen</strong>. Cero código.</li>
+          <li>El front es agnóstico al contenido: renderiza lo que el catálogo le da.</li>
+          <li>Compatibilidades crecen vía admin, no vía deploy.</li>
+        </ul>
+        <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#B83214;margin-bottom:8px;">Escala de funcionalidad</div>
+        <ul style="margin:0;padding-left:18px;font-family:'Barlow';font-size:13px;line-height:1.6;color:#34302B;">
+          <li>Precios al cliente logueado (V2) — solo activar render, ya hay lugar.</li>
+          <li>Visor 3D real reemplaza Zona A sin tocar el flujo.</li>
+          <li>Más parámetros (ángulo, protección espiral) = secciones nuevas en el acordeón.</li>
+        </ul>
+      </div>
+      <div>
+        <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#B83214;margin-bottom:8px;">Escala de mercado</div>
+        <ul style="margin:0 0 16px;padding-left:18px;font-family:'Barlow';font-size:13px;line-height:1.6;color:#34302B;">
+          <li><strong>Multi-idioma</strong> (AR/BR): textos externalizados desde el día uno.</li>
+          <li>Unidades configurables (pulgadas/mm, m/cm/ft) por región.</li>
+        </ul>
+        <div class="avoid-break" style="background:#1B1916;border-radius:2px;padding:16px 18px;">
+          <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;color:#F5C518;margin-bottom:6px;">PRINCIPIO DE ESCALA</div>
+          <p style="font-family:'Barlow';font-size:12.5px;line-height:1.55;color:rgba(255,255,255,0.72);margin:0;">Lo que cambia (catálogo, compatibilidades, idiomas, precios) vive en <strong style="color:#fff;">datos</strong>. Lo que es estable (el flujo de 4 decisiones) vive en <strong style="color:#fff;">código</strong>. Crecer no debería requerir reprogramar.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ░░░ 25 · BACKEND ░░░ -->
+  <div class="page" data-screen-label="25 Backend">
+    <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 6px;">
+      <span style="font-family:'Bebas Neue';font-size:46px;line-height:0.8;color:#B83214;">25</span>
+      <h2 style="font-family:'Bebas Neue';font-weight:400;font-size:36px;line-height:1;letter-spacing:0.5px;color:#1B1916;margin:0;">Integración con backend</h2>
+    </div>
+    <div style="height:2px;background:#B83214;width:100%;margin:0 0 22px;"></div>
+
+    <p style="font-family:'Barlow';font-size:14.5px;line-height:1.64;color:#34302B;margin:0 0 16px;">
+      El front se construye <strong>frontend-first</strong> contra una interfaz de datos clara, para que conectar el backend (con Claude
+      Code) sea enchufar, no reescribir. Tres puntos de contacto:
+    </p>
+
+    <pre style="font-family:'JetBrains Mono',monospace;font-size:10.5px;line-height:1.6;background:#131110;color:#D8D4CC;padding:18px 20px;border-radius:3px;overflow-x:auto;margin:0 0 16px;">// 1. CARGA — el front pide el catálogo configurable
+GET /api/config/catalog
+  → { hoseTypes[], gauges[], fittings[], compatibility[] }
+
+// 2. STOCK — disponibilidad en vivo (no bloqueante)
+GET /api/config/availability?ref=MC-H2-12-0250-…  → { inStock }
+
+// 3. ENVÍO — al carrito / cotización (revalida compatibilidad)
+POST /api/cart/items   { configuredHose }  → { itemId }</pre>
+
+    <ul style="margin:0;padding-left:20px;font-family:'Barlow';font-size:13.5px;line-height:1.7;color:#34302B;">
+      <li>Mientras no haya backend, estos endpoints se <strong>mockean</strong> con datos de ejemplo. La UI no nota la diferencia.</li>
+      <li>La <strong>compatibilidad</strong> se resuelve en cliente (rápida) y se revalida <strong>dentro</strong> del POST al carrito — sin endpoint de validación aparte.</li>
+      <li>El payload del ítem es exactamente el objeto <code style="font-family:'JetBrains Mono';font-size:11px;">config</code> de §06 + el <code style="font-family:'JetBrains Mono';font-size:11px;">refCode</code>.</li>
+      <li><strong>Sin lógica de precios en el front.</strong> El precio nace en el panel de Patricia, nunca viaja al cliente en V1.</li>
+    </ul>
+  </div>
+
+  <!-- ░░░ 26 · CATÁLOGO ░░░ -->
+  <div class="page" data-screen-label="26 Catálogo">
+    <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 6px;">
+      <span style="font-family:'Bebas Neue';font-size:46px;line-height:0.8;color:#B83214;">26</span>
+      <h2 style="font-family:'Bebas Neue';font-weight:400;font-size:36px;line-height:1;letter-spacing:0.5px;color:#1B1916;margin:0;">Integración con catálogo y productos</h2>
+    </div>
+    <div style="height:2px;background:#B83214;width:100%;margin:0 0 22px;"></div>
+
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div class="avoid-break" style="border:0.5px solid rgba(27,25,22,0.12);border-radius:2px;padding:15px 18px;">
+        <strong style="font-family:'Barlow';font-size:14px;color:#1B1916;">Entrada desde una ficha de producto</strong>
+        <p style="font-family:'Barlow';font-size:13px;line-height:1.6;color:#34302B;margin:6px 0 0;">Si el cliente mira "manguera 2 mallas 1/2"" en el catálogo, el botón "Configurar a medida" abre el configurador con <strong>tipo y medida pre-cargados</strong>. Arranca en el paso 2.</p>
+      </div>
+      <div class="avoid-break" style="border:0.5px solid rgba(27,25,22,0.12);border-radius:2px;padding:15px 18px;">
+        <strong style="font-family:'Barlow';font-size:14px;color:#1B1916;">Salida hacia el carrito unificado</strong>
+        <p style="font-family:'Barlow';font-size:13px;line-height:1.6;color:#34302B;margin:6px 0 0;">La manguera configurada convive en el mismo carrito con productos de stock y productos por metraje. Se muestra como ítem especial con su mini-esquema y código de referencia.</p>
+      </div>
+      <div class="avoid-break" style="border:0.5px solid rgba(27,25,22,0.12);border-radius:2px;padding:15px 18px;">
+        <strong style="font-family:'Barlow';font-size:14px;color:#1B1916;">Fuente de datos compartida</strong>
+        <p style="font-family:'Barlow';font-size:13px;line-height:1.6;color:#34302B;margin:6px 0 0;">Tipos de manguera y terminales son <strong>productos del mismo catálogo</strong> que Patricia administra. El configurador no tiene su propia base: lee del catálogo + la matriz de compatibilidad (sección 7 y 12.2 de la especificación).</p>
+      </div>
+      <div class="avoid-break" style="border:0.5px solid rgba(27,25,22,0.12);border-radius:2px;padding:15px 18px;">
+        <strong style="font-family:'Barlow';font-size:14px;color:#1B1916;">Stock e imágenes reutilizadas</strong>
+        <p style="font-family:'Barlow';font-size:13px;line-height:1.6;color:#34302B;margin:6px 0 0;">Las fotos de punteros del catálogo <strong>son las mismas</strong> que componen la visualización 2.5D. Un solo activo, dos usos: ficha de producto y configurador. Cero duplicación.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ░░░ 27 · WIREFRAMES ░░░ -->
+  <div class="page" data-screen-label="27 Wireframes">
+    <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 6px;">
+      <span style="font-family:'Bebas Neue';font-size:46px;line-height:0.8;color:#B83214;">27</span>
+      <h2 style="font-family:'Bebas Neue';font-weight:400;font-size:36px;line-height:1;letter-spacing:0.5px;color:#1B1916;margin:0;">Wireframes conceptuales</h2>
+    </div>
+    <div style="height:2px;background:#B83214;width:100%;margin:0 0 18px;"></div>
+    <p style="font-family:'Barlow';font-size:13px;line-height:1.6;color:#68686A;margin:0 0 14px;font-style:italic;">Desktop y mobile de la vista de configuración están en §08 y §09; la ficha final en §18 y la orden de taller en §19. Aquí, el estado inicial (vacío) y la galería de terminales abierta.</p>
+
+    <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#B83214;margin-bottom:8px;">Estado inicial (config vacía)</div>
+    <pre style="font-family:'JetBrains Mono',monospace;font-size:10px;line-height:1.45;background:#131110;color:#D8D4CC;padding:16px 18px;border-radius:3px;overflow-x:auto;margin:0 0 18px;">┌──────────────────────────────────────┬───────────────────────┐
+│  ╔══════════════════════════════╗     │ ¹ La manguera        ▾ │ ◀ abierta
+│  ║  contorno punteado de hose   ║     │   ┌────┐┌────┐┌────┐  │
+│  ║  "Elegí el tipo para empezar"║     │   │2mal││4mal││alta│  │ ◀ OptionCards
+│  ╚══════════════════════════════╝     │   └────┘└────┘└────┘  │
+│   esquema base sin cotas              │ ² El largo          ⊘ │ ◀ bloqueada
+│                                       │ ³ Terminal A        ⊘ │
+│                                       │ ⁴ Terminal B        ⊘ │
+│                                       │ ─────────────────────  │
+│                                       │ Resumen: (vacío)       │
+│                                       │ [ REVISAR ] (off)      │
+└──────────────────────────────────────┴───────────────────────┘</pre>
+
+    <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#B83214;margin-bottom:8px;">Paso 3 — galería de terminales (filtrada por medida)</div>
+    <pre style="font-family:'JetBrains Mono',monospace;font-size:10px;line-height:1.45;background:#131110;color:#D8D4CC;padding:16px 18px;border-radius:3px;overflow-x:auto;margin:0;">│ ³ Terminal A — extremo izquierdo                          ▾  │
+│  Mostrando solo compatibles con 2 mallas · 1/2"             │
+│  ┌─────────┐ ┌─────────┐ ┌─────────┐ ┌─────────┐           │
+│  │ [foto]  │ │ [foto]  │ │ [foto]  │ │ [foto]  │           │
+│  │ BSP H   │ │ JIC M   │ │ JIC H   │ │ NPT M   │  ...scroll │
+│  │ 1/2" ✓  │ │ 1/2"    │ │ 1/2"    │ │ 1/2"    │           │
+│  └─────────┘ └─────────┘ └─────────┘ └─────────┘           │
+│  ¿No sabés cuál es? → [ Guía visual de terminales ]         │</pre>
+  </div>
+
+  <!-- ░░░ 28 · JUSTIFICACIÓN ░░░ -->
+  <div class="page" data-screen-label="28 Justificación">
+    <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 6px;">
+      <span style="font-family:'Bebas Neue';font-size:46px;line-height:0.8;color:#B83214;">28</span>
+      <h2 style="font-family:'Bebas Neue';font-weight:400;font-size:36px;line-height:1;letter-spacing:0.5px;color:#1B1916;margin:0;">Justificación de decisiones clave</h2>
+    </div>
+    <div style="height:2px;background:#B83214;width:100%;margin:0 0 22px;"></div>
+
+    <div style="display:flex;flex-direction:column;gap:14px;">
+      <div class="avoid-break">
+        <strong style="font-family:'Barlow';font-size:14.5px;color:#1B1916;">① Una pantalla, no un wizard.</strong>
+        <p style="font-family:'Barlow';font-size:13px;line-height:1.6;color:#34302B;margin:5px 0 0;">Un wizard fragmenta el contexto y se siente como formulario largo — justo lo prohibido. Una sola superficie con la manguera siempre presente da la sensación de control tipo Porsche y reduce la carga cognitiva. <em>Alternativa descartada: stepper de 5 páginas (lento, pierde contexto).</em></p>
+      </div>
+      <div class="avoid-break">
+        <strong style="font-family:'Barlow';font-size:14.5px;color:#1B1916;">② 4 decisiones, no 5 pasos.</strong>
+        <p style="font-family:'Barlow';font-size:13px;line-height:1.6;color:#34302B;margin:5px 0 0;">Tipo+medida se funden; "terminal B = A" elimina un paso para la mayoría. Menos pasos sin perder precisión. <em>Alternativa descartada: 5 pasos literales del brief (uno de ellos casi siempre vacío).</em></p>
+      </div>
+      <div class="avoid-break">
+        <strong style="font-family:'Barlow';font-size:14.5px;color:#1B1916;">③ 2.5D por capas, no 3D real.</strong>
+        <p style="font-family:'Barlow';font-size:13px;line-height:1.6;color:#34302B;margin:5px 0 0;">Mismo impacto visual con fotos reales, a una fracción del peso y del mantenimiento. Protege el caso de uso más frágil (mobile, red lenta, admin no técnico) sin cerrar la puerta al 3D futuro. <em>Alternativa descartada: WebGL (pesado, frágil en gama baja, difícil de mantener).</em></p>
+      </div>
+      <div class="avoid-break">
+        <strong style="font-family:'Barlow';font-size:14.5px;color:#1B1916;">④ Sin precios.</strong>
+        <p style="font-family:'Barlow';font-size:13px;line-height:1.6;color:#34302B;margin:5px 0 0;">Lo exige el modelo de negocio (multiplicadores por cliente, cotización manual). Mostrar precio no solo es contrario a la especificación: comprometería la confianza y la operativa. <em>Corrige la referencia visual provista.</em></p>
+      </div>
+      <div class="avoid-break">
+        <strong style="font-family:'Barlow';font-size:14.5px;color:#1B1916;">⑤ El largo es "punta a punta".</strong>
+        <p style="font-family:'Barlow';font-size:13px;line-height:1.6;color:#34302B;margin:5px 0 0;">Es la medida que el cliente puede tomar físicamente con la manguera vieja. Declararlo explícito elimina la ambigüedad de fabricación más cara. <em>Sujeto a confirmación del taller (§A).</em></p>
+      </div>
+      <div class="avoid-break">
+        <strong style="font-family:'Barlow';font-size:14.5px;color:#1B1916;">⑥ La ficha final ES la orden de taller.</strong>
+        <p style="font-family:'Barlow';font-size:13px;line-height:1.6;color:#34302B;margin:5px 0 0;">Un solo artefacto, dos lecturas. Garantiza que lo que el cliente confirma sea exactamente lo que Maxi fabrica. Cero traducción, cero re-pregunta por WhatsApp — el objetivo central del proyecto.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ░░░ A · PREGUNTAS PENDIENTES ░░░ -->
+  <div class="page" data-screen-label="A Preguntas">
+    <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 6px;">
+      <span style="font-family:'Bebas Neue';font-size:46px;line-height:0.8;color:#B83214;">A</span>
+      <h2 style="font-family:'Bebas Neue';font-weight:400;font-size:36px;line-height:1;letter-spacing:0.5px;color:#1B1916;margin:0;">Preguntas pendientes</h2>
+    </div>
+    <div style="height:2px;background:#B83214;width:100%;margin:0 0 22px;"></div>
+    <p style="font-family:'Barlow';font-size:14px;line-height:1.6;color:#34302B;margin:0 0 18px;">Lo que hay que cerrar con Metcar / el taller <strong>antes</strong> de empezar a codear. Cada una tiene una recomendación por defecto para no frenar.</p>
+
+    <div style="display:flex;flex-direction:column;gap:11px;">
+      <div class="avoid-break" style="border-left:3px solid #B83214;background:#F6E4DF;padding:13px 16px;border-radius:0 2px 2px 0;"><strong style="font-family:'Barlow';font-size:13.5px;color:#1B1916;">Q1 · ¿El largo es punta a punta o solo cuerpo?</strong><p style="font-family:'Barlow';font-size:12.5px;line-height:1.55;color:#34302B;margin:4px 0 0;">Crítico para Maxi. <strong>Default propuesto:</strong> punta a punta. Confirmar con el taller.</p></div>
+      <div class="avoid-break" style="border-left:3px solid #B8860B;background:#FBF1D9;padding:13px 16px;border-radius:0 2px 2px 0;"><strong style="font-family:'Barlow';font-size:13.5px;color:#1B1916;">Q2 · ¿Importa la orientación/ángulo entre terminales acodados?</strong><p style="font-family:'Barlow';font-size:12.5px;line-height:1.55;color:#34302B;margin:4px 0 0;">Relevante para codos 45°/90°. <strong>Default:</strong> fuera de V1; capturar como nota libre. Validar.</p></div>
+      <div class="avoid-break" style="border-left:3px solid #B8860B;background:#FBF1D9;padding:13px 16px;border-radius:0 2px 2px 0;"><strong style="font-family:'Barlow';font-size:13.5px;color:#1B1916;">Q3 · ¿Qué unidades usan los clientes? (m / cm, pulgadas / mm)</strong><p style="font-family:'Barlow';font-size:12.5px;line-height:1.55;color:#34302B;margin:4px 0 0;"><strong>Default:</strong> largo en metros (con cm), diámetro en pulgadas. Confirmar para el interior.</p></div>
+      <div class="avoid-break" style="border-left:3px solid #B8860B;background:#FBF1D9;padding:13px 16px;border-radius:0 2px 2px 0;"><strong style="font-family:'Barlow';font-size:13.5px;color:#1B1916;">Q4 · ¿Largo mínimo y máximo fabricables?</strong><p style="font-family:'Barlow';font-size:12.5px;line-height:1.55;color:#34302B;margin:4px 0 0;">Para validar rango. <strong>Default tentativo:</strong> 0,2 m – 30 m. Pedir reales.</p></div>
+      <div class="avoid-break" style="border-left:3px solid #2A5C8A;background:#E3ECF4;padding:13px 16px;border-radius:0 2px 2px 0;"><strong style="font-family:'Barlow';font-size:13.5px;color:#1B1916;">Q5 · ¿Listado real de tipos, medidas y terminales del catálogo?</strong><p style="font-family:'Barlow';font-size:12.5px;line-height:1.55;color:#34302B;margin:4px 0 0;">Necesario para datos reales. <strong>Mientras tanto:</strong> mock representativo (§B).</p></div>
+      <div class="avoid-break" style="border-left:3px solid #2A5C8A;background:#E3ECF4;padding:13px 16px;border-radius:0 2px 2px 0;"><strong style="font-family:'Barlow';font-size:13.5px;color:#1B1916;">Q6 · ¿La matriz de compatibilidad ya existe o se arma desde cero?</strong><p style="font-family:'Barlow';font-size:12.5px;line-height:1.55;color:#34302B;margin:4px 0 0;"><strong>Default:</strong> pre-filtro automático por medida coincidente + ajustes finos en admin (sección 7).</p></div>
+      <div class="avoid-break" style="border-left:3px solid #2A5C8A;background:#E3ECF4;padding:13px 16px;border-radius:0 2px 2px 0;"><strong style="font-family:'Barlow';font-size:13.5px;color:#1B1916;">Q7 · ¿Hay fotos de los terminales con ángulo/escala consistentes?</strong><p style="font-family:'Barlow';font-size:12.5px;line-height:1.55;color:#34302B;margin:4px 0 0;">Habilita el 2.5D. <strong>Si no:</strong> guía de fotografía + interim con esquema.</p></div>
+      <div class="avoid-break" style="border-left:3px solid #2A5C8A;background:#E3ECF4;padding:13px 16px;border-radius:0 2px 2px 0;"><strong style="font-family:'Barlow';font-size:13.5px;color:#1B1916;">Q8 · ¿Cantidad máxima por configuración y por pedido?</strong><p style="font-family:'Barlow';font-size:12.5px;line-height:1.55;color:#34302B;margin:4px 0 0;"><strong>Default:</strong> sin tope duro; cantidades altas se marcan para revisión de Patricia.</p></div>
+    </div>
+  </div>
+
+  <!-- ░░░ B · MODELO DE DATOS ░░░ -->
+  <div class="page" data-screen-label="B Modelo de datos">
+    <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 6px;">
+      <span style="font-family:'Bebas Neue';font-size:46px;line-height:0.8;color:#B83214;">B</span>
+      <h2 style="font-family:'Bebas Neue';font-weight:400;font-size:36px;line-height:1;letter-spacing:0.5px;color:#1B1916;margin:0;">Modelo de datos propuesto</h2>
+    </div>
+    <div style="height:2px;background:#B83214;width:100%;margin:0 0 22px;"></div>
+    <p style="font-family:'Barlow';font-size:14px;line-height:1.6;color:#34302B;margin:0 0 16px;">Contrato para el handoff a backend (Claude Code). El front se construye contra estas formas; el backend las implementa.</p>
+
+    <pre style="font-family:'JetBrains Mono',monospace;font-size:10px;line-height:1.55;background:#131110;color:#D8D4CC;padding:18px 20px;border-radius:3px;overflow-x:auto;margin:0 0 14px;">HoseType   { id, name, sae, gauges:[gaugeId], bodyImageByGauge:{} }
+Gauge      { id, label:'1/2"', mm, inch }
+Fitting    { id, name:'BSP Hembra', code:'TF-BSPF-12', type:'BSP',
+             gender:'F', gaugeId, angle:0|45|90, image, refToken:'BSPF' }
+Compatibility { hoseTypeId, gaugeId, fittingId, allowed:true }
+
+ConfiguredHose {            // ← el ítem que va al carrito
+  refCode,                  // 'MC-H2-12-0250-BSPF-JICM' (determinista)
+  hose:   { typeId, gaugeId },
+  length: { value:2.5, unit:'m', measureMode:'overall' },
+  endA:   { fittingId },
+  endB:   { sameAsA:false, fittingId },
+  qty:    1,
+  clientLabel:'cargador frontal',
+  attachments:[],           // fotos opcionales (oportunidad §22)
+  availabilitySnapshot:{ inStock:true }
+  // NOTA: sin campo de precio — V1 no maneja precios en cliente
+}</pre>
+
+    <div class="avoid-break" style="background:#F4F2EC;border-radius:2px;padding:14px 18px;">
+      <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#B83214;margin-bottom:6px;">Código de referencia (determinista)</div>
+      <p style="font-family:'Barlow';font-size:12.5px;line-height:1.55;color:#34302B;margin:0;"><code style="font-family:'JetBrains Mono';font-size:11px;">MC-{tipo}-{medida}-{largo}-{terminalA}-{terminalB}</code> — siempre el mismo para la misma config. Es una <strong>etiqueta humana</strong> (para WhatsApp y para buscar en el panel); la clave técnica que une cliente → ficha → orden → pedido es el <code style="font-family:'JetBrains Mono';font-size:11px;">id</code> del ítem. Codificar toda la spec en el string sería frágil al crecer el catálogo.</p>
+    </div>
+  </div>
+
+  <!-- ░░░ CIERRE ░░░ -->
+  <div class="page page--dark" data-screen-label="Cierre" style="background:#131110;">
+    <div style="height:2px;background:#B83214;margin:-68px -74px 48px;"></div>
+    <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#8A7010;margin-bottom:16px;">Fin del documento maestro</div>
+    <h2 style="font-family:'Bebas Neue';font-weight:400;font-size:46px;line-height:0.98;letter-spacing:0.5px;color:#fff;margin:0 0 20px;">Lo esencial, en una frase</h2>
+    <p style="font-family:'Barlow';font-size:18px;line-height:1.55;color:rgba(255,255,255,0.78);max-width:600px;margin:0 0 40px;">
+      Una sola pantalla donde el cliente <strong style="color:#fff;">arma su manguera viéndola</strong>, toma 4 decisiones sin
+      ambigüedad, y obtiene una <strong style="color:#F5C518;">ficha tan precisa que el taller la fabrica sin preguntar nada</strong>.
+      Mostrar más, hablar menos.
+    </p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:48px;">
+      <span style="display:inline-block;background:#0B0B0B;color:#F5C518;font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;padding:5px 11px;border-radius:4px;">4 DECISIONES</span>
+      <span style="display:inline-block;background:#0B0B0B;color:#F5C518;font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;padding:5px 11px;border-radius:4px;">2.5D POR CAPAS</span>
+      <span style="display:inline-block;background:#0B0B0B;color:#F5C518;font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;padding:5px 11px;border-radius:4px;">RESUMEN PERMANENTE</span>
+      <span style="display:inline-block;background:#0B0B0B;color:#F5C518;font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;padding:5px 11px;border-radius:4px;">FICHA = ORDEN DE TALLER</span>
+      <span style="display:inline-block;background:#0B0B0B;color:#F5C518;font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.5px;padding:5px 11px;border-radius:4px;">SIN PRECIOS</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;border-top:1px solid rgba(255,255,255,0.1);padding-top:20px;">
+      <div style="font-family:'Bebas Neue';font-size:24px;letter-spacing:1px;color:#fff;">MET<span style="color:#B83214;">C</span>AR</div>
+      <div style="font-family:'Barlow Condensed';font-weight:600;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#68686A;text-align:right;">Próximo paso: implementación frontend<br>del configurador con este documento como guía</div>
+    </div>
+  </div>
+
+  <!-- APPEND-HERE -->
+</div>
+
+</x-dc>
+</body>
+</html>

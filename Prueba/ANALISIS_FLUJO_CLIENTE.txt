@@ -1,0 +1,218 @@
+════════════════════════════════════════════════════════════════════════
+METCAR — ANÁLISIS DEL FLUJO DE COMPRA (recorrido como cliente)
+Fecha: 23-jun-2026
+Método: recorrí el sitio real interactuando con la UI (catálogo, configurador,
+carrito, envío de cotización, Mi cuenta, edición de pedido) y probando casos
+límite. Abajo: lo que funciona, las fricciones, los bugs y las recomendaciones.
+════════════════════════════════════════════════════════════════════════
+
+
+────────────────────────────────────────────────────────────────────────
+1. RESUMEN EN UNA LÍNEA
+────────────────────────────────────────────────────────────────────────
+El flujo general es claro, profesional y natural: armar pedido sin precios →
+cotización → pago → envío. La experiencia base está MUY bien resuelta. Pero hay
+3 fricciones importantes y varios detalles que conviene pulir antes de
+considerarlo "terminado". El caso límite que pediste (editar un pedido y
+agregar una manguera a medida nueva) HOY no se puede hacer — es el hallazgo #1.
+
+
+────────────────────────────────────────────────────────────────────────
+2. LO QUE FUNCIONA BIEN (no tocar)
+────────────────────────────────────────────────────────────────────────
+• Catálogo → agregar al carrito: instantáneo, con animación "voló al carrito",
+  badge que se actualiza, drawer lateral con el mini-pedido. Muy natural.
+• Quitar / cambiar cantidad: tanto en el drawer como en la página del carrito.
+  Mínimo 1, la papelera quita la línea. Dos mangueras a medida iguales NO se
+  borran juntas (cada línea tiene id único). Bien pensado.
+• Configurador de manguera a medida: excelente. Paso a paso (tipo, medida,
+  largo, terminal A, terminal B), vista previa, código generado, y agrega al
+  carrito con TODO el detalle. Es el corazón del producto y está sólido.
+• "Sin precios" comunicado con claridad: el cliente entiende que es cotización,
+  no e-commerce. El recuadro lo explica en cada paso.
+• Modal "Necesitás una cuenta" al cotizar: explica el porqué y aclara que el
+  pedido queda guardado. Buen momento para pedir el registro (no antes).
+• Escape por WhatsApp: "Cotizar por WhatsApp" no requiere cuenta. Buen plan B.
+• Envío de cotización: probado y FUNCIONA. Crea el pedido, lo guarda en el
+  historial, limpia el carrito y muestra "¡Pedido enviado!" con Nº de pedido.
+• Cotización del lado del cliente (lo nuevo): se ve clara, con líneas sin stock
+  en gris y total correcto. Aceptar / Editar / Rechazar bien diferenciados.
+
+
+────────────────────────────────────────────────────────────────────────
+3. FRICCIONES Y BUGS (ordenados por importancia)
+────────────────────────────────────────────────────────────────────────
+
+──────────────────────────────────────────
+[CRÍTICO #1] No se puede agregar una manguera a medida al EDITAR un pedido
+──────────────────────────────────────────
+Este es EXACTAMENTE el caso que planteaste.
+Situación: el cliente recibe la cotización, falta stock de un producto, y al
+editar el pedido quiere sumar una manguera a medida nueva.
+Qué pasa hoy: el editor de pedido (Mi cuenta) solo deja agregar productos de
+catálogo. Para mangueras a medida muestra un link "usá el configurador". Pero
+el configurador agrega al CARRITO (sessionStorage), NO a este pedido en
+edición. Resultado: terminaría con DOS pedidos separados (el que está editando
++ uno nuevo con la manguera). No hay forma de sumar un ítem configurado a un
+pedido existente.
+Impacto: alto. Es un caso real y frecuente (mangueras a medida son el producto
+estrella). Rompe la expectativa de "edito y vuelvo a cotizar todo junto".
+Solución propuesta: incrustar un mini-configurador dentro del editor de pedido
+(o abrirlo en un modal que, al terminar, agregue el ítem a ESTE pedido en vez
+de al carrito). Alternativa más simple de corto plazo: un botón "Agregar
+manguera a medida" que abra el configurador con un parámetro tipo
+?addToOrder=MC-XXXX y que al confirmar inserte la línea en ese pedido y vuelva
+a Mi cuenta. Hay que decidir el alcance.
+
+──────────────────────────────────────────
+[CRÍTICO #2] El stock del panel de Patricia NO se refleja en el catálogo del cliente
+──────────────────────────────────────────
+Situación: Patricia apaga el stock de un producto desde el panel (Catálogo).
+Qué pasa hoy: el catálogo público y el carrito leen datos ESTÁTICOS
+(catalog-data.js), no los cambios que hace el admin (mc_admin_catalog). O sea:
+Patricia marca "sin stock" y el cliente lo sigue viendo "En stock" y lo agrega
+igual. Son dos fuentes de verdad desconectadas.
+Impacto: medio-alto. El cliente arma pedidos con cosas que ya no hay, y recién
+se entera al recibir la cotización. Genera idas y vueltas evitables.
+Nota: en producción, con un backend único (la base de datos real), esto se
+resuelve solo porque catálogo y panel leerían lo mismo. En el prototipo están
+separados. Conviene al menos que el catálogo lea también mc_admin_catalog para
+que la demo sea coherente.
+
+──────────────────────────────────────────
+[CRÍTICO #3] "Guardar pedido" no guarda nada durable + carrito en sessionStorage
+──────────────────────────────────────────
+Dos problemas que se potencian:
+a) El carrito vive en sessionStorage → si el cliente cierra la pestaña antes de
+   cotizar, PIERDE todo el pedido. Un cliente que arma 10 ítems y vuelve mañana
+   no encuentra nada.
+b) El botón "Guardar pedido" promete justamente eso, pero por dentro solo
+   guarda la nota y muestra "Pedido guardado" (animación). No persiste el
+   carrito en ningún lado recuperable. Es una promesa que no se cumple.
+Impacto: medio-alto. Frustración y pérdida de pedidos en proceso.
+Solución: mover el carrito a localStorage (persiste entre sesiones/pestañas) y
+que "Guardar pedido" realmente guarde un borrador recuperable (por ej. para
+clientes logueados, un "pedido borrador" en su cuenta). Si no se va a
+implementar de verdad, sacar el botón para no engañar.
+
+
+──────────────────────────────────────────
+[MEDIO #4] Cotización con TODO sin stock muestra "Aceptar y pagar" un total de US$ 0
+──────────────────────────────────────────
+Situación: pedido de un solo producto sin stock (o todos sin stock). Patricia
+igual "envía" la cotización. El cliente ve total US$ 0,00.
+Qué pasa hoy: sigue apareciendo el botón "Aceptar y coordinar pago". Aceptar un
+pedido de $0 no tiene sentido.
+Solución: cuando el total es 0 / todo está excluido, ocultar "Aceptar y pagar"
+y dejar solo "Editar pedido" (y un mensaje tipo "No hay productos con stock,
+editá el pedido para continuar"). Es un ajuste chico.
+
+──────────────────────────────────────────
+[MEDIO #5] El envío de cotización depende 100% de un servicio de correo externo
+──────────────────────────────────────────
+El pedido se registra DESPUÉS de que el email externo (formsubmit.co) responde
+OK. Si ese servicio está caído o el cliente está sin señal, la cotización no se
+puede enviar y el pedido no se crea.
+Lo bueno: degrada bien — si falla, conserva el carrito y muestra error. No se
+pierde el pedido del carrito.
+Lo malo: el cliente no puede completar la compra hasta que el correo ande.
+Solución: en producción, guardar el pedido en la base PRIMERO y mandar el mail
+como notificación secundaria (que el pedido no dependa del mail). Dejar el
+WhatsApp como respaldo siempre visible.
+
+──────────────────────────────────────────
+[MEDIO #6] Cliente nuevo: el pedido queda "trabado" hasta validar la cuenta
+──────────────────────────────────────────
+Cliente nuevo cotiza → pedido en estado 1 (pendiente de validación). No avanza
+hasta que Patricia: (1) valida la cuenta y (2) cotiza. Son dos acciones
+manuales antes de que el cliente vea un precio.
+Impacto: medio. El primer pedido de cada cliente es el más lento — justo cuando
+peor impresión deja la demora.
+Solución: dejarlo así pero comunicar el tiempo esperado ("validamos tu cuenta
+en el día"), y/o permitir que Patricia valide + cotice en un solo paso desde la
+cola de acciones.
+
+──────────────────────────────────────────
+[MENOR #7] Falta el botón "Dejar reseña" para el cliente
+──────────────────────────────────────────
+Ya lo conversamos: el panel de Patricia espera y modera reseñas, pero el
+cliente no tiene dónde dejarla (ni en los pedidos entregados). Falta la puerta
+de entrada. (Pendiente de tu OK para implementarlo en pedidos completados.)
+
+──────────────────────────────────────────
+[MENOR #8] Editar un pedido no permite re-configurar una manguera a medida ya cargada
+──────────────────────────────────────────
+En el editor de pedido se puede cambiar cantidad o quitar una manguera a
+medida, pero no "abrir y reconfigurarla" (cambiar largo/terminal). En el
+CARRITO sí existe el botón "Editar" que la reabre en el configurador; en el
+pedido ya enviado, no. Relacionado con el crítico #1.
+
+──────────────────────────────────────────
+[MENOR #9] Detalles finos
+──────────────────────────────────────────
+• El catálogo no tiene un indicador de "ya está en tu pedido / cantidad" en la
+  tarjeta; hay que abrir el drawer para saberlo.
+• "A confirmar" (sin stock) en el carrito usa el mismo tono apagado que otras
+  etiquetas; podría destacarse un poco más para que el cliente lo note antes de
+  cotizar.
+• No hay límite/aviso al pedir cantidades enormes (tope técnico 999) — ok para
+  prototipo, pero conviene un aviso de "cantidades grandes: te contactamos".
+
+
+────────────────────────────────────────────────────────────────────────
+4. CASOS LÍMITE PROBADOS (qué pasó)
+────────────────────────────────────────────────────────────────────────
+✓ Agregar / quitar / re-agregar productos: OK, badge y drawer consistentes.
+✓ Armar manguera a medida y agregarla: OK, con todo el detalle y código.
+✓ Dos mangueras a medida iguales: NO se borran juntas (id de línea único). OK.
+✓ Cotizar sin estar logueado: abre modal de cuenta, preserva el pedido. OK.
+✓ Cotizar logueado: crea el pedido, limpia carrito, muestra Nº. OK.
+✓ Producto sin stock en el carrito (MC-TH-206): se resuelve como stock=false y
+  muestra "A confirmar". OK (aunque ver crítico #2 sobre la fuente del stock).
+✓ Cliente edita pedido y quita la línea sin stock → vuelve a cotización,
+  bitácora registra "Cliente editó el pedido…". OK (probado en la sesión
+  anterior).
+✗ Cliente edita pedido y quiere AGREGAR una manguera a medida nueva → NO se
+  puede (crítico #1).
+✗ Pedido de un solo producto sin stock → cotización US$ 0 con botón "Aceptar y
+  pagar" visible (medio #4).
+⚠ Cliente cierra la pestaña con el carrito armado → pierde el pedido
+  (crítico #3).
+
+
+────────────────────────────────────────────────────────────────────────
+5. RECOMENDACIONES PRIORIZADAS (qué atacar primero)
+────────────────────────────────────────────────────────────────────────
+PRIORIDAD 1 (rompen o frustran el flujo real):
+  1. Permitir agregar manguera a medida al editar un pedido (crítico #1).
+  2. Carrito en localStorage + que "Guardar pedido" guarde de verdad, o sacarlo
+     (crítico #3).
+  3. Conectar el stock del panel con el catálogo del cliente (crítico #2).
+
+PRIORIDAD 2 (pulido importante):
+  4. Ocultar "Aceptar y pagar" cuando la cotización queda en US$ 0 (medio #4).
+  5. En producción: guardar el pedido antes que el mail (medio #5).
+  6. Validar + cotizar en un paso para clientes nuevos (medio #6).
+
+PRIORIDAD 3 (completar la experiencia):
+  7. Botón "Dejar reseña" en pedidos entregados (menor #7).
+  8. Re-configurar manguera a medida desde el pedido (menor #8).
+  9. Indicador "en tu pedido" en las tarjetas del catálogo (menor #9).
+
+
+────────────────────────────────────────────────────────────────────────
+6. CONCLUSIÓN HONESTA
+────────────────────────────────────────────────────────────────────────
+La base es muy buena: un cliente entra, entiende rápido que es "pedí y te
+cotizamos", arma su pedido con comodidad (incluida la manguera a medida, que es
+lo más difícil y está muy logrado) y lo envía sin trabas. El recorrido se
+siente profesional.
+Lo que falta para que sea redondo es cerrar el ciclo de EDICIÓN (sobre todo
+poder sumar una manguera a medida a un pedido ya enviado) y darle solidez a la
+persistencia (no perder carritos). Esos dos puntos, más conectar el stock real,
+son los que más valor agregan ahora. El resto son ajustes finos.
+
+Nada se "rompió" de forma catastrófica durante las pruebas: el sistema no tira
+errores ni deja pedidos en estados imposibles. Las fricciones son de diseño de
+flujo, no de estabilidad.
+════════════════════════════════════════════════════════════════════════

@@ -1,0 +1,38 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@500;600;700&family=Barlow+Condensed:wght@500;700&display=swap');
+:root{--owh:#F4F2EC;--wht:#fff;--blk:#0B0B0B;--red:#B83214;--yel:#F5C518;--yel-dim:#8A7010;--txt:#1B1916;--txt2:#55524d;--txt3:#86827b;--bdr:rgba(27,25,22,.10);--fd:'Bebas Neue';--fb:'Barlow';--ft:'Barlow Condensed'}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--owh);font-family:var(--fb);padding:40px;display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap}
+.col-lbl{font-family:var(--ft);font-weight:700;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--txt3);margin-bottom:14px}
+/* CARD */
+.pc{width:266px;background:var(--wht);border:1px solid var(--bdr);border-radius:2px;overflow:hidden;display:flex;flex-direction:column;position:relative}
+.pc::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--red)}
+.pc-img{width:100%;height:140px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--bdr);position:relative;overflow:hidden}
+.pc-img--photo{background:linear-gradient(155deg,#ffffff 0%,#f4f2ec 100%)}
+.pc-photo{width:100%;height:100%;object-fit:contain;padding:12px;filter:drop-shadow(0 6px 13px rgba(0,0,0,.5))}
+.pc-stock{position:absolute;top:10px;left:10px;z-index:3;display:inline-flex;align-items:center;gap:6px;background:var(--blk);font-family:var(--ft);font-weight:700;font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;padding:4px 9px;border-radius:4px;color:var(--yel)}
+.pc-stock .dot{width:5px;height:5px;border-radius:50%;background:var(--yel)}
+.pc-body{padding:15px 16px 16px}
+.pc-cat{font-family:var(--ft);font-weight:700;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--red);margin-bottom:7px}
+.pc-name{font-family:var(--fb);font-weight:600;font-size:14px;line-height:1.3;color:var(--txt);margin-bottom:4px}
+.pc-code{font-family:var(--ft);font-weight:500;font-size:11px;color:var(--txt3);letter-spacing:1px;margin-bottom:10px}
+.pc-specs{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:14px}
+.pc-spec{background:var(--blk);font-family:var(--ft);font-weight:700;font-size:10.5px;color:var(--yel);letter-spacing:1px;padding:4px 9px;border-radius:4px;text-transform:uppercase}
+.pc-btn{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;border:1.5px solid var(--bdr);color:var(--txt);background:transparent;padding:9px;font-family:var(--ft);font-weight:700;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;border-radius:1px}
+/* comparacion fondo oscuro */
+.pc-img--dark{background:linear-gradient(150deg,#23211e 0%,#161412 70%,#0f0d0b 100%);position:relative}
+.pc-img--dark::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 32% 26%,rgba(245,197,24,.06),transparent 62%)}
+</style></head><body>
+<div><div class="col-lbl">Celda oscura modo-taller (recomendada)</div>
+<article class="pc"><div class="pc-img pc-img--dark"><span class="pc-stock"><span class="dot"></span>En stock</span><img class="pc-photo" src="../Prototipos/Mejores_Disenos/img/terminales/MC-TH-209.webp" alt="x"></div>
+<div class="pc-body"><div class="pc-cat">Terminales Hidráulicos</div><h3 class="pc-name">Terminal NPT 3/4" hembra giratoria · codo 90°</h3><div class="pc-code">MC-TH-209</div><div class="pc-specs"><span class="pc-spec">1"</span><span class="pc-spec">90°</span></div><button class="pc-btn">Agregar al pedido</button></div></article></div>
+
+<div><div class="col-lbl">Celda clara (alternativa)</div>
+<article class="pc"><div class="pc-img pc-img--photo"><span class="pc-stock"><span class="dot"></span>En stock</span><img class="pc-photo" src="../Prototipos/Mejores_Disenos/img/terminales/MC-TH-209.webp" alt="x"></div>
+<div class="pc-body"><div class="pc-cat">Terminales Hidráulicos</div><h3 class="pc-name">Terminal NPT 3/4" hembra giratoria · codo 90°</h3><div class="pc-code">MC-TH-209</div><div class="pc-specs"><span class="pc-spec">1"</span><span class="pc-spec">90°</span></div><button class="pc-btn">Agregar al pedido</button></div></article></div>
+
+<div style="display:none"><div class="col-lbl">x</div>
+<article class="pc"><div class="pc-img pc-img--dark"><span class="pc-stock"><span class="dot"></span>En stock</span><img class="pc-photo" src="../Prototipos/Mejores_Disenos/img/terminales/MC-TH-209.webp" alt="x"></div>
+<div class="pc-body"><div class="pc-cat">Terminales Hidráulicos</div><h3 class="pc-name">Terminal NPT 3/4" hembra giratoria · codo 90°</h3><div class="pc-code">MC-TH-209</div><div class="pc-specs"><span class="pc-spec">1"</span><span class="pc-spec">90°</span></div><button class="pc-btn">Agregar al pedido</button></div></article></div>
+</body></html>
