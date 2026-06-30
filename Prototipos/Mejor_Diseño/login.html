@@ -60,6 +60,7 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
   padding:12px 13px;font-family:var(--fb);font-size:14.5px;color:var(--txt);outline:none;transition:border-color var(--t1)}
 .field input::placeholder{color:#a8a39c}
 .field input:focus{border-color:var(--red)}
+.field input[aria-invalid="true"]{border-color:var(--red);box-shadow:0 0 0 2px rgba(184,50,20,.14)}
 
 .auth-err{display:none;background:rgba(184,50,20,.08);border-left:3px solid var(--red);border-radius:2px;
   padding:11px 13px;font-family:var(--fb);font-size:13px;color:#8a2410;margin-bottom:16px;line-height:1.45}
@@ -152,22 +153,29 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
   var form = document.getElementById('login-form');
   var err = document.getElementById('err');
   var btn = document.getElementById('submit');
-  function showErr(msg){ err.textContent = msg; err.classList.add('show'); }
-  function clearErr(){ err.classList.remove('show'); }
+  function showErr(msg, field){
+    err.textContent = msg; err.classList.add('show');
+    if(field){ field.setAttribute('aria-invalid','true'); try{ field.focus(); }catch(e){} }
+  }
+  function clearErr(){
+    err.classList.remove('show');
+    form.email.removeAttribute('aria-invalid'); form.pass.removeAttribute('aria-invalid');
+  }
 
   form.addEventListener('submit', async function(e){
     e.preventDefault();
     clearErr();
     var email = form.email.value.trim();
     var pass = form.pass.value;
-    if(!email || !pass){ return showErr('Completá tu correo y contraseña.'); }
+    if(!email || !pass){ return showErr('Completá tu correo y contraseña.', !email ? form.email : form.pass); }
     btn.disabled = true; var orig = btn.innerHTML; btn.textContent = 'Ingresando…';
     try{
       await MCAuth.login(email, pass);
       location.href = next;
     }catch(ex){
       btn.disabled = false; btn.innerHTML = orig;
-      showErr(ex.message || 'No se pudo iniciar sesión.');
+      form.pass.setAttribute('aria-invalid','true');
+      showErr(ex.message || 'No se pudo iniciar sesión.', form.email);
     }
   });
 })();

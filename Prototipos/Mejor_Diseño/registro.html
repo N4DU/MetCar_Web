@@ -65,6 +65,7 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
   padding:12px 13px;font-family:var(--fb);font-size:14.5px;color:var(--txt);outline:none;transition:border-color var(--t1)}
 .field input::placeholder{color:#a8a39c}
 .field input:focus,.field select:focus{border-color:var(--red)}
+.field input[aria-invalid="true"],.field select[aria-invalid="true"]{border-color:var(--red);box-shadow:0 0 0 2px rgba(184,50,20,.14)}
 .seg{display:flex;gap:8px}
 .seg-opt{flex:1;position:relative}
 .seg-opt input{position:absolute;opacity:0;inset:0;cursor:pointer}
@@ -249,8 +250,15 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
     ciudadSel.disabled = list.length === 0;
   });
 
-  function showErr(msg){ err.textContent = msg; err.classList.add('show'); if(err.scrollIntoView) err.scrollIntoView({block:'center',behavior:'smooth'}); }
-  function clearErr(){ err.classList.remove('show'); }
+  function showErr(msg, field){
+    err.textContent = msg; err.classList.add('show');
+    if(field){ field.setAttribute('aria-invalid','true'); try{ field.focus(); }catch(e){} }
+    else if(err.scrollIntoView){ err.scrollIntoView({block:'center',behavior:'smooth'}); }
+  }
+  function clearErr(){
+    err.classList.remove('show');
+    [form.nombre,form.email,form.tel,form.calle,form.depto,form.ciudad,form.pass,form.pass2].forEach(function(f){ if(f) f.removeAttribute('aria-invalid'); });
+  }
 
   form.addEventListener('submit', async function(e){
     e.preventDefault();
@@ -265,12 +273,12 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
       depto: form.depto.value.trim(),
       pass: form.pass.value,
     };
-    if(!d.nombre){ return showErr('Ingresá tu nombre o razón social.'); }
-    if(!/.+@.+\..+/.test(d.email)){ return showErr('Ingresá un correo electrónico válido.'); }
-    if(!d.depto){ return showErr('Elegí tu departamento.'); }
-    if(!d.ciudad){ return showErr('Elegí tu ciudad o localidad.'); }
-    if(d.pass.length < 6){ return showErr('La contraseña debe tener al menos 6 caracteres.'); }
-    if(d.pass !== form.pass2.value){ return showErr('Las contraseñas no coinciden.'); }
+    if(!d.nombre){ return showErr('Ingresá tu nombre o razón social.', form.nombre); }
+    if(!/.+@.+\..+/.test(d.email)){ return showErr('Ingresá un correo electrónico válido.', form.email); }
+    if(!d.depto){ return showErr('Elegí tu departamento.', form.depto); }
+    if(!d.ciudad){ return showErr('Elegí tu ciudad o localidad.', form.ciudad); }
+    if(d.pass.length < 6){ return showErr('La contraseña debe tener al menos 6 caracteres.', form.pass); }
+    if(d.pass !== form.pass2.value){ return showErr('Las contraseñas no coinciden.', form.pass2); }
 
     btn.disabled = true; var orig = btn.innerHTML; btn.textContent = 'Creando cuenta…';
     try{
