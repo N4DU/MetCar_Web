@@ -233,6 +233,7 @@
 
   function openDrawer() {
     _drawerTrigger = document.activeElement;
+    if (_drawerTrigger && _drawerTrigger.hasAttribute('data-open-cart')) _drawerTrigger.setAttribute('aria-expanded', 'true');
     ensureDrawer();
     renderDrawer();
     panelOpen = true;
@@ -254,6 +255,7 @@
     drawer.setAttribute('aria-hidden', 'true');
     document.documentElement.style.overflow = '';
     document.body.style.overflow = '';
+    if (_drawerTrigger && _drawerTrigger.hasAttribute('data-open-cart')) _drawerTrigger.setAttribute('aria-expanded', 'false');
     if (_drawerTrap) { _drawerTrap(); _drawerTrap = null; }
   }
 
