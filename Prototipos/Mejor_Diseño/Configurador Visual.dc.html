@@ -235,6 +235,25 @@
             </sc-for>
           </div>
         </div>
+
+        <!-- 06 ORIENTACION ENTRE EXTREMOS (solo con dos codos) -->
+        <sc-if value="{{ clockRelevant }}">
+          <div style="padding:20px 24px;border-top:1px solid rgba(27,25,22,.08)">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:4px">
+              <span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:#1B1916">06 · Orientación entre extremos</span>
+              <span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:.5px;color:#B83214">{{ clockDesc }}</span>
+            </div>
+            <p style="font-family:'Barlow';font-size:11.5px;color:rgba(27,25,22,.62);margin:0 0 12px;line-height:1.4">Cómo queda girado el codo B respecto del codo A, mirando la manguera por su eje.</p>
+            <div style="display:flex;align-items:center;gap:16px">
+              <div style="flex-shrink:0">{{ clockDiagram }}</div>
+              <div style="display:flex;flex-wrap:wrap;gap:7px;flex:1">
+                <sc-for list="{{ clockOpts }}" as="c" hint-placeholder-count="5">
+                  <button type="button" onClick="{{ c.onSelect }}" aria-pressed="{{ c.selected }}" aria-label="{{ c.aria }}" style="{{ c.style }}">{{ c.label }}</button>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </sc-if>
       </div>
 
       <!-- STICKY SUMMARY FOOTER -->
@@ -339,7 +358,7 @@ class Component extends DCLogic {
   state = {
     typeId:'h2', gaugeId:'g12', lengthValue:1, name:'',
     endAThread:'JIC', endAAngle:0, endBThread:'JIC', endBAngle:90,
-    qty:1, zoom:1, added:false, editingLine:null, menuOpen:false, cartN:0,
+    endBClock:0, qty:1, zoom:1, added:false, editingLine:null, menuOpen:false, cartN:0,
   };
 
   syncCart=()=>{ try{ this.setState({cartN: window.MCCart?MCCart.count():0}); }catch(e){} };
@@ -410,7 +429,10 @@ class Component extends DCLogic {
     if(f&&!f.angles.some(a=>a.id===cur))p['end'+end+'Angle']=f.angles[0].id;
     this.set(p);
   }
-  selectAngle(end,aid){this.set({['end'+end+'Angle']:aid});}
+  selectAngle(end,aid){const p={['end'+end+'Angle']:aid};if(aid===0&&end==='B')p.endBClock=0;this.set(p);}
+  selectClock(deg){this.set({endBClock:deg});}
+  // El clocking (orientación relativa) sólo tiene sentido cuando AMBOS extremos son codos.
+  clockRelevant(){return this.state.endAAngle!==0 && this.state.endBAngle!==0;}
 
   type(id){return this.catalog.hoseTypes.find(t=>t.id===id);}
   gauge(id){return this.catalog.gauges.find(g=>g.id===id);}
@@ -428,7 +450,8 @@ class Component extends DCLogic {
   refCode(){
     const s=this.state,t=this.type(s.typeId),g=this.gauge(s.gaugeId);
     const cm=this.lenCm();const len=cm!=null?String(Math.round(cm)).padStart(4,'0'):'····';
-    return `MC-${t?t.tok:'··'}-${g?g.code:'··'}-${len}-${this.endCode(s.endAThread,s.endAAngle)}-${this.endCode(s.endBThread,s.endBAngle)}`;
+    const clk=this.clockRelevant()&&(s.endBClock||0)!==0?`-R${s.endBClock}`:'';
+    return `MC-${t?t.tok:'··'}-${g?g.code:'··'}-${len}-${this.endCode(s.endAThread,s.endAAngle)}-${this.endCode(s.endBThread,s.endBAngle)}${clk}`;
   }
 
   onType=(id)=>{const t=this.type(id);const p={typeId:id};if(!t.gauges.includes(this.state.gaugeId))p.gaugeId=t.gauges[0];this.set(p);};
@@ -467,11 +490,12 @@ class Component extends DCLogic {
         `Largo: ${this.lenLabel()} · solo cuerpo`,
         `Terminal A: ${this.fitFull(s.endAThread,s.endAAngle)}`,
         `Terminal B: ${this.fitFull(s.endBThread,s.endBAngle)}`,
+        ...(this.clockRelevant()?[`Orientación A↔B: ${s.endBClock||0}°`]:[]),
         `Ref: ${this.refCode()}`,
       ],
       // selecciones completas — permiten volver a editar este ítem en el configurador
       config:{ typeId:s.typeId, gaugeId:s.gaugeId, lengthValue:s.lengthValue, lengthRaw:s.lengthRaw,
-        name:s.name, endAThread:s.endAThread, endAAngle:s.endAAngle, endBThread:s.endBThread, endBAngle:s.endBAngle, qty:s.qty },
+        name:s.name, endAThread:s.endAThread, endAAngle:s.endAAngle, endBThread:s.endBThread, endBAngle:s.endBAngle, endBClock:s.endBClock||0, qty:s.qty },
     };
     if(window.MCCart){
       if(s.editingLine) MCCart.remove(s.editingLine);   // si estábamos editando, reemplaza esa manguera
@@ -482,7 +506,7 @@ class Component extends DCLogic {
 
   waNumber(){return this.props.whatsapp||'59899414733';}
   waLink(){return 'https://wa.me/'+this.waNumber();}
-  shareWa=()=>{const s=this.state,t=this.type(s.typeId),g=this.gauge(s.gaugeId);const nm=s.name?`"${s.name}"\n`:'';const txt=encodeURIComponent(`Hola Metcar, quiero cotizar esta manguera:\n\n${nm}${t?t.name:''} ${g?g.label:''} · ${this.lenLabel()} (solo cuerpo)\nTerminal A: ${this.fitFull(s.endAThread,s.endAAngle)}\nTerminal B: ${this.fitFull(s.endBThread,s.endBAngle)}\nCantidad: ${s.qty}\nRef: ${this.refCode()}\n\n¡Gracias!`);window.open(`https://wa.me/${this.waNumber()}?text=${txt}`,'_blank');};
+  shareWa=()=>{const s=this.state,t=this.type(s.typeId),g=this.gauge(s.gaugeId);const nm=s.name?`"${s.name}"\n`:'';const txt=encodeURIComponent(`Hola Metcar, quiero cotizar esta manguera:\n\n${nm}${t?t.name:''} ${g?g.label:''} · ${this.lenLabel()} (solo cuerpo)\nTerminal A: ${this.fitFull(s.endAThread,s.endAAngle)}\nTerminal B: ${this.fitFull(s.endBThread,s.endBAngle)}${this.clockRelevant()?`\nOrientación A↔B: ${s.endBClock||0}°`:''}\nCantidad: ${s.qty}\nRef: ${this.refCode()}\n\n¡Gracias!`);window.open(`https://wa.me/${this.waNumber()}?text=${txt}`,'_blank');};
 
   thickness(){const g=this.gauge(this.state.gaugeId);const h=g?g.h:21;return 34+h*1.2;}
   hoseLenPx(){const cm=this.lenCm();const mn=this.minM()*100,mx=this.maxM()*100;if(cm==null)return 300;const t=Math.max(0,Math.min(1,(cm-mn)/(mx-mn)));return 190+Math.sqrt(t)*380;}
@@ -590,7 +614,8 @@ class Component extends DCLogic {
     const tf=Math.max(9,Math.min(15,T*0.25));
     const text=`<text x="${n2((Lx+Rx)/2)}" y="${n2(CY+tf*0.36)}" text-anchor="middle" fill="#F5C518" font-family="Barlow Condensed, sans-serif" font-weight="700" font-size="${tf.toFixed(1)}" letter-spacing="2" opacity=".95">${code}</text>`;
 
-    const fitting=(bx,dir,thr,ang)=>{
+    const fitting=(bx,dir,thr,ang,clock)=>{
+      const cf=Math.cos(clock||0);   // escorzo pseudo-3D del codo según la orientación relativa (0=arriba · 180=abajo · 90=de frente)
       const Fx=bx+dir*CF;
       // ── ferrule (casquillo de prensado): cilindro cromado con estrías en relieve ──
       const fh=T*1.16, fx0=Math.min(bx,Fx), fw=Math.abs(bx-Fx);
@@ -613,11 +638,15 @@ class Component extends DCLogic {
         part+=`<line x1="${n2(gx+dir*1.8)}" y1="${n2(CY-Tw*0.5)}" x2="${n2(gx+dir*1.8)}" y2="${n2(CY+Tw*0.5)}" stroke="rgba(255,255,255,.22)" stroke-width="1.1"/>`;
         endX=Fx+dir*TL; endY=CY; endAng=dir<0?Math.PI:0;
       } else {
-        let pts;
-        if(ang===45){const ax=Fx+dir*TL*0.5;pts=[[Fx,CY],[ax,CY],[ax+dir*TL*0.5*0.707,CY-TL*0.5*0.707]];}
-        else{const ax=Fx+dir*TL*0.42;pts=[[Fx,CY],[ax,CY],[ax,CY-TL*0.78]];}
+        // ax = vértice del codo · aa = avance sobre el eje · pv = brazo perpendicular (el que rota alrededor del eje)
+        let ax,aa,pv;
+        if(ang===45){ax=Fx+dir*TL*0.5; aa=TL*0.5*0.707; pv=TL*0.5*0.707;}
+        else{ax=Fx+dir*TL*0.42; aa=0; pv=TL*0.78;}
+        const tipX=ax+dir*aa, tipY=CY-pv*cf;     // el brazo perpendicular se escorza con cos(φ)
+        const pts=[[Fx,CY],[ax,CY],[tipX,tipY]];
         const end=pts[pts.length-1], prev=pts[pts.length-2];
-        endAng=Math.atan2(end[1]-prev[1],end[0]-prev[0]); endX=end[0]; endY=end[1];
+        const dx=end[0]-prev[0], dy=end[1]-prev[1];
+        endAng=(Math.hypot(dx,dy)<2)?(dir<0?Math.PI:0):Math.atan2(dy,dx); endX=end[0]; endY=end[1];
         const d='M'+pts.map(p=>n2(p[0])+' '+n2(p[1])).join('L');
         // cuerpo del codo + reflejo especular siguiendo la curva
         part=`<path d="${d}" fill="none" stroke="rgba(0,0,0,.28)" stroke-width="${n2(Tw+2)}" stroke-linecap="round" stroke-linejoin="round"/>`;
@@ -627,7 +656,9 @@ class Component extends DCLogic {
       return fr+ridges+part+this.hexNut(endX,endY,Nr,endAng);
     };
 
-    const svg=`<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" style="width:100%;height:100%;display:block">${defs}${shadow}${hose}${fitting(Lx,-1,s.endAThread,s.endAAngle)}${fitting(Rx,1,s.endBThread,s.endBAngle)}${text}</svg>`;
+    // Extremo A es la referencia (codo hacia arriba). Extremo B se clockea relativo a A sólo si ambos son codos.
+    const clkB=this.clockRelevant()?(s.endBClock||0)*Math.PI/180:0;
+    const svg=`<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" style="width:100%;height:100%;display:block">${defs}${shadow}${hose}${fitting(Lx,-1,s.endAThread,s.endAAngle,0)}${fitting(Rx,1,s.endBThread,s.endBAngle,clkB)}${text}</svg>`;
     return React.createElement('div',{style:{width:'100%',height:'100%'},dangerouslySetInnerHTML:{__html:svg}});
   }
 
@@ -637,6 +668,24 @@ class Component extends DCLogic {
     const m=map[ang];
     const svg=`<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="${m.d}"/><circle cx="${m.dot[0]}" cy="${m.dot[1]}" r="2" fill="${c}" stroke="none"/></svg>`;
     return React.createElement('span',{style:{display:'flex'},dangerouslySetInnerHTML:{__html:svg}});
+  }
+
+  // Diagrama de sección transversal (vista mirando por el eje de la manguera): A fijo arriba, B clockeado φ
+  clockDiagram(phi){
+    const cx=36,cy=36,R=23,rad=phi*Math.PI/180;
+    const ax=cx, ay=cy-R, bx=cx+R*Math.sin(rad), by=cy-R*Math.cos(rad);
+    const n=(v)=>v.toFixed(1);
+    const svg=`<svg width="72" height="72" viewBox="0 0 72 72" aria-hidden="true">`
+      +`<circle cx="${cx}" cy="${cy}" r="${R+3}" fill="#F8F6F1" stroke="rgba(27,25,22,.12)" stroke-width="1"/>`
+      +`<circle cx="${cx}" cy="${cy}" r="3" fill="rgba(27,25,22,.45)"/>`
+      +`<line x1="${cx}" y1="${cy}" x2="${ax}" y2="${ay}" stroke="rgba(27,25,22,.45)" stroke-width="2.4" stroke-linecap="round"/>`
+      +`<circle cx="${ax}" cy="${ay}" r="4.2" fill="#1B1916"/>`
+      +`<text x="${ax}" y="${ay-5}" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="9" fill="rgba(27,25,22,.55)">A</text>`
+      +`<line x1="${cx}" y1="${cy}" x2="${n(bx)}" y2="${n(by)}" stroke="#B83214" stroke-width="2.8" stroke-linecap="round"/>`
+      +`<circle cx="${n(bx)}" cy="${n(by)}" r="4.6" fill="#B83214"/>`
+      +`<text x="${n(bx)}" y="${n(by+(by<cy?-5:11))}" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-weight="700" font-size="9" fill="#B83214">B</text>`
+      +`</svg>`;
+    return React.createElement('span',{style:{display:'flex',flexShrink:0},dangerouslySetInnerHTML:{__html:svg}});
   }
 
   typeStyle(sel){return `display:flex;flex-direction:column;align-items:flex-start;text-align:left;padding:12px 13px;background:${sel?'#FCEFEA':'#fff'};border:1.5px solid ${sel?'#B83214':'rgba(27,25,22,.12)'};border-radius:3px;cursor:pointer;transition:all .15s ease`;}
@@ -671,6 +720,14 @@ class Component extends DCLogic {
       return (f?f.angles:[]).map(a=>({label:a.id?`${a.id}°`:'Recto', aria:`Orientación extremo ${end}: ${a.id?('codo '+a.id+' grados'):'recto'}`, icon:this.angleIcon(a.id,curAng===a.id), selected:curAng===a.id, onSelect:()=>this.selectAngle(end,a.id), style:this.angleStyle(curAng===a.id), labelStyle:this.angleLabelStyle(curAng===a.id)}));
     };
 
+    const clockRelevant=this.clockRelevant();
+    const clkVal=s.endBClock||0;
+    const clockOpts=[0,45,90,135,180].map(d=>({
+      label:d+'°', aria:`Orientación relativa entre extremos: ${d} grados`,
+      selected:clkVal===d, onSelect:()=>this.selectClock(d), style:this.chipStyle(clkVal===d),
+    }));
+    const clockDesc={0:'Mismo plano',45:'A 45°',90:'En cruz',135:'A 135°',180:'Opuestos'}[clkVal]||(clkVal+'°');
+
     const sliderMin=this.minM(), sliderMax=this.maxM();
     const sliderVal=s.lengthValue!=null?Math.max(sliderMin,Math.min(sliderMax,s.lengthValue)):sliderMin;
     const sp=((sliderVal-sliderMin)/(sliderMax-sliderMin)*100).toFixed(1);
@@ -696,6 +753,7 @@ class Component extends DCLogic {
       typeCards, gaugeChips,
       threadCardsA:threadCards('A'), threadCardsB:threadCards('B'),
       angleOptsA:angleOpts('A'), angleOptsB:angleOpts('B'),
+      clockRelevant, clockOpts, clockDesc, clockDiagram:this.clockDiagram(clkVal),
       aNameShort:aShort, bNameShort:bShort, copyAtoB:this.copyAtoB,
       lengthRaw:s.lengthRaw!=null?s.lengthRaw:this.fmt2(s.lengthValue), onLenInput:this.onLenInput, onLenBlur:this.onLenBlur,
       sliderMin, sliderMax, sliderVal, onSlider:this.onSlider, sliderStyle:`width:100%;--p:${sp}%`,
