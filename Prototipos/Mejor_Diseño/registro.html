@@ -47,7 +47,7 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 .auth-feat-ic{width:30px;height:30px;border:1px solid rgba(255,255,255,.16);border-radius:2px;flex-shrink:0;
   display:flex;align-items:center;justify-content:center;color:var(--yel)}
 .auth-feat-t{font-family:var(--ft);font-weight:700;font-size:13.5px;letter-spacing:.5px;color:rgba(255,255,255,.9);line-height:1.2;margin-bottom:2px}
-.auth-feat-s{font-family:var(--fb);font-size:12.5px;line-height:1.45;color:rgba(255,255,255,.45)}
+.auth-feat-s{font-family:var(--fb);font-size:12.5px;line-height:1.45;color:rgba(255,255,255,.58)}
 
 .auth-main{display:flex;align-items:flex-start;justify-content:center;padding:48px 40px;overflow-y:auto}
 .auth-card{width:100%;max-width:440px}
@@ -90,9 +90,13 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
   .auth-aside{display:none}
   .auth-main{padding:40px 24px}
 }
+.skip-link{position:absolute;top:-100%;left:0;background:#B83214;color:#fff;padding:10px 16px;font-family:sans-serif;font-weight:700;font-size:13px;letter-spacing:1px;text-transform:uppercase;z-index:10000;text-decoration:none;border-radius:0 0 3px 0;transition:top .1s}
+.skip-link:focus{top:0}
 </style>
 </head>
 <body>
+<a class="skip-link" href="#main-content">Saltar al contenido</a>
+<noscript><div style="background:#B83214;color:#fff;text-align:center;padding:12px 16px;font-family:sans-serif;font-size:14px;line-height:1.4;position:relative;z-index:9999"><strong>JavaScript deshabilitado.</strong> Metcar requiere JavaScript para funcionar. Habilitalo en tu navegador para continuar.</div></noscript>
 
 <nav class="auth-nav">
   <a href="metcar_homepage_v5.html"><img src="img/logoMetcar.webp" alt="Metcar"></a>
@@ -122,7 +126,7 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
     </div>
   </aside>
 
-  <main class="auth-main">
+  <main class="auth-main" id="main-content">
     <div class="auth-card">
       <h2>Crear cuenta</h2>
       <p class="sub">¿Ya tenés cuenta? <a id="link-login" href="login.html">Iniciá sesión</a></p>
