@@ -38,21 +38,22 @@
   function genId() { return 'L' + Date.now().toString(36) + '-' + (_seq++) + '-' + Math.floor(Math.random() * 1e6).toString(36); }
 
   /* ── Estado ──
+     Guardado en localStorage para que el pedido persista entre sesiones.
      Cada línea tiene un id ÚNICO propio. Quitar / editar usa ese id, nunca el
      code — así dos ítems con el mismo code (p. ej. dos mangueras a medida) no se
      borran juntos. read() asigna id a ítems viejos que no lo tengan (y lo persiste). */
   function read() {
     try {
-      var a = JSON.parse(sessionStorage.getItem(KEY) || '[]');
+      var a = JSON.parse(localStorage.getItem(KEY) || '[]');
       if (!Array.isArray(a)) return [];
       var changed = false;
       for (var i = 0; i < a.length; i++) { if (a[i] && !a[i].id) { a[i].id = genId(); changed = true; } }
-      if (changed) sessionStorage.setItem(KEY, JSON.stringify(a));
+      if (changed) localStorage.setItem(KEY, JSON.stringify(a));
       return a;
     } catch (e) { return []; }
   }
   function write(arr) {
-    sessionStorage.setItem(KEY, JSON.stringify(arr));
+    localStorage.setItem(KEY, JSON.stringify(arr));
     notify();
   }
   function notify() {
@@ -188,6 +189,21 @@
      DRAWER (mini-pedido)
      ════════════════════════════════════════════════════════ */
   var panelOpen = false, drawer = null, body = null;
+  var _drawerTrap = null, _drawerTrigger = null;
+  var FOCUSABLE = 'a[href],button:not([disabled]),input,textarea,select,[tabindex]:not([tabindex="-1"])';
+  function buildFocusTrap(container, trigger) {
+    function getFocusable() { return Array.from(container.querySelectorAll(FOCUSABLE)); }
+    var els = getFocusable(); if (els.length) els[0].focus();
+    function onTab(e) {
+      if (e.key !== 'Tab') return;
+      var items = getFocusable(); if (!items.length) return;
+      var idx = items.indexOf(document.activeElement);
+      if (e.shiftKey) { if (idx <= 0) { e.preventDefault(); items[items.length - 1].focus(); } }
+      else { if (idx === items.length - 1 || idx === -1) { e.preventDefault(); items[0].focus(); } }
+    }
+    container.addEventListener('keydown', onTab);
+    return function () { container.removeEventListener('keydown', onTab); if (trigger && trigger.focus) trigger.focus(); };
+  }
 
   var WA = (window.MC && window.MC.wa) || '59899414733';
 
@@ -216,6 +232,7 @@
   }
 
   function openDrawer() {
+    _drawerTrigger = document.activeElement;
     ensureDrawer();
     renderDrawer();
     panelOpen = true;
@@ -223,11 +240,11 @@
     drawer.setAttribute('aria-hidden', 'false');
     document.documentElement.style.overflow = 'hidden';
     document.body.style.overflow = 'hidden';
-    // destacar el recién agregado y traerlo a la vista (sin scrollIntoView)
     requestAnimationFrame(function () {
       var hot = body.querySelector('.mc-ci.is-new');
       if (hot) body.scrollTop = Math.max(0, hot.offsetTop - 12);
-      var cls = drawer.querySelector('[data-cart-close]');
+      var panel = drawer.querySelector('.mc-cart-panel');
+      if (panel) { if (_drawerTrap) _drawerTrap(); _drawerTrap = buildFocusTrap(panel, _drawerTrigger); }
     });
   }
   function closeDrawer() {
@@ -237,6 +254,7 @@
     drawer.setAttribute('aria-hidden', 'true');
     document.documentElement.style.overflow = '';
     document.body.style.overflow = '';
+    if (_drawerTrap) { _drawerTrap(); _drawerTrap = null; }
   }
 
   function onDrawerClick(e) {
@@ -301,10 +319,6 @@
       '</div>' +
       '<button class="mc-ci-rm" data-ci-rm="' + esc(it.line) + '" aria-label="Quitar del pedido"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M10 11v6M14 11v6"/></svg></button>' +
     '</div>';
-  }
-
-  function trashSVG() {
-    return '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg>';
   }
 
   function emptyHTML() {

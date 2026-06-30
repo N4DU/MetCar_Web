@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#131110">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23B83214'/><text x='16' y='23' text-anchor='middle' fill='%23fff' font-family='sans-serif' font-weight='bold' font-size='22'>M</text></svg>">
 <title>Catálogo · Metcar · Insumos Hidráulicos y Herramientas · Uruguay</title>
 <meta name="description" content="Catálogo completo de Metcar Uruguay: mangueras hidráulicas SAE, terminales, discos de corte, herramientas de torno, gatos hidráulicos y prensas. Envíos a todo Uruguay.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -229,6 +230,10 @@ a.crumb:hover{color:#fff}
 .pc-btn--cfg:hover{background:#9E2810;border-color:#9E2810}
 .pc-note{font-family:var(--ft);font-weight:500;font-size:10px;letter-spacing:.8px;
   text-transform:uppercase;color:var(--yel-dim);text-align:center}
+.pc-price{font-family:var(--ft);font-weight:600;font-size:10px;letter-spacing:.9px;
+  text-transform:uppercase;color:var(--txt3);margin-bottom:10px;
+  display:inline-flex;align-items:center;gap:6px}
+.pc-price svg{opacity:.55;flex-shrink:0}
 
 /* ══ LOAD MORE ══ */
 .loadmore{text-align:center;margin-top:36px}
@@ -291,21 +296,21 @@ a.crumb:hover{color:#fff}
 .foot-logo{display:flex;align-items:center;gap:8px;margin-bottom:14px}
 .foot-logo-img{height:30px;width:auto;display:block}
 .foot-tag{font-family:var(--fb);font-size:13px;line-height:1.6;
-  color:rgba(255,255,255,.38);max-width:220px;margin-bottom:20px}
+  color:rgba(255,255,255,.55);max-width:220px;margin-bottom:20px}
 .foot-col-title{font-family:var(--ft);font-weight:700;font-size:10px;
-  letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:18px}
+  letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.52);margin-bottom:18px}
 .foot-links{display:flex;flex-direction:column;gap:10px}
 .foot-link{font-family:var(--fb);font-weight:500;font-size:13px;
-  color:rgba(255,255,255,.52);cursor:pointer;transition:color var(--t1)}
+  color:rgba(255,255,255,.65);cursor:pointer;transition:color var(--t1)}
 .foot-link:hover{color:#fff}
 .foot-ci{margin-bottom:14px}
 .foot-clbl{font-family:var(--ft);font-weight:700;font-size:9px;letter-spacing:1.5px;
-  text-transform:uppercase;color:rgba(255,255,255,.22);margin-bottom:2px}
+  text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:2px}
 .foot-cval{font-family:var(--fb);font-size:13px;color:rgba(255,255,255,.55)}
 .foot-btm{max-width:var(--mw);margin:0 auto;display:flex;
   justify-content:space-between;align-items:center}
-.foot-copy{font-family:var(--ft);font-size:11px;color:rgba(255,255,255,.18);letter-spacing:.5px}
-.foot-made{font-family:var(--ft);font-size:11px;color:rgba(255,255,255,.12);letter-spacing:.5px}
+.foot-copy{font-family:var(--ft);font-size:11px;color:rgba(255,255,255,.38);letter-spacing:.5px}
+.foot-made{font-family:var(--ft);font-size:11px;color:rgba(255,255,255,.28);letter-spacing:.5px}
 
 /* ══ ANIMATIONS ══ */
 @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
@@ -465,7 +470,7 @@ a.crumb:hover{color:#fff}
     </nav>
     <div class="phead-row">
       <h1 class="phead-h1 anim">CATÁLOGO <span class="r">METCAR</span></h1>
-      <div class="phead-count anim" style="animation-delay:.08s"><b id="total-count">0</b> productos · Stock propio</div>
+      <div class="phead-count anim" style="animation-delay:.08s"><b id="total-count">0</b> productos · Stock propio · Precios por cotización</div>
     </div>
     <div class="search-wrap anim" style="animation-delay:.14s">
       <span class="search-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></span>
@@ -538,7 +543,7 @@ a.crumb:hover{color:#fff}
     <div>
       <div class="foot-logo"><a href="metcar_homepage_v5.html" style="display:flex;align-items:center"><img src="img/logoMetcar.webp" alt="Metcar" class="foot-logo-img"></a></div>
       <p class="foot-tag">Importación y distribución de insumos hidráulicos y herramientas industriales. Sarandí Grande, Uruguay.</p>
-      <div style="font-family:var(--ft);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2)">IMPORTADOR DIRECTO · DESDE 2014</div>
+      <div style="font-family:var(--ft);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.42)">IMPORTADOR DIRECTO · DESDE 2014</div>
     </div>
     <div>
       <div class="foot-col-title">Catálogo</div>
@@ -558,7 +563,7 @@ a.crumb:hover{color:#fff}
         <a class="foot-link" href="metcar_homepage_v5.html#cobertura">Giras mensuales</a>
         <a class="foot-link" href="Configurador Visual.dc.html">Configurador de mangueras</a>
         <a class="foot-link" href="metcar_homepage_v5.html#contacto">Contacto</a>
-        <a class="foot-link">Mi cuenta</a>
+        <a class="foot-link" href="mi-cuenta.html">Mi cuenta</a>
       </div>
     </div>
     <div>
@@ -767,6 +772,7 @@ function cardHTML(p, i, animFrom){
       <h3 class="pc-name" data-open="${p.code}" tabindex="0" role="button">${p.name}</h3>
       <div class="pc-code">${p.code}</div>
       <div class="pc-specs">${specs}</div>
+      <div class="pc-price"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>Precio por cotización</div>
       <div class="pc-foot">${note}${btn}</div>
     </div>
   </article>`;
@@ -968,6 +974,7 @@ function renderQV(){
       <div class="pc-code" style="margin-bottom:14px">${p.code}</div>
       <div class="pc-specs">${p.specs.map(s=>`<span class="pc-spec">${s}</span>`).join('')}</div>
       <div class="qv-rows">
+        <div class="qv-row"><span>Precio</span><b>Por cotización</b></div>
         <div class="qv-row"><span>Venta</span><b>${venta}</b></div>
         <div class="qv-row"><span>Disponibilidad</span><b>${p.stock?'En stock':'A confirmar'}</b></div>
         <div class="qv-row"><span>Marca</span><b>Metcar</b></div>
