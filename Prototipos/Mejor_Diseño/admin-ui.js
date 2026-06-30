@@ -320,7 +320,7 @@
       '<a class="back" data-back>'+ic('arrow')+' Volver a pedidos</a>'+
       '<div class="dt-head"><div><div class="vh-eyebrow">Pedido</div><h1 class="vh-title">'+esc(o.ref)+'</h1>'+
         '<div style="display:flex;align-items:center;gap:12px;margin-top:10px;flex-wrap:wrap"><span class="pill '+st.phase+'"><span class="d"></span>'+esc(st.full)+'</span><span class="t-mut">'+esc(fmtDateTime(o.createdAt))+'</span></div></div>'+
-        '<div style="display:flex;gap:8px;flex-wrap:wrap">'+nextBtn+'<a class="btn btn-wa" href="'+waLink(u.tel,waMsg)+'" target="_blank"><span>'+ic('wa')+'</span>WhatsApp</a><button class="btn btn-ghost btn-sm" data-print><span>'+ic('print')+'</span>Imprimir</button></div>'+
+        '<div style="display:flex;gap:8px;flex-wrap:wrap">'+nextBtn+'<a class="btn btn-wa" href="'+waLink(u.tel,waMsg)+'" target="_blank" rel="noopener noreferrer"><span>'+ic('wa')+'</span>WhatsApp</a><button class="btn btn-ghost btn-sm" data-print><span>'+ic('print')+'</span>Imprimir</button></div>'+
       '</div>'+
 
       (hasStockIssue?'<div class="notebox" style="background:rgba(245,197,24,.1);border:1px solid rgba(245,197,24,.35);margin-bottom:16px">'+ic('alert')+'<p><b>Atención:</b> este pedido tiene productos sin stock. Las líneas marcadas <b>“Sin stock”</b> quedan en gris y <b>no se suman</b> al total. El cliente verá esa cotización y podrá aceptar el resto o editar el pedido.</p></div>':'')+
@@ -557,7 +557,7 @@
       '<a class="back" data-back>'+ic('arrow')+' Volver a clientes</a>'+
       '<div class="dt-head"><div style="display:flex;align-items:center;gap:16px"><div class="sb-av" style="width:56px;height:56px;font-size:24px;background:'+(u.estado==='pendiente'?'var(--yel-dim)':'var(--red)')+'">'+esc(initials(u.nombre)||'·')+'</div>'+
         '<div><h1 class="vh-title">'+esc(u.nombre)+'</h1><div style="display:flex;align-items:center;gap:12px;margin-top:8px;flex-wrap:wrap">'+clientStateTag(u)+'<span class="t-mut">'+esc(u.email)+'</span></div></div></div>'+
-        '<div style="display:flex;gap:8px;flex-wrap:wrap">'+actions+'<a class="btn btn-wa" href="'+waLink(u.tel,waMsg)+'" target="_blank"><span>'+ic('wa')+'</span>WhatsApp</a></div></div>'+
+        '<div style="display:flex;gap:8px;flex-wrap:wrap">'+actions+'<a class="btn btn-wa" href="'+waLink(u.tel,waMsg)+'" target="_blank" rel="noopener noreferrer"><span>'+ic('wa')+'</span>WhatsApp</a></div></div>'+
 
       (u.motivoRechazo?'<div class="notebox intnote" style="margin-bottom:16px">'+ic('alert')+'<p><b>Motivo de rechazo:</b> '+esc(u.motivoRechazo)+'</p></div>':'')+
 
@@ -641,7 +641,7 @@
         '<p style="font-family:var(--fb);font-size:13.5px;line-height:1.6;color:var(--txt2);margin-bottom:'+(prods?'12px':'14px')+'">'+esc(c.mensaje)+'</p>'+
         (prods?'<div style="margin-bottom:14px"><div class="t-mut" style="margin-bottom:5px">Productos de interés:</div>'+prods+'</div>':'')+
         '<div style="display:flex;gap:8px;flex-wrap:wrap">'+
-          '<a class="btn btn-wa btn-sm" href="'+waLink(c.tel,waMsg)+'" target="_blank"><span>'+ic('wa')+'</span>Responder</a>'+
+          '<a class="btn btn-wa btn-sm" href="'+waLink(c.tel,waMsg)+'" target="_blank" rel="noopener noreferrer"><span>'+ic('wa')+'</span>Responder</a>'+
           (c.estado!=='proceso'&&c.estado!=='cerrada'?'<button class="btn btn-ghost btn-sm" data-proc="'+esc(c.id)+'">Marcar en proceso</button>':'')+
           (c.estado!=='cerrada'?'<button class="btn btn-ghost btn-sm" data-close-c="'+esc(c.id)+'">Cerrar consulta</button>':'<button class="btn btn-ghost btn-sm" data-reopen="'+esc(c.id)+'">Reabrir</button>')+
         '</div></div></div>';
