@@ -79,26 +79,26 @@ img{display:block;max-width:100%}
 .phead-in{max-width:var(--mw);margin:0 auto;position:relative}
 .crumbs{display:flex;align-items:center;gap:8px;font-family:var(--ft);font-weight:500;
   font-size:11px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:18px}
-.crumb{color:rgba(255,255,255,.35);transition:color var(--t1)}
+.crumb{color:rgba(255,255,255,.55);transition:color var(--t1)}
 a.crumb:hover{color:#fff}
-.crumb-sep{color:rgba(255,255,255,.18)}
-.crumb--on{color:rgba(255,255,255,.75)}
+.crumb-sep{color:rgba(255,255,255,.25)}
+.crumb--on{color:rgba(255,255,255,.85)}
 .phead-row{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:26px;flex-wrap:wrap}
 .phead-h1{font-family:var(--fd);font-size:clamp(36px,4.5vw,54px);line-height:.9;
   color:#fff;letter-spacing:.5px}
 .phead-h1 .r{color:var(--red)}
 .phead-count{font-family:var(--ft);font-weight:500;font-size:12px;letter-spacing:1.5px;
-  text-transform:uppercase;color:rgba(255,255,255,.35);padding-bottom:6px}
+  text-transform:uppercase;color:rgba(255,255,255,.55);padding-bottom:6px}
 .phead-count b{color:var(--yel);font-weight:700}
 
 /* Big search */
 .search-wrap{position:relative;max-width:640px}
 .search-ic{position:absolute;left:18px;top:50%;transform:translateY(-50%);
-  color:rgba(255,255,255,.35);pointer-events:none}
+  color:rgba(255,255,255,.52);pointer-events:none}
 .search-in{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.13);
   border-radius:2px;padding:16px 48px 16px 50px;font-family:var(--fb);font-weight:500;
   font-size:15px;color:#fff;outline:none;transition:border-color var(--t1),background var(--t1)}
-.search-in::placeholder{color:rgba(255,255,255,.32)}
+.search-in::placeholder{color:rgba(255,255,255,.48)}
 .search-in:focus{border-color:var(--red);background:rgba(255,255,255,.08)}
 .search-in::-webkit-search-cancel-button,.search-in::-webkit-search-decoration{-webkit-appearance:none;appearance:none;display:none}
 .search-clear{position:absolute;right:10px;top:50%;transform:translateY(-50%);
@@ -106,8 +106,8 @@ a.crumb:hover{color:#fff}
 .search-clear:hover{color:#fff}
 .search-clear.show{display:block}
 .search-hint{font-family:var(--ft);font-weight:500;font-size:11px;letter-spacing:1px;
-  text-transform:uppercase;color:rgba(255,255,255,.22);margin-top:10px}
-.search-hint b{color:rgba(255,255,255,.4);font-weight:500}
+  text-transform:uppercase;color:rgba(255,255,255,.48);margin-top:10px}
+.search-hint b{color:rgba(255,255,255,.65);font-weight:500}
 
 /* ══ CATEGORY BAR (sticky) ══ */
 .catbar{position:sticky;top:62px;z-index:150;background:var(--wht);
@@ -933,22 +933,40 @@ function showToast(html, sub){
 const $qv = document.getElementById('qv');
 let qvProduct = null, qvQty = 1;
 
+const FOCUSABLE_SEL = 'a[href],button:not([disabled]),input,textarea,select,[tabindex]:not([tabindex="-1"])';
+let _qvTrap = null, _qvTrigger = null;
+function buildFocusTrap(container, trigger){
+  const getFocusable = () => Array.from(container.querySelectorAll(FOCUSABLE_SEL));
+  const first = getFocusable()[0]; if(first) first.focus();
+  function onTab(e){
+    if(e.key !== 'Tab') return;
+    const els = getFocusable(); if(!els.length) return;
+    const idx = els.indexOf(document.activeElement);
+    if(e.shiftKey){ if(idx <= 0){ e.preventDefault(); els[els.length-1].focus(); } }
+    else { if(idx === els.length-1 || idx === -1){ e.preventDefault(); els[0].focus(); } }
+  }
+  container.addEventListener('keydown', onTab);
+  return () => { container.removeEventListener('keydown', onTab); if(trigger && trigger.focus) trigger.focus(); };
+}
+
 function openQV(code){
   const p = PRODUCTS.find(x=>x.code===code);
   if(!p) return;
+  _qvTrigger = document.activeElement;
   qvProduct = p; qvQty = 1;
   renderQV();
   $qv.classList.add('show');
   $qv.setAttribute('aria-hidden','false');
   document.body.style.overflow = 'hidden';
-  const c = $qv.querySelector('.qv-close');
-  if(c) c.focus();
+  const panel = $qv.querySelector('[role="dialog"]');
+  if(panel){ if(_qvTrap) _qvTrap(); _qvTrap = buildFocusTrap(panel, _qvTrigger); }
 }
 function closeQV(){
   if(!$qv.classList.contains('show')) return;
   $qv.classList.remove('show');
   $qv.setAttribute('aria-hidden','true');
   document.body.style.overflow = '';
+  if(_qvTrap){ _qvTrap(); _qvTrap = null; }
   qvProduct = null;
 }
 function renderQV(){

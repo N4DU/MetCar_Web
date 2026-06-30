@@ -127,7 +127,7 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
       <h2>Crear cuenta</h2>
       <p class="sub">¿Ya tenés cuenta? <a id="link-login" href="login.html">Iniciá sesión</a></p>
 
-      <div class="auth-err" id="err"></div>
+      <div class="auth-err" id="err" role="alert" aria-live="assertive"></div>
 
       <form id="reg-form" novalidate>
         <div class="field full">
@@ -136,8 +136,8 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
         </div>
 
         <div class="field full">
-          <label>Tipo de cuenta</label>
-          <div class="seg">
+          <label id="tipo-lbl">Tipo de cuenta</label>
+          <div class="seg" role="group" aria-labelledby="tipo-lbl">
             <label class="seg-opt"><input type="radio" name="tipo" value="particular" checked><span>Particular</span></label>
             <label class="seg-opt"><input type="radio" name="tipo" value="empresa"><span>Empresa</span></label>
           </div>
@@ -241,7 +241,7 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
     ciudadSel.disabled = list.length === 0;
   });
 
-  function showErr(msg){ err.textContent = msg; err.classList.add('show'); err.scrollIntoView ? null : 0; }
+  function showErr(msg){ err.textContent = msg; err.classList.add('show'); if(err.scrollIntoView) err.scrollIntoView({block:'center',behavior:'smooth'}); }
   function clearErr(){ err.classList.remove('show'); }
 
   form.addEventListener('submit', async function(e){
