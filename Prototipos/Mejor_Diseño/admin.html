@@ -373,6 +373,10 @@ img{display:block;max-width:100%}
   .tb-search{width:100%}
   .search kbd{display:none}
 }
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}
+}
 </style>
 </head>
 <body>
