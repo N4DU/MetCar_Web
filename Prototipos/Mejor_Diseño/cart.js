@@ -421,7 +421,7 @@
 .mc-qs-off{opacity:.32;cursor:default}
 .mc-qs-off:hover{background:none;color:#4A4744}
 .mc-qn{min-width:26px;text-align:center;font-family:var(--mc-ft);font-weight:700;font-size:13px;color:#1B1916;border-left:1.5px solid var(--mc-bdr);border-right:1.5px solid var(--mc-bdr);height:28px;line-height:28px}
-.mc-ci-rm{align-self:flex-start;background:none;border:none;cursor:pointer;color:#9b9893;padding:4px;display:flex;transition:color .16s ease}
+.mc-ci-rm{align-self:flex-start;background:none;border:none;cursor:pointer;color:#9b9893;padding:5px;min-width:24px;min-height:24px;display:flex;align-items:center;justify-content:center;transition:color .16s ease}
 .mc-ci-rm:hover{color:var(--mc-red)}
 
 .mc-cart-empty{padding:64px 32px;text-align:center;display:flex;flex-direction:column;align-items:center}
