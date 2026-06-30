@@ -106,7 +106,7 @@
         <sc-if value="{{ emptyState }}">
           <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px">
             <span style="font-family:'Bebas Neue';font-size:28px;letter-spacing:1px;color:rgba(255,255,255,.55)">Elegí el tipo para empezar</span>
-            <span style="font-family:'Barlow';font-size:13px;color:rgba(255,255,255,.4)">La manguera se arma en vivo, pieza por pieza</span>
+            <span style="font-family:'Barlow';font-size:13px;color:rgba(255,255,255,.55)">La manguera se arma en vivo, pieza por pieza</span>
           </div>
         </sc-if>
 
@@ -122,7 +122,7 @@
           <button onClick="{{ zoomReset }}" style="width:34px;height:34px;display:flex;align-items:center;justify-content:center;background:#fff;border:1px solid rgba(27,25,22,.16);border-radius:3px;color:#1B1916;box-shadow:0 2px 5px rgba(0,0,0,.07)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.7 9.7 0 0 0-6.7 2.9L3 8"/><path d="M3 3v5h5"/></svg></button>
           <button onClick="{{ zoomIn }}" style="width:34px;height:34px;display:flex;align-items:center;justify-content:center;background:#fff;border:1px solid rgba(27,25,22,.16);border-radius:3px;color:#1B1916;font-size:17px;box-shadow:0 2px 5px rgba(0,0,0,.07)">+</button>
         </div>
-        <div style="position:absolute;bottom:14px;left:10px;font-family:'Barlow Condensed';font-weight:600;font-size:9.5px;letter-spacing:1.6px;color:rgba(255,255,255,.32)">VISTA ESQUEMÁTICA · NO A ESCALA</div>
+        <div style="position:absolute;bottom:14px;left:10px;font-family:'Barlow Condensed';font-weight:600;font-size:9.5px;letter-spacing:1.6px;color:rgba(255,255,255,.48)">VISTA ESQUEMÁTICA · NO A ESCALA</div>
       </div>
     </div>
 
@@ -133,15 +133,15 @@
         <sc-if value="{{ editing }}">
           <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 24px;background:#FCEFEA;border-bottom:1px solid rgba(184,50,20,.25)">
             <span style="display:flex;align-items:center;gap:8px;font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#B83214"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>Editando manguera del pedido</span>
-            <button onClick="{{ cancelEdit }}" style="font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:.8px;text-transform:uppercase;color:rgba(27,25,22,.55);background:none;border:none;cursor:pointer" style-hover="color:#1B1916">Cancelar</button>
+            <button onClick="{{ cancelEdit }}" style="font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:.8px;text-transform:uppercase;color:rgba(27,25,22,.72);background:none;border:none;cursor:pointer" style-hover="color:#1B1916">Cancelar</button>
           </div>
         </sc-if>
 
         <!-- NAME -->
         <div style="padding:22px 24px 20px">
-          <div style="font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:1.8px;text-transform:uppercase;color:rgba(27,25,22,.42);margin-bottom:9px">Nombre de la manguera · opcional</div>
+          <div style="font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:1.8px;text-transform:uppercase;color:rgba(27,25,22,.62);margin-bottom:9px">Nombre de la manguera · opcional</div>
           <input value="{{ name }}" onInput="{{ onName }}" placeholder="Ej: Retroexcavadora, brazo izquierdo" style="width:100%;background:#F8F6F1;border:1px solid rgba(27,25,22,.14);border-radius:3px;color:#1B1916;font-family:'Barlow';font-size:14px;font-weight:500;padding:11px 13px;outline:none" />
-          <p style="font-family:'Barlow';font-size:11.5px;color:rgba(27,25,22,.45);margin:8px 0 0;line-height:1.4">Para identificarla después en el carrito y en tus pedidos.</p>
+          <p style="font-family:'Barlow';font-size:11.5px;color:rgba(27,25,22,.62);margin:8px 0 0;line-height:1.4">Para identificarla después en el carrito y en tus pedidos.</p>
         </div>
 
         <!-- 01 TIPO -->
@@ -153,7 +153,7 @@
             <sc-for list="{{ typeCards }}" as="c" hint-placeholder-count="4">
               <button onClick="{{ c.onSelect }}" style="{{ c.style }}">
                 <span style="font-family:'Bebas Neue';font-size:20px;letter-spacing:.5px;color:#1B1916;line-height:1.1">{{ c.name }}</span>
-                <span style="font-family:'JetBrains Mono';font-size:10px;color:rgba(27,25,22,.5);margin-top:3px">{{ c.sae }}</span>
+                <span style="font-family:'JetBrains Mono';font-size:10px;color:rgba(27,25,22,.62);margin-top:3px">{{ c.sae }}</span>
                 <span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:.6px;color:#B83214;margin-top:5px">{{ c.bar }}</span>
               </button>
             </sc-for>
@@ -164,7 +164,7 @@
         <div style="padding:20px 24px;border-top:1px solid rgba(27,25,22,.08)">
           <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:13px">
             <span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:#1B1916">02 · Diámetro interior</span>
-            <span style="font-family:'Barlow';font-size:12px;color:rgba(27,25,22,.45)">pulgadas</span>
+            <span style="font-family:'Barlow';font-size:12px;color:rgba(27,25,22,.62)">pulgadas</span>
           </div>
           <div style="display:flex;flex-wrap:wrap;gap:8px">
             <sc-for list="{{ gaugeChips }}" as="c" hint-placeholder-count="5">
@@ -184,9 +184,9 @@
           </div>
           <input type="range" min="{{ sliderMin }}" max="{{ sliderMax }}" step="0.05" value="{{ sliderVal }}" onInput="{{ onSlider }}" style="{{ sliderStyle }}" />
           <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
-            <span style="font-family:'Barlow';font-size:10.5px;color:rgba(27,25,22,.4)">{{ minLabel }}</span>
-            <span style="font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:1px;color:rgba(27,25,22,.45)">SOLO CUERPO · SIN TERMINALES</span>
-            <span style="font-family:'Barlow';font-size:10.5px;color:rgba(27,25,22,.4)">{{ maxLabel }}</span>
+            <span style="font-family:'Barlow';font-size:10.5px;color:rgba(27,25,22,.62)">{{ minLabel }}</span>
+            <span style="font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:1px;color:rgba(27,25,22,.62)">SOLO CUERPO · SIN TERMINALES</span>
+            <span style="font-family:'Barlow';font-size:10.5px;color:rgba(27,25,22,.62)">{{ maxLabel }}</span>
           </div>
         </div>
 
@@ -201,7 +201,7 @@
               <button onClick="{{ c.onSelect }}" style="{{ c.style }}">{{ c.label }}</button>
             </sc-for>
           </div>
-          <div style="font-family:'Barlow Condensed';font-weight:700;font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(27,25,22,.4);margin:13px 0 8px">Orientación</div>
+          <div style="font-family:'Barlow Condensed';font-weight:700;font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(27,25,22,.62);margin:13px 0 8px">Orientación</div>
           <div style="display:flex;gap:8px">
             <sc-for list="{{ angleOptsA }}" as="c" hint-placeholder-count="3">
               <button onClick="{{ c.onSelect }}" style="{{ c.style }}">{{ c.icon }}<span style="{{ c.labelStyle }}">{{ c.label }}</span></button>
@@ -220,7 +220,7 @@
               <button onClick="{{ c.onSelect }}" style="{{ c.style }}">{{ c.label }}</button>
             </sc-for>
           </div>
-          <div style="font-family:'Barlow Condensed';font-weight:700;font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(27,25,22,.4);margin:13px 0 8px">Orientación</div>
+          <div style="font-family:'Barlow Condensed';font-weight:700;font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(27,25,22,.62);margin:13px 0 8px">Orientación</div>
           <div style="display:flex;gap:8px">
             <sc-for list="{{ angleOptsB }}" as="c" hint-placeholder-count="3">
               <button onClick="{{ c.onSelect }}" style="{{ c.style }}">{{ c.icon }}<span style="{{ c.labelStyle }}">{{ c.label }}</span></button>
@@ -234,7 +234,7 @@
         <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px">
           <div style="min-width:0">
             <div style="font-family:'Bebas Neue';font-size:18px;letter-spacing:.5px;color:#1B1916;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ sumName }}</div>
-            <div style="font-family:'JetBrains Mono';font-size:10.5px;color:rgba(27,25,22,.5);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ sumLine }}</div>
+            <div style="font-family:'JetBrains Mono';font-size:10.5px;color:rgba(27,25,22,.62);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ sumLine }}</div>
           </div>
           <span title="{{ stockTitle }}" style="{{ stockBadgeStyle }}"><span style="{{ stockDotStyle }}"></span>{{ stockLabel }}</span>
         </div>
@@ -245,13 +245,13 @@
             <button onClick="{{ qtyUp }}" style="width:32px;height:34px;background:none;border:none;color:#1B1916;font-size:17px">+</button>
           </div>
           <div style="flex:1;text-align:right">
-            <div style="font-family:'Barlow';font-size:9.5px;color:rgba(27,25,22,.42);text-transform:uppercase;letter-spacing:1.2px">Precio</div>
+            <div style="font-family:'Barlow';font-size:9.5px;color:rgba(27,25,22,.62);text-transform:uppercase;letter-spacing:1.2px">Precio</div>
             <div style="font-family:'Bebas Neue';font-size:22px;letter-spacing:.5px;color:#B83214;line-height:1">{{ priceText }}</div>
           </div>
         </div>
         <sc-if value="{{ outStock }}"><div style="font-family:'Barlow';font-size:11.5px;color:#8A7010;text-align:center;margin-bottom:9px;line-height:1.4">Disponibilidad a confirmar en cotización</div></sc-if>
         <button onClick="{{ onContinue }}" style="width:100%;font-family:'Barlow Condensed';font-weight:700;font-size:14px;letter-spacing:1.5px;text-transform:uppercase;color:#fff;background:#B83214;border:none;border-radius:2px;padding:14px;display:flex;align-items:center;justify-content:center;gap:8px">{{ continueLabel }} <span style="font-size:16px">→</span></button>
-        <div style="text-align:center;font-family:'JetBrains Mono';font-size:10px;color:rgba(27,25,22,.4);margin-top:9px">{{ refCode }}</div>
+        <div style="text-align:center;font-family:'JetBrains Mono';font-size:10px;color:rgba(27,25,22,.62);margin-top:9px">{{ refCode }}</div>
       </div>
     </div>
   </div>
