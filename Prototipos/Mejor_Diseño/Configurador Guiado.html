@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#1B1916">
+<title>Configurador Guiado · Metcar</title>
+<meta name="description" content="Armá tu manguera hidráulica paso a paso: tipo, diámetro, racores y medida. Metcar la arma en taller.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23B83214'/><text x='16' y='23' text-anchor='middle' fill='%23fff' font-family='sans-serif' font-weight='bold' font-size='22'>M</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --red:#B83214; --red-d:#8f2810; --dark:#1B1916; --ink:#1B1916;
+    --bg:#E9E6DF; --rail:#F3F1EB; --card:#fff; --line:rgba(27,25,22,.12);
+    --muted:rgba(27,25,22,.55); --muted2:rgba(27,25,22,.4);
+    --ft:'Barlow Condensed',sans-serif; --fb:'Barlow',system-ui,sans-serif;
+    --fh:'Bebas Neue',sans-serif; --fm:'JetBrains Mono',monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:var(--bg);font-family:var(--fb);color:var(--ink);-webkit-font-smoothing:antialiased}
+  button{cursor:pointer;font-family:inherit}
+  a{text-decoration:none}
+  .h{font-family:var(--fh);font-weight:400;letter-spacing:.5px;line-height:1}
+  .lbl{font-family:var(--ft);font-weight:700;letter-spacing:1.6px;text-transform:uppercase}
+  .mono{font-family:var(--fm)}
+  input[type=range]{-webkit-appearance:none;appearance:none;background:transparent;width:100%}
+  input[type=range]::-webkit-slider-runnable-track{height:4px;border-radius:2px;background:linear-gradient(90deg,var(--red) var(--p,40%),rgba(27,25,22,.14) var(--p,40%))}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:#fff;margin-top:-7px;box-shadow:0 0 0 4px rgba(184,50,20,.9),0 2px 6px rgba(0,0,0,.25)}
+  a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+
+  /* NAV */
+  .nav{position:sticky;top:0;z-index:200;background:var(--dark);border-bottom:1px solid rgba(255,255,255,.07)}
+  .nav-in{max-width:1400px;margin:0 auto;height:60px;display:flex;align-items:center;padding:0 24px;gap:26px}
+  .nav a.link{font-family:var(--fb);font-weight:500;font-size:13px;color:rgba(255,255,255,.62)}
+  .nav a.link:hover{color:#fff}
+  .nav a.active{color:#fff;border-bottom:2px solid var(--red);padding-bottom:2px}
+  .nav-r{margin-left:auto;display:flex;align-items:center;gap:4px}
+  .icobtn{background:none;border:none;color:rgba(255,255,255,.6);padding:8px;display:flex;position:relative}
+  .icobtn:hover{color:#fff}
+  .btn-login{border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7);padding:6px 15px;margin-left:8px;font-family:var(--ft);font-weight:700;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;background:none;border-radius:1px}
+  .cart-badge{position:absolute;top:3px;right:3px;background:var(--red);color:#fff;border-radius:50%;width:14px;height:14px;font-family:var(--ft);font-weight:700;font-size:8px;display:flex;align-items:center;justify-content:center}
+
+  /* WORKSPACE */
+  .ws{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:380px minmax(0,1fr);align-items:start;min-height:calc(100vh - 60px)}
+  .rail{background:var(--rail);border-right:1px solid var(--line);padding:22px 20px 40px;min-height:calc(100vh - 60px)}
+  .rail-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+  .rail-hd h2{font-size:26px;margin:0}
+  .rail-x{width:34px;height:34px;border:1px solid var(--line);background:#fff;border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--muted)}
+
+  .stepcard{border-radius:12px;margin-bottom:14px;overflow:hidden;transition:box-shadow .18s ease,background .18s ease}
+  .stepcard.on{background:#fff;box-shadow:0 6px 22px rgba(27,25,22,.10);border:1px solid var(--line)}
+  .stepcard.off{background:rgba(27,25,22,.035);border:1px solid transparent}
+  .step-hd{display:flex;align-items:center;gap:13px;padding:16px 16px}
+  .step-num{width:34px;height:34px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:var(--fh);font-size:18px}
+  .stepcard.on .step-num{background:var(--red);color:#fff}
+  .stepcard.off .step-num{background:none;border:2px solid rgba(27,25,22,.3);color:rgba(27,25,22,.5)}
+  .step-hd h3{font-size:22px;margin:0}
+  .step-done{margin-left:auto;color:#1F9D55}
+  .subs{padding:0 12px 12px}
+  .sub{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:7px;cursor:pointer;transition:background .15s ease}
+  .sub .dot{width:16px;height:16px;border-radius:50%;border:2px solid rgba(27,25,22,.3);flex-shrink:0}
+  .sub.done .dot{border-color:var(--red);background:var(--red)}
+  .sub .nm{font-family:var(--fb);font-size:13.5px;font-weight:500;color:var(--ink)}
+  .sub .vl{margin-left:auto;font-family:var(--fm);font-size:11.5px;color:var(--muted);max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
+  .sub.cur{background:var(--red);}
+  .sub.cur .nm,.sub.cur .vl{color:#fff}
+  .sub.cur .dot{border-color:#fff}
+  .sub:not(.cur):hover{background:rgba(184,50,20,.07)}
+  .sub.disabled{opacity:.5;cursor:default;pointer-events:none}
+
+  /* MAIN */
+  .main{display:flex;flex-direction:column;min-height:calc(100vh - 60px)}
+  .topbar{position:sticky;top:60px;z-index:100;background:var(--red);color:#fff;display:flex;align-items:center;gap:16px;padding:16px 28px}
+  .crumb{font-family:var(--fh);font-size:24px;letter-spacing:.5px}
+  .crumb small{font-family:var(--ft);font-weight:700;font-size:12px;letter-spacing:2px;opacity:.8;text-transform:uppercase}
+  .nav-btns{margin-left:auto;display:flex;gap:10px}
+  .navbtn{display:inline-flex;align-items:center;gap:8px;font-family:var(--ft);font-weight:700;font-size:13px;letter-spacing:1.4px;text-transform:uppercase;padding:11px 20px;border-radius:4px;border:1px solid rgba(255,255,255,.45);background:rgba(255,255,255,.1);color:#fff}
+  .navbtn.prim{background:#fff;color:var(--red);border-color:#fff}
+  .navbtn:disabled{opacity:.4;cursor:default}
+  .content{padding:30px 28px 60px;flex:1}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 28px;max-width:1000px}
+  .panel-hint{font-family:var(--fb);font-size:14px;color:var(--muted);margin:0 0 20px}
+
+  .grid{display:grid;gap:12px}
+  .g-types{grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
+  .opt{position:relative;text-align:left;background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:16px 16px;cursor:pointer;transition:all .16s ease;box-shadow:0 1px 2px rgba(27,25,22,.04)}
+  .opt:hover{transform:translateY(-1px);box-shadow:0 5px 16px rgba(27,25,22,.09)}
+  .opt.sel{border-color:var(--red);background:#FCEFEA;box-shadow:0 5px 16px rgba(184,50,20,.16)}
+  .opt .t{font-family:var(--fh);font-size:21px;color:var(--ink)}
+  .opt .s{font-family:var(--fm);font-size:11px;color:var(--muted);margin-top:3px}
+  .opt .p{font-family:var(--ft);font-weight:700;font-size:12px;letter-spacing:.5px;color:var(--red);margin-top:6px}
+  .opt .tick{position:absolute;top:12px;right:12px;width:22px;height:22px;border-radius:50%;background:var(--red);color:#fff;display:none;align-items:center;justify-content:center;font-size:12px}
+  .opt.sel .tick{display:flex}
+
+  .chips{display:flex;flex-wrap:wrap;gap:9px}
+  .chip{min-width:60px;padding:12px 18px;font-family:var(--ft);font-weight:700;font-size:15px;letter-spacing:.4px;background:#fff;color:var(--ink);border:1.5px solid var(--line);border-radius:8px;box-shadow:0 1px 2px rgba(27,25,22,.04)}
+  .chip:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(27,25,22,.08)}
+  .chip.sel{background:var(--red);color:#fff;border-color:var(--red);box-shadow:0 4px 12px rgba(184,50,20,.24)}
+
+  .cfg-2col{display:grid;grid-template-columns:200px minmax(0,1fr);gap:24px}
+  .filt-t{font-size:10px;color:var(--muted);margin-bottom:10px}
+  .filt{display:flex;flex-direction:column;gap:2px}
+  .filt button{display:flex;align-items:center;gap:9px;text-align:left;background:none;border:none;padding:11px 12px;border-radius:7px;font-family:var(--fb);font-weight:500;font-size:13.5px;color:var(--ink)}
+  .filt button .r{width:15px;height:15px;border-radius:50%;border:2px solid rgba(27,25,22,.3);flex-shrink:0}
+  .filt button.on{background:#FCEFEA}
+  .filt button.on .r{border-color:var(--red);background:radial-gradient(circle,var(--red) 40%,transparent 42%)}
+  .filt button.on{color:var(--red);font-weight:700}
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;align-content:start}
+  .fcard{display:flex;align-items:center;gap:13px;text-align:left;background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:13px 14px;cursor:pointer;transition:all .16s ease}
+  .fcard:hover{transform:translateY(-1px);box-shadow:0 5px 16px rgba(27,25,22,.09)}
+  .fcard.sel{border-color:var(--red);background:#FCEFEA;box-shadow:0 5px 16px rgba(184,50,20,.16)}
+  .fcard .ic{width:52px;height:44px;flex-shrink:0;color:#3a3733;display:flex;align-items:center;justify-content:center}
+  .fcard .nm{display:block;font-family:var(--fb);font-weight:700;font-size:14px;color:var(--ink);line-height:1.2}
+  .fcard .ds{display:block;font-family:var(--fb);font-size:11.5px;color:var(--muted);margin-top:3px}
+  .fcard .stk{display:block;margin-top:6px;font-family:var(--ft);font-weight:700;font-size:9px;letter-spacing:1px;text-transform:uppercase}
+  .in-stk{color:#1F9D55}.no-stk{color:#8A7010}
+
+  .lenrow{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+  .lenin{width:120px;text-align:right;background:#F8F6F1;border:1px solid var(--line);border-radius:6px;font-family:var(--fh);font-size:26px;padding:6px 12px;color:var(--ink)}
+  .lentag{font-family:var(--ft);font-weight:700;font-size:14px;color:#fff;background:var(--red);border-radius:6px;padding:9px 13px}
+
+  .review{display:grid;grid-template-columns:1fr;gap:14px}
+  .rsum{border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  .rrow{display:flex;justify-content:space-between;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line)}
+  .rrow:last-child{border-bottom:none}
+  .rrow .k{font-family:var(--ft);font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+  .rrow .v{font-family:var(--fb);font-weight:600;font-size:14px;color:var(--ink);text-align:right}
+  .buyrow{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:6px}
+  .qty{display:flex;align-items:center;border:1px solid var(--line);border-radius:6px;background:#fff}
+  .qty button{width:38px;height:40px;background:none;border:none;font-size:18px;color:var(--ink)}
+  .qty span{font-family:var(--fh);font-size:20px;min-width:34px;text-align:center}
+  .addbtn{flex:1;min-width:240px;font-family:var(--ft);font-weight:700;font-size:15px;letter-spacing:1.5px;text-transform:uppercase;color:#fff;background:var(--red);border:none;border-radius:6px;padding:16px;display:flex;align-items:center;justify-content:center;gap:8px}
+  .addbtn:hover{background:var(--red-d)}
+  .refcode{font-family:var(--fm);font-size:11px;color:var(--muted);text-align:center;margin-top:12px}
+  .price{font-family:var(--fh);font-size:26px;color:var(--red)}
+
+  .prev{margin-top:18px;background:#15171a url('img/FondoConfigurador.webp') center/cover;border-radius:12px;height:150px;display:flex;align-items:center;justify-content:center}
+  .prevph{font-family:var(--ft);font-weight:700;letter-spacing:1.5px;color:rgba(255,255,255,.5);font-size:12px;text-transform:uppercase}
+
+  @media(max-width:900px){
+    .ws{grid-template-columns:1fr}
+    .rail{border-right:none;border-bottom:1px solid var(--line);min-height:auto}
+    .cfg-2col{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-in">
+    <a href="metcar_homepage_v5.html"><img src="img/logoMetcar.webp" alt="Metcar" style="height:26px;display:block"></a>
+    <a class="link" href="catalogo.html">Catálogo</a>
+    <a class="link" href="Configurador Visual.dc.html">Configurador Visual</a>
+    <a class="link active" href="#">Configurador Guiado</a>
+    <a class="link" href="metcar_homepage_v5.html#contacto">Contacto</a>
+    <div class="nav-r">
+      <button id="nav-cart-btn" class="icobtn" data-open-cart aria-label="Mi pedido">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span class="cart-badge" id="cart-badge" style="display:none">0</span>
+      </button>
+      <button class="btn-login">Ingresar</button>
+    </div>
+  </div>
+</nav>
+
+<div class="ws">
+  <aside class="rail">
+    <div class="rail-hd">
+      <h2 class="h">Tu conjunto</h2>
+      <a class="rail-x" href="metcar_homepage_v5.html" aria-label="Salir">✕</a>
+    </div>
+    <div id="rail-steps"></div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div class="crumb"><small id="crumb-group">Manguera</small><br><span id="crumb-title">Tipo de manguera</span></div>
+      <div class="nav-btns">
+        <button class="navbtn" id="btn-prev">‹ Anterior</button>
+        <button class="navbtn prim" id="btn-next">Siguiente ›</button>
+      </div>
+    </div>
+    <div class="content"><div id="panel"></div></div>
+  </main>
+</div>
+
+<script src="config.js"></script>
+<script src="terminales.js"></script>
+<script src="catalog-data.js"></script>
+<script src="cart.js"></script>
+<script>
+/* ================= CONFIGURADOR GUIADO (estilo Parker) — Metcar ================= */
+(function(){
+  "use strict";
+
+  // ── Catálogo de mangueras (misma data que el configurador visual) ──
+  var HOSE_TYPES = [
+    { id:'h1', tok:'H1', name:'1 malla',       sae:'SAE 100R1AT', gauges:['g14','g38','g12','g34'],      bar:{g14:225,g38:200,g12:160,g34:130} },
+    { id:'h2', tok:'H2', name:'2 mallas',      sae:'SAE 100R2AT', gauges:['g14','g38','g12','g34','g1'], bar:{g14:400,g38:330,g12:275,g34:215,g1:165} },
+    { id:'h4', tok:'H4', name:'4 espirales',   sae:'SAE 100R12',  gauges:['g12','g34','g1','g114'],      bar:{g12:280,g34:280,g1:210,g114:185} },
+    { id:'ht', tok:'HT', name:'Termoplástica', sae:'SAE 100R7',   gauges:['g14','g38','g12'],            bar:{g14:210,g38:190,g12:160} },
+  ];
+  var GAUGES = [
+    { id:'g14', label:'1/4"',   code:'04', dn:6,  mbr:100 },
+    { id:'g38', label:'3/8"',   code:'06', dn:10, mbr:130 },
+    { id:'g12', label:'1/2"',   code:'12', dn:12, mbr:180 },
+    { id:'g34', label:'3/4"',   code:'19', dn:19, mbr:240 },
+    { id:'g1',  label:'1"',     code:'25', dn:25, mbr:300 },
+    { id:'g114',label:'1.1/4"', code:'31', dn:31, mbr:420 },
+  ];
+  var TEMP = { h1:'-40 °C a +100 °C', h2:'-40 °C a +100 °C', h4:'-40 °C a +100 °C', ht:'-40 °C a +93 °C' };
+  var MINM=0.1, MAXM=3;
+
+  var T = (window.MC_TERMINALES)||{angleLabel:{0:'Recto',45:'Codo 45°',90:'Codo 90°'},items:[]};
+  var AL = T.angleLabel||{0:'Recto',45:'Codo 45°',90:'Codo 90°'};
+  var TERM_ICON = (window.MC_CATALOG&&window.MC_CATALOG.ICONS&&window.MC_CATALOG.ICONS.terminales)||'';
+
+  // Familias de terminales que sirven como extremo
+  function families(){
+    var fams=[];
+    (T.items||[]).filter(function(i){return i.end!==false;}).forEach(function(i){
+      var f=fams.find(function(x){return x.id===i.fam;});
+      if(!f){f={id:i.fam,label:i.famLabel,angles:[]};fams.push(f);}
+      var a=f.angles.find(function(x){return x.id===i.angle;});
+      if(!a){a={id:i.angle,label:AL[i.angle]||(i.angle?'Codo '+i.angle+'°':'Recto'),sizes:[]};f.angles.push(a);}
+      if(i.size && a.sizes.indexOf(i.size)<0) a.sizes.push(i.size);
+    });
+    fams.forEach(function(f){f.angles.sort(function(a,b){return a.id-b.id});});
+    return fams;
+  }
+  var FAMS = families();
+  function fam(id){return FAMS.find(function(f){return f.id===id;});}
+  function famAngle(fid,aid){var f=fam(fid);return f?f.angles.find(function(a){return a.id===aid;}):null;}
+  function termStock(fid,aid){return (T.items||[]).some(function(i){return i.fam===fid&&i.angle===aid&&i.end!==false&&i.stock;});}
+
+  function type(id){return HOSE_TYPES.find(function(t){return t.id===id;});}
+  function gauge(id){return GAUGES.find(function(g){return g.id===id;});}
+
+  // ── Estado ──
+  var S = {
+    typeId:null, gaugeId:null,
+    aFam:null, aAngle:null, aSize:null,
+    bFam:null, bAngle:null, bSize:null,
+    length:1, qty:1,
+    step:0, filtA:null, filtB:null,
+  };
+
+  // ── Secuencia de sub-pasos (como el flujo de Parker) ──
+  // group: card del rail · key: sub-item del rail
+  var STEPS = [
+    {group:'Manguera', gi:0, title:'Tipo de manguera',   render:rHoseType,  ok:function(){return !!S.typeId;}},
+    {group:'Manguera', gi:0, title:'Diámetro interior',  render:rGauge,     ok:function(){return !!S.gaugeId;}},
+    {group:'Racor A',  gi:1, title:'Configuración',      render:function(){return rConfig('a');}, ok:function(){return S.aFam!=null&&S.aAngle!=null;}},
+    {group:'Racor A',  gi:1, title:'Tamaño',             render:function(){return rSize('a');},   ok:function(){return !!S.aSize;}},
+    {group:'Racor B',  gi:2, title:'Configuración',      render:function(){return rConfig('b');}, ok:function(){return S.bFam!=null&&S.bAngle!=null;}},
+    {group:'Racor B',  gi:2, title:'Tamaño',             render:function(){return rSize('b');},   ok:function(){return !!S.bSize;}},
+    {group:'Conjunto', gi:3, title:'Largo del cuerpo',   render:rLength,    ok:function(){return S.length>0;}},
+    {group:'Conjunto', gi:3, title:'Resumen y pedido',   render:rReview,    ok:function(){return true;}},
+  ];
+
+  // ── Helpers de formato ──
+  function fmt2(n){ if(n==null||isNaN(n))return''; return (Math.round(n*100)/100).toFixed(2).replace('.',','); }
+  function bar(){ var t=type(S.typeId),g=gauge(S.gaugeId); return (t&&g&&t.bar[g.id])||null; }
+  function fitLabel(side){
+    var fid=S[side+'Fam'], aid=S[side+'Angle'], sz=S[side+'Size'];
+    if(fid==null||aid==null) return '—';
+    var f=fam(fid); return (f?f.label:fid)+' · '+(AL[aid]||(aid?'Codo '+aid+'°':'Recto'))+(sz?' · '+sz:'');
+  }
+  function refCode(){
+    var t=type(S.typeId),g=gauge(S.gaugeId);
+    var cm = (S.length!=null)?String(Math.round(S.length*100)).padStart(4,'0'):'····';
+    var ec=function(fid,aid){return (fid||'···')+(aid?aid:'');};
+    return 'MC-'+(t?t.tok:'··')+'-'+(g?g.code:'··')+'-'+cm+'-'+ec(S.aFam,S.aAngle)+'-'+ec(S.bFam,S.bAngle);
+  }
+
+  // ── Render del RAIL ──
+  function railSub(name, val, stepIdx){
+    var st=STEPS[stepIdx];
+    var cur = stepIdx===S.step;
+    var done = st.ok() && stepIdx!==S.step;
+    var reachable = stepIdx<=maxReachable();
+    return '<div class="sub '+(cur?'cur':'')+(done?' done':'')+(reachable?'':' disabled')+'" data-step="'+stepIdx+'">'+
+      '<span class="dot"></span><span class="nm">'+name+'</span><span class="vl">'+(val||'-')+'</span></div>';
+  }
+  function maxReachable(){
+    // se puede saltar a cualquier sub-paso cuyos anteriores estén completos, o al actual+1
+    var m=0;
+    for(var i=0;i<STEPS.length;i++){ if(STEPS[i].ok()) m=i+1; else break; }
+    return Math.max(m, S.step);
+  }
+  function renderRail(){
+    var groups=[
+      {n:'Manguera', idx:0, subs:[[0,'Tipo', S.typeId?type(S.typeId).name:null],[1,'Diámetro', S.gaugeId?gauge(S.gaugeId).label:null],[null,'Presión máx.', bar()?bar()+' bar':null],[null,'Temperatura', S.typeId?TEMP[S.typeId]:null]]},
+      {n:'Racor A', idx:1, subs:[[null,'Material', (S.aFam!=null)?'Acero':null],[2,'Configuración', (S.aFam!=null)?fam(S.aFam).label+' · '+(AL[S.aAngle]||''):null],[3,'Tamaño', S.aSize]]},
+      {n:'Racor B', idx:2, subs:[[null,'Material', (S.bFam!=null)?'Acero':null],[4,'Configuración', (S.bFam!=null)?fam(S.bFam).label+' · '+(AL[S.bAngle]||''):null],[5,'Tamaño', S.bSize]]},
+      {n:'Conjunto', idx:3, subs:[[6,'Largo', S.length?fmt2(S.length)+' m':null],[7,'Cantidad', S.qty]]},
+    ];
+    var curGi = STEPS[S.step].gi;
+    var html='';
+    groups.forEach(function(g,gi){
+      var on = gi===curGi;
+      html+='<div class="stepcard '+(on?'on':'off')+'">'+
+        '<div class="step-hd"><span class="step-num">'+(gi+1)+'</span><h3 class="h">'+g.n+'</h3></div>'+
+        '<div class="subs">';
+      g.subs.forEach(function(s){
+        if(s[0]==null){ // sub-item derivado (no navegable)
+          html+='<div class="sub'+(s[2]?' done':'')+'"><span class="dot"></span><span class="nm">'+s[1]+'</span><span class="vl">'+(s[2]||'-')+'</span></div>';
+        } else {
+          html+=railSub(s[1], s[2], s[0]);
+        }
+      });
+      html+='</div></div>';
+    });
+    document.getElementById('rail-steps').innerHTML=html;
+    document.querySelectorAll('.sub[data-step]').forEach(function(el){
+      el.addEventListener('click',function(){ var i=+el.getAttribute('data-step'); if(i<=maxReachable()) goStep(i); });
+    });
+  }
+
+  // ── Render del PANEL por sub-paso ──
+  function rHoseType(){
+    var h='<p class="panel-hint">Elegí el tipo de manguera según el trabajo. La presión máxima depende del diámetro (se define en el paso siguiente).</p><div class="grid g-types">';
+    HOSE_TYPES.forEach(function(t){
+      var maxbar=Math.max.apply(null,Object.keys(t.bar).map(function(k){return t.bar[k];}));
+      h+='<button class="opt '+(S.typeId===t.id?'sel':'')+'" data-type="'+t.id+'"><span class="tick">✓</span>'+
+         '<div class="t">'+t.name+'</div><div class="s">'+t.sae+'</div><div class="p">hasta '+maxbar+' bar</div></button>';
+    });
+    return h+'</div>';
+  }
+  function rGauge(){
+    var t=type(S.typeId); if(!t) return '<p class="panel-hint">Primero elegí el tipo de manguera.</p>';
+    var h='<p class="panel-hint">Diámetro interior nominal (pulgadas). Determina la presión máxima de trabajo.</p><div class="chips">';
+    t.gauges.forEach(function(gid){
+      var g=gauge(gid);
+      h+='<button class="chip '+(S.gaugeId===gid?'sel':'')+'" data-gauge="'+gid+'">'+g.label+'</button>';
+    });
+    h+='</div>';
+    if(S.gaugeId){ h+='<div style="margin-top:20px;display:flex;gap:26px;flex-wrap:wrap">'+
+      miniSpec('Presión máx. trabajo', bar()+' bar')+miniSpec('Presión de rotura', (bar()*4)+' bar (4:1)')+
+      miniSpec('Radio mín. curvatura', gauge(S.gaugeId).mbr+' mm')+miniSpec('Temperatura', TEMP[S.typeId])+'</div>'; }
+    return h;
+  }
+  function miniSpec(k,v){ return '<div><div class="lbl" style="font-size:9.5px;color:var(--muted)">'+k+'</div><div class="mono" style="font-size:14px;margin-top:3px">'+v+'</div></div>'; }
+
+  function rConfig(side){
+    var curFam = S[side+'Fam'] || S['filt'+side.toUpperCase()] || FAMS[0].id;
+    S['filt'+side.toUpperCase()] = curFam;
+    var h='<p class="panel-hint">Elegí la rosca y la orientación del racor del extremo '+side.toUpperCase()+'. Material: acero.</p><div class="cfg-2col">';
+    // filtro de familias
+    h+='<div><div class="lbl filt-t">Familia de rosca</div><div class="filt">';
+    FAMS.forEach(function(f){
+      h+='<button class="'+(curFam===f.id?'on':'')+'" data-filt="'+side+'|'+f.id+'"><span class="r"></span>'+f.label+'</button>';
+    });
+    h+='</div></div>';
+    // cards de configuración (ángulos de la familia)
+    h+='<div><div class="lbl filt-t">Configuración</div><div class="cards">';
+    var f=fam(curFam);
+    (f?f.angles:[]).forEach(function(a){
+      var stk=termStock(curFam,a.id);
+      var sel = S[side+'Fam']===curFam && S[side+'Angle']===a.id;
+      h+='<button class="fcard '+(sel?'sel':'')+'" data-cfg="'+side+'|'+curFam+'|'+a.id+'">'+
+         '<span class="ic">'+TERM_ICON+'</span><span><span class="nm">'+f.label+'</span>'+
+         '<span class="ds">'+a.label+'</span>'+
+         '<span class="stk '+(stk?'in-stk':'no-stk')+'">'+(stk?'● En stock':'○ A confirmar')+'</span></span></button>';
+    });
+    h+='</div></div></div>';
+    return h;
+  }
+  function rSize(side){
+    var fid=S[side+'Fam'], aid=S[side+'Angle'];
+    var a=famAngle(fid,aid);
+    if(!a) return '<p class="panel-hint">Primero elegí la configuración del racor '+side.toUpperCase()+'.</p>';
+    var h='<p class="panel-hint">Tamaño nominal del racor '+side.toUpperCase()+' ('+fam(fid).label+' · '+(AL[aid]||'')+').</p><div class="chips">';
+    a.sizes.forEach(function(sz){
+      h+='<button class="chip '+(S[side+'Size']===sz?'sel':'')+'" data-size="'+side+'|'+sz+'">'+sz+'</button>';
+    });
+    return h+'</div>';
+  }
+  function rLength(){
+    var sp=((S.length-MINM)/(MAXM-MINM)*100).toFixed(1);
+    return '<p class="panel-hint">Largo del cuerpo de la manguera, sin contar los terminales.</p>'+
+      '<div class="lenrow"><input id="len-in" class="lenin" inputmode="decimal" value="'+fmt2(S.length)+'"><span class="lentag">M</span></div>'+
+      '<input type="range" id="len-rg" min="'+MINM+'" max="'+MAXM+'" step="0.05" value="'+S.length+'" style="--p:'+sp+'%">'+
+      '<div style="display:flex;justify-content:space-between;margin-top:8px;font-size:11px;color:var(--muted)"><span>'+fmt2(MINM)+' m</span><span class="lbl" style="font-size:10px">SOLO CUERPO · SIN TERMINALES</span><span>'+fmt2(MAXM)+' m</span></div>';
+  }
+  function rReview(){
+    var t=type(S.typeId),g=gauge(S.gaugeId);
+    var outNames=[]; [['a'],['b']].forEach(function(x){var s=x[0]; if(S[s+'Fam']!=null&&!termStock(S[s+'Fam'],S[s+'Angle'])) outNames.push(fitLabel(s));});
+    var inStock=outNames.length===0;
+    var h='<p class="panel-hint">Revisá el conjunto y agregalo al pedido. El precio se cotiza al confirmar.</p><div class="review">';
+    h+='<div class="rsum">'+
+      row('Tipo', (t?t.name+' · '+t.sae:'—'))+
+      row('Diámetro', (g?g.label+' · DN'+g.dn:'—'))+
+      row('Presión', bar()?bar()+' bar trabajo · '+(bar()*4)+' bar rotura':'—')+
+      row('Largo', fmt2(S.length)+' m · solo cuerpo')+
+      row('Racor A', fitLabel('a'))+
+      row('Racor B', fitLabel('b'))+
+      row('Stock', inStock?'En stock':'A confirmar en cotización')+
+    '</div>';
+    h+='<div class="buyrow"><div class="qty"><button data-q="-1">−</button><span>'+S.qty+'</span><button data-q="1">+</button></div>'+
+       '<div style="text-align:right;margin-left:auto"><div class="lbl" style="font-size:9.5px;color:var(--muted)">Precio</div><div class="price">A cotizar</div></div></div>';
+    h+='<button class="addbtn" id="add-btn">Agregar al carrito <span style="font-size:17px">→</span></button>';
+    h+='<button class="navbtn" id="wa-btn" style="border-color:var(--line);color:var(--ink);background:#fff;justify-content:center">Consultar por WhatsApp</button>';
+    h+='<div class="refcode">'+refCode()+'</div>';
+    h+='</div>';
+    return h;
+  }
+  function row(k,v){ return '<div class="rrow"><span class="k">'+k+'</span><span class="v">'+v+'</span></div>'; }
+
+  // ── Wiring del panel ──
+  function renderPanel(){
+    var st=STEPS[S.step];
+    document.getElementById('crumb-group').textContent = st.group;
+    document.getElementById('crumb-title').textContent = st.title;
+    var p=document.getElementById('panel'); p.innerHTML=st.render();
+
+    // botones
+    document.getElementById('btn-prev').disabled = S.step===0;
+    var nb=document.getElementById('btn-next');
+    var last = S.step===STEPS.length-1;
+    nb.style.display = last?'none':'';
+    nb.disabled = !st.ok();
+
+    // handlers por tipo de contenido
+    p.querySelectorAll('[data-type]').forEach(function(el){el.onclick=function(){ var id=el.getAttribute('data-type'); var t=type(id); S.typeId=id; if(!t.gauges.includes(S.gaugeId)) S.gaugeId=null; update(); };});
+    p.querySelectorAll('[data-gauge]').forEach(function(el){el.onclick=function(){ S.gaugeId=el.getAttribute('data-gauge'); update(); };});
+    p.querySelectorAll('[data-filt]').forEach(function(el){el.onclick=function(){ var pr=el.getAttribute('data-filt').split('|'); S['filt'+pr[0].toUpperCase()]=pr[1]; renderPanel(); };});
+    p.querySelectorAll('[data-cfg]').forEach(function(el){el.onclick=function(){ var pr=el.getAttribute('data-cfg').split('|'); var side=pr[0]; S[side+'Fam']=pr[1]; S[side+'Angle']=+pr[2]; S[side+'Size']=null; update(); };});
+    p.querySelectorAll('[data-size]').forEach(function(el){el.onclick=function(){ var pr=el.getAttribute('data-size').split('|'); S[pr[0]+'Size']=pr[1]; update(); };});
+    var li=document.getElementById('len-in'), lr=document.getElementById('len-rg');
+    if(li) li.oninput=function(){ var n=parseFloat(li.value.replace(',','.')); if(!isNaN(n)){S.length=Math.max(MINM,Math.min(MAXM,n)); if(lr){lr.value=S.length; lr.style.setProperty('--p',((S.length-MINM)/(MAXM-MINM)*100)+'%');} renderRail(); document.getElementById('btn-next').disabled=false;} };
+    if(lr) lr.oninput=function(){ S.length=parseFloat(lr.value); lr.style.setProperty('--p',((S.length-MINM)/(MAXM-MINM)*100)+'%'); if(li)li.value=fmt2(S.length); renderRail(); };
+    p.querySelectorAll('[data-q]').forEach(function(el){el.onclick=function(){ S.qty=Math.max(1,S.qty+ +el.getAttribute('data-q')); update(); };});
+    var ab=document.getElementById('add-btn'); if(ab) ab.onclick=addToCart;
+    var wb=document.getElementById('wa-btn'); if(wb) wb.onclick=shareWa;
+  }
+
+  function update(){ renderRail(); renderPanel(); }
+  function goStep(i){ if(i<0||i>=STEPS.length) return; S.step=i; update(); window.scrollTo({top:0,behavior:'smooth'}); }
+  function next(){ if(STEPS[S.step].ok()) goStep(S.step+1); }
+  function prev(){ goStep(S.step-1); }
+
+  function addToCart(e){
+    var t=type(S.typeId),g=gauge(S.gaugeId); if(!t||!g||S.aFam==null||S.bFam==null){ goStep(0); return; }
+    var outNames=[]; ['a','b'].forEach(function(s){ if(!termStock(S[s+'Fam'],S[s+'Angle'])) outNames.push(fitLabel(s)); });
+    var custom={
+      name:'Manguera a medida (guiado)', cat:'mangueras', configured:true,
+      specs:[g.label, t.sae, fmt2(S.length)+' m'],
+      stock: outNames.length===0,
+      detail:[
+        'Tipo: '+t.name+' · '+t.sae,
+        'Largo: '+fmt2(S.length)+' m · solo cuerpo',
+        'Presión: '+bar()+' bar trabajo · '+(bar()*4)+' bar rotura (4:1) · radio mín. '+g.mbr+' mm',
+        'Racor A: '+fitLabel('a'),
+        'Racor B: '+fitLabel('b'),
+        'Ref: '+refCode(),
+      ],
+    };
+    if(window.MCCart){ MCCart.addCustom(custom, S.qty||1, {fromEl:e&&e.currentTarget}); }
+  }
+  function shareWa(){
+    var t=type(S.typeId),g=gauge(S.gaugeId);
+    var txt=encodeURIComponent('Hola Metcar, quiero cotizar esta manguera:\n\n'+(t?t.name:'')+' '+(g?g.label:'')+' · '+fmt2(S.length)+' m (solo cuerpo)\nRacor A: '+fitLabel('a')+'\nRacor B: '+fitLabel('b')+'\nCantidad: '+S.qty+'\nRef: '+refCode()+'\n\n¡Gracias!');
+    var wa=(window.MC&&window.MC.wa)||'59899414733';
+    window.open('https://wa.me/'+wa+'?text='+txt,'_blank');
+  }
+
+  // ── Cart badge ──
+  function syncCart(){ try{ var n=window.MCCart?MCCart.count():0; var b=document.getElementById('cart-badge'); if(b){ b.textContent=n; b.style.display=n>0?'flex':'none'; } }catch(e){} }
+
+  // ── Init ──
+  document.getElementById('btn-next').onclick=next;
+  document.getElementById('btn-prev').onclick=prev;
+  if(window.MCCart){ syncCart(); MCCart.onChange(syncCart); }
+  update();
+})();
+</script>
+</body>
+</html>
