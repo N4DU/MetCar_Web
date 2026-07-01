@@ -122,9 +122,20 @@ config/terminales/catalog-data/cart de Metcar). **NO toca el configurador visual
 Permite NAVEGAR (click) y screenshot paso a paso (tanto sitios externos como nuestros HTML). `parker.py`,
 `drive_g.py`, `drive_full.py` en scratchpad.
 
+### #9 — Guiado: pulido iterativo (loop hasta agotar créditos)  ✅ en curso
+Sobre `Configurador Guiado.html`, verificando cada cambio con Playwright (navegación real):
+- Responsive móvil (nav sin desborde, controles primero, resumen abajo).
+- Enlazado desde el HOME (sección Configurador con 2 botones visual/guiado + footer) para el A/B.
+- Reinicio por paso (ícono ↻ por tarjeta, como Parker).
+- Precisión de indicadores del rail (marca hecho sólo lo recorrido, vía `reached`).
+- Medidas rápidas (chips de largo) en el paso de largo.
+- Cards de racor enriquecidas (familia + género + ángulo + medidas + stock, de terminales.js).
+- Accesibilidad: aria-pressed en opciones, rail navegable por teclado, foco visible, aria-labels.
+Parker se exploró a fondo con Playwright (dropdowns MUI = normas SAE → tipo → lista); no se sigue
+peleando su SPA (bajo ROI); la copia Metcar ya es fiel al flujo con mejor UX para nuestro catálogo chico.
+
 ### Próximas candidatas (sin orden fijo, re-evaluar cada ronda)
-- Guiado: responsive móvil, vista previa del conjunto, botón reiniciar por paso, enlazar el guiado
-  desde home/catálogo para el A/B test, capturar más detalle de Parker y afinar.
+- Guiado: repaso holístico de consistencia visual; revisar paso "Conjunto"/resumen; posible mini-preview.
 - Pulir cromo (más premium/limpio), transición casquillo↔collar, refinar el asiento de la tuerca.
 - Foto real de PUNT (puntero); reemplazar todas las de muestra por fotos propias de Metcar.
 - Clocking con fotos (flip vertical para "opuestos").
