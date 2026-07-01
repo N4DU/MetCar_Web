@@ -35,12 +35,18 @@
   .mc-panel::-webkit-scrollbar-thumb{background:rgba(27,25,22,.16);border-radius:4px}
   @keyframes mcPulse{0%,100%{opacity:1}50%{opacity:.3}}
   .mcfg-ham{display:none}
+  /* Layout apilado: visualizador arriba (sticky) + configuración abajo con aire */
+  .mcfg-cfg{width:100%;max-width:920px;margin:0 auto}
+  .mcfg-ab{display:grid;grid-template-columns:1fr 1fr}
+  .mcfg-ab>div+div{border-left:1px solid rgba(27,25,22,.08)}
   @media(max-width:860px){
-    .mcfg-workspace{grid-template-columns:1fr!important}
-    .mcfg-stage{position:relative!important;top:auto!important;height:52vh!important;min-height:340px!important;border-right:none!important;border-bottom:1px solid rgba(255,255,255,.08)!important}
-    .mc-panel{height:auto!important;min-height:0!important}
+    .mcfg-stage{height:42vh!important;min-height:300px!important}
     .mcfg-nav-links{display:none!important}
     .mcfg-ham{display:flex!important}
+  }
+  @media(max-width:680px){
+    .mcfg-ab{grid-template-columns:1fr}
+    .mcfg-ab>div+div{border-left:none}
   }
   @media(max-width:520px){
     .mcfg-foot-grid{grid-template-columns:1fr 1fr!important;gap:28px!important}
@@ -95,10 +101,10 @@
   </sc-if>
 
   <!-- WORKSPACE -->
-  <div class="mcfg-workspace" style="display:grid;grid-template-columns:minmax(0,1fr) 420px;align-items:start">
+  <div class="mcfg-workspace" style="display:block">
 
     <!-- STAGE -->
-    <div class="mcfg-stage" style="position:sticky;top:62px;height:calc(100vh - 62px);min-height:600px;background:#15171a url('img/FondoConfigurador.webp') center center/cover no-repeat;display:flex;flex-direction:column;overflow:hidden;border-right:1px solid rgba(255,255,255,.08)">
+    <div class="mcfg-stage" style="position:sticky;top:62px;z-index:100;height:48vh;min-height:340px;background:#15171a url('img/FondoConfigurador.webp') center center/cover no-repeat;display:flex;flex-direction:column;overflow:hidden;border-bottom:1px solid rgba(255,255,255,.1);box-shadow:0 14px 34px rgba(0,0,0,.38)">
       <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:26px 34px 0">
         <div>
           <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#B83214;margin-bottom:5px">Configurador · manguera a medida</div>
@@ -135,8 +141,8 @@
     </div>
 
     <!-- OPTIONS PANEL -->
-    <div class="mc-panel" style="background:#fff;height:calc(100vh - 62px);min-height:600px;overflow-y:auto;overscroll-behavior:contain;display:flex;flex-direction:column;color:#1B1916">
-      <div style="flex:1">
+    <div class="mc-panel" style="background:#fff;min-height:52vh;display:flex;flex-direction:column;color:#1B1916">
+      <div class="mcfg-cfg" style="flex:1">
 
         <sc-if value="{{ editing }}">
           <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 24px;background:#FCEFEA;border-bottom:1px solid rgba(184,50,20,.25)">
@@ -157,7 +163,7 @@
           <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:13px">
             <span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:#1B1916">01 · Tipo de manguera</span>
           </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:9px">
             <sc-for list="{{ typeCards }}" as="c" hint-placeholder-count="4">
               <button type="button" onClick="{{ c.onSelect }}" aria-pressed="{{ c.selected }}" aria-label="{{ c.aria }}" style="{{ c.style }}">
                 <span style="font-family:'Bebas Neue';font-size:20px;letter-spacing:.5px;color:#1B1916;line-height:1.1">{{ c.name }}</span>
@@ -216,6 +222,8 @@
           </div>
         </sc-if>
 
+        <!-- 04 · 05 TERMINALES (lado a lado) -->
+        <div class="mcfg-ab">
         <!-- 04 TERMINAL A -->
         <div style="padding:20px 24px;border-top:1px solid rgba(27,25,22,.08)">
           <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:12px">
@@ -253,6 +261,7 @@
             </sc-for>
           </div>
         </div>
+        </div><!-- /mcfg-ab -->
 
         <!-- 06 ORIENTACION ENTRE EXTREMOS (solo con dos codos) -->
         <sc-if value="{{ clockRelevant }}">
@@ -275,7 +284,8 @@
       </div>
 
       <!-- STICKY SUMMARY FOOTER -->
-      <div style="position:sticky;bottom:0;background:#fff;border-top:1px solid rgba(27,25,22,.12);padding:14px 24px 16px;box-shadow:0 -10px 26px rgba(0,0,0,.06)">
+      <div style="position:sticky;bottom:0;background:#fff;border-top:1px solid rgba(27,25,22,.12);padding:14px 24px 16px;box-shadow:0 -10px 26px rgba(0,0,0,.06);z-index:90">
+        <div class="mcfg-cfg">
         <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px">
           <div style="min-width:0">
             <div style="font-family:'Bebas Neue';font-size:18px;letter-spacing:.5px;color:#1B1916;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ sumName }}</div>
@@ -297,6 +307,7 @@
         <sc-if value="{{ outStock }}"><div style="font-family:'Barlow';font-size:11.5px;color:#8A7010;text-align:center;margin-bottom:9px;line-height:1.4">Disponibilidad a confirmar en cotización</div></sc-if>
         <button onClick="{{ onContinue }}" style="width:100%;font-family:'Barlow Condensed';font-weight:700;font-size:14px;letter-spacing:1.5px;text-transform:uppercase;color:#fff;background:#B83214;border:none;border-radius:2px;padding:14px;display:flex;align-items:center;justify-content:center;gap:8px">{{ continueLabel }} <span style="font-size:16px">→</span></button>
         <div style="text-align:center;font-family:'JetBrains Mono';font-size:10px;color:rgba(27,25,22,.62);margin-top:9px">{{ refCode }}</div>
+        </div><!-- /mcfg-cfg -->
       </div>
     </div>
   </div>
