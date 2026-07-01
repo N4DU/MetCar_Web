@@ -58,6 +58,9 @@
   .stepcard.on .step-num{background:var(--red);color:#fff}
   .stepcard.off .step-num{background:none;border:2px solid rgba(27,25,22,.3);color:rgba(27,25,22,.5)}
   .step-hd h3{font-size:22px;margin:0}
+  .step-reset{margin-left:auto;width:30px;height:30px;border:1px solid var(--line);background:#fff;border-radius:7px;color:var(--muted);display:flex;align-items:center;justify-content:center;font-size:15px;line-height:1;flex-shrink:0}
+  .step-reset:hover{color:var(--red);border-color:var(--red)}
+  .stepcard.off .step-reset{background:rgba(255,255,255,.6)}
   .step-done{margin-left:auto;color:#1F9D55}
   .subs{padding:0 12px 12px}
   .sub{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:7px;cursor:pointer;transition:background .15s ease}
@@ -313,7 +316,8 @@
     groups.forEach(function(g,gi){
       var on = gi===curGi;
       html+='<div class="stepcard '+(on?'on':'off')+'">'+
-        '<div class="step-hd"><span class="step-num">'+(gi+1)+'</span><h3 class="h">'+g.n+'</h3></div>'+
+        '<div class="step-hd"><span class="step-num">'+(gi+1)+'</span><h3 class="h">'+g.n+'</h3>'+
+        '<button class="step-reset" data-reset="'+gi+'" title="Reiniciar '+g.n+'">↻</button></div>'+
         '<div class="subs">';
       g.subs.forEach(function(s){
         if(s[0]==null){ // sub-item derivado (no navegable)
@@ -328,6 +332,16 @@
     document.querySelectorAll('.sub[data-step]').forEach(function(el){
       el.addEventListener('click',function(){ var i=+el.getAttribute('data-step'); if(i<=maxReachable()) goStep(i); });
     });
+    document.querySelectorAll('.step-reset[data-reset]').forEach(function(el){
+      el.addEventListener('click',function(ev){ ev.stopPropagation(); resetGroup(+el.getAttribute('data-reset')); });
+    });
+  }
+  function resetGroup(gi){
+    if(gi===0){ S.typeId=null; S.gaugeId=null; S.step=0; }
+    else if(gi===1){ S.aFam=null; S.aAngle=null; S.aSize=null; S.filtA=null; S.step=2; }
+    else if(gi===2){ S.bFam=null; S.bAngle=null; S.bSize=null; S.filtB=null; S.step=4; }
+    else { S.length=1; S.qty=1; S.step=6; }
+    update();
   }
 
   // ── Render del PANEL por sub-paso ──
