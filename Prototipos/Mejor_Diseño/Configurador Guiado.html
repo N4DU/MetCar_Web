@@ -409,10 +409,13 @@
   }
   function rLength(){
     var sp=((S.length-MINM)/(MAXM-MINM)*100).toFixed(1);
+    var presets=[0.5,1,1.5,2,2.5,3];
+    var pc=presets.map(function(v){return '<button class="chip '+(Math.abs(S.length-v)<0.001?'sel':'')+'" data-len="'+v+'">'+fmt2(v)+' m</button>';}).join('');
     return '<p class="panel-hint">Largo del cuerpo de la manguera, sin contar los terminales.</p>'+
       '<div class="lenrow"><input id="len-in" class="lenin" inputmode="decimal" value="'+fmt2(S.length)+'"><span class="lentag">M</span></div>'+
       '<input type="range" id="len-rg" min="'+MINM+'" max="'+MAXM+'" step="0.05" value="'+S.length+'" style="--p:'+sp+'%">'+
-      '<div style="display:flex;justify-content:space-between;margin-top:8px;font-size:11px;color:var(--muted)"><span>'+fmt2(MINM)+' m</span><span class="lbl" style="font-size:10px">SOLO CUERPO · SIN TERMINALES</span><span>'+fmt2(MAXM)+' m</span></div>';
+      '<div style="display:flex;justify-content:space-between;margin-top:8px;font-size:11px;color:var(--muted)"><span>'+fmt2(MINM)+' m</span><span class="lbl" style="font-size:10px">SOLO CUERPO · SIN TERMINALES</span><span>'+fmt2(MAXM)+' m</span></div>'+
+      '<div class="lbl filt-t" style="margin:20px 0 10px">Medidas rápidas</div><div class="chips">'+pc+'</div>';
   }
   function rReview(){
     var t=type(S.typeId),g=gauge(S.gaugeId);
@@ -461,6 +464,7 @@
     var li=document.getElementById('len-in'), lr=document.getElementById('len-rg');
     if(li) li.oninput=function(){ var n=parseFloat(li.value.replace(',','.')); if(!isNaN(n)){S.length=Math.max(MINM,Math.min(MAXM,n)); if(lr){lr.value=S.length; lr.style.setProperty('--p',((S.length-MINM)/(MAXM-MINM)*100)+'%');} renderRail(); document.getElementById('btn-next').disabled=false;} };
     if(lr) lr.oninput=function(){ S.length=parseFloat(lr.value); lr.style.setProperty('--p',((S.length-MINM)/(MAXM-MINM)*100)+'%'); if(li)li.value=fmt2(S.length); renderRail(); };
+    p.querySelectorAll('[data-len]').forEach(function(el){el.onclick=function(){ S.length=parseFloat(el.getAttribute('data-len')); update(); };});
     p.querySelectorAll('[data-q]').forEach(function(el){el.onclick=function(){ S.qty=Math.max(1,S.qty+ +el.getAttribute('data-q')); update(); };});
     var sa=p.querySelector('[data-sameas]'); if(sa) sa.onclick=function(){ S.bFam=S.aFam; S.bAngle=S.aAngle; S.bSize=S.aSize; goStep(6); };
     var ab=document.getElementById('add-btn'); if(ab) ab.onclick=addToCart;
