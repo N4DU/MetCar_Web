@@ -28,6 +28,8 @@
   var swivel45 = { src:P+"swivel-45.webp", fh:0.462, ar:1.503 };  // hembra giratoria codo 45°
   var swivel90 = { src:P+"swivel-90.webp", fh:0.378, ar:0.869 };  // hembra giratoria codo 90°
   var male0    = { src:P+"male-0.webp",    fh:0.978, ar:2.219 };  // macho NPT recto
+  var male90   = { src:P+"male-90.webp",   fh:0.316, ar:0.803 };  // macho NPT codo 90°
+  var flange45 = { src:P+"flange-45.webp", fh:0.369, ar:1.406 };  // brida SAE codo 45°
 
   var A = {};
   // Familias de tuerca giratoria (JIC/BSP/métrico/multiasiento/ASP): muy parecidas en la realidad.
@@ -36,8 +38,10 @@
     A[f+"-45"] = swivel45;
     A[f+"-90"] = swivel90;
   });
-  A["NPT-0"] = male0;
-  // NPT-45/90, BRIDA-*, PUNT-* aún sin foto → usan el dibujo procedural (ya distinto por familia).
+  A["NPT-0"]  = male0;
+  A["NPT-90"] = male90;
+  A["BRIDA-45"] = flange45;
+  // PUNT-* aún sin foto → usa el dibujo procedural (nipple).
 
   window.MC_PUNTERO_ASSETS = A;
 })();
