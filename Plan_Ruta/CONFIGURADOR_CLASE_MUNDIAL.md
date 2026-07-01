@@ -79,8 +79,24 @@ El usuario insistió (con énfasis) en punteros reales como imágenes. Se logró
 - **A verificar por el usuario:** que las fotos se vean bien pegadas a la manguera en el navegador real
   (con la manguera SVG detallada, no el mock), en distintos diámetros; y que ya no se sienta apretado.
 
+### #6 — Manguera foto-realista + más fotos + RENDER REAL (Playwright)  ✅ implementado
+El usuario dijo "se ve como el culo". Renderizando el HTML real con Chromium headless se vio el porqué:
+cromo fotográfico sobre manguera DIBUJADA caricaturesca (raya roja, texto amarillo) = incoherente.
+- **CAPACIDAD NUEVA — render real:** `scratchpad/render.py` no anda (greenlet DLL rota), pero la **CLI**
+  sí: `python -m playwright screenshot --viewport-size=W,H --wait-for-timeout=ms "file:///...dc.html" out.png`.
+  Renderiza el configurador de verdad (el framework DC corre desde file://). Recortar con Pillow y VER con Read.
+  Para probar otras configs: editar temporalmente el `state` inicial en el .dc.html, render, y REVERTIR.
+- **Manguera rehecha:** caucho negro cilíndrico realista, sin raya roja ni amarillo; texto gris sutil
+  impreso. Más gruesa (`thickness`=44+h·1.5) y casquillo ×1.2 → escala foto-vs-manguera coherente.
+- **Más fotos reales:** male-90 (NPT codo) y flange-45 (brida SAE 45°). Ya casi no hay dibujo (solo PUNT).
+- **Limitación conocida:** el clocking NO afecta a las fotos (codos con foto siempre van hacia arriba);
+  sólo el procedural clockea. Resolver: espejar vertical la foto B cuando clock∈(90,270) para el caso "opuesto".
+
 ### Próximas candidatas (sin orden fijo, re-evaluar cada ronda)
-- Conseguir/tomar fotos propias de Metcar (reemplazar las de muestra) y sumar BRIDA, PUNT, NPT codo.
+- Foto real de PUNT (puntero); reemplazar todas las de muestra por fotos propias de Metcar.
+- Clocking con fotos (flip vertical para "opuestos").
+- Verificar diámetros extremos (1/4" y 1.1/4") y termoplástica en render real; pulir costura casquillo-manguera.
+- Consistencia de tono entre assets (algunos más cálidos/fríos).
 - Wizard guiado opcional para usuario novato (reduce carga cognitiva) sin perder el modo experto actual.
 - Microinteracciones/transiciones del visualizador al cambiar piezas.
 - Indicador de longitud total real (cuerpo + terminales).
