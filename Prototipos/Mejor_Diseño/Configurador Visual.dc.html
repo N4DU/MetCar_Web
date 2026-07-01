@@ -20,6 +20,7 @@
 <script src="auth.js"></script>
 <script src="terminales.js"></script>
 <script src="catalog-data.js"></script>
+<script src="punteros-assets.js"></script>
 <script src="cart.js"></script>
 <style>
   *{box-sizing:border-box}
@@ -575,6 +576,39 @@ class Component extends DCLogic {
     return s;
   }
 
+  // Tipo de cabeza por familia de terminal. Distingue las que en la realidad son distintas.
+  headType(fam){return ({NPT:'male',BRIDA:'flange',PUNT:'nipple'})[fam]||'nut';}
+
+  // Cabeza del terminal según familia, ubicada en (x,y) y orientada según ang (rad).
+  // 'nut' usa la tuerca hex (coords absolutas); las demás se dibujan en coords locales (+x hacia afuera) y se rotan.
+  endHead(fam,x,y,r,ang){
+    const type=this.headType(fam);
+    if(type==='nut')return this.hexNut(x,y,r,ang);
+    const f1=(v)=>v.toFixed(1);
+    let b='';
+    if(type==='male'){                 // NPT: rosca macho cónica
+      const L=r*1.55, hb=r*0.60, ht=r*0.40, Lt=L*0.74;
+      b+=`<polygon points="${f1(-r*0.14)},${f1(-hb)} ${f1(Lt)},${f1(-ht)} ${f1(Lt)},${f1(ht)} ${f1(-r*0.14)},${f1(hb)}" fill="url(#mcChrome)" stroke="rgba(0,0,0,.3)" stroke-width="1.2" stroke-linejoin="round"/>`;
+      b+=`<path d="M${f1(Lt)} ${f1(-ht)} Q${f1(L)} 0 ${f1(Lt)} ${f1(ht)}" fill="url(#mcChrome)" stroke="rgba(0,0,0,.26)" stroke-width="1"/>`;
+      for(let i=1;i<=5;i++){const px=Lt*i/5.6, hh=hb+(ht-hb)*(px/Lt);
+        b+=`<line x1="${f1(px)}" y1="${f1(-hh*0.92)}" x2="${f1(px+r*0.16)}" y2="${f1(hh*0.92)}" stroke="rgba(0,0,0,.26)" stroke-width="1.3"/>`;}
+      b+=`<rect x="${f1(-r*0.1)}" y="${f1(-hb*0.5)}" width="${f1(Lt*0.8)}" height="${f1(hb*0.2)}" fill="rgba(255,255,255,.3)"/>`;
+    } else if(type==='flange'){          // Brida SAE: placa perpendicular con dos agujeros
+      const fw=r*0.8, hh=r*1.12, bh=r*0.26;
+      b+=`<rect x="${f1(-r*0.12)}" y="${f1(-hh)}" width="${f1(fw+r*0.12)}" height="${f1(hh*2)}" rx="3" fill="url(#mcChrome)" stroke="rgba(0,0,0,.3)" stroke-width="1.2"/>`;
+      b+=`<circle cx="${f1(fw*0.5)}" cy="${f1(-hh*0.58)}" r="${f1(bh)}" fill="#202325" stroke="rgba(0,0,0,.5)" stroke-width="1"/>`;
+      b+=`<circle cx="${f1(fw*0.5)}" cy="${f1(hh*0.58)}" r="${f1(bh)}" fill="#202325" stroke="rgba(0,0,0,.5)" stroke-width="1"/>`;
+      b+=`<rect x="${f1(-r*0.05)}" y="${f1(-hh*0.9)}" width="${f1(fw*0.26)}" height="${f1(hh*1.8)}" fill="rgba(255,255,255,.22)"/>`;
+    } else {                             // Puntero: nipple escalonado con punta cónica
+      const s1=r*0.86,s2=r*0.66,s3=r*0.48,L1=r*0.62,L2=r*0.6,L3=r*0.72;
+      b+=`<rect x="${f1(-r*0.12)}" y="${f1(-s1)}" width="${f1(L1+r*0.12)}" height="${f1(s1*2)}" rx="2" fill="url(#mcChrome)" stroke="rgba(0,0,0,.28)" stroke-width="1"/>`;
+      b+=`<rect x="${f1(L1)}" y="${f1(-s2)}" width="${f1(L2)}" height="${f1(s2*2)}" rx="2" fill="url(#mcChrome)" stroke="rgba(0,0,0,.24)" stroke-width="1"/>`;
+      b+=`<polygon points="${f1(L1+L2)},${f1(-s3)} ${f1(L1+L2+L3)},0 ${f1(L1+L2)},${f1(s3)}" fill="url(#mcChrome)" stroke="rgba(0,0,0,.26)" stroke-width="1"/>`;
+      b+=`<rect x="${f1(-r*0.05)}" y="${f1(-s1*0.55)}" width="${f1((L1+L2)*0.9)}" height="${f1(s1*0.2)}" fill="rgba(255,255,255,.26)"/>`;
+    }
+    return `<g transform="translate(${f1(x)},${f1(y)}) rotate(${(ang*180/Math.PI).toFixed(1)})">${b}</g>`;
+  }
+
   buildViz(){
     const s=this.state, t=this.type(s.typeId), g=this.gauge(s.gaugeId);
     if(!t||!g) return null;
@@ -655,6 +689,17 @@ class Component extends DCLogic {
     const fitting=(bx,dir,thr,ang,clock)=>{
       const cf=Math.cos(clock||0);   // escorzo pseudo-3D del codo según la orientación relativa (0=arriba · 180=abajo · 90=de frente)
       const Fx=bx+dir*CF;
+      // ── DROP-IN de foto real: si hay un asset estandarizado para esta familia+ángulo, reemplaza el dibujo procedural ──
+      const asset=(window.MC_PUNTERO_ASSETS||{})[thr+'-'+ang];
+      if(asset){
+        const src=(typeof asset==='string')?asset:asset.src;
+        const ah=T*1.75, aw=Math.max(hext(ang),CF+TL), y0=(CY-ah/2).toFixed(1);
+        const img=`<image href="${src}" x="0" y="${y0}" width="${aw.toFixed(1)}" height="${ah.toFixed(1)}" preserveAspectRatio="xMinYMid meet"/>`;
+        // El asset se dibuja para el extremo derecho (unión a la izquierda); para el extremo izquierdo se espeja.
+        return dir<0
+          ? `<g transform="translate(${bx.toFixed(1)},0) scale(-1,1)">${img}</g>`
+          : `<g transform="translate(${bx.toFixed(1)},0)">${img}</g>`;
+      }
       // ── ferrule (casquillo de prensado): cilindro cromado con estrías en relieve ──
       const fh=T*1.16, fx0=Math.min(bx,Fx), fw=Math.abs(bx-Fx);
       let fr=`<rect x="${n2(fx0)}" y="${n2(CY-fh/2)}" width="${n2(fw)}" height="${n2(fh)}" rx="3" fill="url(#mcChrome)" stroke="rgba(0,0,0,.26)" stroke-width="1"/>`;
@@ -691,7 +736,7 @@ class Component extends DCLogic {
         part+=`<path d="${d}" fill="none" stroke="url(#mcChrome)" stroke-width="${n2(Tw)}" stroke-linecap="round" stroke-linejoin="round"/>`;
         part+=`<path d="${d}" fill="none" stroke="rgba(255,255,255,.30)" stroke-width="${n2(Tw*0.16)}" stroke-linecap="round" stroke-linejoin="round" transform="translate(0,${n2(-Tw*0.22)})"/>`;
       }
-      return fr+ridges+part+this.hexNut(endX,endY,Nr,endAng);
+      return fr+ridges+part+this.endHead(thr,endX,endY,Nr,endAng);
     };
 
     // Extremo A es la referencia (codo hacia arriba). Extremo B se clockea relativo a A sólo si ambos son codos.
