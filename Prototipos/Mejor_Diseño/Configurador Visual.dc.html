@@ -198,6 +198,24 @@
           </div>
         </div>
 
+        <!-- FICHA TECNICA -->
+        <sc-if value="{{ hasType }}">
+          <div style="padding:18px 24px;border-top:1px solid rgba(27,25,22,.08);background:#F8F6F1">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:11px">
+              <span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:#1B1916">Ficha técnica</span>
+              <span style="font-family:'Barlow';font-size:10px;color:rgba(27,25,22,.5)">valores referenciales</span>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(27,25,22,.1);border:1px solid rgba(27,25,22,.1);border-radius:3px;overflow:hidden">
+              <sc-for list="{{ techSpecs }}" as="r" hint-placeholder-count="5">
+                <div style="background:#fff;padding:9px 11px">
+                  <div style="font-family:'Barlow Condensed';font-weight:700;font-size:9px;letter-spacing:1px;text-transform:uppercase;color:rgba(27,25,22,.5);margin-bottom:2px">{{ r.k }}</div>
+                  <div style="font-family:'JetBrains Mono';font-size:12px;font-weight:500;color:#1B1916">{{ r.v }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
         <!-- 04 TERMINAL A -->
         <div style="padding:20px 24px;border-top:1px solid rgba(27,25,22,.08)">
           <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:12px">
@@ -346,13 +364,15 @@ class Component extends DCLogic {
       { id:'ht', tok:'HT', name:'Termoplástica', sae:'SAE 100R7',   gauges:['g14','g38','g12'],            bar:{g14:210,g38:190,g12:160} },
     ],
     gauges: [
-      { id:'g14', label:'1/4"',   code:'04', h:15 },
-      { id:'g38', label:'3/8"',   code:'06', h:18 },
-      { id:'g12', label:'1/2"',   code:'12', h:21 },
-      { id:'g34', label:'3/4"',   code:'19', h:25 },
-      { id:'g1',  label:'1"',     code:'25', h:29 },
-      { id:'g114',label:'1.1/4"', code:'31', h:33 },
+      { id:'g14', label:'1/4"',   code:'04', h:15, dn:6,  mbr:100 },
+      { id:'g38', label:'3/8"',   code:'06', h:18, dn:10, mbr:130 },
+      { id:'g12', label:'1/2"',   code:'12', h:21, dn:12, mbr:180 },
+      { id:'g34', label:'3/4"',   code:'19', h:25, dn:19, mbr:240 },
+      { id:'g1',  label:'1"',     code:'25', h:29, dn:25, mbr:300 },
+      { id:'g114',label:'1.1/4"', code:'31', h:33, dn:31, mbr:420 },
     ],
+    // rango de temperatura por familia de manguera (referencial, normas SAE 100R)
+    tempRange: { h1:'-40 °C a +100 °C', h2:'-40 °C a +100 °C', h4:'-40 °C a +100 °C', ht:'-40 °C a +93 °C' },
   };
 
   state = {
@@ -437,6 +457,12 @@ class Component extends DCLogic {
   type(id){return this.catalog.hoseTypes.find(t=>t.id===id);}
   gauge(id){return this.catalog.gauges.find(g=>g.id===id);}
 
+  // Ficha técnica derivada de la selección (valores referenciales según normas SAE 100R)
+  workingBar(){const t=this.type(this.state.typeId),g=this.gauge(this.state.gaugeId);return (t&&g)?t.bar[g.id]:null;}
+  burstBar(){const w=this.workingBar();return w!=null?w*4:null;}   // factor de seguridad 4:1 (mínimo SAE)
+  bendRadius(){const g=this.gauge(this.state.gaugeId);return g?g.mbr:null;}
+  tempRange(){return this.catalog.tempRange[this.state.typeId]||'-40 °C a +100 °C';}
+
   fmt2(n){if(n==null||isNaN(n))return'';return (Math.round(n*100)/100).toFixed(2).replace('.',',');}
   lenCm(){return this.state.lengthValue!=null?this.state.lengthValue*100:null;}
   minM(){return this.props.minLengthM??0.1;}
@@ -488,6 +514,7 @@ class Component extends DCLogic {
       detail:[
         `Tipo: ${t.name} · ${t.sae}`,
         `Largo: ${this.lenLabel()} · solo cuerpo`,
+        `Presión: ${this.workingBar()} bar trabajo · ${this.burstBar()} bar rotura (4:1) · radio mín. ${this.bendRadius()} mm`,
         `Terminal A: ${this.fitFull(s.endAThread,s.endAAngle)}`,
         `Terminal B: ${this.fitFull(s.endBThread,s.endBAngle)}`,
         ...(this.clockRelevant()?[`Orientación A↔B: ${s.endBClock||0}°`]:[]),
@@ -699,6 +726,15 @@ class Component extends DCLogic {
     const hasType=!!t;
     const bar=(t&&g)?t.bar[g.id]:null;
 
+    const techSpecs=hasType?[
+      {k:'Norma', v:t.sae},
+      {k:'Ø interior', v:g?`${g.label}${g.dn?' · DN'+g.dn:''}`:'—'},
+      {k:'Presión trabajo', v:bar!=null?`${bar} bar`:'—'},
+      {k:'Presión rotura', v:this.burstBar()!=null?`${this.burstBar()} bar`:'—'},
+      {k:'Radio curv. mín.', v:this.bendRadius()!=null?`${this.bendRadius()} mm`:'—'},
+      {k:'Temperatura', v:this.tempRange()},
+    ]:[];
+
     const typeCards=this.catalog.hoseTypes.map(h=>({
       name:h.name, sae:h.sae, bar:Math.max(...Object.values(h.bar))+' BAR máx',
       aria:`Tipo de manguera ${h.name}, ${h.sae}`,
@@ -745,7 +781,7 @@ class Component extends DCLogic {
 
     return {
       refCode:this.refCode(), waLink:this.waLink(), shareWa:this.shareWa, added:s.added,
-      hasType, emptyState:!hasType, viz:this.buildViz(), zoom:s.zoom,
+      hasType, emptyState:!hasType, viz:this.buildViz(), zoom:s.zoom, techSpecs,
       zoomIn:this.zoomIn, zoomOut:this.zoomOut, zoomReset:this.zoomReset,
       specLine:t?`${t.sae} · ${g?g.label:''}${bar?' · '+bar+' BAR':''}`:'METCAR HYDRAULICS',
       aName:this.fitFull(s.endAThread,s.endAAngle), bName:this.fitFull(s.endBThread,s.endBAngle),

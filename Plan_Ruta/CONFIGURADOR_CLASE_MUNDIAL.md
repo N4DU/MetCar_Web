@@ -32,10 +32,18 @@ Hueco funcional real vs. referentes (Schwer lo tiene como paso 4). Antes no exis
 - Persiste en carrito (`config.endBClock`), refCode (`-R{φ}`), detalle y WhatsApp.
 - **A verificar visualmente por el usuario:** el escorzo del codo B en ángulos intermedios (45/90/135).
 
+### #2 — Ficha técnica de ingeniería  ✅ implementado
+Los configuradores pro (CEJN) muestran datos de ingeniería; nosotros mostrábamos poco. Sube la
+sensación de precisión/ingeniería. Cambio sólo de datos/display, cero riesgo al visualizador.
+- Datos nuevos en `catalog.gauges` (`dn`, `mbr`=radio mín. curvatura mm) y `catalog.tempRange` por tipo.
+- Helpers `workingBar/burstBar(4:1)/bendRadius/tempRange`.
+- Bloque "Ficha técnica" en el panel (norma, Ø interior/DN, presión trabajo, presión rotura, radio mín., temperatura).
+- Datos de presión/radio agregados al detalle del carrito (viajan en la cotización).
+- Valores referenciales SAE 100R (rotura ≈ 4× trabajo; radios estándar por ID).
+
 ### Próximas candidatas (sin orden fijo, re-evaluar cada ronda)
 - Wizard guiado opcional para usuario novato (reduce carga cognitiva) sin perder el modo experto actual.
-- Feedback de validación más rico (presión vs. diámetro, radio mínimo de curvatura).
 - Microinteracciones/transiciones del visualizador al cambiar piezas.
-- Indicador de longitud total real (cuerpo + terminales) y advertencia de radio de curvatura.
+- Indicador de longitud total real (cuerpo + terminales).
 - Drag para clocking continuo (dial) si los presets se quedan cortos.
 - Estándar de overlay de foto híbrido (arriba).
