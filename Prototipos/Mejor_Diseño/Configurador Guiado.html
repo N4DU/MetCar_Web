@@ -248,6 +248,17 @@
   function fam(id){return FAMS.find(function(f){return f.id===id;});}
   function famAngle(fid,aid){var f=fam(fid);return f?f.angles.find(function(a){return a.id===aid;}):null;}
   function termStock(fid,aid){return (T.items||[]).some(function(i){return i.fam===fid&&i.angle===aid&&i.end!==false&&i.stock;});}
+  function termDesc(fid,aid){
+    var it=(T.items||[]).find(function(i){return i.fam===fid&&i.angle===aid&&i.end!==false;});
+    if(!it) return '';
+    var n=(it.name||'').toLowerCase();
+    if(n.indexOf('hembra')>=0 && n.indexOf('girator')>=0) return 'Hembra giratoria';
+    if(n.indexOf('hembra')>=0) return 'Hembra';
+    if(n.indexOf('macho')>=0) return 'Macho'+(n.indexOf('fijo')>=0?' fijo':'');
+    if(n.indexOf('brida')>=0) return 'Brida';
+    if(n.indexOf('puntero')>=0) return 'Puntero';
+    return '';
+  }
 
   function type(id){return HOSE_TYPES.find(function(t){return t.id===id;});}
   function gauge(id){return GAUGES.find(function(g){return g.id===id;});}
@@ -389,9 +400,12 @@
     (f?f.angles:[]).forEach(function(a){
       var stk=termStock(curFam,a.id);
       var sel = S[side+'Fam']===curFam && S[side+'Angle']===a.id;
+      var desc=termDesc(curFam,a.id);
+      var szs=a.sizes.slice(0,4).join(', ')+(a.sizes.length>4?'…':'');
       h+='<button class="fcard '+(sel?'sel':'')+'" data-cfg="'+side+'|'+curFam+'|'+a.id+'">'+
-         '<span class="ic">'+TERM_ICON+'</span><span><span class="nm">'+f.label+'</span>'+
+         '<span class="ic">'+TERM_ICON+'</span><span><span class="nm">'+f.label+(desc?' · '+desc:'')+'</span>'+
          '<span class="ds">'+a.label+'</span>'+
+         (a.sizes.length?'<span class="ds" style="color:var(--muted2)">'+a.sizes.length+' medida'+(a.sizes.length>1?'s':'')+': '+szs+'</span>':'')+
          '<span class="stk '+(stk?'in-stk':'no-stk')+'">'+(stk?'● En stock':'○ A confirmar')+'</span></span></button>';
     });
     h+='</div></div></div>';
