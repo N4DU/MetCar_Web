@@ -347,7 +347,11 @@
   function rConfig(side){
     var curFam = S[side+'Fam'] || S['filt'+side.toUpperCase()] || FAMS[0].id;
     S['filt'+side.toUpperCase()] = curFam;
-    var h='<p class="panel-hint">Elegí la rosca y la orientación del racor del extremo '+side.toUpperCase()+'. Material: acero.</p><div class="cfg-2col">';
+    var h='';
+    if(side==='b' && S.aFam!=null && S.aAngle!=null){
+      h+='<button class="chip" data-sameas="1" style="margin-bottom:16px">↻ Igual que el Racor A ('+fam(S.aFam).label+' · '+(AL[S.aAngle]||'')+')</button>';
+    }
+    h+='<p class="panel-hint">Elegí la rosca y la orientación del racor del extremo '+side.toUpperCase()+'. Material: acero.</p><div class="cfg-2col">';
     // filtro de familias
     h+='<div><div class="lbl filt-t">Familia de rosca</div><div class="filt">';
     FAMS.forEach(function(f){
@@ -433,11 +437,13 @@
     if(li) li.oninput=function(){ var n=parseFloat(li.value.replace(',','.')); if(!isNaN(n)){S.length=Math.max(MINM,Math.min(MAXM,n)); if(lr){lr.value=S.length; lr.style.setProperty('--p',((S.length-MINM)/(MAXM-MINM)*100)+'%');} renderRail(); document.getElementById('btn-next').disabled=false;} };
     if(lr) lr.oninput=function(){ S.length=parseFloat(lr.value); lr.style.setProperty('--p',((S.length-MINM)/(MAXM-MINM)*100)+'%'); if(li)li.value=fmt2(S.length); renderRail(); };
     p.querySelectorAll('[data-q]').forEach(function(el){el.onclick=function(){ S.qty=Math.max(1,S.qty+ +el.getAttribute('data-q')); update(); };});
+    var sa=p.querySelector('[data-sameas]'); if(sa) sa.onclick=function(){ S.bFam=S.aFam; S.bAngle=S.aAngle; S.bSize=S.aSize; goStep(6); };
     var ab=document.getElementById('add-btn'); if(ab) ab.onclick=addToCart;
     var wb=document.getElementById('wa-btn'); if(wb) wb.onclick=shareWa;
   }
 
-  function update(){ renderRail(); renderPanel(); }
+  function persist(){ try{ localStorage.setItem('mc_guiado_v1', JSON.stringify(S)); }catch(e){} }
+  function update(){ renderRail(); renderPanel(); persist(); }
   function goStep(i){ if(i<0||i>=STEPS.length) return; S.step=i; update(); window.scrollTo({top:0,behavior:'smooth'}); }
   function next(){ if(STEPS[S.step].ok()) goStep(S.step+1); }
   function prev(){ goStep(S.step-1); }
@@ -471,6 +477,7 @@
   function syncCart(){ try{ var n=window.MCCart?MCCart.count():0; var b=document.getElementById('cart-badge'); if(b){ b.textContent=n; b.style.display=n>0?'flex':'none'; } }catch(e){} }
 
   // ── Init ──
+  try{ var saved=JSON.parse(localStorage.getItem('mc_guiado_v1')||'null'); if(saved&&typeof saved==='object'){ Object.keys(S).forEach(function(k){ if(saved[k]!=null) S[k]=saved[k]; }); if(S.step<0||S.step>=STEPS.length) S.step=0; } }catch(e){}
   document.getElementById('btn-next').onclick=next;
   document.getElementById('btn-prev').onclick=prev;
   if(window.MCCart){ syncCart(); MCCart.onChange(syncCart); }
