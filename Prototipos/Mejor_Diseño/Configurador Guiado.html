@@ -78,6 +78,8 @@
   /* MAIN */
   .main{display:flex;flex-direction:column;min-height:calc(100vh - 60px)}
   .topbar{position:sticky;top:60px;z-index:100;background:var(--red);color:#fff;display:flex;align-items:center;gap:16px;padding:16px 28px}
+  .tprog{position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(255,255,255,.22)}
+  .tprog-fill{height:100%;background:#fff;width:0;transition:width .28s cubic-bezier(.22,1,.36,1)}
   .crumb{font-family:var(--fh);font-size:24px;letter-spacing:.5px}
   .crumb small{font-family:var(--ft);font-weight:700;font-size:12px;letter-spacing:2px;opacity:.8;text-transform:uppercase}
   .nav-btns{margin-left:auto;display:flex;gap:10px}
@@ -196,6 +198,7 @@
         <button class="navbtn" id="btn-prev">‹ Anterior</button>
         <button class="navbtn prim" id="btn-next">Siguiente ›</button>
       </div>
+      <div class="tprog"><div class="tprog-fill" id="tprog"></div></div>
     </div>
     <div class="content"><div id="panel"></div></div>
   </main>
@@ -463,6 +466,7 @@
     var st=STEPS[S.step];
     document.getElementById('crumb-group').textContent = st.group;
     document.getElementById('crumb-title').textContent = st.title;
+    var tp=document.getElementById('tprog'); if(tp) tp.style.width=Math.round((S.step+1)/STEPS.length*100)+'%';
     var p=document.getElementById('panel'); p.innerHTML=st.render();
 
     // botones
