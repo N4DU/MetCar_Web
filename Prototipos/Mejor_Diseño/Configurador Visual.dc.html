@@ -284,8 +284,8 @@
         </sc-if>
       </div>
 
-      <!-- STICKY SUMMARY FOOTER -->
-      <div style="position:sticky;bottom:0;background:#fff;border-top:1px solid rgba(27,25,22,.12);padding:14px 24px 16px;box-shadow:0 -10px 26px rgba(0,0,0,.06);z-index:90">
+      <!-- RESUMEN / CTA (al final, sin sticky: deja el área de configuración más amplia) -->
+      <div style="background:#F8F6F1;border-top:1px solid rgba(27,25,22,.1);padding:26px 24px 34px">
         <div class="mcfg-cfg">
         <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px">
           <div style="min-width:0">
@@ -791,11 +791,11 @@ class Component extends DCLogic {
     return React.createElement('span',{style:{display:'flex',flexShrink:0},dangerouslySetInnerHTML:{__html:svg}});
   }
 
-  typeStyle(sel){return `display:flex;flex-direction:column;align-items:flex-start;text-align:left;padding:12px 13px;background:${sel?'#FCEFEA':'#fff'};border:1.5px solid ${sel?'#B83214':'rgba(27,25,22,.12)'};border-radius:3px;cursor:pointer;transition:all .15s ease`;}
-  chipStyle(sel){return `min-width:52px;padding:9px 15px;font-family:'Barlow Condensed';font-weight:700;font-size:14px;letter-spacing:.4px;background:${sel?'#B83214':'#fff'};color:${sel?'#fff':'#1B1916'};border:1.5px solid ${sel?'#B83214':'rgba(27,25,22,.14)'};border-radius:3px;cursor:pointer;transition:all .15s ease`;}
-  threadStyle(sel){return `padding:8px 13px;font-family:'Barlow Condensed';font-weight:700;font-size:12.5px;letter-spacing:.4px;background:${sel?'#B83214':'#fff'};color:${sel?'#fff':'#1B1916'};border:1.5px solid ${sel?'#B83214':'rgba(27,25,22,.14)'};border-radius:3px;cursor:pointer;transition:all .15s ease`;}
-  angleStyle(sel){return `flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;padding:10px 6px;background:${sel?'#FCEFEA':'#fff'};border:1.5px solid ${sel?'#B83214':'rgba(27,25,22,.12)'};border-radius:3px;cursor:pointer;transition:all .15s ease`;}
-  angleLabelStyle(sel){return `font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:.8px;text-transform:uppercase;color:${sel?'#B83214':'rgba(27,25,22,.6)'}`;}
+  typeStyle(sel){return `display:flex;flex-direction:column;align-items:flex-start;text-align:left;padding:15px 16px;background:${sel?'#FCEFEA':'#fff'};border:1.5px solid ${sel?'#B83214':'rgba(27,25,22,.14)'};border-radius:9px;cursor:pointer;transition:all .16s ease;box-shadow:${sel?'0 4px 14px rgba(184,50,20,.16)':'0 1px 2px rgba(27,25,22,.05)'}`;}
+  chipStyle(sel){return `min-width:58px;padding:11px 18px;font-family:'Barlow Condensed';font-weight:700;font-size:15px;letter-spacing:.4px;background:${sel?'#B83214':'#fff'};color:${sel?'#fff':'#1B1916'};border:1.5px solid ${sel?'#B83214':'rgba(27,25,22,.16)'};border-radius:8px;cursor:pointer;transition:all .16s ease;box-shadow:${sel?'0 4px 12px rgba(184,50,20,.24)':'0 1px 2px rgba(27,25,22,.05)'}`;}
+  threadStyle(sel){return `padding:10px 15px;font-family:'Barlow Condensed';font-weight:700;font-size:13px;letter-spacing:.4px;background:${sel?'#B83214':'#fff'};color:${sel?'#fff':'#1B1916'};border:1.5px solid ${sel?'#B83214':'rgba(27,25,22,.16)'};border-radius:8px;cursor:pointer;transition:all .16s ease;box-shadow:${sel?'0 4px 12px rgba(184,50,20,.24)':'0 1px 2px rgba(27,25,22,.05)'}`;}
+  angleStyle(sel){return `flex:1;display:flex;flex-direction:column;align-items:center;gap:7px;padding:13px 6px;background:${sel?'#FCEFEA':'#fff'};border:1.5px solid ${sel?'#B83214':'rgba(27,25,22,.14)'};border-radius:9px;cursor:pointer;transition:all .16s ease;box-shadow:${sel?'0 4px 12px rgba(184,50,20,.16)':'0 1px 2px rgba(27,25,22,.05)'}`;}
+  angleLabelStyle(sel){return `font-family:'Barlow Condensed';font-weight:700;font-size:10.5px;letter-spacing:.8px;text-transform:uppercase;color:${sel?'#B83214':'rgba(27,25,22,.62)'}`;}
 
   renderVals(){
     const s=this.state, t=this.type(s.typeId), g=this.gauge(s.gaugeId);
