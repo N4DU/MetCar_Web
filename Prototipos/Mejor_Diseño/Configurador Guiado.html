@@ -258,7 +258,7 @@
     aFam:null, aAngle:null, aSize:null,
     bFam:null, bAngle:null, bSize:null,
     length:1, qty:1,
-    step:0, filtA:null, filtB:null,
+    step:0, reached:0, filtA:null, filtB:null,
   };
 
   // ── Secuencia de sub-pasos (como el flujo de Parker) ──
@@ -293,7 +293,7 @@
   function railSub(name, val, stepIdx){
     var st=STEPS[stepIdx];
     var cur = stepIdx===S.step;
-    var done = st.ok() && stepIdx!==S.step;
+    var done = !cur && st.ok() && stepIdx < (S.reached||0);
     var reachable = stepIdx<=maxReachable();
     return '<div class="sub '+(cur?'cur':'')+(done?' done':'')+(reachable?'':' disabled')+'" data-step="'+stepIdx+'">'+
       '<span class="dot"></span><span class="nm">'+name+'</span><span class="vl">'+(val||'-')+'</span></div>';
@@ -469,7 +469,7 @@
 
   function persist(){ try{ localStorage.setItem('mc_guiado_v1', JSON.stringify(S)); }catch(e){} }
   function update(){ renderRail(); renderPanel(); persist(); }
-  function goStep(i){ if(i<0||i>=STEPS.length) return; S.step=i; update(); window.scrollTo({top:0,behavior:'smooth'}); }
+  function goStep(i){ if(i<0||i>=STEPS.length) return; S.step=i; S.reached=Math.max(S.reached||0,i); update(); window.scrollTo({top:0,behavior:'smooth'}); }
   function next(){ if(STEPS[S.step].ok()) goStep(S.step+1); }
   function prev(){ goStep(S.step-1); }
 
