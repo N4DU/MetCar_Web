@@ -104,7 +104,27 @@ luz) → nunca se ve "pegado". Coherencia garantizada + escalable + mantenible.
   = nipple escalonado. Recto usa `scale(dir)` (no invierte la luz), codo usa `rotate(endAng)`.
 - Verificado en render real (Chromium) en varias configs (recto+codo, chico+termoplástica, NPT+brida).
 
+### #8 — Configurador GUIADO paralelo (copia de Parker, estética Metcar)  ✅ v1
+El usuario quiere DOS versiones para testear con la gente: el visual (actual, congelado) y uno nuevo
+que copie el flujo del selector de Parker (phaa.parker.com). Archivo NUEVO e independiente
+`Prototipos/Mejor_Diseño/Configurador Guiado.html` (HTML plano + JS vanilla, reusa
+config/terminales/catalog-data/cart de Metcar). **NO toca el configurador visual.**
+- Se estudió Parker con Playwright (login → flujo): rail "Your assembly" con 4 pasos
+  (Hose Type / Fitting A / Fitting B / Assembly) y sub-campos; panel con barra header (amarilla) +
+  Next; pantallas de filtro+cards. Copiado con rojo Metcar en vez de amarillo.
+- Flujo Metcar: Tipo → Diámetro → (Config+Tamaño Racor A) → (Config+Tamaño Racor B) → Largo → Resumen.
+  Config de racor = filtro de familia + cards por ángulo (con stock). Material fijo "Acero".
+- Funciona end-to-end: agrega al carrito (MCCart), WhatsApp, refCode, persistencia localStorage,
+  atajo "Igual que Racor A". Verificado navegando de verdad con Playwright (sin errores de página).
+- El nav del guiado enlaza a ambos ("Configurador Visual" / "Configurador Guiado") para comparar.
+
+**TÉCNICA:** Playwright Python ANDA tras reinstalar greenlet (`pip install --force-reinstall greenlet==3.1.1`).
+Permite NAVEGAR (click) y screenshot paso a paso (tanto sitios externos como nuestros HTML). `parker.py`,
+`drive_g.py`, `drive_full.py` en scratchpad.
+
 ### Próximas candidatas (sin orden fijo, re-evaluar cada ronda)
+- Guiado: responsive móvil, vista previa del conjunto, botón reiniciar por paso, enlazar el guiado
+  desde home/catálogo para el A/B test, capturar más detalle de Parker y afinar.
 - Pulir cromo (más premium/limpio), transición casquillo↔collar, refinar el asiento de la tuerca.
 - Foto real de PUNT (puntero); reemplazar todas las de muestra por fotos propias de Metcar.
 - Clocking con fotos (flip vertical para "opuestos").
