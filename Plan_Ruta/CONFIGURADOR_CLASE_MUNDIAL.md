@@ -92,7 +92,20 @@ cromo fotográfico sobre manguera DIBUJADA caricaturesca (raya roja, texto amari
 - **Limitación conocida:** el clocking NO afecta a las fotos (codos con foto siempre van hacia arriba);
   sólo el procedural clockea. Resolver: espejar vertical la foto B cuando clock∈(90,270) para el caso "opuesto".
 
+### #7 — PIVOTE: se abandonan las fotos, render 100% vectorial coherente  ✅ implementado
+El usuario confirmó que las fotos "están horribles y no encajan" y pidió otro enfoque (mi elección, sin fotos).
+Decisión: ilustración técnica vectorial donde manguera y terminales comparten el MISMO lenguaje (gradientes,
+luz) → nunca se ve "pegado". Coherencia garantizada + escalable + mantenible.
+- Fotos desactivadas: `MC_PUNTERO_ASSETS = {}` (mecanismo drop-in queda para fotos PROPIAS futuras);
+  se borran los webp de muestra de terceros.
+- **Fix clave de coherencia:** la tuerca se dibujaba DE FRENTE (hexágono + agujero) mientras el conjunto
+  es VISTA LATERAL → proyección inconsistente. Ahora `endHead` dibuja todo en perfil: hembra giratoria =
+  collar hex + tuerca redonda con asiento; NPT = base hex + rosca cónica; brida = cuello + platillo; puntero
+  = nipple escalonado. Recto usa `scale(dir)` (no invierte la luz), codo usa `rotate(endAng)`.
+- Verificado en render real (Chromium) en varias configs (recto+codo, chico+termoplástica, NPT+brida).
+
 ### Próximas candidatas (sin orden fijo, re-evaluar cada ronda)
+- Pulir cromo (más premium/limpio), transición casquillo↔collar, refinar el asiento de la tuerca.
 - Foto real de PUNT (puntero); reemplazar todas las de muestra por fotos propias de Metcar.
 - Clocking con fotos (flip vertical para "opuestos").
 - Verificar diámetros extremos (1/4" y 1.1/4") y termoplástica en render real; pulir costura casquillo-manguera.
