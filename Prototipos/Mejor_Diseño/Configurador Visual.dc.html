@@ -105,7 +105,7 @@
   <div class="mcfg-workspace" style="display:block">
 
     <!-- STAGE -->
-    <div class="mcfg-stage" style="position:sticky;top:62px;z-index:100;height:48vh;min-height:340px;background:#15171a url('img/FondoConfigurador.webp') center center/cover no-repeat;display:flex;flex-direction:column;overflow:hidden;border-bottom:1px solid rgba(255,255,255,.1);box-shadow:0 14px 34px rgba(0,0,0,.38)">
+    <div class="mcfg-stage" style="position:sticky;top:62px;z-index:100;height:44vh;min-height:320px;background:#15171a url('img/FondoConfigurador.webp') center center/cover no-repeat;display:flex;flex-direction:column;overflow:hidden;border-bottom:1px solid rgba(255,255,255,.1);box-shadow:0 14px 34px rgba(0,0,0,.38)">
       <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:26px 34px 0">
         <div>
           <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#B83214;margin-bottom:5px">Configurador · manguera a medida</div>
@@ -153,14 +153,14 @@
         </sc-if>
 
         <!-- NAME -->
-        <div style="padding:22px 24px 20px">
+        <div style="padding:30px 32px 24px">
           <div style="font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:1.8px;text-transform:uppercase;color:rgba(27,25,22,.62);margin-bottom:9px">Nombre de la manguera · opcional</div>
           <input value="{{ name }}" onInput="{{ onName }}" aria-label="Nombre de la manguera (opcional)" placeholder="Ej: Retroexcavadora, brazo izquierdo" style="width:100%;background:#F8F6F1;border:1px solid rgba(27,25,22,.14);border-radius:3px;color:#1B1916;font-family:'Barlow';font-size:14px;font-weight:500;padding:11px 13px;outline:none" />
           <p style="font-family:'Barlow';font-size:11.5px;color:rgba(27,25,22,.62);margin:8px 0 0;line-height:1.4">Para identificarla después en el carrito y en tus pedidos.</p>
         </div>
 
         <!-- 01 TIPO -->
-        <div style="padding:20px 24px;border-top:1px solid rgba(27,25,22,.08)">
+        <div style="padding:28px 32px;border-top:1px solid rgba(27,25,22,.08)">
           <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:13px">
             <span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:#1B1916">01 · Tipo de manguera</span>
           </div>
@@ -176,7 +176,7 @@
         </div>
 
         <!-- 02 DIAMETRO -->
-        <div style="padding:20px 24px;border-top:1px solid rgba(27,25,22,.08)">
+        <div style="padding:28px 32px;border-top:1px solid rgba(27,25,22,.08)">
           <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:13px">
             <span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:#1B1916">02 · Diámetro interior</span>
             <span style="font-family:'Barlow';font-size:12px;color:rgba(27,25,22,.62)">pulgadas</span>
@@ -189,7 +189,7 @@
         </div>
 
         <!-- 03 LARGO -->
-        <div style="padding:20px 24px;border-top:1px solid rgba(27,25,22,.08)">
+        <div style="padding:28px 32px;border-top:1px solid rgba(27,25,22,.08)">
           <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px">
             <span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:#1B1916">03 · Largo del cuerpo</span>
             <div style="display:flex;align-items:center;gap:8px">
@@ -207,7 +207,7 @@
 
         <!-- FICHA TECNICA -->
         <sc-if value="{{ hasType }}">
-          <div style="padding:18px 24px;border-top:1px solid rgba(27,25,22,.08);background:#F8F6F1">
+          <div style="padding:24px 32px;border-top:1px solid rgba(27,25,22,.08);background:#F8F6F1">
             <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:11px">
               <span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:#1B1916">Ficha técnica</span>
               <span style="font-family:'Barlow';font-size:10px;color:rgba(27,25,22,.5)">valores referenciales</span>
@@ -226,7 +226,7 @@
         <!-- 04 · 05 TERMINALES (lado a lado) -->
         <div class="mcfg-ab">
         <!-- 04 TERMINAL A -->
-        <div style="padding:20px 24px;border-top:1px solid rgba(27,25,22,.08)">
+        <div style="padding:28px 32px;border-top:1px solid rgba(27,25,22,.08)">
           <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:12px">
             <span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:#1B1916">04 · Terminal extremo A</span>
             <span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:.5px;color:#B83214">{{ aNameShort }}</span>
@@ -245,7 +245,7 @@
         </div>
 
         <!-- 05 TERMINAL B -->
-        <div style="padding:20px 24px;border-top:1px solid rgba(27,25,22,.08)">
+        <div style="padding:28px 32px;border-top:1px solid rgba(27,25,22,.08)">
           <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px">
             <span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:#1B1916">05 · Terminal extremo B</span>
             <button onClick="{{ copyAtoB }}" style="font-family:'Barlow Condensed';font-weight:700;font-size:10px;letter-spacing:.8px;text-transform:uppercase;color:#B83214;background:none;border:1px solid rgba(184,50,20,.4);border-radius:2px;padding:4px 9px">Igual que A</button>
@@ -266,7 +266,7 @@
 
         <!-- 06 ORIENTACION ENTRE EXTREMOS (solo con dos codos) -->
         <sc-if value="{{ clockRelevant }}">
-          <div style="padding:20px 24px;border-top:1px solid rgba(27,25,22,.08)">
+          <div style="padding:28px 32px;border-top:1px solid rgba(27,25,22,.08)">
             <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:4px">
               <span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:#1B1916">06 · Orientación entre extremos</span>
               <span style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:.5px;color:#B83214">{{ clockDesc }}</span>
@@ -692,13 +692,15 @@ class Component extends DCLogic {
       // ── DROP-IN de foto real: si hay un asset estandarizado para esta familia+ángulo, reemplaza el dibujo procedural ──
       const asset=(window.MC_PUNTERO_ASSETS||{})[thr+'-'+ang];
       if(asset){
-        const src=(typeof asset==='string')?asset:asset.src;
-        const ah=T*1.75, aw=Math.max(hext(ang),CF+TL), y0=(CY-ah/2).toFixed(1);
-        const img=`<image href="${src}" x="0" y="${y0}" width="${aw.toFixed(1)}" height="${ah.toFixed(1)}" preserveAspectRatio="xMinYMid meet"/>`;
-        // El asset se dibuja para el extremo derecho (unión a la izquierda); para el extremo izquierdo se espeja.
+        const src=asset.src||asset, fh=asset.fh||0.95, ar=asset.ar||2;
+        const fer=T*1.28;                       // el casquillo se escala ~1.28× el grosor de la manguera
+        const Hs=fer/fh, Ws=Hs*ar, ov=T*0.12;   // ov = solape del casquillo sobre la manguera
+        const y0=(CY-Hs/2).toFixed(1);          // el casquillo está centrado verticalmente en el asset
+        const img=`<image href="${src}" x="0" y="${y0}" width="${Ws.toFixed(1)}" height="${Hs.toFixed(1)}" preserveAspectRatio="none"/>`;
+        // El asset se dibuja para el extremo derecho (casquillo a la izquierda); el extremo A se espeja.
         return dir<0
-          ? `<g transform="translate(${bx.toFixed(1)},0) scale(-1,1)">${img}</g>`
-          : `<g transform="translate(${bx.toFixed(1)},0)">${img}</g>`;
+          ? `<g transform="translate(${(bx+ov).toFixed(1)},0) scale(-1,1)">${img}</g>`
+          : `<g transform="translate(${(bx-ov).toFixed(1)},0)">${img}</g>`;
       }
       // ── ferrule (casquillo de prensado): cilindro cromado con estrías en relieve ──
       const fh=T*1.16, fx0=Math.min(bx,Fx), fw=Math.abs(bx-Fx);

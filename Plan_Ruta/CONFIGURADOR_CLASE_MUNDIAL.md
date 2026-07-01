@@ -59,7 +59,28 @@ agua; Commons trae fondo). Se resolvió el problema real ("todas las familias se
   el usuario o se buscan fuentes con licencia). El día que existan, entran solas.
 - **A verificar por el usuario:** que las cabezas NPT/BRIDA/PUNT se vean bien en recto y en codo.
 
+### #5 — FOTOS REALES de punteros (drop-in funcionando) + de-cramp  ✅ implementado
+El usuario insistió (con énfasis) en punteros reales como imágenes. Se logró:
+- **Pipeline de imagen** (`scratchpad/process.py`, Python+Pillow): descarga con curl (UA de navegador
+  evita el 403), quita fondo blanco por flood-fill desde bordes (no agujerea brillos del cromo),
+  recorta, centra el EJE DEL CASQUILLO (`--anchor`), mide `fh` (fracción del casquillo) y `ar` (aspecto),
+  exporta WebP transparente. **Verificación visual con la tool Read** (descargar→ver→ajustar→ver).
+- **4 assets reales** en `img/configurador/punteros/`: swivel-0/45/90 (hembra giratoria recta/45/90) y
+  male-0 (macho NPT). Fuente: fotos de producto de hydraulichosetogo (BigCommerce CDN).
+  ⚠ Son de muestra (terceros) — reemplazar por fotos propias de Metcar con el mismo estándar.
+- **Registro** `punteros-assets.js`: mapea JIC/BSP/MET/MULTI/ASP × {0,45,90} y NPT-0 a esos assets con
+  fh/ar. NPT-45/90, BRIDA, PUNT siguen en dibujo procedural (fallback).
+- **Hook en `fitting()`**: escala la foto para que el casquillo ≈ 1.28× el grosor de manguera
+  (Hs=fer/fh, Ws=Hs·ar), la centra en el eje, la solapa `ov` sobre la manguera y la espeja en el extremo A.
+- **Cómo agregar fotos (proceso):** `python process.py <in> <out.webp> --thresh N [--rotate g] [--flip] [--flipv] --anchor`
+  → imprime fh/ar → pegar línea en `punteros-assets.js`. Estándar: perfil, casquillo IZQ, boca DER, codo ARRIBA, fondo transparente.
+- **De-cramp:** padding de secciones 20→28px vert / 24→32px horiz, ficha técnica y nombre con más aire,
+  visualizador 48→44vh para dar más espacio a la config.
+- **A verificar por el usuario:** que las fotos se vean bien pegadas a la manguera en el navegador real
+  (con la manguera SVG detallada, no el mock), en distintos diámetros; y que ya no se sienta apretado.
+
 ### Próximas candidatas (sin orden fijo, re-evaluar cada ronda)
+- Conseguir/tomar fotos propias de Metcar (reemplazar las de muestra) y sumar BRIDA, PUNT, NPT codo.
 - Wizard guiado opcional para usuario novato (reduce carga cognitiva) sin perder el modo experto actual.
 - Microinteracciones/transiciones del visualizador al cambiar piezas.
 - Indicador de longitud total real (cuerpo + terminales).

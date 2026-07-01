@@ -1,34 +1,43 @@
 /* ============================================================
-   METCAR — ASSETS DE PUNTEROS PARA EL CONFIGURADOR (drop-in)
+   METCAR — ASSETS DE PUNTEROS PARA EL CONFIGURADOR (fotos reales)
    ------------------------------------------------------------
-   Este registro permite REEMPLAZAR el dibujo procedural de un terminal
-   por una FOTO REAL en el visualizador del configurador, SIN tocar código.
+   Reemplaza el dibujo procedural de un terminal por una FOTO REAL en el
+   visualizador, sin tocar el HTML del configurador.
 
-   ►► Cómo agregar una foto:
-   1) Preparala siguiendo el ESTÁNDAR de abajo (fondo transparente).
-   2) Guardala en:  img/configurador/punteros/<FAM>-<ANGLE>.webp
-      FAM   = id de familia (JIC, BSP, NPT, MET, MULTI, ASP, BRIDA, PUNT)
-      ANGLE = 0 (recto) · 45 · 90
-      Ej:  img/configurador/punteros/JIC-90.webp
-   3) Agregá una línea acá en `assets` con la misma clave "FAM-ANGLE".
-      (Es la única línea de código; el resto es automático.)
+   Cada entrada "FAM-ANGLE":
+     src → ruta de la foto (WebP con fondo transparente)
+     fh  → fracción del ALTO de la imagen que ocupa el CASQUILLO (para escalar
+           el terminal al grosor de la manguera). La mide el pipeline de imagen.
+     ar  → aspecto de la imagen (ancho/alto).
 
-   ►► ESTÁNDAR DE IMAGEN (para que entre sin ajustes)
-   - Fondo TRANSPARENTE (PNG/WebP con alpha). Nada de fondo blanco.
-   - Orientación CANÓNICA: terminal horizontal, la BOCA/rosca apuntando a la
-     DERECHA y el casquillo de prensado (unión a la manguera) a la IZQUIERDA.
-     (El configurador espeja solo para el extremo A.)
-   - El casquillo debe tocar el BORDE IZQUIERDO de la imagen (ahí se une la manguera).
-   - Eje del terminal alineado al CENTRO VERTICAL de la imagen.
-   - Para codos (45/90): el codo apunta HACIA ARRIBA (12 en punto).
-   - Iluminación desde arriba-izquierda, coherente con el resto de la escena.
-   - Recorte ajustado (mínimo margen). Resolución sugerida: alto ~360px, WebP.
+   ►► Cómo agregar/actualizar una foto (drop-in):
+   1) Foto de perfil, casquillo a la IZQUIERDA, boca a la DERECHA, codos hacia
+      ARRIBA, fondo transparente (ver proceso en Plan_Ruta/CONFIGURADOR_CLASE_MUNDIAL.md).
+   2) Guardala en img/configurador/punteros/ y agregá/edita su línea acá.
+   El configurador la espeja solo para el extremo A y la escala con fh/ar.
 
-   NOTA: con foto real, la "orientación relativa entre codos" (clocking) no se
-   puede reescorzar en 3D; se usa la foto tal cual. El dibujo procedural sí clockea.
+   NOTA: las fotos NO se pueden reescorzar en 3D, así que la "orientación
+   relativa entre codos" (clocking) sólo aplica al dibujo procedural.
+
+   ⚠ Las fotos actuales son de muestra (terceros) para validar el sistema.
+   Reemplazalas por fotos propias de Metcar siguiendo el mismo estándar.
    ============================================================ */
-window.MC_PUNTERO_ASSETS = {
-  // "JIC-0":  "img/configurador/punteros/JIC-0.webp",
-  // "JIC-90": "img/configurador/punteros/JIC-90.webp",
-  // ...agregar acá a medida que existan fotos que cumplan el estándar.
-};
+(function(){
+  var P = "img/configurador/punteros/";
+  var swivel0  = { src:P+"swivel-0.webp",  fh:0.959, ar:2.072 };  // hembra giratoria recta
+  var swivel45 = { src:P+"swivel-45.webp", fh:0.462, ar:1.503 };  // hembra giratoria codo 45°
+  var swivel90 = { src:P+"swivel-90.webp", fh:0.378, ar:0.869 };  // hembra giratoria codo 90°
+  var male0    = { src:P+"male-0.webp",    fh:0.978, ar:2.219 };  // macho NPT recto
+
+  var A = {};
+  // Familias de tuerca giratoria (JIC/BSP/métrico/multiasiento/ASP): muy parecidas en la realidad.
+  ["JIC","BSP","MET","MULTI","ASP"].forEach(function(f){
+    A[f+"-0"]  = swivel0;
+    A[f+"-45"] = swivel45;
+    A[f+"-90"] = swivel90;
+  });
+  A["NPT-0"] = male0;
+  // NPT-45/90, BRIDA-*, PUNT-* aún sin foto → usan el dibujo procedural (ya distinto por familia).
+
+  window.MC_PUNTERO_ASSETS = A;
+})();
