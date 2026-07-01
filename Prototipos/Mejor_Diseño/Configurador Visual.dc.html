@@ -547,7 +547,7 @@ class Component extends DCLogic {
   waLink(){return 'https://wa.me/'+this.waNumber();}
   shareWa=()=>{const s=this.state,t=this.type(s.typeId),g=this.gauge(s.gaugeId);const nm=s.name?`"${s.name}"\n`:'';const txt=encodeURIComponent(`Hola Metcar, quiero cotizar esta manguera:\n\n${nm}${t?t.name:''} ${g?g.label:''} · ${this.lenLabel()} (solo cuerpo)\nTerminal A: ${this.fitFull(s.endAThread,s.endAAngle)}\nTerminal B: ${this.fitFull(s.endBThread,s.endBAngle)}${this.clockRelevant()?`\nOrientación A↔B: ${s.endBClock||0}°`:''}\nCantidad: ${s.qty}\nRef: ${this.refCode()}\n\n¡Gracias!`);window.open(`https://wa.me/${this.waNumber()}?text=${txt}`,'_blank');};
 
-  thickness(){const g=this.gauge(this.state.gaugeId);const h=g?g.h:21;return 34+h*1.2;}
+  thickness(){const g=this.gauge(this.state.gaugeId);const h=g?g.h:21;return 44+h*1.5;}
   hoseLenPx(){const cm=this.lenCm();const mn=this.minM()*100,mx=this.maxM()*100;if(cm==null)return 300;const t=Math.max(0,Math.min(1,(cm-mn)/(mx-mn)));return 190+Math.sqrt(t)*380;}
 
   // Tuerca hexagonal facetada (pseudo-3D): bisel chaflán + caras sombreadas según la luz + bore con profundidad
@@ -626,7 +626,7 @@ class Component extends DCLogic {
 
     const defs=`<defs>
       <linearGradient id="mcRub" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#46413a"/><stop offset=".10" stop-color="#5b554b"/><stop offset=".20" stop-color="#6e675b"/><stop offset=".30" stop-color="#3a352c"/><stop offset=".46" stop-color="#1a160f"/><stop offset=".58" stop-color="#0c0a06"/><stop offset=".70" stop-color="#0a0805"/><stop offset=".86" stop-color="#241f17"/><stop offset="1" stop-color="#080604"/>
+        <stop offset="0" stop-color="#26282b"/><stop offset=".09" stop-color="#3b3f43"/><stop offset=".20" stop-color="#595e63"/><stop offset=".30" stop-color="#2c2f32"/><stop offset=".46" stop-color="#131517"/><stop offset=".58" stop-color="#0b0c0d"/><stop offset=".72" stop-color="#0a0b0c"/><stop offset=".86" stop-color="#141618"/><stop offset="1" stop-color="#050506"/>
       </linearGradient>
       <linearGradient id="mcChrome" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0" stop-color="#eef1f4"/><stop offset=".10" stop-color="#ffffff"/><stop offset=".22" stop-color="#cfd3d8"/><stop offset=".38" stop-color="#8d9197"/><stop offset=".50" stop-color="#494d51"/><stop offset=".60" stop-color="#6c7075"/><stop offset=".74" stop-color="#e2e6ea"/><stop offset=".86" stop-color="#9a9ea3"/><stop offset="1" stop-color="#5a5d61"/>
@@ -669,22 +669,21 @@ class Component extends DCLogic {
 
     const hose=`
       <rect x="${n2(Lx)}" y="${n2(CY-T/2)}" width="${n2(HL)}" height="${n2(T)}" rx="${n2(rr)}" fill="url(#mcRub)"/>
-      <g clip-path="url(#mcHClip)" opacity=".7">${tex}</g>
-      <rect x="${n2(Lx+2)}" y="${n2(CY-T*0.40)}" width="${n2(HL-4)}" height="${n2(T*0.17)}" rx="${n2(T*0.08)}" fill="rgba(255,255,255,.16)" filter="url(#mcSpec)" clip-path="url(#mcHClip)"/>
-      <rect x="${n2(Lx+3)}" y="${n2(CY-T*0.30)}" width="${n2(HL-6)}" height="${n2(T*0.045)}" fill="rgba(255,255,255,.22)" clip-path="url(#mcHClip)"/>
-      <rect x="${n2(Lx+3)}" y="${n2(CY+T*0.34)}" width="${n2(HL-6)}" height="${n2(T*0.07)}" rx="${n2(T*0.03)}" fill="rgba(255,255,255,.05)" filter="url(#mcSpec)" clip-path="url(#mcHClip)"/>
-      <rect x="${n2(Lx)}" y="${n2(CY-T*0.16)}" width="${n2(HL)}" height="${n2(Math.max(2.4,T*0.07))}" fill="#B83214" opacity=".95" clip-path="url(#mcHClip)"/>
-      <rect x="${n2(Lx)}" y="${n2(CY-T*0.16)}" width="${n2(HL)}" height="${n2(Math.max(1,T*0.02))}" fill="rgba(255,255,255,.18)" clip-path="url(#mcHClip)"/>
-      <rect x="${n2(Lx)}" y="${n2(CY-T/2)}" width="${n2(HL)}" height="${n2(T)}" rx="${n2(rr)}" fill="none" stroke="rgba(0,0,0,.28)" stroke-width="1"/>
-      <rect x="${n2(Lx)}" y="${n2(CY-T/2)}" width="${n2(Math.min(T*0.5,HL/2))}" height="${n2(T)}" fill="url(#mcAOl)" clip-path="url(#mcHClip)"/>
-      <rect x="${n2(Rx-Math.min(T*0.5,HL/2))}" y="${n2(CY-T/2)}" width="${n2(Math.min(T*0.5,HL/2))}" height="${n2(T)}" fill="url(#mcAOr)" clip-path="url(#mcHClip)"/>`;
+      <g clip-path="url(#mcHClip)" opacity=".55">${tex}</g>
+      <rect x="${n2(Lx+2)}" y="${n2(CY-T*0.34)}" width="${n2(HL-4)}" height="${n2(T*0.20)}" rx="${n2(T*0.10)}" fill="rgba(255,255,255,.10)" filter="url(#mcSpec)" clip-path="url(#mcHClip)"/>
+      <rect x="${n2(Lx+3)}" y="${n2(CY-T*0.28)}" width="${n2(HL-6)}" height="${n2(T*0.03)}" fill="rgba(255,255,255,.16)" clip-path="url(#mcHClip)"/>
+      <rect x="${n2(Lx+3)}" y="${n2(CY+T*0.36)}" width="${n2(HL-6)}" height="${n2(T*0.06)}" rx="${n2(T*0.03)}" fill="rgba(255,255,255,.04)" filter="url(#mcSpec)" clip-path="url(#mcHClip)"/>
+      <rect x="${n2(Lx)}" y="${n2(CY-T/2)}" width="${n2(HL)}" height="${n2(T)}" rx="${n2(rr)}" fill="none" stroke="rgba(0,0,0,.42)" stroke-width="1.2"/>
+      <rect x="${n2(Lx)}" y="${n2(CY-T/2)}" width="${n2(Math.min(T*0.55,HL/2))}" height="${n2(T)}" fill="url(#mcAOl)" clip-path="url(#mcHClip)"/>
+      <rect x="${n2(Rx-Math.min(T*0.55,HL/2))}" y="${n2(CY-T/2)}" width="${n2(Math.min(T*0.55,HL/2))}" height="${n2(T)}" fill="url(#mcAOr)" clip-path="url(#mcHClip)"/>`;
 
     let code='';
-    if(HL>380) code=`METCAR     ${g.label}     ${t.sae}     ${bar} BAR`;
-    else if(HL>250) code=`METCAR    ${g.label}  ·  ${t.sae}`;
-    else code=`METCAR   ${g.label}`;
-    const tf=Math.max(9,Math.min(15,T*0.25));
-    const text=`<text x="${n2((Lx+Rx)/2)}" y="${n2(CY+tf*0.36)}" text-anchor="middle" fill="#F5C518" font-family="Barlow Condensed, sans-serif" font-weight="700" font-size="${tf.toFixed(1)}" letter-spacing="2" opacity=".95">${code}</text>`;
+    if(HL>380) code=`METCAR · ${g.label} · ${t.sae} · ${bar} BAR`;
+    else if(HL>250) code=`METCAR · ${g.label} · ${t.sae}`;
+    else code=`METCAR · ${g.label}`;
+    const tf=Math.max(8,Math.min(12,T*0.17));
+    // texto tipo impresión sobre caucho (grabado sutil, no cartel amarillo)
+    const text=HL>150?`<text x="${n2((Lx+Rx)/2)}" y="${n2(CY+T*0.02+tf*0.36)}" text-anchor="middle" fill="rgba(228,224,214,.32)" font-family="Barlow Condensed, sans-serif" font-weight="600" font-size="${tf.toFixed(1)}" letter-spacing="1.5" clip-path="url(#mcHClip)">${code}</text>`:'';
 
     const fitting=(bx,dir,thr,ang,clock)=>{
       const cf=Math.cos(clock||0);   // escorzo pseudo-3D del codo según la orientación relativa (0=arriba · 180=abajo · 90=de frente)
@@ -693,7 +692,7 @@ class Component extends DCLogic {
       const asset=(window.MC_PUNTERO_ASSETS||{})[thr+'-'+ang];
       if(asset){
         const src=asset.src||asset, fh=asset.fh||0.95, ar=asset.ar||2;
-        const fer=T*1.28;                       // el casquillo se escala ~1.28× el grosor de la manguera
+        const fer=T*1.2;                        // el casquillo se escala ~1.2× el grosor de la manguera (crimp)
         const Hs=fer/fh, Ws=Hs*ar, ov=T*0.12;   // ov = solape del casquillo sobre la manguera
         const y0=(CY-Hs/2).toFixed(1);          // el casquillo está centrado verticalmente en el asset
         const img=`<image href="${src}" x="0" y="${y0}" width="${Ws.toFixed(1)}" height="${Hs.toFixed(1)}" preserveAspectRatio="none"/>`;
