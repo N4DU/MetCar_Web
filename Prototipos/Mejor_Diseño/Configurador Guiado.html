@@ -142,8 +142,19 @@
 
   @media(max-width:900px){
     .ws{grid-template-columns:1fr}
-    .rail{border-right:none;border-bottom:1px solid var(--line);min-height:auto}
+    .main{order:-1;min-height:auto}       /* en móvil: controles primero, resumen abajo */
+    .content{flex:none}
+    .rail{border-right:none;border-top:1px solid var(--line);min-height:auto}
     .cfg-2col{grid-template-columns:1fr}
+    .topbar{top:60px}
+  }
+  @media(max-width:760px){
+    .nav a.link{display:none}             /* evita desborde del nav en celular */
+    .nav-in{gap:12px}
+    .content{padding:22px 16px 50px}
+    .panel{padding:20px 16px}
+    .crumb{font-size:21px}
+    .navbtn{padding:10px 14px;font-size:12px}
   }
 </style>
 </head>
