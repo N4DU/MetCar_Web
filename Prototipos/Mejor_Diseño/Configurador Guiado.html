@@ -29,7 +29,8 @@
   input[type=range]{-webkit-appearance:none;appearance:none;background:transparent;width:100%}
   input[type=range]::-webkit-slider-runnable-track{height:4px;border-radius:2px;background:linear-gradient(90deg,var(--red) var(--p,40%),rgba(27,25,22,.14) var(--p,40%))}
   input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:#fff;margin-top:-7px;box-shadow:0 0 0 4px rgba(184,50,20,.9),0 2px 6px rgba(0,0,0,.25)}
-  a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+  a:focus-visible,button:focus-visible,input:focus-visible,.sub:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+  .sub.cur:focus-visible{outline-color:#fff}
 
   /* NAV */
   .nav{position:sticky;top:0;z-index:200;background:var(--dark);border-bottom:1px solid rgba(255,255,255,.07)}
@@ -306,7 +307,7 @@
     var cur = stepIdx===S.step;
     var done = !cur && st.ok() && stepIdx < (S.reached||0);
     var reachable = stepIdx<=maxReachable();
-    return '<div class="sub '+(cur?'cur':'')+(done?' done':'')+(reachable?'':' disabled')+'" data-step="'+stepIdx+'">'+
+    return '<div class="sub '+(cur?'cur':'')+(done?' done':'')+(reachable?'':' disabled')+'" data-step="'+stepIdx+'" role="button" tabindex="'+(reachable?0:-1)+'"'+(cur?' aria-current="step"':'')+' aria-label="'+name+(val?': '+val:'')+'">'+
       '<span class="dot"></span><span class="nm">'+name+'</span><span class="vl">'+(val||'-')+'</span></div>';
   }
   function maxReachable(){
@@ -328,7 +329,7 @@
       var on = gi===curGi;
       html+='<div class="stepcard '+(on?'on':'off')+'">'+
         '<div class="step-hd"><span class="step-num">'+(gi+1)+'</span><h3 class="h">'+g.n+'</h3>'+
-        '<button class="step-reset" data-reset="'+gi+'" title="Reiniciar '+g.n+'">↻</button></div>'+
+        '<button type="button" class="step-reset" data-reset="'+gi+'" title="Reiniciar '+g.n+'" aria-label="Reiniciar '+g.n+'">↻</button></div>'+
         '<div class="subs">';
       g.subs.forEach(function(s){
         if(s[0]==null){ // sub-item derivado (no navegable)
@@ -341,7 +342,9 @@
     });
     document.getElementById('rail-steps').innerHTML=html;
     document.querySelectorAll('.sub[data-step]').forEach(function(el){
-      el.addEventListener('click',function(){ var i=+el.getAttribute('data-step'); if(i<=maxReachable()) goStep(i); });
+      var go=function(){ var i=+el.getAttribute('data-step'); if(i<=maxReachable()) goStep(i); };
+      el.addEventListener('click',go);
+      el.addEventListener('keydown',function(ev){ if(ev.key==='Enter'||ev.key===' '){ ev.preventDefault(); go(); } });
     });
     document.querySelectorAll('.step-reset[data-reset]').forEach(function(el){
       el.addEventListener('click',function(ev){ ev.stopPropagation(); resetGroup(+el.getAttribute('data-reset')); });
@@ -360,7 +363,7 @@
     var h='<p class="panel-hint">Elegí el tipo de manguera según el trabajo. La presión máxima depende del diámetro (se define en el paso siguiente).</p><div class="grid g-types">';
     HOSE_TYPES.forEach(function(t){
       var maxbar=Math.max.apply(null,Object.keys(t.bar).map(function(k){return t.bar[k];}));
-      h+='<button class="opt '+(S.typeId===t.id?'sel':'')+'" data-type="'+t.id+'"><span class="tick">✓</span>'+
+      h+='<button type="button" class="opt '+(S.typeId===t.id?'sel':'')+'" data-type="'+t.id+'" aria-pressed="'+(S.typeId===t.id)+'" aria-label="Tipo de manguera '+t.name+', '+t.sae+'"><span class="tick">✓</span>'+
          '<div class="t">'+t.name+'</div><div class="s">'+t.sae+'</div><div class="p">hasta '+maxbar+' bar</div></button>';
     });
     return h+'</div>';
@@ -370,7 +373,7 @@
     var h='<p class="panel-hint">Diámetro interior nominal (pulgadas). Determina la presión máxima de trabajo.</p><div class="chips">';
     t.gauges.forEach(function(gid){
       var g=gauge(gid);
-      h+='<button class="chip '+(S.gaugeId===gid?'sel':'')+'" data-gauge="'+gid+'">'+g.label+'</button>';
+      h+='<button type="button" class="chip '+(S.gaugeId===gid?'sel':'')+'" data-gauge="'+gid+'" aria-pressed="'+(S.gaugeId===gid)+'" aria-label="Diámetro interior '+g.label+'">'+g.label+'</button>';
     });
     h+='</div>';
     if(S.gaugeId){ h+='<div style="margin-top:20px;display:flex;gap:26px;flex-wrap:wrap">'+
@@ -391,7 +394,7 @@
     // filtro de familias
     h+='<div><div class="lbl filt-t">Familia de rosca</div><div class="filt">';
     FAMS.forEach(function(f){
-      h+='<button class="'+(curFam===f.id?'on':'')+'" data-filt="'+side+'|'+f.id+'"><span class="r"></span>'+f.label+'</button>';
+      h+='<button type="button" class="'+(curFam===f.id?'on':'')+'" data-filt="'+side+'|'+f.id+'" aria-pressed="'+(curFam===f.id)+'"><span class="r"></span>'+f.label+'</button>';
     });
     h+='</div></div>';
     // cards de configuración (ángulos de la familia)
@@ -402,7 +405,7 @@
       var sel = S[side+'Fam']===curFam && S[side+'Angle']===a.id;
       var desc=termDesc(curFam,a.id);
       var szs=a.sizes.slice(0,4).join(', ')+(a.sizes.length>4?'…':'');
-      h+='<button class="fcard '+(sel?'sel':'')+'" data-cfg="'+side+'|'+curFam+'|'+a.id+'">'+
+      h+='<button type="button" class="fcard '+(sel?'sel':'')+'" data-cfg="'+side+'|'+curFam+'|'+a.id+'" aria-pressed="'+sel+'" aria-label="'+f.label+' '+a.label+(desc?' '+desc:'')+'">'+
          '<span class="ic">'+TERM_ICON+'</span><span><span class="nm">'+f.label+(desc?' · '+desc:'')+'</span>'+
          '<span class="ds">'+a.label+'</span>'+
          (a.sizes.length?'<span class="ds" style="color:var(--muted2)">'+a.sizes.length+' medida'+(a.sizes.length>1?'s':'')+': '+szs+'</span>':'')+
@@ -417,14 +420,14 @@
     if(!a) return '<p class="panel-hint">Primero elegí la configuración del racor '+side.toUpperCase()+'.</p>';
     var h='<p class="panel-hint">Tamaño nominal del racor '+side.toUpperCase()+' ('+fam(fid).label+' · '+(AL[aid]||'')+').</p><div class="chips">';
     a.sizes.forEach(function(sz){
-      h+='<button class="chip '+(S[side+'Size']===sz?'sel':'')+'" data-size="'+side+'|'+sz+'">'+sz+'</button>';
+      h+='<button type="button" class="chip '+(S[side+'Size']===sz?'sel':'')+'" data-size="'+side+'|'+sz+'" aria-pressed="'+(S[side+'Size']===sz)+'" aria-label="Tamaño '+sz+'">'+sz+'</button>';
     });
     return h+'</div>';
   }
   function rLength(){
     var sp=((S.length-MINM)/(MAXM-MINM)*100).toFixed(1);
     var presets=[0.5,1,1.5,2,2.5,3];
-    var pc=presets.map(function(v){return '<button class="chip '+(Math.abs(S.length-v)<0.001?'sel':'')+'" data-len="'+v+'">'+fmt2(v)+' m</button>';}).join('');
+    var pc=presets.map(function(v){var on=Math.abs(S.length-v)<0.001;return '<button type="button" class="chip '+(on?'sel':'')+'" data-len="'+v+'" aria-pressed="'+on+'" aria-label="Largo '+fmt2(v)+' metros">'+fmt2(v)+' m</button>';}).join('');
     return '<p class="panel-hint">Largo del cuerpo de la manguera, sin contar los terminales.</p>'+
       '<div class="lenrow"><input id="len-in" class="lenin" inputmode="decimal" value="'+fmt2(S.length)+'"><span class="lentag">M</span></div>'+
       '<input type="range" id="len-rg" min="'+MINM+'" max="'+MAXM+'" step="0.05" value="'+S.length+'" style="--p:'+sp+'%">'+
